@@ -1,0 +1,2252 @@
+[
+  {
+    "order_id": "ORD-2023-0001",
+    "customer_id": "CUST-011",
+    "order_date": "2023-10-25",
+    "status": "Delivered",
+    "shipped_date": "2023-10-26",
+    "tracking_number": "1Z999AA177144075",
+    "total_amount": 199.0
+  },
+  {
+    "order_id": "ORD-2023-0002",
+    "customer_id": "CUST-010",
+    "order_date": "2023-10-30",
+    "status": "Delivered",
+    "shipped_date": "2023-11-02",
+    "tracking_number": "1Z999AA157535513",
+    "total_amount": 3597.0
+  },
+  {
+    "order_id": "ORD-2023-0003",
+    "customer_id": "CUST-048",
+    "order_date": "2023-10-31",
+    "status": "Delivered",
+    "shipped_date": "2023-11-03",
+    "tracking_number": "1Z999AA115677713",
+    "total_amount": 99.0
+  },
+  {
+    "order_id": "ORD-2023-0004",
+    "customer_id": "CUST-045",
+    "order_date": "2023-11-01",
+    "status": "Delivered",
+    "shipped_date": "2023-11-03",
+    "tracking_number": "1Z999AA120450542",
+    "total_amount": 2226.3
+  },
+  {
+    "order_id": "ORD-2023-0005",
+    "customer_id": "CUST-014",
+    "order_date": "2023-11-02",
+    "status": "Delivered",
+    "shipped_date": "2023-11-05",
+    "tracking_number": "1Z999AA167617561",
+    "total_amount": 736.0
+  },
+  {
+    "order_id": "ORD-2023-0006",
+    "customer_id": "CUST-019",
+    "order_date": "2023-11-04",
+    "status": "Delivered",
+    "shipped_date": "2023-11-07",
+    "tracking_number": "1Z999AA195918360",
+    "total_amount": 651.0
+  },
+  {
+    "order_id": "ORD-2023-0007",
+    "customer_id": "CUST-046",
+    "order_date": "2023-11-05",
+    "status": "Delivered",
+    "shipped_date": "2023-11-06",
+    "tracking_number": "1Z999AA164362516",
+    "total_amount": 4267.16
+  },
+  {
+    "order_id": "ORD-2023-0008",
+    "customer_id": "CUST-009",
+    "order_date": "2023-11-06",
+    "status": "Delivered",
+    "shipped_date": "2023-11-08",
+    "tracking_number": "1Z999AA133068427",
+    "total_amount": 29.0
+  },
+  {
+    "order_id": "ORD-2023-0009",
+    "customer_id": "CUST-047",
+    "order_date": "2023-11-07",
+    "status": "Delivered",
+    "shipped_date": "2023-11-10",
+    "tracking_number": "1Z999AA171753160",
+    "total_amount": 1704.0
+  },
+  {
+    "order_id": "ORD-2023-0010",
+    "customer_id": "CUST-033",
+    "order_date": "2023-11-08",
+    "status": "Delivered",
+    "shipped_date": "2023-11-10",
+    "tracking_number": "1Z999AA121828592",
+    "total_amount": 198.29
+  },
+  {
+    "order_id": "ORD-2023-0011",
+    "customer_id": "CUST-033",
+    "order_date": "2023-11-11",
+    "status": "Delivered",
+    "shipped_date": "2023-11-12",
+    "tracking_number": "1Z999AA142657384",
+    "total_amount": 918.0
+  },
+  {
+    "order_id": "ORD-2023-0012",
+    "customer_id": "CUST-032",
+    "order_date": "2023-11-14",
+    "status": "Delivered",
+    "shipped_date": "2023-11-16",
+    "tracking_number": "1Z999AA180325062",
+    "total_amount": 158.0
+  },
+  {
+    "order_id": "ORD-2023-0013",
+    "customer_id": "CUST-050",
+    "order_date": "2023-11-14",
+    "status": "Delivered",
+    "shipped_date": "2023-11-16",
+    "tracking_number": "1Z999AA155568701",
+    "total_amount": 467.0
+  },
+  {
+    "order_id": "ORD-2023-0014",
+    "customer_id": "CUST-040",
+    "order_date": "2023-11-15",
+    "status": "Delivered",
+    "shipped_date": "2023-11-16",
+    "tracking_number": "1Z999AA120251466",
+    "total_amount": 1232.52
+  },
+  {
+    "order_id": "ORD-2023-0015",
+    "customer_id": "CUST-021",
+    "order_date": "2023-11-15",
+    "status": "Delivered",
+    "shipped_date": "2023-11-16",
+    "tracking_number": "1Z999AA181216573",
+    "total_amount": 997.89
+  },
+  {
+    "order_id": "ORD-2023-0016",
+    "customer_id": "CUST-005",
+    "order_date": "2023-11-18",
+    "status": "Delivered",
+    "shipped_date": "2023-11-20",
+    "tracking_number": "1Z999AA157123808",
+    "total_amount": 266.0
+  },
+  {
+    "order_id": "ORD-2023-0017",
+    "customer_id": "CUST-043",
+    "order_date": "2023-11-27",
+    "status": "Delivered",
+    "shipped_date": "2023-11-30",
+    "tracking_number": "1Z999AA129822594",
+    "total_amount": 1755.0
+  },
+  {
+    "order_id": "ORD-2023-0018",
+    "customer_id": "CUST-008",
+    "order_date": "2023-12-04",
+    "status": "Delivered",
+    "shipped_date": "2023-12-05",
+    "tracking_number": "1Z999AA144355473",
+    "total_amount": 651.29
+  },
+  {
+    "order_id": "ORD-2023-0019",
+    "customer_id": "CUST-018",
+    "order_date": "2023-12-06",
+    "status": "Delivered",
+    "shipped_date": "2023-12-09",
+    "tracking_number": "1Z999AA130517835",
+    "total_amount": 99.0
+  },
+  {
+    "order_id": "ORD-2023-0020",
+    "customer_id": "CUST-015",
+    "order_date": "2023-12-06",
+    "status": "Delivered",
+    "shipped_date": "2023-12-09",
+    "tracking_number": "1Z999AA120113745",
+    "total_amount": 1699.0
+  },
+  {
+    "order_id": "ORD-2023-0021",
+    "customer_id": "CUST-032",
+    "order_date": "2023-12-08",
+    "status": "Delivered",
+    "shipped_date": "2023-12-11",
+    "tracking_number": "1Z999AA176319264",
+    "total_amount": 19.0
+  },
+  {
+    "order_id": "ORD-2023-0022",
+    "customer_id": "CUST-007",
+    "order_date": "2023-12-08",
+    "status": "Delivered",
+    "shipped_date": "2023-12-11",
+    "tracking_number": "1Z999AA187774890",
+    "total_amount": 604.52
+  },
+  {
+    "order_id": "ORD-2023-0023",
+    "customer_id": "CUST-013",
+    "order_date": "2023-12-12",
+    "status": "Delivered",
+    "shipped_date": "2023-12-15",
+    "tracking_number": "1Z999AA196300902",
+    "total_amount": 549.0
+  },
+  {
+    "order_id": "ORD-2023-0024",
+    "customer_id": "CUST-008",
+    "order_date": "2023-12-13",
+    "status": "Delivered",
+    "shipped_date": "2023-12-16",
+    "tracking_number": "1Z999AA153380275",
+    "total_amount": 936.66
+  },
+  {
+    "order_id": "ORD-2023-0025",
+    "customer_id": "CUST-017",
+    "order_date": "2023-12-13",
+    "status": "Delivered",
+    "shipped_date": "2023-12-16",
+    "tracking_number": "1Z999AA152431444",
+    "total_amount": 1296.0
+  },
+  {
+    "order_id": "ORD-2023-0026",
+    "customer_id": "CUST-003",
+    "order_date": "2023-12-15",
+    "status": "Delivered",
+    "shipped_date": "2023-12-16",
+    "tracking_number": "1Z999AA172937522",
+    "total_amount": 99.0
+  },
+  {
+    "order_id": "ORD-2023-0027",
+    "customer_id": "CUST-001",
+    "order_date": "2023-12-15",
+    "status": "Delivered",
+    "shipped_date": "2023-12-17",
+    "tracking_number": "1Z999AA146866075",
+    "total_amount": 249.0
+  },
+  {
+    "order_id": "ORD-2023-0028",
+    "customer_id": "CUST-005",
+    "order_date": "2023-12-16",
+    "status": "Delivered",
+    "shipped_date": "2023-12-18",
+    "tracking_number": "1Z999AA178093604",
+    "total_amount": 548.0
+  },
+  {
+    "order_id": "ORD-2023-0029",
+    "customer_id": "CUST-006",
+    "order_date": "2023-12-19",
+    "status": "Delivered",
+    "shipped_date": "2023-12-21",
+    "tracking_number": "1Z999AA170654852",
+    "total_amount": 1399.0
+  },
+  {
+    "order_id": "ORD-2023-0030",
+    "customer_id": "CUST-040",
+    "order_date": "2023-12-21",
+    "status": "Delivered",
+    "shipped_date": "2023-12-23",
+    "tracking_number": "1Z999AA148530827",
+    "total_amount": 929.74
+  },
+  {
+    "order_id": "ORD-2023-0031",
+    "customer_id": "CUST-028",
+    "order_date": "2023-12-23",
+    "status": "Delivered",
+    "shipped_date": "2023-12-24",
+    "tracking_number": "1Z999AA192545028",
+    "total_amount": 129.0
+  },
+  {
+    "order_id": "ORD-2023-0032",
+    "customer_id": "CUST-026",
+    "order_date": "2023-12-23",
+    "status": "Delivered",
+    "shipped_date": "2023-12-25",
+    "tracking_number": "1Z999AA172104107",
+    "total_amount": 549.0
+  },
+  {
+    "order_id": "ORD-2023-0033",
+    "customer_id": "CUST-028",
+    "order_date": "2023-12-27",
+    "status": "Delivered",
+    "shipped_date": "2023-12-30",
+    "tracking_number": "1Z999AA115505975",
+    "total_amount": 1478.0
+  },
+  {
+    "order_id": "ORD-2023-0034",
+    "customer_id": "CUST-031",
+    "order_date": "2023-12-29",
+    "status": "Delivered",
+    "shipped_date": "2024-01-01",
+    "tracking_number": "1Z999AA197488142",
+    "total_amount": 1999.0
+  },
+  {
+    "order_id": "ORD-2023-0035",
+    "customer_id": "CUST-033",
+    "order_date": "2023-12-30",
+    "status": "Delivered",
+    "shipped_date": "2024-01-02",
+    "tracking_number": "1Z999AA173837847",
+    "total_amount": 1999.0
+  },
+  {
+    "order_id": "ORD-2024-0001",
+    "customer_id": "CUST-016",
+    "order_date": "2024-01-01",
+    "status": "Delivered",
+    "shipped_date": "2024-01-02",
+    "tracking_number": "1Z999AA170468188",
+    "total_amount": 626.73
+  },
+  {
+    "order_id": "ORD-2024-0002",
+    "customer_id": "CUST-049",
+    "order_date": "2024-01-01",
+    "status": "Delivered",
+    "shipped_date": "2024-01-03",
+    "tracking_number": "1Z999AA121318464",
+    "total_amount": 2138.12
+  },
+  {
+    "order_id": "ORD-2024-0003",
+    "customer_id": "CUST-001",
+    "order_date": "2024-01-03",
+    "status": "Delivered",
+    "shipped_date": "2024-01-04",
+    "tracking_number": "1Z999AA115253567",
+    "total_amount": 399.0
+  },
+  {
+    "order_id": "ORD-2024-0004",
+    "customer_id": "CUST-003",
+    "order_date": "2024-01-05",
+    "status": "Delivered",
+    "shipped_date": "2024-01-07",
+    "tracking_number": "1Z999AA168978194",
+    "total_amount": 1920.09
+  },
+  {
+    "order_id": "ORD-2024-0005",
+    "customer_id": "CUST-019",
+    "order_date": "2024-01-09",
+    "status": "Delivered",
+    "shipped_date": "2024-01-12",
+    "tracking_number": "1Z999AA131306555",
+    "total_amount": 714.67
+  },
+  {
+    "order_id": "ORD-2024-0006",
+    "customer_id": "CUST-003",
+    "order_date": "2024-01-13",
+    "status": "Delivered",
+    "shipped_date": "2024-01-15",
+    "tracking_number": "1Z999AA161998170",
+    "total_amount": 149.0
+  },
+  {
+    "order_id": "ORD-2024-0007",
+    "customer_id": "CUST-016",
+    "order_date": "2024-01-21",
+    "status": "Delivered",
+    "shipped_date": "2024-01-23",
+    "tracking_number": "1Z999AA190246882",
+    "total_amount": 49.0
+  },
+  {
+    "order_id": "ORD-2024-0008",
+    "customer_id": "CUST-041",
+    "order_date": "2024-01-23",
+    "status": "Delivered",
+    "shipped_date": "2024-01-26",
+    "tracking_number": "1Z999AA196879854",
+    "total_amount": 99.38
+  },
+  {
+    "order_id": "ORD-2024-0009",
+    "customer_id": "CUST-006",
+    "order_date": "2024-01-26",
+    "status": "Delivered",
+    "shipped_date": "2024-01-28",
+    "tracking_number": "1Z999AA122684373",
+    "total_amount": 1399.0
+  },
+  {
+    "order_id": "ORD-2024-0010",
+    "customer_id": "CUST-009",
+    "order_date": "2024-02-09",
+    "status": "Delivered",
+    "shipped_date": "2024-02-11",
+    "tracking_number": "1Z999AA148137561",
+    "total_amount": 488.0
+  },
+  {
+    "order_id": "ORD-2024-0011",
+    "customer_id": "CUST-031",
+    "order_date": "2024-02-15",
+    "status": "Delivered",
+    "shipped_date": "2024-02-18",
+    "tracking_number": "1Z999AA190893133",
+    "total_amount": 1699.0
+  },
+  {
+    "order_id": "ORD-2024-0012",
+    "customer_id": "CUST-047",
+    "order_date": "2024-02-20",
+    "status": "Delivered",
+    "shipped_date": "2024-02-22",
+    "tracking_number": "1Z999AA120939011",
+    "total_amount": 1076.0
+  },
+  {
+    "order_id": "ORD-2024-0013",
+    "customer_id": "CUST-016",
+    "order_date": "2024-02-22",
+    "status": "Delivered",
+    "shipped_date": "2024-02-23",
+    "tracking_number": "1Z999AA156952151",
+    "total_amount": 249.0
+  },
+  {
+    "order_id": "ORD-2024-0014",
+    "customer_id": "CUST-039",
+    "order_date": "2024-02-24",
+    "status": "Delivered",
+    "shipped_date": "2024-02-27",
+    "tracking_number": "1Z999AA198870276",
+    "total_amount": 129.0
+  },
+  {
+    "order_id": "ORD-2024-0015",
+    "customer_id": "CUST-014",
+    "order_date": "2024-02-25",
+    "status": "Delivered",
+    "shipped_date": "2024-02-28",
+    "tracking_number": "1Z999AA121370793",
+    "total_amount": 2078.0
+  },
+  {
+    "order_id": "ORD-2024-0016",
+    "customer_id": "CUST-032",
+    "order_date": "2024-02-29",
+    "status": "Delivered",
+    "shipped_date": "2024-03-02",
+    "tracking_number": "1Z999AA196368203",
+    "total_amount": 19.0
+  },
+  {
+    "order_id": "ORD-2024-0017",
+    "customer_id": "CUST-022",
+    "order_date": "2024-03-01",
+    "status": "Delivered",
+    "shipped_date": "2024-03-02",
+    "tracking_number": "1Z999AA199941500",
+    "total_amount": 1242.22
+  },
+  {
+    "order_id": "ORD-2024-0018",
+    "customer_id": "CUST-038",
+    "order_date": "2024-03-01",
+    "status": "Delivered",
+    "shipped_date": "2024-03-04",
+    "tracking_number": "1Z999AA180651318",
+    "total_amount": 938.0
+  },
+  {
+    "order_id": "ORD-2024-0019",
+    "customer_id": "CUST-006",
+    "order_date": "2024-03-02",
+    "status": "Delivered",
+    "shipped_date": "2024-03-05",
+    "tracking_number": "1Z999AA166828640",
+    "total_amount": 130.23
+  },
+  {
+    "order_id": "ORD-2024-0020",
+    "customer_id": "CUST-025",
+    "order_date": "2024-03-02",
+    "status": "Delivered",
+    "shipped_date": "2024-03-03",
+    "tracking_number": "1Z999AA158667035",
+    "total_amount": 258.0
+  },
+  {
+    "order_id": "ORD-2024-0021",
+    "customer_id": "CUST-001",
+    "order_date": "2024-03-09",
+    "status": "Delivered",
+    "shipped_date": "2024-03-10",
+    "tracking_number": "1Z999AA155866538",
+    "total_amount": 129.0
+  },
+  {
+    "order_id": "ORD-2024-0022",
+    "customer_id": "CUST-020",
+    "order_date": "2024-03-09",
+    "status": "Delivered",
+    "shipped_date": "2024-03-11",
+    "tracking_number": "1Z999AA135770506",
+    "total_amount": 1282.0
+  },
+  {
+    "order_id": "ORD-2024-0023",
+    "customer_id": "CUST-014",
+    "order_date": "2024-03-10",
+    "status": "Delivered",
+    "shipped_date": "2024-03-11",
+    "tracking_number": "1Z999AA130796389",
+    "total_amount": 99.0
+  },
+  {
+    "order_id": "ORD-2024-0024",
+    "customer_id": "CUST-039",
+    "order_date": "2024-03-11",
+    "status": "Delivered",
+    "shipped_date": "2024-03-12",
+    "tracking_number": "1Z999AA178140959",
+    "total_amount": 94.24
+  },
+  {
+    "order_id": "ORD-2024-0025",
+    "customer_id": "CUST-045",
+    "order_date": "2024-03-16",
+    "status": "Delivered",
+    "shipped_date": "2024-03-19",
+    "tracking_number": "1Z999AA180669879",
+    "total_amount": 326.76
+  },
+  {
+    "order_id": "ORD-2024-0026",
+    "customer_id": "CUST-005",
+    "order_date": "2024-03-25",
+    "status": "Delivered",
+    "shipped_date": "2024-03-27",
+    "tracking_number": "1Z999AA192950779",
+    "total_amount": 1399.0
+  },
+  {
+    "order_id": "ORD-2024-0027",
+    "customer_id": "CUST-019",
+    "order_date": "2024-03-29",
+    "status": "Delivered",
+    "shipped_date": "2024-03-31",
+    "tracking_number": "1Z999AA130703455",
+    "total_amount": 328.0
+  },
+  {
+    "order_id": "ORD-2024-0028",
+    "customer_id": "CUST-029",
+    "order_date": "2024-04-01",
+    "status": "Delivered",
+    "shipped_date": "2024-04-04",
+    "tracking_number": "1Z999AA193851247",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2024-0029",
+    "customer_id": "CUST-011",
+    "order_date": "2024-04-03",
+    "status": "Delivered",
+    "shipped_date": "2024-04-04",
+    "tracking_number": "1Z999AA168743530",
+    "total_amount": 1399.0
+  },
+  {
+    "order_id": "ORD-2024-0030",
+    "customer_id": "CUST-021",
+    "order_date": "2024-04-04",
+    "status": "Delivered",
+    "shipped_date": "2024-04-06",
+    "tracking_number": "1Z999AA141880763",
+    "total_amount": 29.0
+  },
+  {
+    "order_id": "ORD-2024-0031",
+    "customer_id": "CUST-036",
+    "order_date": "2024-04-05",
+    "status": "Delivered",
+    "shipped_date": "2024-04-08",
+    "tracking_number": "1Z999AA148242379",
+    "total_amount": 1428.0
+  },
+  {
+    "order_id": "ORD-2024-0032",
+    "customer_id": "CUST-003",
+    "order_date": "2024-04-05",
+    "status": "Delivered",
+    "shipped_date": "2024-04-07",
+    "tracking_number": "1Z999AA141407343",
+    "total_amount": 1323.0
+  },
+  {
+    "order_id": "ORD-2024-0033",
+    "customer_id": "CUST-039",
+    "order_date": "2024-04-05",
+    "status": "Delivered",
+    "shipped_date": "2024-04-07",
+    "tracking_number": "1Z999AA172950208",
+    "total_amount": 399.0
+  },
+  {
+    "order_id": "ORD-2024-0034",
+    "customer_id": "CUST-006",
+    "order_date": "2024-04-06",
+    "status": "Delivered",
+    "shipped_date": "2024-04-07",
+    "tracking_number": "1Z999AA159370777",
+    "total_amount": 1338.02
+  },
+  {
+    "order_id": "ORD-2024-0035",
+    "customer_id": "CUST-038",
+    "order_date": "2024-04-06",
+    "status": "Delivered",
+    "shipped_date": "2024-04-09",
+    "tracking_number": "1Z999AA169135982",
+    "total_amount": 2527.0
+  },
+  {
+    "order_id": "ORD-2024-0036",
+    "customer_id": "CUST-012",
+    "order_date": "2024-04-10",
+    "status": "Delivered",
+    "shipped_date": "2024-04-12",
+    "tracking_number": "1Z999AA161254050",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2024-0037",
+    "customer_id": "CUST-045",
+    "order_date": "2024-04-10",
+    "status": "Delivered",
+    "shipped_date": "2024-04-12",
+    "tracking_number": "1Z999AA131751079",
+    "total_amount": 514.0
+  },
+  {
+    "order_id": "ORD-2024-0038",
+    "customer_id": "CUST-036",
+    "order_date": "2024-04-11",
+    "status": "Delivered",
+    "shipped_date": "2024-04-14",
+    "tracking_number": "1Z999AA128575536",
+    "total_amount": 129.0
+  },
+  {
+    "order_id": "ORD-2024-0039",
+    "customer_id": "CUST-001",
+    "order_date": "2024-04-13",
+    "status": "Delivered",
+    "shipped_date": "2024-04-14",
+    "tracking_number": "1Z999AA196057593",
+    "total_amount": 1728.0
+  },
+  {
+    "order_id": "ORD-2024-0040",
+    "customer_id": "CUST-045",
+    "order_date": "2024-04-16",
+    "status": "Delivered",
+    "shipped_date": "2024-04-18",
+    "tracking_number": "1Z999AA184429198",
+    "total_amount": 249.0
+  },
+  {
+    "order_id": "ORD-2024-0041",
+    "customer_id": "CUST-050",
+    "order_date": "2024-04-19",
+    "status": "Delivered",
+    "shipped_date": "2024-04-22",
+    "tracking_number": "1Z999AA179244185",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2024-0042",
+    "customer_id": "CUST-048",
+    "order_date": "2024-04-19",
+    "status": "Delivered",
+    "shipped_date": "2024-04-21",
+    "tracking_number": "1Z999AA121257528",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2024-0043",
+    "customer_id": "CUST-023",
+    "order_date": "2024-04-19",
+    "status": "Delivered",
+    "shipped_date": "2024-04-21",
+    "tracking_number": "1Z999AA170306604",
+    "total_amount": 1278.0
+  },
+  {
+    "order_id": "ORD-2024-0044",
+    "customer_id": "CUST-022",
+    "order_date": "2024-04-25",
+    "status": "Delivered",
+    "shipped_date": "2024-04-26",
+    "tracking_number": "1Z999AA168716573",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2024-0045",
+    "customer_id": "CUST-020",
+    "order_date": "2024-04-25",
+    "status": "Delivered",
+    "shipped_date": "2024-04-26",
+    "tracking_number": "1Z999AA170549373",
+    "total_amount": 377.0
+  },
+  {
+    "order_id": "ORD-2024-0046",
+    "customer_id": "CUST-031",
+    "order_date": "2024-05-15",
+    "status": "Delivered",
+    "shipped_date": "2024-05-16",
+    "tracking_number": "1Z999AA165686520",
+    "total_amount": 249.0
+  },
+  {
+    "order_id": "ORD-2024-0047",
+    "customer_id": "CUST-023",
+    "order_date": "2024-05-18",
+    "status": "Delivered",
+    "shipped_date": "2024-05-21",
+    "tracking_number": "1Z999AA160192261",
+    "total_amount": 99.0
+  },
+  {
+    "order_id": "ORD-2024-0048",
+    "customer_id": "CUST-047",
+    "order_date": "2024-05-19",
+    "status": "Delivered",
+    "shipped_date": "2024-05-20",
+    "tracking_number": "1Z999AA160319927",
+    "total_amount": 1556.42
+  },
+  {
+    "order_id": "ORD-2024-0049",
+    "customer_id": "CUST-047",
+    "order_date": "2024-05-31",
+    "status": "Delivered",
+    "shipped_date": "2024-06-02",
+    "tracking_number": "1Z999AA123298711",
+    "total_amount": 1399.0
+  },
+  {
+    "order_id": "ORD-2024-0050",
+    "customer_id": "CUST-002",
+    "order_date": "2024-06-05",
+    "status": "Delivered",
+    "shipped_date": "2024-06-08",
+    "tracking_number": "1Z999AA155001909",
+    "total_amount": 816.0
+  },
+  {
+    "order_id": "ORD-2024-0051",
+    "customer_id": "CUST-035",
+    "order_date": "2024-06-06",
+    "status": "Delivered",
+    "shipped_date": "2024-06-07",
+    "tracking_number": "1Z999AA115140967",
+    "total_amount": 899.0
+  },
+  {
+    "order_id": "ORD-2024-0052",
+    "customer_id": "CUST-018",
+    "order_date": "2024-06-09",
+    "status": "Delivered",
+    "shipped_date": "2024-06-11",
+    "tracking_number": "1Z999AA128628439",
+    "total_amount": 1688.22
+  },
+  {
+    "order_id": "ORD-2024-0053",
+    "customer_id": "CUST-011",
+    "order_date": "2024-06-10",
+    "status": "Delivered",
+    "shipped_date": "2024-06-12",
+    "tracking_number": "1Z999AA170210270",
+    "total_amount": 1999.0
+  },
+  {
+    "order_id": "ORD-2024-0054",
+    "customer_id": "CUST-022",
+    "order_date": "2024-06-13",
+    "status": "Delivered",
+    "shipped_date": "2024-06-14",
+    "tracking_number": "1Z999AA112550658",
+    "total_amount": 39.0
+  },
+  {
+    "order_id": "ORD-2024-0055",
+    "customer_id": "CUST-039",
+    "order_date": "2024-06-18",
+    "status": "Delivered",
+    "shipped_date": "2024-06-19",
+    "tracking_number": "1Z999AA183659258",
+    "total_amount": 449.0
+  },
+  {
+    "order_id": "ORD-2024-0056",
+    "customer_id": "CUST-018",
+    "order_date": "2024-06-26",
+    "status": "Delivered",
+    "shipped_date": "2024-06-29",
+    "tracking_number": "1Z999AA180836292",
+    "total_amount": 1399.0
+  },
+  {
+    "order_id": "ORD-2024-0057",
+    "customer_id": "CUST-029",
+    "order_date": "2024-07-01",
+    "status": "Delivered",
+    "shipped_date": "2024-07-03",
+    "tracking_number": "1Z999AA141895531",
+    "total_amount": 39.0
+  },
+  {
+    "order_id": "ORD-2024-0058",
+    "customer_id": "CUST-037",
+    "order_date": "2024-07-05",
+    "status": "Delivered",
+    "shipped_date": "2024-07-06",
+    "tracking_number": "1Z999AA142002808",
+    "total_amount": 2096.0
+  },
+  {
+    "order_id": "ORD-2024-0059",
+    "customer_id": "CUST-011",
+    "order_date": "2024-07-06",
+    "status": "Delivered",
+    "shipped_date": "2024-07-09",
+    "tracking_number": "1Z999AA171352751",
+    "total_amount": 99.0
+  },
+  {
+    "order_id": "ORD-2024-0060",
+    "customer_id": "CUST-024",
+    "order_date": "2024-07-07",
+    "status": "Delivered",
+    "shipped_date": "2024-07-09",
+    "tracking_number": "1Z999AA190092958",
+    "total_amount": 654.87
+  },
+  {
+    "order_id": "ORD-2024-0061",
+    "customer_id": "CUST-046",
+    "order_date": "2024-07-10",
+    "status": "Delivered",
+    "shipped_date": "2024-07-13",
+    "tracking_number": "1Z999AA179172559",
+    "total_amount": 909.37
+  },
+  {
+    "order_id": "ORD-2024-0062",
+    "customer_id": "CUST-030",
+    "order_date": "2024-07-12",
+    "status": "Delivered",
+    "shipped_date": "2024-07-15",
+    "tracking_number": "1Z999AA129270557",
+    "total_amount": 466.76
+  },
+  {
+    "order_id": "ORD-2024-0063",
+    "customer_id": "CUST-026",
+    "order_date": "2024-07-13",
+    "status": "Delivered",
+    "shipped_date": "2024-07-14",
+    "tracking_number": "1Z999AA192518345",
+    "total_amount": 543.74
+  },
+  {
+    "order_id": "ORD-2024-0064",
+    "customer_id": "CUST-048",
+    "order_date": "2024-07-15",
+    "status": "Delivered",
+    "shipped_date": "2024-07-18",
+    "tracking_number": "1Z999AA165910756",
+    "total_amount": 178.0
+  },
+  {
+    "order_id": "ORD-2024-0065",
+    "customer_id": "CUST-040",
+    "order_date": "2024-07-16",
+    "status": "Delivered",
+    "shipped_date": "2024-07-19",
+    "tracking_number": "1Z999AA121490910",
+    "total_amount": 962.0
+  },
+  {
+    "order_id": "ORD-2024-0066",
+    "customer_id": "CUST-047",
+    "order_date": "2024-07-23",
+    "status": "Delivered",
+    "shipped_date": "2024-07-25",
+    "tracking_number": "1Z999AA119083764",
+    "total_amount": 1497.63
+  },
+  {
+    "order_id": "ORD-2024-0067",
+    "customer_id": "CUST-004",
+    "order_date": "2024-07-24",
+    "status": "Delivered",
+    "shipped_date": "2024-07-27",
+    "tracking_number": "1Z999AA178092370",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2024-0068",
+    "customer_id": "CUST-013",
+    "order_date": "2024-07-27",
+    "status": "Delivered",
+    "shipped_date": "2024-07-30",
+    "tracking_number": "1Z999AA184377016",
+    "total_amount": 19.0
+  },
+  {
+    "order_id": "ORD-2024-0069",
+    "customer_id": "CUST-030",
+    "order_date": "2024-07-28",
+    "status": "Delivered",
+    "shipped_date": "2024-07-30",
+    "tracking_number": "1Z999AA115843091",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2024-0070",
+    "customer_id": "CUST-047",
+    "order_date": "2024-07-29",
+    "status": "Delivered",
+    "shipped_date": "2024-07-31",
+    "tracking_number": "1Z999AA144044361",
+    "total_amount": 1636.0
+  },
+  {
+    "order_id": "ORD-2024-0071",
+    "customer_id": "CUST-022",
+    "order_date": "2024-08-01",
+    "status": "Delivered",
+    "shipped_date": "2024-08-03",
+    "tracking_number": "1Z999AA119067690",
+    "total_amount": 1763.0
+  },
+  {
+    "order_id": "ORD-2024-0072",
+    "customer_id": "CUST-007",
+    "order_date": "2024-08-05",
+    "status": "Delivered",
+    "shipped_date": "2024-08-08",
+    "tracking_number": "1Z999AA198195059",
+    "total_amount": 883.9
+  },
+  {
+    "order_id": "ORD-2024-0073",
+    "customer_id": "CUST-007",
+    "order_date": "2024-08-14",
+    "status": "Delivered",
+    "shipped_date": "2024-08-17",
+    "tracking_number": "1Z999AA154629892",
+    "total_amount": 277.0
+  },
+  {
+    "order_id": "ORD-2024-0074",
+    "customer_id": "CUST-046",
+    "order_date": "2024-08-15",
+    "status": "Delivered",
+    "shipped_date": "2024-08-17",
+    "tracking_number": "1Z999AA183284724",
+    "total_amount": 129.0
+  },
+  {
+    "order_id": "ORD-2024-0075",
+    "customer_id": "CUST-042",
+    "order_date": "2024-08-16",
+    "status": "Delivered",
+    "shipped_date": "2024-08-19",
+    "tracking_number": "1Z999AA133500064",
+    "total_amount": 567.98
+  },
+  {
+    "order_id": "ORD-2024-0076",
+    "customer_id": "CUST-038",
+    "order_date": "2024-08-17",
+    "status": "Delivered",
+    "shipped_date": "2024-08-20",
+    "tracking_number": "1Z999AA172360629",
+    "total_amount": 132.18
+  },
+  {
+    "order_id": "ORD-2024-0077",
+    "customer_id": "CUST-001",
+    "order_date": "2024-08-21",
+    "status": "Delivered",
+    "shipped_date": "2024-08-23",
+    "tracking_number": "1Z999AA194790150",
+    "total_amount": 3125.0
+  },
+  {
+    "order_id": "ORD-2024-0078",
+    "customer_id": "CUST-025",
+    "order_date": "2024-08-21",
+    "status": "Delivered",
+    "shipped_date": "2024-08-22",
+    "tracking_number": "1Z999AA118469210",
+    "total_amount": 1699.0
+  },
+  {
+    "order_id": "ORD-2024-0079",
+    "customer_id": "CUST-034",
+    "order_date": "2024-08-22",
+    "status": "Delivered",
+    "shipped_date": "2024-08-24",
+    "tracking_number": "1Z999AA114963880",
+    "total_amount": 119.0
+  },
+  {
+    "order_id": "ORD-2024-0080",
+    "customer_id": "CUST-009",
+    "order_date": "2024-08-26",
+    "status": "Delivered",
+    "shipped_date": "2024-08-27",
+    "tracking_number": "1Z999AA136772387",
+    "total_amount": 80.4
+  },
+  {
+    "order_id": "ORD-2024-0081",
+    "customer_id": "CUST-001",
+    "order_date": "2024-08-29",
+    "status": "Delivered",
+    "shipped_date": "2024-08-31",
+    "tracking_number": "1Z999AA151617680",
+    "total_amount": 19.36
+  },
+  {
+    "order_id": "ORD-2024-0082",
+    "customer_id": "CUST-037",
+    "order_date": "2024-08-30",
+    "status": "Delivered",
+    "shipped_date": "2024-09-02",
+    "tracking_number": "1Z999AA173538641",
+    "total_amount": 1922.4
+  },
+  {
+    "order_id": "ORD-2024-0083",
+    "customer_id": "CUST-028",
+    "order_date": "2024-08-30",
+    "status": "Delivered",
+    "shipped_date": "2024-09-02",
+    "tracking_number": "1Z999AA135649468",
+    "total_amount": 98.0
+  },
+  {
+    "order_id": "ORD-2024-0084",
+    "customer_id": "CUST-005",
+    "order_date": "2024-09-05",
+    "status": "Delivered",
+    "shipped_date": "2024-09-06",
+    "tracking_number": "1Z999AA198010774",
+    "total_amount": 1428.0
+  },
+  {
+    "order_id": "ORD-2024-0085",
+    "customer_id": "CUST-004",
+    "order_date": "2024-09-06",
+    "status": "Delivered",
+    "shipped_date": "2024-09-07",
+    "tracking_number": "1Z999AA159394697",
+    "total_amount": 498.0
+  },
+  {
+    "order_id": "ORD-2024-0086",
+    "customer_id": "CUST-003",
+    "order_date": "2024-09-10",
+    "status": "Delivered",
+    "shipped_date": "2024-09-12",
+    "tracking_number": "1Z999AA169020451",
+    "total_amount": 119.0
+  },
+  {
+    "order_id": "ORD-2024-0087",
+    "customer_id": "CUST-015",
+    "order_date": "2024-09-11",
+    "status": "Delivered",
+    "shipped_date": "2024-09-13",
+    "tracking_number": "1Z999AA155504725",
+    "total_amount": 44.92
+  },
+  {
+    "order_id": "ORD-2024-0088",
+    "customer_id": "CUST-012",
+    "order_date": "2024-09-16",
+    "status": "Delivered",
+    "shipped_date": "2024-09-18",
+    "tracking_number": "1Z999AA176776459",
+    "total_amount": 611.13
+  },
+  {
+    "order_id": "ORD-2024-0089",
+    "customer_id": "CUST-001",
+    "order_date": "2024-09-21",
+    "status": "Delivered",
+    "shipped_date": "2024-09-24",
+    "tracking_number": "1Z999AA145798645",
+    "total_amount": 1601.0
+  },
+  {
+    "order_id": "ORD-2024-0090",
+    "customer_id": "CUST-042",
+    "order_date": "2024-09-23",
+    "status": "Delivered",
+    "shipped_date": "2024-09-26",
+    "tracking_number": "1Z999AA166975380",
+    "total_amount": 1199.0
+  },
+  {
+    "order_id": "ORD-2024-0091",
+    "customer_id": "CUST-050",
+    "order_date": "2024-09-25",
+    "status": "Delivered",
+    "shipped_date": "2024-09-28",
+    "tracking_number": "1Z999AA134220459",
+    "total_amount": 1317.0
+  },
+  {
+    "order_id": "ORD-2024-0092",
+    "customer_id": "CUST-039",
+    "order_date": "2024-09-26",
+    "status": "Delivered",
+    "shipped_date": "2024-09-28",
+    "tracking_number": "1Z999AA123770458",
+    "total_amount": 99.0
+  },
+  {
+    "order_id": "ORD-2024-0093",
+    "customer_id": "CUST-010",
+    "order_date": "2024-09-26",
+    "status": "Delivered",
+    "shipped_date": "2024-09-29",
+    "tracking_number": "1Z999AA149680122",
+    "total_amount": 698.0
+  },
+  {
+    "order_id": "ORD-2024-0094",
+    "customer_id": "CUST-008",
+    "order_date": "2024-09-27",
+    "status": "Delivered",
+    "shipped_date": "2024-09-30",
+    "tracking_number": "1Z999AA167192331",
+    "total_amount": 628.0
+  },
+  {
+    "order_id": "ORD-2024-0095",
+    "customer_id": "CUST-026",
+    "order_date": "2024-09-27",
+    "status": "Delivered",
+    "shipped_date": "2024-09-29",
+    "tracking_number": "1Z999AA157183837",
+    "total_amount": 130.87
+  },
+  {
+    "order_id": "ORD-2024-0096",
+    "customer_id": "CUST-026",
+    "order_date": "2024-09-28",
+    "status": "Delivered",
+    "shipped_date": "2024-10-01",
+    "tracking_number": "1Z999AA157319709",
+    "total_amount": 1237.87
+  },
+  {
+    "order_id": "ORD-2024-0097",
+    "customer_id": "CUST-041",
+    "order_date": "2024-10-01",
+    "status": "Delivered",
+    "shipped_date": "2024-10-03",
+    "tracking_number": "1Z999AA146850196",
+    "total_amount": 2128.0
+  },
+  {
+    "order_id": "ORD-2024-0098",
+    "customer_id": "CUST-017",
+    "order_date": "2024-10-02",
+    "status": "Delivered",
+    "shipped_date": "2024-10-03",
+    "tracking_number": "1Z999AA120071854",
+    "total_amount": 928.0
+  },
+  {
+    "order_id": "ORD-2024-0099",
+    "customer_id": "CUST-022",
+    "order_date": "2024-10-07",
+    "status": "Delivered",
+    "shipped_date": "2024-10-09",
+    "tracking_number": "1Z999AA158762794",
+    "total_amount": 268.6
+  },
+  {
+    "order_id": "ORD-2024-0100",
+    "customer_id": "CUST-042",
+    "order_date": "2024-10-08",
+    "status": "Delivered",
+    "shipped_date": "2024-10-11",
+    "tracking_number": "1Z999AA131473054",
+    "total_amount": 1278.0
+  },
+  {
+    "order_id": "ORD-2024-0101",
+    "customer_id": "CUST-003",
+    "order_date": "2024-10-23",
+    "status": "Delivered",
+    "shipped_date": "2024-10-24",
+    "tracking_number": "1Z999AA191547054",
+    "total_amount": 199.0
+  },
+  {
+    "order_id": "ORD-2024-0102",
+    "customer_id": "CUST-049",
+    "order_date": "2024-10-25",
+    "status": "Delivered",
+    "shipped_date": "2024-10-27",
+    "tracking_number": "1Z999AA114670638",
+    "total_amount": 188.0
+  },
+  {
+    "order_id": "ORD-2024-0103",
+    "customer_id": "CUST-024",
+    "order_date": "2024-10-27",
+    "status": "Delivered",
+    "shipped_date": "2024-10-28",
+    "tracking_number": "1Z999AA196592295",
+    "total_amount": 947.66
+  },
+  {
+    "order_id": "ORD-2024-0104",
+    "customer_id": "CUST-043",
+    "order_date": "2024-11-01",
+    "status": "Delivered",
+    "shipped_date": "2024-11-03",
+    "tracking_number": "1Z999AA186134287",
+    "total_amount": 899.0
+  },
+  {
+    "order_id": "ORD-2024-0105",
+    "customer_id": "CUST-019",
+    "order_date": "2024-11-03",
+    "status": "Delivered",
+    "shipped_date": "2024-11-04",
+    "tracking_number": "1Z999AA170387584",
+    "total_amount": 149.0
+  },
+  {
+    "order_id": "ORD-2024-0106",
+    "customer_id": "CUST-012",
+    "order_date": "2024-11-06",
+    "status": "Delivered",
+    "shipped_date": "2024-11-08",
+    "tracking_number": "1Z999AA169584522",
+    "total_amount": 129.0
+  },
+  {
+    "order_id": "ORD-2024-0107",
+    "customer_id": "CUST-027",
+    "order_date": "2024-11-06",
+    "status": "Delivered",
+    "shipped_date": "2024-11-09",
+    "tracking_number": "1Z999AA128481124",
+    "total_amount": 29.0
+  },
+  {
+    "order_id": "ORD-2024-0108",
+    "customer_id": "CUST-034",
+    "order_date": "2024-11-10",
+    "status": "Delivered",
+    "shipped_date": "2024-11-12",
+    "tracking_number": "1Z999AA152196099",
+    "total_amount": 488.73
+  },
+  {
+    "order_id": "ORD-2024-0109",
+    "customer_id": "CUST-009",
+    "order_date": "2024-11-13",
+    "status": "Delivered",
+    "shipped_date": "2024-11-14",
+    "tracking_number": "1Z999AA125226815",
+    "total_amount": 399.0
+  },
+  {
+    "order_id": "ORD-2024-0110",
+    "customer_id": "CUST-012",
+    "order_date": "2024-11-16",
+    "status": "Delivered",
+    "shipped_date": "2024-11-17",
+    "tracking_number": "1Z999AA176980546",
+    "total_amount": 138.0
+  },
+  {
+    "order_id": "ORD-2024-0111",
+    "customer_id": "CUST-046",
+    "order_date": "2024-11-16",
+    "status": "Delivered",
+    "shipped_date": "2024-11-19",
+    "tracking_number": "1Z999AA125805613",
+    "total_amount": 80.75
+  },
+  {
+    "order_id": "ORD-2024-0112",
+    "customer_id": "CUST-015",
+    "order_date": "2024-11-17",
+    "status": "Delivered",
+    "shipped_date": "2024-11-19",
+    "tracking_number": "1Z999AA169897763",
+    "total_amount": 318.0
+  },
+  {
+    "order_id": "ORD-2024-0113",
+    "customer_id": "CUST-036",
+    "order_date": "2024-11-18",
+    "status": "Delivered",
+    "shipped_date": "2024-11-21",
+    "tracking_number": "1Z999AA148329479",
+    "total_amount": 99.0
+  },
+  {
+    "order_id": "ORD-2024-0114",
+    "customer_id": "CUST-036",
+    "order_date": "2024-11-22",
+    "status": "Delivered",
+    "shipped_date": "2024-11-24",
+    "tracking_number": "1Z999AA136867482",
+    "total_amount": 174.0
+  },
+  {
+    "order_id": "ORD-2024-0115",
+    "customer_id": "CUST-015",
+    "order_date": "2024-11-23",
+    "status": "Delivered",
+    "shipped_date": "2024-11-24",
+    "tracking_number": "1Z999AA170672142",
+    "total_amount": 442.31
+  },
+  {
+    "order_id": "ORD-2024-0116",
+    "customer_id": "CUST-044",
+    "order_date": "2024-11-25",
+    "status": "Delivered",
+    "shipped_date": "2024-11-28",
+    "tracking_number": "1Z999AA169741812",
+    "total_amount": 292.96
+  },
+  {
+    "order_id": "ORD-2024-0117",
+    "customer_id": "CUST-019",
+    "order_date": "2024-12-01",
+    "status": "Delivered",
+    "shipped_date": "2024-12-04",
+    "tracking_number": "1Z999AA152894344",
+    "total_amount": 449.0
+  },
+  {
+    "order_id": "ORD-2024-0118",
+    "customer_id": "CUST-035",
+    "order_date": "2024-12-02",
+    "status": "Delivered",
+    "shipped_date": "2024-12-05",
+    "tracking_number": "1Z999AA118715975",
+    "total_amount": 218.0
+  },
+  {
+    "order_id": "ORD-2024-0119",
+    "customer_id": "CUST-008",
+    "order_date": "2024-12-03",
+    "status": "Delivered",
+    "shipped_date": "2024-12-05",
+    "tracking_number": "1Z999AA150259503",
+    "total_amount": 678.0
+  },
+  {
+    "order_id": "ORD-2024-0120",
+    "customer_id": "CUST-013",
+    "order_date": "2024-12-03",
+    "status": "Delivered",
+    "shipped_date": "2024-12-06",
+    "tracking_number": "1Z999AA195590648",
+    "total_amount": 1744.0
+  },
+  {
+    "order_id": "ORD-2024-0121",
+    "customer_id": "CUST-047",
+    "order_date": "2024-12-03",
+    "status": "Delivered",
+    "shipped_date": "2024-12-05",
+    "tracking_number": "1Z999AA178284040",
+    "total_amount": 549.0
+  },
+  {
+    "order_id": "ORD-2024-0122",
+    "customer_id": "CUST-023",
+    "order_date": "2024-12-05",
+    "status": "Delivered",
+    "shipped_date": "2024-12-06",
+    "tracking_number": "1Z999AA128639738",
+    "total_amount": 1328.0
+  },
+  {
+    "order_id": "ORD-2024-0123",
+    "customer_id": "CUST-034",
+    "order_date": "2024-12-05",
+    "status": "Delivered",
+    "shipped_date": "2024-12-07",
+    "tracking_number": "1Z999AA113527782",
+    "total_amount": 129.0
+  },
+  {
+    "order_id": "ORD-2024-0124",
+    "customer_id": "CUST-042",
+    "order_date": "2024-12-10",
+    "status": "Delivered",
+    "shipped_date": "2024-12-13",
+    "tracking_number": "1Z999AA159514418",
+    "total_amount": 49.0
+  },
+  {
+    "order_id": "ORD-2024-0125",
+    "customer_id": "CUST-043",
+    "order_date": "2024-12-11",
+    "status": "Delivered",
+    "shipped_date": "2024-12-14",
+    "tracking_number": "1Z999AA127417599",
+    "total_amount": 1087.96
+  },
+  {
+    "order_id": "ORD-2024-0126",
+    "customer_id": "CUST-029",
+    "order_date": "2024-12-11",
+    "status": "Delivered",
+    "shipped_date": "2024-12-12",
+    "tracking_number": "1Z999AA118824561",
+    "total_amount": 449.0
+  },
+  {
+    "order_id": "ORD-2024-0127",
+    "customer_id": "CUST-010",
+    "order_date": "2024-12-12",
+    "status": "Delivered",
+    "shipped_date": "2024-12-15",
+    "tracking_number": "1Z999AA174245343",
+    "total_amount": 989.0
+  },
+  {
+    "order_id": "ORD-2024-0128",
+    "customer_id": "CUST-021",
+    "order_date": "2024-12-13",
+    "status": "Delivered",
+    "shipped_date": "2024-12-15",
+    "tracking_number": "1Z999AA187161840",
+    "total_amount": 1999.0
+  },
+  {
+    "order_id": "ORD-2024-0129",
+    "customer_id": "CUST-030",
+    "order_date": "2024-12-16",
+    "status": "Delivered",
+    "shipped_date": "2024-12-18",
+    "tracking_number": "1Z999AA196213226",
+    "total_amount": 294.0
+  },
+  {
+    "order_id": "ORD-2024-0130",
+    "customer_id": "CUST-027",
+    "order_date": "2024-12-17",
+    "status": "Delivered",
+    "shipped_date": "2024-12-19",
+    "tracking_number": "1Z999AA179438885",
+    "total_amount": 568.0
+  },
+  {
+    "order_id": "ORD-2024-0131",
+    "customer_id": "CUST-038",
+    "order_date": "2024-12-18",
+    "status": "Delivered",
+    "shipped_date": "2024-12-21",
+    "tracking_number": "1Z999AA195871687",
+    "total_amount": 188.0
+  },
+  {
+    "order_id": "ORD-2024-0132",
+    "customer_id": "CUST-020",
+    "order_date": "2024-12-21",
+    "status": "Delivered",
+    "shipped_date": "2024-12-22",
+    "tracking_number": "1Z999AA168065043",
+    "total_amount": 189.88
+  },
+  {
+    "order_id": "ORD-2024-0133",
+    "customer_id": "CUST-044",
+    "order_date": "2024-12-21",
+    "status": "Delivered",
+    "shipped_date": "2024-12-22",
+    "tracking_number": "1Z999AA126664623",
+    "total_amount": 38.8
+  },
+  {
+    "order_id": "ORD-2024-0134",
+    "customer_id": "CUST-004",
+    "order_date": "2024-12-22",
+    "status": "Delivered",
+    "shipped_date": "2024-12-24",
+    "tracking_number": "1Z999AA132099899",
+    "total_amount": 118.41
+  },
+  {
+    "order_id": "ORD-2024-0135",
+    "customer_id": "CUST-030",
+    "order_date": "2024-12-24",
+    "status": "Delivered",
+    "shipped_date": "2024-12-27",
+    "tracking_number": "1Z999AA140262109",
+    "total_amount": 2250.81
+  },
+  {
+    "order_id": "ORD-2024-0136",
+    "customer_id": "CUST-026",
+    "order_date": "2024-12-26",
+    "status": "Delivered",
+    "shipped_date": "2024-12-29",
+    "tracking_number": "1Z999AA148124318",
+    "total_amount": 1699.0
+  },
+  {
+    "order_id": "ORD-2024-0137",
+    "customer_id": "CUST-026",
+    "order_date": "2024-12-26",
+    "status": "Delivered",
+    "shipped_date": "2024-12-28",
+    "tracking_number": "1Z999AA136347197",
+    "total_amount": 116.74
+  },
+  {
+    "order_id": "ORD-2024-0138",
+    "customer_id": "CUST-013",
+    "order_date": "2024-12-30",
+    "status": "Delivered",
+    "shipped_date": "2025-01-02",
+    "tracking_number": "1Z999AA146836194",
+    "total_amount": 399.0
+  },
+  {
+    "order_id": "ORD-2025-0001",
+    "customer_id": "CUST-018",
+    "order_date": "2025-01-08",
+    "status": "Delivered",
+    "shipped_date": "2025-01-10",
+    "tracking_number": "1Z999AA192467167",
+    "total_amount": 2281.0
+  },
+  {
+    "order_id": "ORD-2025-0002",
+    "customer_id": "CUST-007",
+    "order_date": "2025-01-08",
+    "status": "Delivered",
+    "shipped_date": "2025-01-11",
+    "tracking_number": "1Z999AA196031876",
+    "total_amount": 43.21
+  },
+  {
+    "order_id": "ORD-2025-0003",
+    "customer_id": "CUST-044",
+    "order_date": "2025-01-09",
+    "status": "Delivered",
+    "shipped_date": "2025-01-12",
+    "tracking_number": "1Z999AA130695604",
+    "total_amount": 218.0
+  },
+  {
+    "order_id": "ORD-2025-0004",
+    "customer_id": "CUST-035",
+    "order_date": "2025-01-12",
+    "status": "Delivered",
+    "shipped_date": "2025-01-15",
+    "tracking_number": "1Z999AA191220369",
+    "total_amount": 1443.47
+  },
+  {
+    "order_id": "ORD-2025-0005",
+    "customer_id": "CUST-012",
+    "order_date": "2025-01-13",
+    "status": "Delivered",
+    "shipped_date": "2025-01-16",
+    "tracking_number": "1Z999AA115529005",
+    "total_amount": 580.67
+  },
+  {
+    "order_id": "ORD-2025-0006",
+    "customer_id": "CUST-018",
+    "order_date": "2025-01-14",
+    "status": "Delivered",
+    "shipped_date": "2025-01-15",
+    "tracking_number": "1Z999AA120901547",
+    "total_amount": 3599.36
+  },
+  {
+    "order_id": "ORD-2025-0007",
+    "customer_id": "CUST-026",
+    "order_date": "2025-01-14",
+    "status": "Delivered",
+    "shipped_date": "2025-01-17",
+    "tracking_number": "1Z999AA187412924",
+    "total_amount": 257.0
+  },
+  {
+    "order_id": "ORD-2025-0008",
+    "customer_id": "CUST-032",
+    "order_date": "2025-01-22",
+    "status": "Delivered",
+    "shipped_date": "2025-01-23",
+    "tracking_number": "1Z999AA186790955",
+    "total_amount": 2124.05
+  },
+  {
+    "order_id": "ORD-2025-0009",
+    "customer_id": "CUST-002",
+    "order_date": "2025-01-22",
+    "status": "Delivered",
+    "shipped_date": "2025-01-25",
+    "tracking_number": "1Z999AA114064904",
+    "total_amount": 1199.0
+  },
+  {
+    "order_id": "ORD-2025-0010",
+    "customer_id": "CUST-028",
+    "order_date": "2025-01-22",
+    "status": "Delivered",
+    "shipped_date": "2025-01-25",
+    "tracking_number": "1Z999AA183226170",
+    "total_amount": 1399.0
+  },
+  {
+    "order_id": "ORD-2025-0011",
+    "customer_id": "CUST-047",
+    "order_date": "2025-01-25",
+    "status": "Delivered",
+    "shipped_date": "2025-01-27",
+    "tracking_number": "1Z999AA174819756",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2025-0012",
+    "customer_id": "CUST-023",
+    "order_date": "2025-01-26",
+    "status": "Delivered",
+    "shipped_date": "2025-01-29",
+    "tracking_number": "1Z999AA164504816",
+    "total_amount": 1199.0
+  },
+  {
+    "order_id": "ORD-2025-0013",
+    "customer_id": "CUST-050",
+    "order_date": "2025-01-27",
+    "status": "Delivered",
+    "shipped_date": "2025-01-28",
+    "tracking_number": "1Z999AA118041391",
+    "total_amount": 138.0
+  },
+  {
+    "order_id": "ORD-2025-0014",
+    "customer_id": "CUST-040",
+    "order_date": "2025-01-29",
+    "status": "Delivered",
+    "shipped_date": "2025-01-31",
+    "tracking_number": "1Z999AA174995086",
+    "total_amount": 1999.0
+  },
+  {
+    "order_id": "ORD-2025-0015",
+    "customer_id": "CUST-039",
+    "order_date": "2025-02-08",
+    "status": "Delivered",
+    "shipped_date": "2025-02-10",
+    "tracking_number": "1Z999AA191424562",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2025-0016",
+    "customer_id": "CUST-037",
+    "order_date": "2025-02-08",
+    "status": "Delivered",
+    "shipped_date": "2025-02-11",
+    "tracking_number": "1Z999AA152857920",
+    "total_amount": 655.0
+  },
+  {
+    "order_id": "ORD-2025-0017",
+    "customer_id": "CUST-046",
+    "order_date": "2025-02-12",
+    "status": "Delivered",
+    "shipped_date": "2025-02-14",
+    "tracking_number": "1Z999AA163514837",
+    "total_amount": 99.0
+  },
+  {
+    "order_id": "ORD-2025-0018",
+    "customer_id": "CUST-008",
+    "order_date": "2025-02-13",
+    "status": "Delivered",
+    "shipped_date": "2025-02-15",
+    "tracking_number": "1Z999AA179119463",
+    "total_amount": 39.0
+  },
+  {
+    "order_id": "ORD-2025-0019",
+    "customer_id": "CUST-013",
+    "order_date": "2025-02-14",
+    "status": "Delivered",
+    "shipped_date": "2025-02-16",
+    "tracking_number": "1Z999AA142445506",
+    "total_amount": 1199.0
+  },
+  {
+    "order_id": "ORD-2025-0020",
+    "customer_id": "CUST-019",
+    "order_date": "2025-02-18",
+    "status": "Delivered",
+    "shipped_date": "2025-02-20",
+    "tracking_number": "1Z999AA170343755",
+    "total_amount": 205.43
+  },
+  {
+    "order_id": "ORD-2025-0021",
+    "customer_id": "CUST-010",
+    "order_date": "2025-02-19",
+    "status": "Delivered",
+    "shipped_date": "2025-02-20",
+    "tracking_number": "1Z999AA116792127",
+    "total_amount": 951.0
+  },
+  {
+    "order_id": "ORD-2025-0022",
+    "customer_id": "CUST-008",
+    "order_date": "2025-02-20",
+    "status": "Delivered",
+    "shipped_date": "2025-02-22",
+    "tracking_number": "1Z999AA192594562",
+    "total_amount": 98.0
+  },
+  {
+    "order_id": "ORD-2025-0023",
+    "customer_id": "CUST-033",
+    "order_date": "2025-02-22",
+    "status": "Delivered",
+    "shipped_date": "2025-02-23",
+    "tracking_number": "1Z999AA153947691",
+    "total_amount": 177.06
+  },
+  {
+    "order_id": "ORD-2025-0024",
+    "customer_id": "CUST-013",
+    "order_date": "2025-02-26",
+    "status": "Delivered",
+    "shipped_date": "2025-03-01",
+    "tracking_number": "1Z999AA151971886",
+    "total_amount": 131.93
+  },
+  {
+    "order_id": "ORD-2025-0025",
+    "customer_id": "CUST-018",
+    "order_date": "2025-03-01",
+    "status": "Delivered",
+    "shipped_date": "2025-03-02",
+    "tracking_number": "1Z999AA176876068",
+    "total_amount": 594.0
+  },
+  {
+    "order_id": "ORD-2025-0026",
+    "customer_id": "CUST-026",
+    "order_date": "2025-03-04",
+    "status": "Delivered",
+    "shipped_date": "2025-03-06",
+    "tracking_number": "1Z999AA176942394",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2025-0027",
+    "customer_id": "CUST-031",
+    "order_date": "2025-03-07",
+    "status": "Delivered",
+    "shipped_date": "2025-03-09",
+    "tracking_number": "1Z999AA113110670",
+    "total_amount": 138.0
+  },
+  {
+    "order_id": "ORD-2025-0028",
+    "customer_id": "CUST-019",
+    "order_date": "2025-03-10",
+    "status": "Cancelled",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 0.0
+  },
+  {
+    "order_id": "ORD-2025-0029",
+    "customer_id": "CUST-023",
+    "order_date": "2025-03-11",
+    "status": "Cancelled",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 0.0
+  },
+  {
+    "order_id": "ORD-2025-0030",
+    "customer_id": "CUST-035",
+    "order_date": "2025-10-18",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 240.11
+  },
+  {
+    "order_id": "ORD-2025-0031",
+    "customer_id": "CUST-002",
+    "order_date": "2025-10-17",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 1399.0
+  },
+  {
+    "order_id": "ORD-2025-0032",
+    "customer_id": "CUST-049",
+    "order_date": "2025-10-20",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 1528.0
+  },
+  {
+    "order_id": "ORD-2025-0033",
+    "customer_id": "CUST-039",
+    "order_date": "2025-03-31",
+    "status": "Cancelled",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 0.0
+  },
+  {
+    "order_id": "ORD-2025-0034",
+    "customer_id": "CUST-003",
+    "order_date": "2025-10-20",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 549.0
+  },
+  {
+    "order_id": "ORD-2025-0035",
+    "customer_id": "CUST-025",
+    "order_date": "2025-10-19",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 549.0
+  },
+  {
+    "order_id": "ORD-2025-0036",
+    "customer_id": "CUST-032",
+    "order_date": "2025-10-15",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 937.0
+  },
+  {
+    "order_id": "ORD-2025-0037",
+    "customer_id": "CUST-043",
+    "order_date": "2025-10-19",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 1045.0
+  },
+  {
+    "order_id": "ORD-2025-0038",
+    "customer_id": "CUST-002",
+    "order_date": "2025-10-16",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 1999.0
+  },
+  {
+    "order_id": "ORD-2025-0039",
+    "customer_id": "CUST-046",
+    "order_date": "2025-10-15",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 975.08
+  },
+  {
+    "order_id": "ORD-2025-0040",
+    "customer_id": "CUST-014",
+    "order_date": "2025-10-20",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 599.0
+  },
+  {
+    "order_id": "ORD-2025-0041",
+    "customer_id": "CUST-027",
+    "order_date": "2025-10-19",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 1444.0
+  },
+  {
+    "order_id": "ORD-2025-0042",
+    "customer_id": "CUST-033",
+    "order_date": "2025-10-19",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 949.63
+  },
+  {
+    "order_id": "ORD-2025-0043",
+    "customer_id": "CUST-032",
+    "order_date": "2025-10-16",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2025-0044",
+    "customer_id": "CUST-048",
+    "order_date": "2025-10-15",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 549.0
+  },
+  {
+    "order_id": "ORD-2025-0045",
+    "customer_id": "CUST-032",
+    "order_date": "2025-10-16",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 119.0
+  },
+  {
+    "order_id": "ORD-2025-0046",
+    "customer_id": "CUST-041",
+    "order_date": "2025-07-17",
+    "status": "Shipped",
+    "shipped_date": "2025-10-18",
+    "tracking_number": "1Z999AA179703656",
+    "total_amount": 218.0
+  },
+  {
+    "order_id": "ORD-2025-0047",
+    "customer_id": "CUST-019",
+    "order_date": "2025-07-17",
+    "status": "Shipped",
+    "shipped_date": "2025-10-19",
+    "tracking_number": "1Z999AA179190008",
+    "total_amount": 1278.0
+  },
+  {
+    "order_id": "ORD-2025-0048",
+    "customer_id": "CUST-001",
+    "order_date": "2025-07-22",
+    "status": "Shipped",
+    "shipped_date": "2025-10-17",
+    "tracking_number": "1Z999AA152752377",
+    "total_amount": 238.0
+  },
+  {
+    "order_id": "ORD-2025-0049",
+    "customer_id": "CUST-034",
+    "order_date": "2025-07-24",
+    "status": "Shipped",
+    "shipped_date": "2025-10-14",
+    "tracking_number": "1Z999AA150162553",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2025-0050",
+    "customer_id": "CUST-003",
+    "order_date": "2025-07-25",
+    "status": "Shipped",
+    "shipped_date": "2025-10-15",
+    "tracking_number": "1Z999AA178412668",
+    "total_amount": 124.24
+  },
+  {
+    "order_id": "ORD-2025-0051",
+    "customer_id": "CUST-023",
+    "order_date": "2025-07-29",
+    "status": "Shipped",
+    "shipped_date": "2025-10-15",
+    "tracking_number": "1Z999AA185554415",
+    "total_amount": 1999.0
+  },
+  {
+    "order_id": "ORD-2025-0052",
+    "customer_id": "CUST-022",
+    "order_date": "2025-07-29",
+    "status": "Shipped",
+    "shipped_date": "2025-10-17",
+    "tracking_number": "1Z999AA159440148",
+    "total_amount": 1199.0
+  },
+  {
+    "order_id": "ORD-2025-0053",
+    "customer_id": "CUST-037",
+    "order_date": "2025-07-30",
+    "status": "Shipped",
+    "shipped_date": "2025-10-13",
+    "tracking_number": "1Z999AA165907088",
+    "total_amount": 1010.0
+  },
+  {
+    "order_id": "ORD-2025-0054",
+    "customer_id": "CUST-041",
+    "order_date": "2025-08-01",
+    "status": "Shipped",
+    "shipped_date": "2025-10-18",
+    "tracking_number": "1Z999AA194457912",
+    "total_amount": 599.0
+  },
+  {
+    "order_id": "ORD-2025-0055",
+    "customer_id": "CUST-003",
+    "order_date": "2025-08-04",
+    "status": "Shipped",
+    "shipped_date": "2025-10-18",
+    "tracking_number": "1Z999AA145638891",
+    "total_amount": 228.0
+  },
+  {
+    "order_id": "ORD-2025-0056",
+    "customer_id": "CUST-032",
+    "order_date": "2025-08-05",
+    "status": "Shipped",
+    "shipped_date": "2025-10-16",
+    "tracking_number": "1Z999AA187528776",
+    "total_amount": 149.0
+  },
+  {
+    "order_id": "ORD-2025-0057",
+    "customer_id": "CUST-027",
+    "order_date": "2025-08-06",
+    "status": "Shipped",
+    "shipped_date": "2025-10-14",
+    "tracking_number": "1Z999AA188319168",
+    "total_amount": 99.0
+  },
+  {
+    "order_id": "ORD-2025-0058",
+    "customer_id": "CUST-004",
+    "order_date": "2025-08-07",
+    "status": "Shipped",
+    "shipped_date": "2025-10-14",
+    "tracking_number": "1Z999AA194426338",
+    "total_amount": 1399.0
+  },
+  {
+    "order_id": "ORD-2025-0059",
+    "customer_id": "CUST-017",
+    "order_date": "2025-08-07",
+    "status": "Shipped",
+    "shipped_date": "2025-10-17",
+    "tracking_number": "1Z999AA129834119",
+    "total_amount": 199.0
+  },
+  {
+    "order_id": "ORD-2025-0060",
+    "customer_id": "CUST-022",
+    "order_date": "2025-08-15",
+    "status": "Shipped",
+    "shipped_date": "2025-10-16",
+    "tracking_number": "1Z999AA114237322",
+    "total_amount": 1999.0
+  },
+  {
+    "order_id": "ORD-2025-0061",
+    "customer_id": "CUST-049",
+    "order_date": "2025-08-24",
+    "status": "Shipped",
+    "shipped_date": "2025-10-19",
+    "tracking_number": "1Z999AA124749927",
+    "total_amount": 899.0
+  },
+  {
+    "order_id": "ORD-2025-0062",
+    "customer_id": "CUST-009",
+    "order_date": "2025-08-24",
+    "status": "Shipped",
+    "shipped_date": "2025-10-17",
+    "tracking_number": "1Z999AA152103092",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2025-0063",
+    "customer_id": "CUST-046",
+    "order_date": "2025-08-26",
+    "status": "Shipped",
+    "shipped_date": "2025-10-14",
+    "tracking_number": "1Z999AA137365878",
+    "total_amount": 698.0
+  },
+  {
+    "order_id": "ORD-2025-0064",
+    "customer_id": "CUST-017",
+    "order_date": "2025-08-29",
+    "status": "Shipped",
+    "shipped_date": "2025-10-17",
+    "tracking_number": "1Z999AA173297813",
+    "total_amount": 399.0
+  },
+  {
+    "order_id": "ORD-2025-0065",
+    "customer_id": "CUST-020",
+    "order_date": "2025-08-29",
+    "status": "Shipped",
+    "shipped_date": "2025-10-19",
+    "tracking_number": "1Z999AA118359252",
+    "total_amount": 1109.0
+  },
+  {
+    "order_id": "ORD-2025-0066",
+    "customer_id": "CUST-046",
+    "order_date": "2025-08-29",
+    "status": "Shipped",
+    "shipped_date": "2025-10-17",
+    "tracking_number": "1Z999AA137828932",
+    "total_amount": 79.0
+  },
+  {
+    "order_id": "ORD-2025-0067",
+    "customer_id": "CUST-010",
+    "order_date": "2025-09-03",
+    "status": "Shipped",
+    "shipped_date": "2025-10-18",
+    "tracking_number": "1Z999AA174205866",
+    "total_amount": 677.0
+  },
+  {
+    "order_id": "ORD-2025-0068",
+    "customer_id": "CUST-006",
+    "order_date": "2025-09-05",
+    "status": "Shipped",
+    "shipped_date": "2025-10-13",
+    "tracking_number": "1Z999AA133244151",
+    "total_amount": 199.0
+  },
+  {
+    "order_id": "ORD-2025-0069",
+    "customer_id": "CUST-029",
+    "order_date": "2025-09-08",
+    "status": "Shipped",
+    "shipped_date": "2025-10-13",
+    "tracking_number": "1Z999AA155946354",
+    "total_amount": 129.0
+  },
+  {
+    "order_id": "ORD-2025-0070",
+    "customer_id": "CUST-025",
+    "order_date": "2025-09-21",
+    "status": "Shipped",
+    "shipped_date": "2025-10-17",
+    "tracking_number": "1Z999AA196343485",
+    "total_amount": 816.0
+  },
+  {
+    "order_id": "ORD-2025-0071",
+    "customer_id": "CUST-021",
+    "order_date": "2025-09-22",
+    "status": "Shipped",
+    "shipped_date": "2025-10-13",
+    "tracking_number": "1Z999AA191883092",
+    "total_amount": 99.0
+  },
+  {
+    "order_id": "ORD-2025-0072",
+    "customer_id": "CUST-026",
+    "order_date": "2025-09-24",
+    "status": "Shipped",
+    "shipped_date": "2025-10-16",
+    "tracking_number": "1Z999AA147447604",
+    "total_amount": 1003.02
+  },
+  {
+    "order_id": "ORD-2025-0073",
+    "customer_id": "CUST-006",
+    "order_date": "2025-09-25",
+    "status": "Shipped",
+    "shipped_date": "2025-10-16",
+    "tracking_number": "1Z999AA149945150",
+    "total_amount": 131.53
+  },
+  {
+    "order_id": "ORD-2025-0074",
+    "customer_id": "CUST-016",
+    "order_date": "2025-10-01",
+    "status": "Shipped",
+    "shipped_date": "2025-10-15",
+    "tracking_number": "1Z999AA137820354",
+    "total_amount": 249.0
+  },
+  {
+    "order_id": "ORD-2025-0075",
+    "customer_id": "CUST-024",
+    "order_date": "2025-10-13",
+    "status": "Shipped",
+    "shipped_date": "2025-10-15",
+    "tracking_number": "1Z999AA156815569",
+    "total_amount": 1778.0
+  },
+  {
+    "order_id": "ORD-2025-0076",
+    "customer_id": "CUST-019",
+    "order_date": "2025-10-18",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 119.0
+  },
+  {
+    "order_id": "ORD-2025-0077",
+    "customer_id": "CUST-003",
+    "order_date": "2025-10-20",
+    "status": "Processing",
+    "shipped_date": null,
+    "tracking_number": null,
+    "total_amount": 1399.0
+  }
+]

@@ -1,0 +1,178 @@
+[
+  {
+    "product_id": "TECH-LAP-001",
+    "name": "MacBook Air M2 (13-inch, 256GB)",
+    "category": "Laptops",
+    "price": 1199.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-LAP-002",
+    "name": "MacBook Pro M3 (14-inch, 512GB)",
+    "category": "Laptops",
+    "price": 1999.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-LAP-003",
+    "name": "Dell XPS 13 (Intel i7, 512GB)",
+    "category": "Laptops",
+    "price": 1399.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-LAP-004",
+    "name": "Lenovo ThinkPad X1 Carbon (Intel i7, 1TB)",
+    "category": "Laptops",
+    "price": 1699.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-LAP-005",
+    "name": "HP Pavilion 15 (AMD Ryzen 5, 256GB)",
+    "category": "Laptops",
+    "price": 899.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-MON-006",
+    "name": "Dell UltraSharp 27\" 4K Monitor",
+    "category": "Monitors",
+    "price": 549.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-MON-007",
+    "name": "LG 24\" 1080p Monitor",
+    "category": "Monitors",
+    "price": 199.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-MON-008",
+    "name": "Samsung 32\" Curved Gaming Monitor",
+    "category": "Monitors",
+    "price": 449.00,
+    "in_stock": 0
+  },
+  {
+    "product_id": "TECH-MON-009",
+    "name": "BenQ 27\" Designer Monitor (Color Accurate)",
+    "category": "Monitors",
+    "price": 599.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-KEY-010",
+    "name": "Apple Magic Keyboard",
+    "category": "Keyboards",
+    "price": 99.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-KEY-011",
+    "name": "Logitech MX Keys Wireless Keyboard",
+    "category": "Keyboards",
+    "price": 119.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-KEY-012",
+    "name": "Mechanical Gaming Keyboard (RGB, Cherry MX)",
+    "category": "Keyboards",
+    "price": 149.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-KEY-013",
+    "name": "Apple Magic Mouse",
+    "category": "Keyboards",
+    "price": 79.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-KEY-014",
+    "name": "Logitech MX Master 3S Mouse",
+    "category": "Keyboards",
+    "price": 99.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-KEY-015",
+    "name": "Wireless Mouse & Keyboard Combo",
+    "category": "Keyboards",
+    "price": 39.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-AUD-016",
+    "name": "Sony WH-1000XM5 Wireless Headphones",
+    "category": "Audio",
+    "price": 399.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-AUD-017",
+    "name": "AirPods Pro (2nd Generation)",
+    "category": "Audio",
+    "price": 249.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-AUD-018",
+    "name": "Blue Yeti USB Microphone",
+    "category": "Audio",
+    "price": 129.00,
+    "in_stock": 0
+  },
+  {
+    "product_id": "TECH-AUD-019",
+    "name": "Logitech USB Desktop Speakers",
+    "category": "Audio",
+    "price": 79.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-AUD-020",
+    "name": "JBL Flip 6 Bluetooth Speaker",
+    "category": "Audio",
+    "price": 129.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-ACC-021",
+    "name": "USB-C Hub (7-in-1, HDMI, USB-A, SD)",
+    "category": "Accessories",
+    "price": 49.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-ACC-022",
+    "name": "Aluminum Laptop Stand (Adjustable)",
+    "category": "Accessories",
+    "price": 45.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-ACC-023",
+    "name": "Logitech C920 Webcam (1080p)",
+    "category": "Accessories",
+    "price": 79.00,
+    "in_stock": 1
+  },
+  {
+    "product_id": "TECH-ACC-024",
+    "name": "Laptop Sleeve (13-15 inch, Water Resistant)",
+    "category": "Accessories",
+    "price": 29.00,
+    "in_stock": 0
+  },
+  {
+    "product_id": "TECH-ACC-025",
+    "name": "Cable Management Kit (10 pieces)",
+    "category": "Accessories",
+    "price": 19.00,
+    "in_stock": 1
+  }
+]
+

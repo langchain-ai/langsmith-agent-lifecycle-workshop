@@ -1,0 +1,453 @@
+[
+  {
+    "customer_id": "CUST-001",
+    "email": "sarah.chen@gmail.com",
+    "name": "Sarah Chen",
+    "phone": "415-555-0123",
+    "city": "San Francisco",
+    "state": "CA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-002",
+    "email": "marcus.johnson@yahoo.com",
+    "name": "Marcus Johnson",
+    "phone": "206-555-0147",
+    "city": "Seattle",
+    "state": "WA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-003",
+    "email": "priya.patel@icloud.com",
+    "name": "Priya Patel",
+    "phone": "503-555-0298",
+    "city": "Portland",
+    "state": "OR",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-004",
+    "email": "david.kim@gmail.com",
+    "name": "David Kim",
+    "phone": "510-555-0432",
+    "city": "Oakland",
+    "state": "CA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-005",
+    "email": "jessica.martinez@yahoo.com",
+    "name": "Jessica Martinez",
+    "phone": "619-555-0876",
+    "city": "San Diego",
+    "state": "CA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-006",
+    "email": "ahmed.hassan@gmail.com",
+    "name": "Ahmed Hassan",
+    "phone": "971-555-0234",
+    "city": "Portland",
+    "state": "OR",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-007",
+    "email": "emily.rodriguez@icloud.com",
+    "name": "Emily Rodriguez",
+    "phone": "213-555-0567",
+    "city": "Los Angeles",
+    "state": "CA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-008",
+    "email": "james.nguyen@yahoo.com",
+    "name": "James Nguyen",
+    "phone": "425-555-0789",
+    "city": "Bellevue",
+    "state": "WA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-009",
+    "email": "maria.santos@gmail.com",
+    "name": "Maria Santos",
+    "phone": "916-555-0345",
+    "city": "Sacramento",
+    "state": "CA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-010",
+    "email": "purchasing@techstartup.com",
+    "name": "Robert Chen",
+    "phone": "415-555-0999",
+    "city": "San Francisco",
+    "state": "CA",
+    "segment": "Corporate"
+  },
+  {
+    "customer_id": "CUST-011",
+    "email": "jennifer.wong@gmail.com",
+    "name": "Jennifer Wong",
+    "phone": "212-555-0123",
+    "city": "New York",
+    "state": "NY",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-012",
+    "email": "michael.oconnor@yahoo.com",
+    "name": "Michael O'Connor",
+    "phone": "617-555-0456",
+    "city": "Boston",
+    "state": "MA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-013",
+    "email": "aisha.williams@icloud.com",
+    "name": "Aisha Williams",
+    "phone": "215-555-0789",
+    "city": "Philadelphia",
+    "state": "PA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-014",
+    "email": "carlos.lopez@gmail.com",
+    "name": "Carlos Lopez",
+    "phone": "305-555-0234",
+    "city": "Miami",
+    "state": "FL",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-015",
+    "email": "rachel.goldstein@yahoo.com",
+    "name": "Rachel Goldstein",
+    "phone": "718-555-0567",
+    "city": "Brooklyn",
+    "state": "NY",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-016",
+    "email": "kevin.taylor@icloud.com",
+    "name": "Kevin Taylor",
+    "phone": "404-555-0890",
+    "city": "Atlanta",
+    "state": "GA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-017",
+    "email": "natasha.ivanova@gmail.com",
+    "name": "Natasha Ivanova",
+    "phone": "407-555-0123",
+    "city": "Orlando",
+    "state": "FL",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-018",
+    "email": "it.dept@lawfirm.com",
+    "name": "Thomas Anderson",
+    "phone": "212-555-0888",
+    "city": "New York",
+    "state": "NY",
+    "segment": "Corporate"
+  },
+  {
+    "customer_id": "CUST-019",
+    "email": "daniel.park@yahoo.com",
+    "name": "Daniel Park",
+    "phone": "412-555-0345",
+    "city": "Pittsburgh",
+    "state": "PA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-020",
+    "email": "procurement@consulting.com",
+    "name": "Lisa Thompson",
+    "phone": "617-555-0777",
+    "city": "Boston",
+    "state": "MA",
+    "segment": "Corporate"
+  },
+  {
+    "customer_id": "CUST-021",
+    "email": "amanda.brown@gmail.com",
+    "name": "Amanda Brown",
+    "phone": "312-555-0123",
+    "city": "Chicago",
+    "state": "IL",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-022",
+    "email": "tyrone.jackson@yahoo.com",
+    "name": "Tyrone Jackson",
+    "phone": "313-555-0456",
+    "city": "Detroit",
+    "state": "MI",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-023",
+    "email": "sophia.kowalski@icloud.com",
+    "name": "Sophia Kowalski",
+    "phone": "216-555-0789",
+    "city": "Cleveland",
+    "state": "OH",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-024",
+    "email": "brandon.lee@gmail.com",
+    "name": "Brandon Lee",
+    "phone": "612-555-0234",
+    "city": "Minneapolis",
+    "state": "MN",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-025",
+    "email": "olivia.anderson@yahoo.com",
+    "name": "Olivia Anderson",
+    "phone": "414-555-0567",
+    "city": "Milwaukee",
+    "state": "WI",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-026",
+    "email": "jamal.washington@icloud.com",
+    "name": "Jamal Washington",
+    "phone": "614-555-0890",
+    "city": "Columbus",
+    "state": "OH",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-027",
+    "email": "hannah.mueller@gmail.com",
+    "name": "Hannah Mueller",
+    "phone": "317-555-0123",
+    "city": "Indianapolis",
+    "state": "IN",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-028",
+    "email": "victor.ramirez@yahoo.com",
+    "name": "Victor Ramirez",
+    "phone": "773-555-0456",
+    "city": "Chicago",
+    "state": "IL",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-029",
+    "email": "maya.thompson@icloud.com",
+    "name": "Maya Thompson",
+    "phone": "651-555-0789",
+    "city": "St. Paul",
+    "state": "MN",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-030",
+    "email": "freelance.designer@gmail.com",
+    "name": "Elena Garcia",
+    "phone": "248-555-0345",
+    "city": "Detroit",
+    "state": "MI",
+    "segment": "Home Office"
+  },
+  {
+    "customer_id": "CUST-031",
+    "email": "william.davis@gmail.com",
+    "name": "William Davis",
+    "phone": "214-555-0123",
+    "city": "Dallas",
+    "state": "TX",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-032",
+    "email": "samantha.wright@yahoo.com",
+    "name": "Samantha Wright",
+    "phone": "919-555-0456",
+    "city": "Raleigh",
+    "state": "NC",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-033",
+    "email": "derek.johnson@icloud.com",
+    "name": "Derek Johnson",
+    "phone": "615-555-0789",
+    "city": "Nashville",
+    "state": "TN",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-034",
+    "email": "tiffany.nguyen@gmail.com",
+    "name": "Tiffany Nguyen",
+    "phone": "504-555-0234",
+    "city": "New Orleans",
+    "state": "LA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-035",
+    "email": "gregory.harris@yahoo.com",
+    "name": "Gregory Harris",
+    "phone": "512-555-0567",
+    "city": "Austin",
+    "state": "TX",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-036",
+    "email": "vanessa.mitchell@icloud.com",
+    "name": "Vanessa Mitchell",
+    "phone": "704-555-0890",
+    "city": "Charlotte",
+    "state": "NC",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-037",
+    "email": "it.admin@healthcare.com",
+    "name": "Patricia Moore",
+    "phone": "713-555-0777",
+    "city": "Houston",
+    "state": "TX",
+    "segment": "Corporate"
+  },
+  {
+    "customer_id": "CUST-038",
+    "email": "andre.williams@gmail.com",
+    "name": "Andre Williams",
+    "phone": "901-555-0123",
+    "city": "Memphis",
+    "state": "TN",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-039",
+    "email": "crystal.jones@yahoo.com",
+    "name": "Crystal Jones",
+    "phone": "225-555-0456",
+    "city": "Baton Rouge",
+    "state": "LA",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-040",
+    "email": "office.manager@realestate.com",
+    "name": "Steven Martinez",
+    "phone": "469-555-0888",
+    "city": "Dallas",
+    "state": "TX",
+    "segment": "Corporate"
+  },
+  {
+    "customer_id": "CUST-041",
+    "email": "isabella.fernandez@gmail.com",
+    "name": "Isabella Fernandez",
+    "phone": "602-555-0234",
+    "city": "Phoenix",
+    "state": "AZ",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-042",
+    "email": "nathan.cohen@yahoo.com",
+    "name": "Nathan Cohen",
+    "phone": "702-555-0567",
+    "city": "Las Vegas",
+    "state": "NV",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-043",
+    "email": "purchases@agency.com",
+    "name": "Michelle Robinson",
+    "phone": "303-555-0888",
+    "city": "Denver",
+    "state": "CO",
+    "segment": "Corporate"
+  },
+  {
+    "customer_id": "CUST-044",
+    "email": "ryan.smith@icloud.com",
+    "name": "Ryan Smith",
+    "phone": "801-555-0123",
+    "city": "Salt Lake City",
+    "state": "UT",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-045",
+    "email": "tech.lead@startup.com",
+    "name": "Angela Davis",
+    "phone": "512-555-0999",
+    "city": "Austin",
+    "state": "TX",
+    "segment": "Corporate"
+  },
+  {
+    "customer_id": "CUST-046",
+    "email": "brittany.moore@gmail.com",
+    "name": "Brittany Moore",
+    "phone": "503-555-0678",
+    "city": "Portland",
+    "state": "OR",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-047",
+    "email": "it.purchasing@finance.com",
+    "name": "Jonathan Taylor",
+    "phone": "206-555-0777",
+    "city": "Seattle",
+    "state": "WA",
+    "segment": "Corporate"
+  },
+  {
+    "customer_id": "CUST-048",
+    "email": "consultant.tech@gmail.com",
+    "name": "Rebecca Lin",
+    "phone": "650-555-0456",
+    "city": "Palo Alto",
+    "state": "CA",
+    "segment": "Home Office"
+  },
+  {
+    "customer_id": "CUST-049",
+    "email": "marcus.brown@yahoo.com",
+    "name": "Marcus Brown",
+    "phone": "313-555-0890",
+    "city": "Detroit",
+    "state": "MI",
+    "segment": "Consumer"
+  },
+  {
+    "customer_id": "CUST-050",
+    "email": "jennifer.kim@gmail.com",
+    "name": "Jennifer Kim",
+    "phone": "617-555-0999",
+    "city": "Boston",
+    "state": "MA",
+    "segment": "Consumer"
+  }
+]
+

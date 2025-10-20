@@ -1,0 +1,3075 @@
+[
+  {
+    "order_item_id": 1,
+    "order_id": "ORD-2023-0001",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 2,
+    "order_id": "ORD-2023-0002",
+    "product_id": "TECH-AUD-016",
+    "quantity": 1,
+    "price_per_unit": 399.0
+  },
+  {
+    "order_item_id": 3,
+    "order_id": "ORD-2023-0002",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 4,
+    "order_id": "ORD-2023-0002",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 5,
+    "order_id": "ORD-2023-0003",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 6,
+    "order_id": "ORD-2023-0004",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 7,
+    "order_id": "ORD-2023-0004",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.3
+  },
+  {
+    "order_item_id": 8,
+    "order_id": "ORD-2023-0004",
+    "product_id": "TECH-KEY-014",
+    "quantity": 2,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 9,
+    "order_id": "ORD-2023-0005",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 449.0
+  },
+  {
+    "order_item_id": 10,
+    "order_id": "ORD-2023-0005",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 11,
+    "order_id": "ORD-2023-0005",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 12,
+    "order_id": "ORD-2023-0005",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 13,
+    "order_id": "ORD-2023-0006",
+    "product_id": "TECH-ACC-021",
+    "quantity": 1,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 14,
+    "order_id": "ORD-2023-0006",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 449.0
+  },
+  {
+    "order_item_id": 15,
+    "order_id": "ORD-2023-0006",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 16,
+    "order_id": "ORD-2023-0006",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 17,
+    "order_id": "ORD-2023-0006",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 18,
+    "order_id": "ORD-2023-0007",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 127.73
+  },
+  {
+    "order_item_id": 19,
+    "order_id": "ORD-2023-0007",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 20,
+    "order_id": "ORD-2023-0007",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 2012.43
+  },
+  {
+    "order_item_id": 21,
+    "order_id": "ORD-2023-0007",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 22,
+    "order_id": "ORD-2023-0007",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 23,
+    "order_id": "ORD-2023-0008",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 24,
+    "order_id": "ORD-2023-0009",
+    "product_id": "TECH-MON-009",
+    "quantity": 2,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 25,
+    "order_id": "ORD-2023-0009",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 26,
+    "order_id": "ORD-2023-0009",
+    "product_id": "TECH-KEY-011",
+    "quantity": 3,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 27,
+    "order_id": "ORD-2023-0010",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 28,
+    "order_id": "ORD-2023-0010",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.29
+  },
+  {
+    "order_item_id": 29,
+    "order_id": "ORD-2023-0011",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 30,
+    "order_id": "ORD-2023-0011",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 31,
+    "order_id": "ORD-2023-0012",
+    "product_id": "TECH-ACC-023",
+    "quantity": 2,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 32,
+    "order_id": "ORD-2023-0013",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 33,
+    "order_id": "ORD-2023-0013",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 34,
+    "order_id": "ORD-2023-0013",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 35,
+    "order_id": "ORD-2023-0014",
+    "product_id": "TECH-MON-006",
+    "quantity": 2,
+    "price_per_unit": 538.43
+  },
+  {
+    "order_item_id": 36,
+    "order_id": "ORD-2023-0014",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 155.66
+  },
+  {
+    "order_item_id": 37,
+    "order_id": "ORD-2023-0015",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 38,
+    "order_id": "ORD-2023-0015",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 868.89
+  },
+  {
+    "order_item_id": 39,
+    "order_id": "ORD-2023-0016",
+    "product_id": "TECH-ACC-022",
+    "quantity": 2,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 40,
+    "order_id": "ORD-2023-0016",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 41,
+    "order_id": "ORD-2023-0016",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 42,
+    "order_id": "ORD-2023-0016",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 43,
+    "order_id": "ORD-2023-0016",
+    "product_id": "TECH-ACC-021",
+    "quantity": 1,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 44,
+    "order_id": "ORD-2023-0017",
+    "product_id": "TECH-AUD-016",
+    "quantity": 1,
+    "price_per_unit": 399.0
+  },
+  {
+    "order_item_id": 45,
+    "order_id": "ORD-2023-0017",
+    "product_id": "TECH-MON-009",
+    "quantity": 2,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 46,
+    "order_id": "ORD-2023-0017",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 47,
+    "order_id": "ORD-2023-0017",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 48,
+    "order_id": "ORD-2023-0018",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 572.29
+  },
+  {
+    "order_item_id": 49,
+    "order_id": "ORD-2023-0018",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 50,
+    "order_id": "ORD-2023-0019",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 51,
+    "order_id": "ORD-2023-0020",
+    "product_id": "TECH-LAP-004",
+    "quantity": 1,
+    "price_per_unit": 1699.0
+  },
+  {
+    "order_item_id": 52,
+    "order_id": "ORD-2023-0021",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 53,
+    "order_id": "ORD-2023-0022",
+    "product_id": "TECH-ACC-022",
+    "quantity": 2,
+    "price_per_unit": 43.49
+  },
+  {
+    "order_item_id": 54,
+    "order_id": "ORD-2023-0022",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 449.0
+  },
+  {
+    "order_item_id": 55,
+    "order_id": "ORD-2023-0022",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.54
+  },
+  {
+    "order_item_id": 56,
+    "order_id": "ORD-2023-0022",
+    "product_id": "TECH-ACC-021",
+    "quantity": 1,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 57,
+    "order_id": "ORD-2023-0023",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 549.0
+  },
+  {
+    "order_item_id": 58,
+    "order_id": "ORD-2023-0024",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 59,
+    "order_id": "ORD-2023-0024",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 37.66
+  },
+  {
+    "order_item_id": 60,
+    "order_id": "ORD-2023-0025",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 61,
+    "order_id": "ORD-2023-0025",
+    "product_id": "TECH-ACC-024",
+    "quantity": 2,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 62,
+    "order_id": "ORD-2023-0025",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 63,
+    "order_id": "ORD-2023-0026",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 64,
+    "order_id": "ORD-2023-0027",
+    "product_id": "TECH-AUD-017",
+    "quantity": 1,
+    "price_per_unit": 249.0
+  },
+  {
+    "order_item_id": 65,
+    "order_id": "ORD-2023-0028",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 449.0
+  },
+  {
+    "order_item_id": 66,
+    "order_id": "ORD-2023-0028",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 67,
+    "order_id": "ORD-2023-0029",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 68,
+    "order_id": "ORD-2023-0030",
+    "product_id": "TECH-AUD-018",
+    "quantity": 2,
+    "price_per_unit": 129.37
+  },
+  {
+    "order_item_id": 69,
+    "order_id": "ORD-2023-0030",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 70,
+    "order_id": "ORD-2023-0030",
+    "product_id": "TECH-AUD-019",
+    "quantity": 2,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 71,
+    "order_id": "ORD-2023-0030",
+    "product_id": "TECH-KEY-010",
+    "quantity": 3,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 72,
+    "order_id": "ORD-2023-0030",
+    "product_id": "TECH-ACC-024",
+    "quantity": 3,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 73,
+    "order_id": "ORD-2023-0031",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 74,
+    "order_id": "ORD-2023-0032",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 549.0
+  },
+  {
+    "order_item_id": 75,
+    "order_id": "ORD-2023-0033",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 76,
+    "order_id": "ORD-2023-0033",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 77,
+    "order_id": "ORD-2023-0034",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 78,
+    "order_id": "ORD-2023-0035",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 79,
+    "order_id": "ORD-2024-0001",
+    "product_id": "TECH-AUD-016",
+    "quantity": 1,
+    "price_per_unit": 399.0
+  },
+  {
+    "order_item_id": 80,
+    "order_id": "ORD-2024-0001",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 81,
+    "order_id": "ORD-2024-0001",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 28.73
+  },
+  {
+    "order_item_id": 82,
+    "order_id": "ORD-2024-0002",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 83,
+    "order_id": "ORD-2024-0002",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 84,
+    "order_id": "ORD-2024-0002",
+    "product_id": "TECH-ACC-024",
+    "quantity": 2,
+    "price_per_unit": 30.06
+  },
+  {
+    "order_item_id": 85,
+    "order_id": "ORD-2024-0003",
+    "product_id": "TECH-AUD-016",
+    "quantity": 1,
+    "price_per_unit": 399.0
+  },
+  {
+    "order_item_id": 86,
+    "order_id": "ORD-2024-0004",
+    "product_id": "TECH-LAP-004",
+    "quantity": 1,
+    "price_per_unit": 1762.09
+  },
+  {
+    "order_item_id": 87,
+    "order_id": "ORD-2024-0004",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 88,
+    "order_id": "ORD-2024-0004",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 89,
+    "order_id": "ORD-2024-0005",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 77.67
+  },
+  {
+    "order_item_id": 90,
+    "order_id": "ORD-2024-0005",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 91,
+    "order_id": "ORD-2024-0005",
+    "product_id": "TECH-ACC-025",
+    "quantity": 2,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 92,
+    "order_id": "ORD-2024-0006",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 93,
+    "order_id": "ORD-2024-0007",
+    "product_id": "TECH-ACC-021",
+    "quantity": 1,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 94,
+    "order_id": "ORD-2024-0008",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.38
+  },
+  {
+    "order_item_id": 95,
+    "order_id": "ORD-2024-0009",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 96,
+    "order_id": "ORD-2024-0010",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 449.0
+  },
+  {
+    "order_item_id": 97,
+    "order_id": "ORD-2024-0010",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 98,
+    "order_id": "ORD-2024-0011",
+    "product_id": "TECH-LAP-004",
+    "quantity": 1,
+    "price_per_unit": 1699.0
+  },
+  {
+    "order_item_id": 99,
+    "order_id": "ORD-2024-0012",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 100,
+    "order_id": "ORD-2024-0012",
+    "product_id": "TECH-ACC-021",
+    "quantity": 2,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 101,
+    "order_id": "ORD-2024-0012",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 102,
+    "order_id": "ORD-2024-0013",
+    "product_id": "TECH-AUD-017",
+    "quantity": 1,
+    "price_per_unit": 249.0
+  },
+  {
+    "order_item_id": 103,
+    "order_id": "ORD-2024-0014",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 104,
+    "order_id": "ORD-2024-0015",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 105,
+    "order_id": "ORD-2024-0015",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 106,
+    "order_id": "ORD-2024-0016",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 107,
+    "order_id": "ORD-2024-0017",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1242.22
+  },
+  {
+    "order_item_id": 108,
+    "order_id": "ORD-2024-0018",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 109,
+    "order_id": "ORD-2024-0018",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 110,
+    "order_id": "ORD-2024-0019",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 130.23
+  },
+  {
+    "order_item_id": 111,
+    "order_id": "ORD-2024-0020",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 112,
+    "order_id": "ORD-2024-0020",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 113,
+    "order_id": "ORD-2024-0021",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 114,
+    "order_id": "ORD-2024-0022",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 115,
+    "order_id": "ORD-2024-0022",
+    "product_id": "TECH-ACC-025",
+    "quantity": 2,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 116,
+    "order_id": "ORD-2024-0022",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 117,
+    "order_id": "ORD-2024-0023",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 118,
+    "order_id": "ORD-2024-0024",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 94.24
+  },
+  {
+    "order_item_id": 119,
+    "order_id": "ORD-2024-0025",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 120,
+    "order_id": "ORD-2024-0025",
+    "product_id": "TECH-KEY-014",
+    "quantity": 2,
+    "price_per_unit": 98.88
+  },
+  {
+    "order_item_id": 121,
+    "order_id": "ORD-2024-0026",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 122,
+    "order_id": "ORD-2024-0027",
+    "product_id": "TECH-AUD-017",
+    "quantity": 1,
+    "price_per_unit": 249.0
+  },
+  {
+    "order_item_id": 123,
+    "order_id": "ORD-2024-0027",
+    "product_id": "TECH-AUD-019",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 124,
+    "order_id": "ORD-2024-0028",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 125,
+    "order_id": "ORD-2024-0029",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 126,
+    "order_id": "ORD-2024-0030",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 127,
+    "order_id": "ORD-2024-0031",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 128,
+    "order_id": "ORD-2024-0031",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 129,
+    "order_id": "ORD-2024-0032",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 130,
+    "order_id": "ORD-2024-0032",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 131,
+    "order_id": "ORD-2024-0032",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 132,
+    "order_id": "ORD-2024-0033",
+    "product_id": "TECH-AUD-016",
+    "quantity": 1,
+    "price_per_unit": 399.0
+  },
+  {
+    "order_item_id": 133,
+    "order_id": "ORD-2024-0034",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1184.05
+  },
+  {
+    "order_item_id": 134,
+    "order_id": "ORD-2024-0034",
+    "product_id": "TECH-ACC-025",
+    "quantity": 2,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 135,
+    "order_id": "ORD-2024-0034",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 136,
+    "order_id": "ORD-2024-0034",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 76.97
+  },
+  {
+    "order_item_id": 137,
+    "order_id": "ORD-2024-0035",
+    "product_id": "TECH-AUD-016",
+    "quantity": 1,
+    "price_per_unit": 399.0
+  },
+  {
+    "order_item_id": 138,
+    "order_id": "ORD-2024-0035",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 139,
+    "order_id": "ORD-2024-0035",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 140,
+    "order_id": "ORD-2024-0036",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 141,
+    "order_id": "ORD-2024-0037",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 142,
+    "order_id": "ORD-2024-0037",
+    "product_id": "TECH-KEY-011",
+    "quantity": 2,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 143,
+    "order_id": "ORD-2024-0037",
+    "product_id": "TECH-KEY-013",
+    "quantity": 3,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 144,
+    "order_id": "ORD-2024-0038",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 145,
+    "order_id": "ORD-2024-0039",
+    "product_id": "TECH-LAP-004",
+    "quantity": 1,
+    "price_per_unit": 1699.0
+  },
+  {
+    "order_item_id": 146,
+    "order_id": "ORD-2024-0039",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 147,
+    "order_id": "ORD-2024-0040",
+    "product_id": "TECH-AUD-017",
+    "quantity": 1,
+    "price_per_unit": 249.0
+  },
+  {
+    "order_item_id": 148,
+    "order_id": "ORD-2024-0041",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 149,
+    "order_id": "ORD-2024-0042",
+    "product_id": "TECH-AUD-019",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 150,
+    "order_id": "ORD-2024-0043",
+    "product_id": "TECH-AUD-019",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 151,
+    "order_id": "ORD-2024-0043",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 152,
+    "order_id": "ORD-2024-0044",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 153,
+    "order_id": "ORD-2024-0045",
+    "product_id": "TECH-KEY-012",
+    "quantity": 2,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 154,
+    "order_id": "ORD-2024-0045",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 155,
+    "order_id": "ORD-2024-0046",
+    "product_id": "TECH-AUD-017",
+    "quantity": 1,
+    "price_per_unit": 249.0
+  },
+  {
+    "order_item_id": 156,
+    "order_id": "ORD-2024-0047",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 157,
+    "order_id": "ORD-2024-0048",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 158,
+    "order_id": "ORD-2024-0048",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.42
+  },
+  {
+    "order_item_id": 159,
+    "order_id": "ORD-2024-0048",
+    "product_id": "TECH-KEY-015",
+    "quantity": 2,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 160,
+    "order_id": "ORD-2024-0049",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 161,
+    "order_id": "ORD-2024-0050",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 162,
+    "order_id": "ORD-2024-0050",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 163,
+    "order_id": "ORD-2024-0050",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 164,
+    "order_id": "ORD-2024-0050",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 165,
+    "order_id": "ORD-2024-0051",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 166,
+    "order_id": "ORD-2024-0052",
+    "product_id": "TECH-MON-009",
+    "quantity": 2,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 167,
+    "order_id": "ORD-2024-0052",
+    "product_id": "TECH-KEY-012",
+    "quantity": 2,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 168,
+    "order_id": "ORD-2024-0052",
+    "product_id": "TECH-KEY-014",
+    "quantity": 2,
+    "price_per_unit": 96.11
+  },
+  {
+    "order_item_id": 169,
+    "order_id": "ORD-2024-0053",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 170,
+    "order_id": "ORD-2024-0054",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 171,
+    "order_id": "ORD-2024-0055",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 449.0
+  },
+  {
+    "order_item_id": 172,
+    "order_id": "ORD-2024-0056",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 173,
+    "order_id": "ORD-2024-0057",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 174,
+    "order_id": "ORD-2024-0058",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 175,
+    "order_id": "ORD-2024-0058",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 176,
+    "order_id": "ORD-2024-0058",
+    "product_id": "TECH-KEY-015",
+    "quantity": 2,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 177,
+    "order_id": "ORD-2024-0059",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 178,
+    "order_id": "ORD-2024-0060",
+    "product_id": "TECH-AUD-016",
+    "quantity": 1,
+    "price_per_unit": 405.87
+  },
+  {
+    "order_item_id": 179,
+    "order_id": "ORD-2024-0060",
+    "product_id": "TECH-AUD-017",
+    "quantity": 1,
+    "price_per_unit": 249.0
+  },
+  {
+    "order_item_id": 180,
+    "order_id": "ORD-2024-0061",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 870.37
+  },
+  {
+    "order_item_id": 181,
+    "order_id": "ORD-2024-0061",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 182,
+    "order_id": "ORD-2024-0062",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 77.66
+  },
+  {
+    "order_item_id": 183,
+    "order_id": "ORD-2024-0062",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 184,
+    "order_id": "ORD-2024-0062",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 185,
+    "order_id": "ORD-2024-0062",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 102.1
+  },
+  {
+    "order_item_id": 186,
+    "order_id": "ORD-2024-0062",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 187,
+    "order_id": "ORD-2024-0063",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 543.74
+  },
+  {
+    "order_item_id": 188,
+    "order_id": "ORD-2024-0064",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 189,
+    "order_id": "ORD-2024-0064",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 190,
+    "order_id": "ORD-2024-0065",
+    "product_id": "TECH-KEY-011",
+    "quantity": 3,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 191,
+    "order_id": "ORD-2024-0065",
+    "product_id": "TECH-KEY-013",
+    "quantity": 2,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 192,
+    "order_id": "ORD-2024-0065",
+    "product_id": "TECH-KEY-012",
+    "quantity": 3,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 193,
+    "order_id": "ORD-2024-0066",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1152.65
+  },
+  {
+    "order_item_id": 194,
+    "order_id": "ORD-2024-0066",
+    "product_id": "TECH-KEY-014",
+    "quantity": 3,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 195,
+    "order_id": "ORD-2024-0066",
+    "product_id": "TECH-ACC-021",
+    "quantity": 1,
+    "price_per_unit": 47.98
+  },
+  {
+    "order_item_id": 196,
+    "order_id": "ORD-2024-0067",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 197,
+    "order_id": "ORD-2024-0068",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 198,
+    "order_id": "ORD-2024-0069",
+    "product_id": "TECH-AUD-019",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 199,
+    "order_id": "ORD-2024-0070",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 200,
+    "order_id": "ORD-2024-0070",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 201,
+    "order_id": "ORD-2024-0070",
+    "product_id": "TECH-KEY-014",
+    "quantity": 2,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 202,
+    "order_id": "ORD-2024-0071",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 203,
+    "order_id": "ORD-2024-0071",
+    "product_id": "TECH-LAP-004",
+    "quantity": 1,
+    "price_per_unit": 1699.0
+  },
+  {
+    "order_item_id": 204,
+    "order_id": "ORD-2024-0071",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 205,
+    "order_id": "ORD-2024-0072",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 883.9
+  },
+  {
+    "order_item_id": 206,
+    "order_id": "ORD-2024-0073",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 207,
+    "order_id": "ORD-2024-0073",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 208,
+    "order_id": "ORD-2024-0073",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 209,
+    "order_id": "ORD-2024-0074",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 210,
+    "order_id": "ORD-2024-0075",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 18.98
+  },
+  {
+    "order_item_id": 211,
+    "order_id": "ORD-2024-0075",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 549.0
+  },
+  {
+    "order_item_id": 212,
+    "order_id": "ORD-2024-0076",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 132.18
+  },
+  {
+    "order_item_id": 213,
+    "order_id": "ORD-2024-0077",
+    "product_id": "TECH-AUD-016",
+    "quantity": 1,
+    "price_per_unit": 399.0
+  },
+  {
+    "order_item_id": 214,
+    "order_id": "ORD-2024-0077",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 215,
+    "order_id": "ORD-2024-0077",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 216,
+    "order_id": "ORD-2024-0077",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 217,
+    "order_id": "ORD-2024-0077",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 218,
+    "order_id": "ORD-2024-0078",
+    "product_id": "TECH-LAP-004",
+    "quantity": 1,
+    "price_per_unit": 1699.0
+  },
+  {
+    "order_item_id": 219,
+    "order_id": "ORD-2024-0079",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 220,
+    "order_id": "ORD-2024-0080",
+    "product_id": "TECH-AUD-019",
+    "quantity": 1,
+    "price_per_unit": 80.4
+  },
+  {
+    "order_item_id": 221,
+    "order_id": "ORD-2024-0081",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.36
+  },
+  {
+    "order_item_id": 222,
+    "order_id": "ORD-2024-0082",
+    "product_id": "TECH-LAP-004",
+    "quantity": 1,
+    "price_per_unit": 1699.0
+  },
+  {
+    "order_item_id": 223,
+    "order_id": "ORD-2024-0082",
+    "product_id": "TECH-KEY-015",
+    "quantity": 2,
+    "price_per_unit": 38.2
+  },
+  {
+    "order_item_id": 224,
+    "order_id": "ORD-2024-0082",
+    "product_id": "TECH-ACC-021",
+    "quantity": 3,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 225,
+    "order_id": "ORD-2024-0083",
+    "product_id": "TECH-ACC-021",
+    "quantity": 2,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 226,
+    "order_id": "ORD-2024-0084",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 227,
+    "order_id": "ORD-2024-0084",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 228,
+    "order_id": "ORD-2024-0085",
+    "product_id": "TECH-ACC-021",
+    "quantity": 1,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 229,
+    "order_id": "ORD-2024-0085",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 449.0
+  },
+  {
+    "order_item_id": 230,
+    "order_id": "ORD-2024-0086",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 231,
+    "order_id": "ORD-2024-0087",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 44.92
+  },
+  {
+    "order_item_id": 232,
+    "order_id": "ORD-2024-0088",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 529.28
+  },
+  {
+    "order_item_id": 233,
+    "order_id": "ORD-2024-0088",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 81.85
+  },
+  {
+    "order_item_id": 234,
+    "order_id": "ORD-2024-0089",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 235,
+    "order_id": "ORD-2024-0089",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 236,
+    "order_id": "ORD-2024-0089",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 237,
+    "order_id": "ORD-2024-0089",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 238,
+    "order_id": "ORD-2024-0089",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 239,
+    "order_id": "ORD-2024-0090",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 240,
+    "order_id": "ORD-2024-0091",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 241,
+    "order_id": "ORD-2024-0091",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 242,
+    "order_id": "ORD-2024-0091",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 243,
+    "order_id": "ORD-2024-0092",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 244,
+    "order_id": "ORD-2024-0093",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 245,
+    "order_id": "ORD-2024-0093",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 246,
+    "order_id": "ORD-2024-0094",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 247,
+    "order_id": "ORD-2024-0094",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 549.0
+  },
+  {
+    "order_item_id": 248,
+    "order_id": "ORD-2024-0095",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 130.87
+  },
+  {
+    "order_item_id": 249,
+    "order_id": "ORD-2024-0096",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1237.87
+  },
+  {
+    "order_item_id": 250,
+    "order_id": "ORD-2024-0097",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 251,
+    "order_id": "ORD-2024-0097",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 252,
+    "order_id": "ORD-2024-0098",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 253,
+    "order_id": "ORD-2024-0098",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 254,
+    "order_id": "ORD-2024-0099",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.6
+  },
+  {
+    "order_item_id": 255,
+    "order_id": "ORD-2024-0099",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 256,
+    "order_id": "ORD-2024-0100",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 257,
+    "order_id": "ORD-2024-0100",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 258,
+    "order_id": "ORD-2024-0101",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 259,
+    "order_id": "ORD-2024-0102",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 260,
+    "order_id": "ORD-2024-0102",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 261,
+    "order_id": "ORD-2024-0103",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 262,
+    "order_id": "ORD-2024-0103",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.66
+  },
+  {
+    "order_item_id": 263,
+    "order_id": "ORD-2024-0103",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 264,
+    "order_id": "ORD-2024-0104",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 265,
+    "order_id": "ORD-2024-0105",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 266,
+    "order_id": "ORD-2024-0106",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 267,
+    "order_id": "ORD-2024-0107",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 268,
+    "order_id": "ORD-2024-0108",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 449.0
+  },
+  {
+    "order_item_id": 269,
+    "order_id": "ORD-2024-0108",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.73
+  },
+  {
+    "order_item_id": 270,
+    "order_id": "ORD-2024-0109",
+    "product_id": "TECH-AUD-016",
+    "quantity": 1,
+    "price_per_unit": 399.0
+  },
+  {
+    "order_item_id": 271,
+    "order_id": "ORD-2024-0110",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 272,
+    "order_id": "ORD-2024-0110",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 273,
+    "order_id": "ORD-2024-0111",
+    "product_id": "TECH-AUD-019",
+    "quantity": 1,
+    "price_per_unit": 80.75
+  },
+  {
+    "order_item_id": 274,
+    "order_id": "ORD-2024-0112",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 275,
+    "order_id": "ORD-2024-0112",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 276,
+    "order_id": "ORD-2024-0113",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 277,
+    "order_id": "ORD-2024-0114",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 278,
+    "order_id": "ORD-2024-0114",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 279,
+    "order_id": "ORD-2024-0115",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 442.31
+  },
+  {
+    "order_item_id": 280,
+    "order_id": "ORD-2024-0116",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 281,
+    "order_id": "ORD-2024-0116",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 94.96
+  },
+  {
+    "order_item_id": 282,
+    "order_id": "ORD-2024-0116",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 283,
+    "order_id": "ORD-2024-0117",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 449.0
+  },
+  {
+    "order_item_id": 284,
+    "order_id": "ORD-2024-0118",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 285,
+    "order_id": "ORD-2024-0118",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 286,
+    "order_id": "ORD-2024-0119",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 287,
+    "order_id": "ORD-2024-0119",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 288,
+    "order_id": "ORD-2024-0120",
+    "product_id": "TECH-LAP-004",
+    "quantity": 1,
+    "price_per_unit": 1699.0
+  },
+  {
+    "order_item_id": 289,
+    "order_id": "ORD-2024-0120",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 290,
+    "order_id": "ORD-2024-0121",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 549.0
+  },
+  {
+    "order_item_id": 291,
+    "order_id": "ORD-2024-0122",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 292,
+    "order_id": "ORD-2024-0122",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 293,
+    "order_id": "ORD-2024-0123",
+    "product_id": "TECH-AUD-020",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 294,
+    "order_id": "ORD-2024-0124",
+    "product_id": "TECH-ACC-021",
+    "quantity": 1,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 295,
+    "order_id": "ORD-2024-0125",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 296,
+    "order_id": "ORD-2024-0125",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.46
+  },
+  {
+    "order_item_id": 297,
+    "order_id": "ORD-2024-0125",
+    "product_id": "TECH-KEY-013",
+    "quantity": 2,
+    "price_per_unit": 75.75
+  },
+  {
+    "order_item_id": 298,
+    "order_id": "ORD-2024-0125",
+    "product_id": "TECH-KEY-012",
+    "quantity": 2,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 299,
+    "order_id": "ORD-2024-0126",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 449.0
+  },
+  {
+    "order_item_id": 300,
+    "order_id": "ORD-2024-0127",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 301,
+    "order_id": "ORD-2024-0127",
+    "product_id": "TECH-ACC-022",
+    "quantity": 2,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 302,
+    "order_id": "ORD-2024-0128",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 303,
+    "order_id": "ORD-2024-0129",
+    "product_id": "TECH-AUD-017",
+    "quantity": 1,
+    "price_per_unit": 249.0
+  },
+  {
+    "order_item_id": 304,
+    "order_id": "ORD-2024-0129",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 305,
+    "order_id": "ORD-2024-0130",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 306,
+    "order_id": "ORD-2024-0130",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 549.0
+  },
+  {
+    "order_item_id": 307,
+    "order_id": "ORD-2024-0131",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 308,
+    "order_id": "ORD-2024-0131",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 309,
+    "order_id": "ORD-2024-0132",
+    "product_id": "TECH-KEY-010",
+    "quantity": 2,
+    "price_per_unit": 94.94
+  },
+  {
+    "order_item_id": 310,
+    "order_id": "ORD-2024-0133",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 38.8
+  },
+  {
+    "order_item_id": 311,
+    "order_id": "ORD-2024-0134",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 118.41
+  },
+  {
+    "order_item_id": 312,
+    "order_id": "ORD-2024-0135",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 2003.81
+  },
+  {
+    "order_item_id": 313,
+    "order_id": "ORD-2024-0135",
+    "product_id": "TECH-ACC-021",
+    "quantity": 1,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 314,
+    "order_id": "ORD-2024-0135",
+    "product_id": "TECH-ACC-022",
+    "quantity": 2,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 315,
+    "order_id": "ORD-2024-0135",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 316,
+    "order_id": "ORD-2024-0135",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 317,
+    "order_id": "ORD-2024-0136",
+    "product_id": "TECH-LAP-004",
+    "quantity": 1,
+    "price_per_unit": 1699.0
+  },
+  {
+    "order_item_id": 318,
+    "order_id": "ORD-2024-0137",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 116.74
+  },
+  {
+    "order_item_id": 319,
+    "order_id": "ORD-2024-0138",
+    "product_id": "TECH-AUD-016",
+    "quantity": 1,
+    "price_per_unit": 399.0
+  },
+  {
+    "order_item_id": 320,
+    "order_id": "ORD-2025-0001",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 321,
+    "order_id": "ORD-2025-0001",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 322,
+    "order_id": "ORD-2025-0001",
+    "product_id": "TECH-KEY-013",
+    "quantity": 3,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 323,
+    "order_id": "ORD-2025-0002",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 43.21
+  },
+  {
+    "order_item_id": 324,
+    "order_id": "ORD-2025-0003",
+    "product_id": "TECH-ACC-025",
+    "quantity": 1,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 325,
+    "order_id": "ORD-2025-0003",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 326,
+    "order_id": "ORD-2025-0004",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1414.47
+  },
+  {
+    "order_item_id": 327,
+    "order_id": "ORD-2025-0004",
+    "product_id": "TECH-ACC-024",
+    "quantity": 1,
+    "price_per_unit": 29.0
+  },
+  {
+    "order_item_id": 328,
+    "order_id": "ORD-2025-0005",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 580.67
+  },
+  {
+    "order_item_id": 329,
+    "order_id": "ORD-2025-0006",
+    "product_id": "TECH-LAP-004",
+    "quantity": 2,
+    "price_per_unit": 1750.18
+  },
+  {
+    "order_item_id": 330,
+    "order_id": "ORD-2025-0006",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 331,
+    "order_id": "ORD-2025-0007",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 332,
+    "order_id": "ORD-2025-0007",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 333,
+    "order_id": "ORD-2025-0007",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 334,
+    "order_id": "ORD-2025-0008",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 2085.05
+  },
+  {
+    "order_item_id": 335,
+    "order_id": "ORD-2025-0008",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 336,
+    "order_id": "ORD-2025-0009",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 337,
+    "order_id": "ORD-2025-0010",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 338,
+    "order_id": "ORD-2025-0011",
+    "product_id": "TECH-AUD-019",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 339,
+    "order_id": "ORD-2025-0012",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 340,
+    "order_id": "ORD-2025-0013",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 341,
+    "order_id": "ORD-2025-0013",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 342,
+    "order_id": "ORD-2025-0014",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 343,
+    "order_id": "ORD-2025-0015",
+    "product_id": "TECH-AUD-019",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 344,
+    "order_id": "ORD-2025-0016",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 345,
+    "order_id": "ORD-2025-0016",
+    "product_id": "TECH-KEY-012",
+    "quantity": 2,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 346,
+    "order_id": "ORD-2025-0016",
+    "product_id": "TECH-KEY-013",
+    "quantity": 2,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 347,
+    "order_id": "ORD-2025-0017",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 348,
+    "order_id": "ORD-2025-0018",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 349,
+    "order_id": "ORD-2025-0019",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 350,
+    "order_id": "ORD-2025-0020",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 351,
+    "order_id": "ORD-2025-0020",
+    "product_id": "TECH-AUD-019",
+    "quantity": 1,
+    "price_per_unit": 76.43
+  },
+  {
+    "order_item_id": 352,
+    "order_id": "ORD-2025-0021",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 353,
+    "order_id": "ORD-2025-0021",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 354,
+    "order_id": "ORD-2025-0021",
+    "product_id": "TECH-KEY-010",
+    "quantity": 3,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 355,
+    "order_id": "ORD-2025-0021",
+    "product_id": "TECH-KEY-013",
+    "quantity": 3,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 356,
+    "order_id": "ORD-2025-0021",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 357,
+    "order_id": "ORD-2025-0022",
+    "product_id": "TECH-ACC-021",
+    "quantity": 2,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 358,
+    "order_id": "ORD-2025-0023",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 78.1
+  },
+  {
+    "order_item_id": 359,
+    "order_id": "ORD-2025-0023",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 98.96
+  },
+  {
+    "order_item_id": 360,
+    "order_id": "ORD-2025-0024",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 131.93
+  },
+  {
+    "order_item_id": 361,
+    "order_id": "ORD-2025-0025",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 362,
+    "order_id": "ORD-2025-0025",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 549.0
+  },
+  {
+    "order_item_id": 363,
+    "order_id": "ORD-2025-0026",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 364,
+    "order_id": "ORD-2025-0027",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 365,
+    "order_id": "ORD-2025-0027",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 366,
+    "order_id": "ORD-2025-0030",
+    "product_id": "TECH-AUD-017",
+    "quantity": 1,
+    "price_per_unit": 240.11
+  },
+  {
+    "order_item_id": 367,
+    "order_id": "ORD-2025-0031",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 368,
+    "order_id": "ORD-2025-0032",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 369,
+    "order_id": "ORD-2025-0032",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 370,
+    "order_id": "ORD-2025-0034",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 549.0
+  },
+  {
+    "order_item_id": 371,
+    "order_id": "ORD-2025-0035",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 549.0
+  },
+  {
+    "order_item_id": 372,
+    "order_id": "ORD-2025-0036",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 373,
+    "order_id": "ORD-2025-0036",
+    "product_id": "TECH-ACC-025",
+    "quantity": 2,
+    "price_per_unit": 19.0
+  },
+  {
+    "order_item_id": 374,
+    "order_id": "ORD-2025-0037",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 375,
+    "order_id": "ORD-2025-0037",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 376,
+    "order_id": "ORD-2025-0037",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 377,
+    "order_id": "ORD-2025-0037",
+    "product_id": "TECH-KEY-014",
+    "quantity": 2,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 378,
+    "order_id": "ORD-2025-0038",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 379,
+    "order_id": "ORD-2025-0039",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 380,
+    "order_id": "ORD-2025-0039",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 76.08
+  },
+  {
+    "order_item_id": 381,
+    "order_id": "ORD-2025-0040",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 382,
+    "order_id": "ORD-2025-0041",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 383,
+    "order_id": "ORD-2025-0041",
+    "product_id": "TECH-ACC-022",
+    "quantity": 1,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 384,
+    "order_id": "ORD-2025-0042",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 900.63
+  },
+  {
+    "order_item_id": 385,
+    "order_id": "ORD-2025-0042",
+    "product_id": "TECH-ACC-021",
+    "quantity": 1,
+    "price_per_unit": 49.0
+  },
+  {
+    "order_item_id": 386,
+    "order_id": "ORD-2025-0043",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 387,
+    "order_id": "ORD-2025-0044",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 549.0
+  },
+  {
+    "order_item_id": 388,
+    "order_id": "ORD-2025-0045",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 389,
+    "order_id": "ORD-2025-0046",
+    "product_id": "TECH-KEY-010",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 390,
+    "order_id": "ORD-2025-0046",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 391,
+    "order_id": "ORD-2025-0047",
+    "product_id": "TECH-AUD-019",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 392,
+    "order_id": "ORD-2025-0047",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 393,
+    "order_id": "ORD-2025-0048",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 394,
+    "order_id": "ORD-2025-0048",
+    "product_id": "TECH-KEY-015",
+    "quantity": 1,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 395,
+    "order_id": "ORD-2025-0049",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 396,
+    "order_id": "ORD-2025-0050",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 124.24
+  },
+  {
+    "order_item_id": 397,
+    "order_id": "ORD-2025-0051",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 398,
+    "order_id": "ORD-2025-0052",
+    "product_id": "TECH-LAP-001",
+    "quantity": 1,
+    "price_per_unit": 1199.0
+  },
+  {
+    "order_item_id": 399,
+    "order_id": "ORD-2025-0053",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 400,
+    "order_id": "ORD-2025-0053",
+    "product_id": "TECH-KEY-012",
+    "quantity": 2,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 401,
+    "order_id": "ORD-2025-0053",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 402,
+    "order_id": "ORD-2025-0053",
+    "product_id": "TECH-KEY-015",
+    "quantity": 3,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 403,
+    "order_id": "ORD-2025-0053",
+    "product_id": "TECH-KEY-010",
+    "quantity": 3,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 404,
+    "order_id": "ORD-2025-0054",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 405,
+    "order_id": "ORD-2025-0055",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 406,
+    "order_id": "ORD-2025-0055",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 407,
+    "order_id": "ORD-2025-0056",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 408,
+    "order_id": "ORD-2025-0057",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 409,
+    "order_id": "ORD-2025-0058",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  },
+  {
+    "order_item_id": 410,
+    "order_id": "ORD-2025-0059",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 411,
+    "order_id": "ORD-2025-0060",
+    "product_id": "TECH-LAP-002",
+    "quantity": 1,
+    "price_per_unit": 1999.0
+  },
+  {
+    "order_item_id": 412,
+    "order_id": "ORD-2025-0061",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 899.0
+  },
+  {
+    "order_item_id": 413,
+    "order_id": "ORD-2025-0062",
+    "product_id": "TECH-ACC-023",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 414,
+    "order_id": "ORD-2025-0063",
+    "product_id": "TECH-MON-006",
+    "quantity": 1,
+    "price_per_unit": 549.0
+  },
+  {
+    "order_item_id": 415,
+    "order_id": "ORD-2025-0063",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 416,
+    "order_id": "ORD-2025-0064",
+    "product_id": "TECH-AUD-016",
+    "quantity": 1,
+    "price_per_unit": 399.0
+  },
+  {
+    "order_item_id": 417,
+    "order_id": "ORD-2025-0065",
+    "product_id": "TECH-KEY-014",
+    "quantity": 2,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 418,
+    "order_id": "ORD-2025-0065",
+    "product_id": "TECH-KEY-015",
+    "quantity": 2,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 419,
+    "order_id": "ORD-2025-0065",
+    "product_id": "TECH-KEY-011",
+    "quantity": 2,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 420,
+    "order_id": "ORD-2025-0065",
+    "product_id": "TECH-KEY-012",
+    "quantity": 2,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 421,
+    "order_id": "ORD-2025-0065",
+    "product_id": "TECH-KEY-010",
+    "quantity": 3,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 422,
+    "order_id": "ORD-2025-0066",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 423,
+    "order_id": "ORD-2025-0067",
+    "product_id": "TECH-MON-009",
+    "quantity": 1,
+    "price_per_unit": 599.0
+  },
+  {
+    "order_item_id": 424,
+    "order_id": "ORD-2025-0067",
+    "product_id": "TECH-KEY-015",
+    "quantity": 2,
+    "price_per_unit": 39.0
+  },
+  {
+    "order_item_id": 425,
+    "order_id": "ORD-2025-0068",
+    "product_id": "TECH-MON-007",
+    "quantity": 1,
+    "price_per_unit": 199.0
+  },
+  {
+    "order_item_id": 426,
+    "order_id": "ORD-2025-0069",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 129.0
+  },
+  {
+    "order_item_id": 427,
+    "order_id": "ORD-2025-0070",
+    "product_id": "TECH-MON-008",
+    "quantity": 1,
+    "price_per_unit": 449.0
+  },
+  {
+    "order_item_id": 428,
+    "order_id": "ORD-2025-0070",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 429,
+    "order_id": "ORD-2025-0070",
+    "product_id": "TECH-KEY-012",
+    "quantity": 1,
+    "price_per_unit": 149.0
+  },
+  {
+    "order_item_id": 430,
+    "order_id": "ORD-2025-0070",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 431,
+    "order_id": "ORD-2025-0071",
+    "product_id": "TECH-KEY-014",
+    "quantity": 1,
+    "price_per_unit": 99.0
+  },
+  {
+    "order_item_id": 432,
+    "order_id": "ORD-2025-0072",
+    "product_id": "TECH-ACC-022",
+    "quantity": 2,
+    "price_per_unit": 45.0
+  },
+  {
+    "order_item_id": 433,
+    "order_id": "ORD-2025-0072",
+    "product_id": "TECH-LAP-005",
+    "quantity": 1,
+    "price_per_unit": 913.02
+  },
+  {
+    "order_item_id": 434,
+    "order_id": "ORD-2025-0073",
+    "product_id": "TECH-AUD-018",
+    "quantity": 1,
+    "price_per_unit": 131.53
+  },
+  {
+    "order_item_id": 435,
+    "order_id": "ORD-2025-0074",
+    "product_id": "TECH-AUD-017",
+    "quantity": 1,
+    "price_per_unit": 249.0
+  },
+  {
+    "order_item_id": 436,
+    "order_id": "ORD-2025-0075",
+    "product_id": "TECH-LAP-004",
+    "quantity": 1,
+    "price_per_unit": 1699.0
+  },
+  {
+    "order_item_id": 437,
+    "order_id": "ORD-2025-0075",
+    "product_id": "TECH-KEY-013",
+    "quantity": 1,
+    "price_per_unit": 79.0
+  },
+  {
+    "order_item_id": 438,
+    "order_id": "ORD-2025-0076",
+    "product_id": "TECH-KEY-011",
+    "quantity": 1,
+    "price_per_unit": 119.0
+  },
+  {
+    "order_item_id": 439,
+    "order_id": "ORD-2025-0077",
+    "product_id": "TECH-LAP-003",
+    "quantity": 1,
+    "price_per_unit": 1399.0
+  }
+]
