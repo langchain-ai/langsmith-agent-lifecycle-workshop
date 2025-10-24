@@ -24,10 +24,10 @@ lc-enablement-workshop/
 │   │   ├── order_items.json   # 439 order items
 │   │   └── techhub.db         # SQLite database
 │   │
-│   ├── documents/             # RAG documents (unstructured)
-│   │   ├── policies/          # 5 policy documents
-│   │   └── products/          # 25 product documents
-│   └── DOCUMENTS_OVERVIEW.md  # RAG corpus documentation
+│   └── documents/             # RAG documents (unstructured)
+│       ├── policies/          # 5 policy documents
+│       ├── products/          # 25 product documents
+│       └── DOCUMENTS_OVERVIEW.md  # RAG corpus documentation
 │
 ├── data_generation/           # Generation scripts & documentation
 │   ├── README.md              # Complete generation guide
@@ -220,7 +220,7 @@ python validate_database.py
 
 ### RAG Document Corpus
 
-**For complete document corpus documentation** (including document structure, policy details, content guidelines, and multi-agent scenario support), see **`data/DOCUMENTS_OVERVIEW.md`**.
+**For complete document corpus documentation** (including document structure, policy details, content guidelines, and multi-agent scenario support), see **`data/documents/DOCUMENTS_OVERVIEW.md`**.
 
 ### Database Quick Overview
 
@@ -290,7 +290,7 @@ Synthetic data created for educational purposes. Free to use and distribute.
 ## Additional Resources
 
 - **Database Schema:** `data/structured/SCHEMA.md` - Complete database documentation
-- **RAG Documents:** `data/DOCUMENTS_OVERVIEW.md` - Complete corpus documentation
+- **RAG Documents:** `data/documents/DOCUMENTS_OVERVIEW.md` - Complete corpus documentation
 - **Generation Guide:** `data_generation/README.md` - How to regenerate dataset
 - **Project Plan:** `data_generation/project_plan/full_project_plan.md` - Full specification
 - **Sample Queries:** `data_generation/sample_queries.sql` - Workshop SQL queries

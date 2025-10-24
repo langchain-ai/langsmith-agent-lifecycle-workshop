@@ -250,7 +250,7 @@ See `sample_queries.sql` for example workshop queries.
 ## Additional Resources
 
 - **Schema documentation:** `../data/structured/SCHEMA.md` (complete database schema reference)
-- **Documents overview:** `../data/DOCUMENTS_OVERVIEW.md` (complete RAG corpus documentation)
+- **Documents overview:** `../data/documents/DOCUMENTS_OVERVIEW.md` (complete RAG corpus documentation)
 - **Full project plan:** `project_plan/full_project_plan.md` (comprehensive 2000+ line spec)
 - **Sample queries:** `sample_queries.sql` (workshop scenario queries)
 - **Main README:** `../README.md` (usage instructions for workshop participants)
