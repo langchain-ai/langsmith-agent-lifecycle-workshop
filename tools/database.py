@@ -71,3 +71,36 @@ def get_product_price(product_name: str) -> str:
     name, price, in_stock = result
     stock_status = "In Stock" if in_stock else "Out of Stock"
     return f"{name}: ${price:.2f} - {stock_status}"
+
+
+@tool
+def get_order_items(order_id: str) -> str:
+    """Get all items (products) that were purchased in a specific order.
+
+    Args:
+        order_id: The order ID (e.g., "ORD-2024-0063")
+
+    Returns:
+        Formatted list of products in the order with product IDs, names, and quantities.
+    """
+    conn = sqlite3.connect(DEFAULT_DB_PATH)
+    cursor = conn.cursor()
+
+    query = f"""
+        SELECT oi.product_id, p.name, oi.quantity, oi.price_per_unit
+        FROM order_items oi
+        JOIN products p ON oi.product_id = p.product_id
+        WHERE oi.order_id = '{order_id}'
+    """
+    cursor.execute(query)
+    results = cursor.fetchall()
+    conn.close()
+
+    if not results:
+        return f"No items found for order: {order_id}"
+
+    items = []
+    for product_id, name, quantity, price in results:
+        items.append(f"  • {name} (ID: {product_id}) - Qty: {quantity} @ ${price:.2f}")
+
+    return f"Items in order {order_id}:\n" + "\n".join(items)
