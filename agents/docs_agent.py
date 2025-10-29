@@ -14,20 +14,22 @@ from tools import search_policy_docs, search_product_docs
 def create_docs_agent():
     """Create Documents agent specialized in product documentation and policies.
 
+    Args:
+        state_schema: Optional custom state schema (extends AgentState).
+                     If provided, allows agent to access additional state keys.
+
     Returns:
         Compiled agent graph that can search product specs and policies.
     """
     llm = init_chat_model("anthropic:claude-haiku-4-5")
 
-    system_prompt = """You are a product information specialist for TechHub customer support.
+    system_prompt = """You are a company policy and product information specialist for TechHub customer support.
 
-Your role is to answer questions about:
-- Product specifications, features, and technical details
-- Store policies (returns, warranties, shipping)
-- Product compatibility and setup instructions
+Your role is to answer questions about product specifications, features, compatibility,
+policies (returns, warranties, shipping), and setup instructions.
 
 Always search the documentation to provide accurate, detailed information.
-If you cannot find specific information, say so clearly."""
+If you cannot find information, say so clearly."""
 
     return create_agent(
         model=llm,

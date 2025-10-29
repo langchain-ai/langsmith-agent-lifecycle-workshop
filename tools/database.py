@@ -2,7 +2,8 @@
 Database tools for querying the TechHub e-commerce database.
 
 These tools provide a simple interface for customer support agents to:
-- Look up order status and shipping information
+- Look up customer order history
+- Get detailed information about specific orders
 - Query product pricing and availability
 
 Design note: Database connections are configured at the module level rather than
@@ -14,54 +15,88 @@ not exposed to the LLM as tool parameters.
 import sqlite3
 from pathlib import Path
 
-from langchain_core.tools import tool
+from langchain.tools import ToolRuntime, tool
 
 # Database path - configured at module level (infrastructure concern)
 DEFAULT_DB_PATH = Path(__file__).parent.parent / "data" / "structured" / "techhub.db"
 
 
 @tool
-def get_order_status(order_id: str) -> str:
-    """Look up the status of an order by order ID.
+def get_order_details(order_id: str) -> str:
+    """Get complete details for a specific order including status, items, and tracking.
 
     Args:
         order_id: The order ID (e.g., "ORD-2024-0123")
 
     Returns:
-        Formatted string with order status, shipped date, and tracking number.
+        Formatted string with:
+        - Order status (Processing, Shipped, Delivered, Cancelled)
+        - Shipped date and tracking number (if applicable)
+        - List of all items in the order with product names, quantities, and prices
     """
     conn = sqlite3.connect(DEFAULT_DB_PATH)
     cursor = conn.cursor()
 
-    query = f"SELECT status, shipped_date, tracking_number FROM orders WHERE order_id = '{order_id}'"
-    cursor.execute(query)
-    result = cursor.fetchone()
-    conn.close()
+    # Get order status and shipping info
+    cursor.execute(
+        "SELECT status, shipped_date, tracking_number FROM orders WHERE order_id = ?",
+        (order_id,),
+    )
+    order_result = cursor.fetchone()
 
-    if not result:
+    if not order_result:
+        conn.close()
         return f"No order found with ID: {order_id}"
 
-    status, shipped_date, tracking = result
-    return f"Order {order_id}: Status={status}, Shipped={shipped_date or 'Not yet shipped'}, Tracking={tracking or 'N/A'}"
+    status, shipped_date, tracking = order_result
+
+    # Get order items
+    cursor.execute(
+        """
+        SELECT oi.product_id, p.name, oi.quantity, oi.price_per_unit
+        FROM order_items oi
+        JOIN products p ON oi.product_id = p.product_id
+        WHERE oi.order_id = ?
+        """,
+        (order_id,),
+    )
+    items_results = cursor.fetchall()
+    conn.close()
+
+    # Format response
+    response = f"Order {order_id}:\n"
+    response += f"  Status: {status}\n"
+    response += f"  Shipped: {shipped_date or 'Not yet shipped'}\n"
+    response += f"  Tracking: {tracking or 'N/A'}\n"
+
+    if items_results:
+        response += "\nItems:\n"
+        for product_id, name, quantity, price in items_results:
+            response += (
+                f"  • {name} (ID: {product_id}) - Qty: {quantity} @ ${price:.2f}\n"
+            )
+
+    return response.strip()
 
 
 @tool
 def get_product_price(product_name: str) -> str:
-    """Get the current price of a product by name.
+    """Get the current price and availability of a product by name.
 
     Args:
-        product_name: Product name to search for (e.g., "MacBook Air")
+        product_name: Product name to search for (e.g., "MacBook Air", "Sony headphones")
 
     Returns:
-        Formatted string with product name, price, and stock status.
+        Formatted string with product name, current price, and stock status.
+
+    Note: This is public information and works the same across all sections.
+    No verification needed.
     """
     conn = sqlite3.connect(DEFAULT_DB_PATH)
     cursor = conn.cursor()
 
-    query = (
-        f"SELECT name, price, in_stock FROM products WHERE name LIKE '%{product_name}%'"
-    )
-    cursor.execute(query)
+    query = "SELECT name, price, in_stock FROM products WHERE name LIKE ?"
+    cursor.execute(query, (f"%{product_name}%",))
     result = cursor.fetchone()
     conn.close()
 
@@ -74,33 +109,41 @@ def get_product_price(product_name: str) -> str:
 
 
 @tool
-def get_order_items(order_id: str) -> str:
-    """Get all items (products) that were purchased in a specific order.
+def get_customer_orders(runtime: ToolRuntime) -> str:
+    """Get recent orders for the verified customer (last 10 orders).
 
-    Args:
-        order_id: The order ID (e.g., "ORD-2024-0063")
+    Automatically uses the customer_id from the agent's state.
 
     Returns:
-        Formatted list of products in the order with product IDs, names, and quantities.
+        Formatted list of recent orders with order ID, date, status, and total amount.
+        Orders are sorted by date (most recent first).
+
+    Note: This tool requires customer_id to be present in the agent's state.
     """
+    customer_id = runtime.state.get("customer_id")
+    if not customer_id:
+        return "Customer identity verification required. Please provide your email address to access order information."
+
     conn = sqlite3.connect(DEFAULT_DB_PATH)
     cursor = conn.cursor()
 
-    query = f"""
-        SELECT oi.product_id, p.name, oi.quantity, oi.price_per_unit
-        FROM order_items oi
-        JOIN products p ON oi.product_id = p.product_id
-        WHERE oi.order_id = '{order_id}'
+    query = """
+        SELECT order_id, order_date, status, total_amount
+        FROM orders
+        WHERE customer_id = ?
+        ORDER BY order_date DESC
+        LIMIT 10
     """
-    cursor.execute(query)
+    cursor.execute(query, (customer_id,))
     results = cursor.fetchall()
     conn.close()
 
     if not results:
-        return f"No items found for order: {order_id}"
+        return f"No orders found for customer {customer_id}"
 
-    items = []
-    for product_id, name, quantity, price in results:
-        items.append(f"  • {name} (ID: {product_id}) - Qty: {quantity} @ ${price:.2f}")
+    # Format the results
+    orders = []
+    for order_id, order_date, status, total in results:
+        orders.append(f"  • {order_id} ({order_date}): {status} - ${total:.2f}")
 
-    return f"Items in order {order_id}:\n" + "\n".join(items)
+    return f"Recent orders for customer {customer_id}:\n" + "\n".join(orders)
