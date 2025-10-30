@@ -27,7 +27,7 @@ def create_supervisor_agent(db_agent, docs_agent, state_schema=None):
     # Wrap Database Agent as a tool
     @tool(
         "database_specialist",
-        description="Query TechHub database for order status, product prices, and customer order history. Be sure to specify the customer_id or order_id rather than customers email address",
+        description="Query TechHub database for order status, product prices, and customer order history. After verification, customer_id is automatically provided in the state - just describe what information is needed.",
     )
     def call_database_specialist(runtime: ToolRuntime, query: str) -> str:
         """Call database specialist, forwarding customer_id from supervisor state."""
@@ -58,9 +58,13 @@ def create_supervisor_agent(db_agent, docs_agent, state_schema=None):
         tools=[call_database_specialist, call_documentation_specialist],
         system_prompt="""You are a supervisor for TechHub customer support.
 
-Your role is to interact with the customer to understand their questions and route them to the appropriate specialists with additional context as needed:
+Your role is to route queries to the appropriate specialists:
 - Use database_specialist for order status, product prices, and customer order history
 - Use documentation_specialist for product specs, policies, and general information
+
+Note: After customer identity verification, their customer_id is available and automatically included in the state
+when calling the database_specialist. For queries about "my orders", "my recent purchases", etc., 
+simply call the database_specialist - you don't need to ask the customer for their ID.
 
 You can use multiple tools if needed to fully answer the question.
 Always provide helpful, complete responses to customers.""",
