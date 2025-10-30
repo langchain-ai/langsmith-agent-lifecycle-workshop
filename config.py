@@ -23,10 +23,6 @@ import os
 #   - "openai:gpt-4o" (high-quality, OpenAI)
 DEFAULT_MODEL = os.getenv("WORKSHOP_MODEL", "anthropic:claude-haiku-4-5")
 
-# Temperature for model responses (0.0 = deterministic, 1.0 = creative)
-# Lower values recommended for structured tasks like customer support
-DEFAULT_TEMPERATURE = float(os.getenv("WORKSHOP_TEMPERATURE", "0.0"))
-
 
 # ============================================================================
 # FUTURE CONFIGURATION

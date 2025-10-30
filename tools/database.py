@@ -112,13 +112,13 @@ def get_product_price(product_name: str) -> str:
 def get_customer_orders(runtime: ToolRuntime) -> str:
     """Get recent orders for the verified customer (last 10 orders).
 
-    Automatically uses the customer_id from the agent's state.
+    Automatically injects the customer_id from the agent's state into
+    the query so you don't need to ask the customer for their ID to use this tool.
 
     Returns:
         Formatted list of recent orders with order ID, date, status, and total amount.
         Orders are sorted by date (most recent first).
 
-    Note: This tool requires customer_id to be present in the agent's state.
     """
     customer_id = runtime.state.get("customer_id")
     if not customer_id:
