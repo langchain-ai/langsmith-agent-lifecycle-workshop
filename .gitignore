@@ -163,3 +163,4 @@ cython_debug/
 
 # project specific
 build_plans/
+data/vector_stores/*.pkl
