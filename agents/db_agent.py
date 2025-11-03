@@ -26,7 +26,7 @@ Your role is to query the TechHub database for:
 Always provide specific, accurate information from the database.
 If you cannot find information, say so clearly.
 
-Note: For tools that need the customer_id (e.g., get_customer_orders), it will be automatically provided in the state after a customer's identity is verified.
+Note: For tools that need the customer_id (e.g., get_customer_orders), it will be automatically provided to the tool after a customer's identity is verified.
 This means you don't need to ask the customer for their ID - you can just use the tool."""
 
 # Base tools that every database agent needs

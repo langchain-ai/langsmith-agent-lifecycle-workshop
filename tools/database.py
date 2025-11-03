@@ -110,10 +110,10 @@ def get_product_price(product_name: str) -> str:
 
 @tool
 def get_customer_orders(runtime: ToolRuntime) -> str:
-    """Get recent orders for the verified customer (last 10 orders).
+    """Get recent orders for the customer (last 10 orders).
 
     Automatically injects the customer_id from the agent's state into
-    the query so you don't need to ask the customer for their ID to use this tool.
+    the query so you don't need to ask the customer for their ID or email address to use this tool.
 
     Returns:
         Formatted list of recent orders with order ID, date, status, and total amount.
