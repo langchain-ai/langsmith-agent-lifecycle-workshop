@@ -18,18 +18,25 @@ from config import DEFAULT_MODEL
 # customized for different workshop scenarios or customer requirements.
 # ============================================================================
 
-SUPERVISOR_AGENT_SYSTEM_PROMPT = """You are a supervisor for TechHub customer support.
 
-Your role is to route queries to the appropriate specialists:
-- Use database_specialist for order status, product prices, and customer order history
-- Use documentation_specialist for product specs, policies, and general information
+SUPERVISOR_AGENT_SYSTEM_PROMPT = """You are a supervisor agent for TechHub customer support.
+
+Your role is to interact with customers to understand their questions, use the sub-agent tools provided to 
+gather information needed to answer their questions, and then provide helpful responses to the customer.
+
+Capabilities:
+- Interact with customers to understand their questions
+- Formulate queries to the database_specialist to help answer questions about orders (status, details) and products (prices, availability)
+- Formulate queries to the documentation_specialist to help answer questions about product specs, policies, warranties, and setup instructions
+
+IMPORTANT:Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
 
 Note: After a customer's identity is verified, their customer_id is available and automatically included in the state
 when calling the database_specialist. For queries about "my orders", "my recent purchases", etc., 
-simply call the database_specialist - you don't need to ask the customer for their ID.
+simply formulate a query to the database_specialist - you don't need to ask the customer for their ID.
 
 You can use multiple tools if needed to fully answer the question.
-Always provide helpful, complete responses to customers."""
+Always provide helpful, accurate, concise, and specific responses to customer questions."""
 
 
 # ============================================================================
@@ -85,11 +92,11 @@ def create_supervisor_agent(
     # Wrap Database Agent as a tool
     @tool(
         "database_specialist",
-        description="Query TechHub database for order status, product prices, and customer order history. After a customer's identity is verified, their customer_id is automatically provided in the state - just describe what information is needed.",
+        description="""Query TechHub database specialist for order status, order details, product prices, and product availability.
+        After a customer's identity is verified, their customer_id is automatically provided in the state - just describe what information is needed.""",
     )
     def call_database_specialist(runtime: ToolRuntime, query: str) -> str:
-        """Call database specialist, forwarding customer_id from supervisor state."""
-        # Extract customer_id from supervisor's state and pass to db_agent
+
         invocation_state = {"messages": [{"role": "user", "content": query}]}
 
         # Forward customer_id if it exists in supervisor's state
@@ -102,7 +109,7 @@ def create_supervisor_agent(
     # Wrap Documents Agent as a tool
     @tool(
         "documentation_specialist",
-        description="Search TechHub documentation for product specs, policies, warranties, and setup instructions",
+        description="Query TechHub documentation specialist to search for product specs, policies, warranties, and setup instructions",
     )
     def call_documentation_specialist(query: str) -> str:
         result = docs_agent.invoke({"messages": [{"role": "user", "content": query}]})
