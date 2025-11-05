@@ -15,10 +15,12 @@ The agent architecture follows these principles:
 
 ```
 agents/
-├── db_agent.py            # Database agent implementation
-├── docs_agent.py          # Documents agent implementation
-├── supervisor_agent.py    # Supervisor agent implementation
-└── README.md              # This file
+├── db_agent.py                  # Database agent (rigid tools)
+├── sql_agent.py                 # SQL agent (flexible query generation)
+├── docs_agent.py                # Documents agent (RAG)
+├── supervisor_agent.py          # Supervisor agent (coordinates sub-agents)
+├── supervisor_hitl_agent.py     # Supervisor with verification + HITL
+└── README.md                    # This file
 ```
 
 **Note:** Workshop-wide configuration (`DEFAULT_MODEL`, etc.) is in the root-level `config.py` file.
@@ -192,6 +194,91 @@ graph = create_db_agent(use_checkpointer=False)
 
 This keeps the factory simple while supporting both dev and prod contexts.
 
+## Agent Evolution: DB Agent → SQL Agent
+
+The workshop demonstrates **eval-driven development** through agent evolution:
+
+### Module 1: DB Agent (Rigid Tools)
+```python
+# Rigid tools for specific queries
+@tool
+def get_order_status(order_id: str) -> str:
+    """Get status for a specific order."""
+    
+@tool  
+def get_product_info(product_id: str) -> str:
+    """Get info for a specific product."""
+```
+
+**Limitations:**
+- ❌ Can't aggregate (SUM, COUNT, AVG)
+- ❌ Can't filter across tables (JOIN)
+- ❌ Requires multiple sequential tool calls
+
+### Module 2: SQL Agent (Flexible Queries)
+```python
+# Single tool that generates custom queries
+@tool
+def execute_sql(query: str) -> str:
+    """Execute a SELECT query against the database."""
+```
+
+**Benefits:**
+- ✅ Generates JOINs, aggregations, complex filters
+- ✅ Answers complex questions in single tool call
+- ✅ 40% improvement in correctness, 80% reduction in tool calls
+
+**Key Design:** Schema is embedded in system prompt at agent creation time:
+```python
+def _create_sql_system_prompt() -> str:
+    db = get_techhub_runtime_context().db
+    table_info = db.get_table_info()
+    return f"""You are a database specialist...
+    
+{table_info}
+
+Write SQL SELECT queries to answer questions..."""
+```
+
+## Composition Pattern (Module 2+)
+
+The `supervisor_hitl_agent` demonstrates **dependency injection** for composability:
+
+```python
+def create_supervisor_hitl_agent(
+    db_agent=None,      # ← Injectable dependency
+    docs_agent=None,    # ← Injectable dependency
+    use_checkpointer=True,
+):
+    """Create supervisor HITL agent with configurable sub-agents."""
+    
+    # Use provided agents or create defaults
+    if db_agent is None:
+        db_agent = create_db_agent(...)
+    if docs_agent is None:
+        docs_agent = create_docs_agent(...)
+    
+    # Compose into supervisor
+    supervisor = create_supervisor_agent(db_agent, docs_agent, ...)
+```
+
+**Usage Examples:**
+
+```python
+# Module 1: Default behavior (backward compatible)
+agent = create_supervisor_hitl_agent()
+
+# Module 2: Swap in improved SQL agent
+from agents import create_sql_agent
+sql_agent = create_sql_agent(state_schema=CustomState)
+agent = create_supervisor_hitl_agent(db_agent=sql_agent)
+```
+
+**Pedagogical Value:**
+- Module 1: Learn basics with simple patterns
+- Module 2: Learn composition and eval-driven improvement
+- Shows how to extend systems without rewriting
+
 ## Extension Pattern
 
 To add a new agent:
@@ -201,6 +288,7 @@ To add a new agent:
 3. **Implement factory** (using pattern above)
 4. **Export in `__init__.py`**
 5. **Create deployment wrapper** (`deployments/new_agent_graph.py`)
+6. **Add to `langgraph.json`**
 
-See `db_agent.py` as the reference implementation.
+See `db_agent.py` and `sql_agent.py` as reference implementations.
 

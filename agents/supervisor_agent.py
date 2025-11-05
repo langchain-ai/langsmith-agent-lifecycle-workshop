@@ -29,7 +29,7 @@ Capabilities:
 - Formulate queries to the database_specialist to help answer questions about orders (status, details) and products (prices, availability)
 - Formulate queries to the documentation_specialist to help answer questions about product specs, policies, warranties, and setup instructions
 
-IMPORTANT:Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
+IMPORTANT: Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
 
 Note: After a customer's identity is verified, their customer_id is available and automatically included in the state
 when calling the database_specialist. For queries about "my orders", "my recent purchases", etc., 

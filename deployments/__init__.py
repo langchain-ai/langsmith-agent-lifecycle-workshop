@@ -11,15 +11,23 @@ Deployment pattern:
 - Graph instances (deployments/) → Fixed configuration for deployment
 
 Available deployments:
-- db_agent_graph: Database agent for querying orders and products
+
+Module 1 (Baseline):
+- db_agent_graph: Database agent with rigid tools
 - docs_agent_graph: Documents agent for searching product docs and policies
 - supervisor_agent_graph: Supervisor agent coordinating between specialists
 - supervisor_hitl_agent_graph: Complete verification + supervisor agent with HITL
+
+Module 2 (Improved):
+- sql_agent_graph: SQL agent with flexible query generation
+- supervisor_hitl_sql_agent_graph: Verification + supervisor using SQL agent
 """
 
 __all__ = [
     "db_agent_graph",
     "docs_agent_graph",
+    "sql_agent_graph",
     "supervisor_agent_graph",
     "supervisor_hitl_agent_graph",
+    "supervisor_hitl_sql_agent_graph",
 ]

@@ -14,7 +14,6 @@ This demonstrates LangGraph primitives for complex orchestration:
 - Subgraphs (supervisor agent as a node)
 """
 
-from pathlib import Path
 from typing import Literal, NamedTuple
 
 from langchain.agents import AgentState
@@ -33,13 +32,6 @@ from agents.docs_agent import create_docs_agent
 from agents.supervisor_agent import create_supervisor_agent
 from config import DEFAULT_MODEL
 from tools import get_customer_orders
-
-# ============================================================================
-# CONSTANTS
-# ============================================================================
-
-DB_PATH = Path(__file__).parent.parent / "data" / "structured" / "techhub.db"
-
 
 # ============================================================================
 # CUSTOM STATE SCHEMA
@@ -248,7 +240,11 @@ def collect_email(state: CustomState) -> Command[Literal["verify_customer"]]:
 # ============================================================================
 
 
-def create_supervisor_hitl_agent(use_checkpointer: bool = True):
+def create_supervisor_hitl_agent(
+    db_agent=None,
+    docs_agent=None,
+    use_checkpointer: bool = True,
+):
     """Create customer verification + supervisor agent with HITL.
 
     This creates a complete verification graph that:
@@ -258,21 +254,36 @@ def create_supervisor_hitl_agent(use_checkpointer: bool = True):
     - Remembers customer_id across conversation
 
     Args:
+        db_agent: Optional pre-configured database agent. If None, creates a standard db_agent.
+                 This allows swapping in improved agents (e.g., sql_agent) without rewriting logic.
+        docs_agent: Optional pre-configured documents agent. If None, creates a standard docs_agent.
         use_checkpointer: Whether to include a checkpointer for persistence.
                          - True (default): Use MemorySaver for development/notebooks
                          - False: No checkpointer (for LangGraph API deployment)
 
     Returns:
         Compiled verification graph with HITL and supervisor routing.
+
+    Examples:
+        >>> # Standard usage (backward compatible)
+        >>> agent = create_supervisor_hitl_agent()
+
+        >>> # With improved SQL agent (Module 2, Section 2)
+        >>> from agents import create_sql_agent
+        >>> sql_agent = create_sql_agent(state_schema=CustomState)
+        >>> agent = create_supervisor_hitl_agent(db_agent=sql_agent)
     """
-    # Instantiate sub-agents with shared state schema
+    # Instantiate sub-agents with shared state schema (if not provided)
     # The db_agent gets get_customer_orders, which uses ToolRuntime to access customer_id
-    db_agent = create_db_agent(
-        state_schema=CustomState,
-        additional_tools=[get_customer_orders],
-        use_checkpointer=use_checkpointer,
-    )
-    docs_agent = create_docs_agent(use_checkpointer=use_checkpointer)
+    if db_agent is None:
+        db_agent = create_db_agent(
+            state_schema=CustomState,
+            additional_tools=[get_customer_orders],
+            use_checkpointer=use_checkpointer,
+        )
+
+    if docs_agent is None:
+        docs_agent = create_docs_agent(use_checkpointer=use_checkpointer)
 
     # Instantiate supervisor agent (which wraps the sub-agents as tools)
     supervisor_agent = create_supervisor_agent(

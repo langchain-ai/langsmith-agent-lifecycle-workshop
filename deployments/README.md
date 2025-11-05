@@ -70,9 +70,54 @@ Why? LangGraph API [handles persistence automatically](https://docs.langchain.co
 
 ## Current Deployments
 
-- `db_agent_graph.py` - Database agent for querying orders and products
+### Module 1 Agents
+- `db_agent_graph.py` - Database agent with rigid tools (Module 1 baseline)
 - `docs_agent_graph.py` - Documents agent for searching product docs and policies
-- `supervisor_agent_graph.py` - Supervisor agent coordinating between specialists
+- `supervisor_agent_graph.py` - Supervisor coordinating db_agent + docs_agent
+- `supervisor_hitl_agent_graph.py` - Complete verification + supervisor with HITL
+
+### Module 2 Agents (Improved)
+- `sql_agent_graph.py` - SQL agent with flexible query generation (Module 2 improvement)
+- `supervisor_hitl_sql_agent_graph.py` - Verification + supervisor using SQL agent
+
+## Agent Evolution & Composition
+
+The workshop demonstrates **eval-driven development** through deployment variants:
+
+### Phase 1: Baseline (Module 1)
+```python
+# deployments/supervisor_hitl_agent_graph.py
+from agents import create_supervisor_hitl_agent
+
+# Uses default db_agent with rigid tools
+graph = create_supervisor_hitl_agent(use_checkpointer=False)
+```
+
+### Phase 2: Improved (Module 2)
+```python
+# deployments/supervisor_hitl_sql_agent_graph.py
+from agents import create_sql_agent, create_supervisor_hitl_agent
+from agents.supervisor_hitl_agent import CustomState
+from tools import get_customer_orders
+
+# Instantiate improved SQL agent
+sql_agent = create_sql_agent(
+    state_schema=CustomState,
+    additional_tools=[get_customer_orders],
+    use_checkpointer=False,
+)
+
+# Compose into supervisor HITL (dependency injection)
+graph = create_supervisor_hitl_agent(
+    db_agent=sql_agent,
+    use_checkpointer=False,
+)
+```
+
+**Key Teaching Points:**
+1. **Baseline → Evaluation → Improvement**: Module 1 baseline → Module 2 eval reveals issues → SQL agent improves
+2. **Composition over Rewriting**: Swap in improved agent without changing verification logic
+3. **Side-by-Side Comparison**: Both deployments available for A/B testing in production
 
 ## Adding New Deployments
 
