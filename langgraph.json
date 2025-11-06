@@ -8,6 +8,7 @@
     "supervisor_hitl_agent": "./deployments/supervisor_hitl_agent_graph.py:graph",
     "supervisor_hitl_sql_agent": "./deployments/supervisor_hitl_sql_agent_graph.py:graph"
   },
-  "env": ".env"
+  "env": ".env",
+  "python_version": "3.13"
 }
 
