@@ -6,13 +6,32 @@ These tools provide a simple interface for customer support agents to:
 - Get detailed information about specific orders
 - Query product pricing and availability
 
-Design note: Database connections are configured at the module level rather than
-as tool parameters. This follows LangChain best practices where infrastructure
-concerns (database paths, API keys, etc.) are managed via static runtime context,
-not exposed to the LLM as tool parameters.
+Design note: Database connections are initialized at the module level using lazy loading.
+The connection is created on first use and then cached for subsequent calls.
 """
 
 from langchain.tools import ToolRuntime, tool
+from langchain_community.utilities import SQLDatabase
+
+from config import DEFAULT_DB_PATH
+
+# Module-level database connection (lazy loaded)
+_db = None
+
+
+def get_database():
+    """Lazy load database connection.
+
+    Creates the database connection on first call, then returns the cached instance
+    for all subsequent calls.
+
+    Returns:
+        SQLDatabase: Cached database connection instance.
+    """
+    global _db
+    if _db is None:
+        _db = SQLDatabase.from_uri(f"sqlite:///{DEFAULT_DB_PATH}")
+    return _db
 
 
 def extract_values(result):
@@ -21,7 +40,7 @@ def extract_values(result):
 
 
 @tool
-def get_order_status(order_id: str, runtime: ToolRuntime) -> str:
+def get_order_status(order_id: str) -> str:
     """Get status, dates, and tracking information for a specific order.
 
     Args:
@@ -30,7 +49,7 @@ def get_order_status(order_id: str, runtime: ToolRuntime) -> str:
     Returns:
         Formatted string with order status, dates, tracking number, and total amount.
     """
-    db = runtime.context.db
+    db = get_database()
     result = db._execute(
         f"""
         SELECT order_id, order_date, status, shipped_date, tracking_number, total_amount
@@ -59,7 +78,7 @@ def get_order_status(order_id: str, runtime: ToolRuntime) -> str:
 
 
 @tool
-def get_order_items(order_id: str, runtime: ToolRuntime) -> str:
+def get_order_items(order_id: str) -> str:
     """Get list of items in a specific order with product IDs, quantities, and prices.
 
     Args:
@@ -69,7 +88,7 @@ def get_order_items(order_id: str, runtime: ToolRuntime) -> str:
         Formatted string with product IDs, quantities, and prices for each item.
         Note: Returns product IDs only - use get_product_info() to get product names.
     """
-    db = runtime.context.db
+    db = get_database()
     result = db._execute(
         f"""
         SELECT product_id, quantity, price_per_unit
@@ -92,7 +111,7 @@ def get_order_items(order_id: str, runtime: ToolRuntime) -> str:
 
 
 @tool
-def get_product_info(product_identifier: str, runtime: ToolRuntime) -> str:
+def get_product_info(product_identifier: str) -> str:
     """Get product details by product name or product ID.
 
     Args:
@@ -101,7 +120,7 @@ def get_product_info(product_identifier: str, runtime: ToolRuntime) -> str:
     Returns:
         Formatted string with product name, category, price, and stock status.
     """
-    db = runtime.context.db
+    db = get_database()
     # Try exact ID match first
     result = db._execute(
         f"""
@@ -151,7 +170,7 @@ def get_customer_orders(runtime: ToolRuntime) -> str:
     if not state_customer_id:
         return "Customer verification required. Please provide your email."
 
-    db = runtime.context.db
+    db = get_database()
     result = db._execute(
         f"""
         SELECT order_id, order_date, status, total_amount

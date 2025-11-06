@@ -231,7 +231,7 @@ def execute_sql(query: str) -> str:
 **Key Design:** Schema is embedded in system prompt at agent creation time:
 ```python
 def _create_sql_system_prompt() -> str:
-    db = get_techhub_runtime_context().db
+    db = get_database()
     table_info = db.get_table_info()
     return f"""You are a database specialist...
     

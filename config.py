@@ -9,12 +9,7 @@ This makes it easy to adapt the workshop for different:
 """
 
 import os
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
-
-from langchain_community.utilities import SQLDatabase
-from langchain_core.vectorstores import VectorStoreRetriever
 
 # ============================================================================
 # MODEL CONFIGURATION
@@ -37,74 +32,3 @@ DEFAULT_DB_PATH = Path(__file__).parent / "data" / "structured" / "techhub.db"
 DEFAULT_VECTORSTORE_PATH = (
     Path(__file__).parent / "data" / "vector_stores" / "techhub_vectorstore.pkl"
 )
-
-# ============================================================================
-# RUNTIME CONTEXT CONFIGURATION
-# ============================================================================
-
-
-@dataclass
-class RuntimeContext:
-    """Runtime context for tools and agents containing database connection and vector store retrievers."""
-
-    db: SQLDatabase
-    product_retriever: Optional[VectorStoreRetriever] = None
-    policy_retriever: Optional[VectorStoreRetriever] = None
-
-
-def get_techhub_runtime_context(with_vectorstore: bool = False) -> RuntimeContext:
-    """Get runtime context for TechHub agents.
-
-    This factory function creates a RuntimeContext with the appropriate resources
-    based on what tools your agent needs.
-
-    Args:
-        with_vectorstore: If True, includes retrievers for RAG tools (search_product_docs, search_policy_docs).
-                         If False, only includes database connection for DB tools.
-
-    Returns:
-        RuntimeContext configured with requested resources.
-
-    Examples:
-        >>> # For agents with only database tools
-        >>> context = get_techhub_runtime_context()
-
-        >>> # For agents with database + RAG tools
-        >>> context = get_techhub_runtime_context(with_vectorstore=True)
-    """
-    db = SQLDatabase.from_uri(f"sqlite:///{DEFAULT_DB_PATH}")
-
-    if with_vectorstore:
-        # Import here to avoid circular dependency and enable lazy loading
-        from tools.documents import _get_policy_retriever, _get_product_retriever
-
-        return RuntimeContext(
-            db=db,
-            product_retriever=_get_product_retriever(),
-            policy_retriever=_get_policy_retriever(),
-        )
-
-    return RuntimeContext(db=db)
-
-
-# ============================================================================
-# FUTURE CONFIGURATION
-# ============================================================================
-# As the workshop grows, additional settings can be added here:
-#
-# Embedding model for RAG:
-# DEFAULT_EMBEDDING_MODEL = os.getenv(
-#     "EMBEDDING_MODEL",
-#     "sentence-transformers/all-MiniLM-L6-v2"
-# )
-#
-# Data paths:
-# DATABASE_PATH = os.getenv(
-#     "DATABASE_PATH",
-#     "./data/structured/techhub.db"
-# )
-#
-# VECTOR_STORE_PATH = os.getenv(
-#     "VECTOR_STORE_PATH",
-#     "./data/vector_stores/techhub_vectorstore.pkl"
-# )

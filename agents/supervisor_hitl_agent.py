@@ -22,7 +22,6 @@ from langchain_community.utilities import SQLDatabase
 from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import START, StateGraph
-from langgraph.runtime import Runtime
 from langgraph.types import Command, interrupt
 from typing_extensions import Annotated, TypedDict
 
@@ -32,6 +31,7 @@ from agents.docs_agent import create_docs_agent
 from agents.supervisor_agent import create_supervisor_agent
 from config import DEFAULT_MODEL
 from tools import get_customer_orders
+from tools.database import get_database
 
 # ============================================================================
 # CUSTOM STATE SCHEMA
@@ -171,7 +171,7 @@ def query_router(
 
 
 def verify_customer(
-    state: CustomState, runtime: Runtime
+    state: CustomState,
 ) -> Command[Literal["supervisor_agent", "collect_email"]]:
     """Ensure we have a valid customer email and set the `customer_id` in state.
 
@@ -186,7 +186,8 @@ def verify_customer(
 
     # If we have an email, attempt to validate it
     if extraction["email"]:
-        customer = validate_customer_email(extraction["email"], runtime.context.db)
+        db = get_database()
+        customer = validate_customer_email(extraction["email"], db)
 
         if customer:
             # Success! Email verified → Go to supervisor

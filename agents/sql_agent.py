@@ -14,7 +14,8 @@ from langchain.chat_models import init_chat_model
 from langchain.tools import ToolRuntime, tool
 from langgraph.checkpoint.memory import MemorySaver
 
-from config import DEFAULT_MODEL, get_techhub_runtime_context
+from config import DEFAULT_MODEL
+from tools.database import get_database
 
 # ============================================================================
 # AGENT CONFIGURATION
@@ -28,7 +29,7 @@ def _create_sql_system_prompt() -> str:
     which helps the agent write accurate SQL queries.
     """
     # Get database schema at agent creation time
-    db = get_techhub_runtime_context().db
+    db = get_database()
     table_info = db.get_table_info()
 
     return f"""You are a database specialist for TechHub customer support.
@@ -87,7 +88,7 @@ def execute_sql(query: str, runtime: ToolRuntime) -> str:
         return "Error: Query contains forbidden keyword."
 
     # Execute query
-    db = runtime.context.db
+    db = get_database()
     try:
         result = db._execute(query)
         result = [tuple(row.values()) for row in result]  # extract values

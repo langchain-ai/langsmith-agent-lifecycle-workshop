@@ -92,7 +92,7 @@ def create_supervisor_agent(
     # Wrap Database Agent as a tool
     @tool(
         "database_specialist",
-        description="""Query TechHub database specialist for order status, order details, product prices, and product availability.
+        description="""Query TechHub database specialist for order status, order details, product prices, product availability, and customer accounts.
         After a customer's identity is verified, their customer_id is automatically provided in the state - just describe what information is needed.""",
     )
     def call_database_specialist(runtime: ToolRuntime, query: str) -> str:
