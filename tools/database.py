@@ -153,36 +153,37 @@ def get_product_info(product_identifier: str) -> str:
 
 
 @tool
-def get_customer_orders(runtime: ToolRuntime) -> str:
-    """Get recent orders for a verified customer.
+def get_customer_orders(customer_id: str, runtime: ToolRuntime) -> str:
+    """Get recent orders for a customer.
 
-    Automatically injects the customer_id from the agent's state into the query
-    so you don't need to ask the customer for their ID or email address to use this tool.
 
     Args:
+        customer_id: The customer ID (e.g., "CUST-XYZ")
         runtime: Runtime context (provides access to state)
 
     Returns:
         Formatted list of recent orders with order ID, date, status, and total.
     """
-    # Get customer_id from state (populated by HITL verification in Section 4)
-    state_customer_id = runtime.state.get("customer_id")
-    if not state_customer_id:
-        return "Customer verification required. Please provide your email."
+
+    if not runtime.state.get("customer_id"):
+        return "Customer verification required. User must be verified with a valid customer ID before using this tool."
+
+    if customer_id:
+        assert runtime.state.get("customer_id") == customer_id, "Customer ID mismatch"
 
     db = get_database()
     result = db._execute(
         f"""
         SELECT order_id, order_date, status, total_amount
         FROM orders
-        WHERE customer_id = '{state_customer_id}'
+        WHERE customer_id = '{runtime.state.get("customer_id")}'
         ORDER BY order_date DESC
     """
     )
     result = extract_values(result)
 
     if not result:
-        return f"No orders found for customer {state_customer_id}."
+        return f"No orders found for customer {runtime.state.get("customer_id")}."
 
     response = "Recent orders:\n"
     for order_id, order_date, status, total in result:

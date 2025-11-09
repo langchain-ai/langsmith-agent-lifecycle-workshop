@@ -29,11 +29,9 @@ Capabilities:
 - Formulate queries to the database_specialist to help answer questions about orders (status, details), products (prices, availability), and customer accounts.
 - Formulate queries to the documentation_specialist to help answer questions about product specs, policies, warranties, and setup instructions
 
-IMPORTANT: Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
-
-Note: After a customer's identity is verified, their customer_id is available and automatically included in the state
-when calling the database_specialist. For queries about "my orders", "my recent purchases", etc., 
-simply formulate a query to the database_specialist - you don't need to ask the customer for their ID.
+IMPORTANT:
+- Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
+- Ensure your queries to the sub-agents include all the information needed to answer the question (e.g. customer_id and customer_email if needed)
 
 You can use multiple tools if needed to fully answer the question.
 Always provide helpful, accurate, concise, and specific responses to customer questions."""
@@ -92,16 +90,15 @@ def create_supervisor_agent(
     # Wrap Database Agent as a tool
     @tool(
         "database_specialist",
-        description="""Query TechHub database specialist for order status, order details, product prices, product availability, and customer accounts.
-        After a customer's identity is verified, their customer_id is automatically provided in the state - just describe what information is needed.""",
+        description="Query TechHub database specialist for order status, order details, product prices, product availability, and customer accounts.",
     )
     def call_database_specialist(runtime: ToolRuntime, query: str) -> str:
 
         invocation_state = {"messages": [{"role": "user", "content": query}]}
 
         # Forward customer_id if it exists in supervisor's state
-        if customer_id := runtime.state.get("customer_id"):
-            invocation_state["customer_id"] = customer_id
+        if runtime.state.get("customer_id"):
+            invocation_state["customer_id"] = runtime.state.get("customer_id")
 
         result = db_agent.invoke(invocation_state)
         return result["messages"][-1].content

@@ -8,7 +8,7 @@ This module creates a complete customer support agent that combines:
 - Supervisor agent routing to specialized sub-agents
 
 This demonstrates LangGraph primitives for complex orchestration:
-- StateGraph with custom state schema (CustomState with customer_id)
+- StateGraph with custom state schema (IntermediateState with customer_id)
 - Command for explicit routing control
 - interrupt() for HITL pauses
 - Subgraphs (supervisor agent as a node)
@@ -38,8 +38,8 @@ from tools.database import get_database
 # ============================================================================
 
 
-class CustomState(AgentState):
-    """Extended AgentState with customer_id for verification tracking.
+class IntermediateState(AgentState):
+    """Intermediate AgentState with customer_id for verification tracking.
 
     AgentState includes a `messages` key with proper reducers by default.
     Shared keys automatically flow between parent and subgraphs.
@@ -147,7 +147,7 @@ def validate_customer_email(email: str, db: SQLDatabase) -> CustomerInfo | None:
 
 
 def query_router(
-    state: CustomState,
+    state: IntermediateState,
 ) -> Command[Literal["verify_customer", "supervisor_agent"]]:
     """Route query based on verification needs.
 
@@ -171,7 +171,7 @@ def query_router(
 
 
 def verify_customer(
-    state: CustomState,
+    state: IntermediateState,
 ) -> Command[Literal["supervisor_agent", "collect_email"]]:
     """Ensure we have a valid customer email and set the `customer_id` in state.
 
@@ -196,7 +196,7 @@ def verify_customer(
                     "customer_id": customer.customer_id,
                     "messages": [
                         AIMessage(
-                            content=f"✓ Verified! Welcome back, {customer.customer_name}."
+                            content=f"✓ Verified! Welcome back, {customer.customer_name}, your customer ID is {customer.customer_id}."
                         )
                     ],
                 },
@@ -228,7 +228,7 @@ def verify_customer(
     )
 
 
-def collect_email(state: CustomState) -> Command[Literal["verify_customer"]]:
+def collect_email(state: IntermediateState) -> Command[Literal["verify_customer"]]:
     """Dedicated node for collecting human input via interrupt."""
     user_input = interrupt(value="Please provide your email:")
     return Command(
@@ -271,14 +271,14 @@ def create_supervisor_hitl_agent(
 
         >>> # With improved SQL agent (Module 2, Section 2)
         >>> from agents import create_sql_agent
-        >>> sql_agent = create_sql_agent(state_schema=CustomState)
+        >>> sql_agent = create_sql_agent(state_schema=IntermediateState)
         >>> agent = create_supervisor_hitl_agent(db_agent=sql_agent)
     """
     # Instantiate sub-agents with shared state schema (if not provided)
     # The db_agent gets get_customer_orders, which uses ToolRuntime to access customer_id
     if db_agent is None:
         db_agent = create_db_agent(
-            state_schema=CustomState,
+            state_schema=IntermediateState,
             additional_tools=[get_customer_orders],
             use_checkpointer=use_checkpointer,
         )
@@ -290,12 +290,16 @@ def create_supervisor_hitl_agent(
     supervisor_agent = create_supervisor_agent(
         db_agent=db_agent,
         docs_agent=docs_agent,
-        state_schema=CustomState,
+        state_schema=IntermediateState,
         use_checkpointer=use_checkpointer,
     )
 
     # Build the verification graph
-    workflow = StateGraph(CustomState)
+    workflow = StateGraph(
+        input_schema=AgentState,
+        state_schema=IntermediateState,
+        output_schema=AgentState,
+    )
 
     # Add nodes
     workflow.add_node("query_router", query_router)

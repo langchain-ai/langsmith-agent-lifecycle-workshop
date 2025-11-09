@@ -22,11 +22,11 @@ managed persistence automatically.
 
 from agents.docs_agent import create_docs_agent
 from agents.sql_agent import create_sql_agent
-from agents.supervisor_hitl_agent import CustomState, create_supervisor_hitl_agent
+from agents.supervisor_hitl_agent import IntermediateState, create_supervisor_hitl_agent
 
 # Instantiate improved SQL agent for deployment
 sql_agent = create_sql_agent(
-    state_schema=CustomState,
+    state_schema=IntermediateState,
     use_checkpointer=False,
 )
 
