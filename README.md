@@ -18,8 +18,8 @@ A customer support agent system featuring:
 
 ```bash
 # Clone repository
-git clone <repository-url>
-cd lc-enablement-workshop
+git clone https://github.com/langchain-ai/techhub-workshop.git
+cd techhub-workshop
 
 # Install dependencies
 
@@ -113,7 +113,7 @@ Each notebook includes:
 ## Project Architecture
 
 ```
-lc-enablement-workshop/
+techhub-workshop/
 ├── workshop_modules/        # Interactive Jupyter notebooks
 │   ├── module_1/            # Agent Development (4 sections)
 │   ├── module_2/            # Evaluation & Improvement (2 sections)

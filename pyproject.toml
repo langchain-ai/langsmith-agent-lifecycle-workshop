@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "lc-enablement-workshop"
+name = "techhub-workshop"
 version = "0.1.0"
 description = "AI Engineering Lifecycle on LangSmith Platform - Workshop Series"
 readme = "README.md"
@@ -35,4 +35,4 @@ dependencies = [
 dev = []
 
 [tool.hatch.build.targets.wheel]
-packages = ["tools", "agents", "utils", "deployments"]
+packages = ["tools", "agents", "deployments", "evaluators"]
