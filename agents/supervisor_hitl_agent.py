@@ -275,7 +275,7 @@ def create_supervisor_hitl_agent(
         >>> agent = create_supervisor_hitl_agent(db_agent=sql_agent)
     """
     # Instantiate sub-agents with shared state schema (if not provided)
-    # The db_agent gets get_customer_orders, which uses ToolRuntime to access customer_id
+    # The db_agent gets get_customer_orders
     if db_agent is None:
         db_agent = create_db_agent(
             additional_tools=[get_customer_orders],

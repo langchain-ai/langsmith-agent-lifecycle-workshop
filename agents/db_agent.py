@@ -22,17 +22,6 @@ from tools import (
 # customized for different workshop scenarios or customer requirements.
 # ============================================================================
 
-# DB_AGENT_SYSTEM_PROMPT = """You are a database specialist for TechHub customer support.
-
-# Your role is to query the TechHub database for:
-# - Order status and details
-# - Product prices and availability
-
-# Always provide specific, accurate information from the database.
-# If you cannot find information, say so clearly.
-
-# Note: For tools that need the customer_id (e.g., get_customer_orders), it will be automatically provided to the tool after a customer's identity is verified.
-# This means you don't need to ask the customer for their ID - you can just use the tool."""
 
 DB_AGENT_SYSTEM_PROMPT = """You are the database specialist for TechHub customer support.
 
