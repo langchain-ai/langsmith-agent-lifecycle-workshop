@@ -1,304 +1,232 @@
-# TechHub E-Commerce Workshop Dataset
+# AI Engineering Lifecycle on LangSmith Platform
 
-High-quality synthetic dataset for teaching LangGraph multi-agent systems in enterprise workshops.
+<div align="center">
+    <img src="static/techhub_logo.png" width="500">
+</div>
 
-## Overview
+Enterprise workshop series teaching the complete AI engineering lifecycle using LangChain, LangGraph, and LangSmith—centered around building a customer support agent for a fictional online technology e-commerce store called TechHub.
 
-This dataset simulates a customer support system for "TechHub," a consumer electronics e-commerce store. It's designed to teach:
-- Multi-agent systems with supervisor pattern
-- Human-in-the-loop (HITL) for customer verification
-- Database agent queries
-- RAG agent for product specs and policies
-- Offline evaluation (final response, trajectory, single-step, multi-turn)
+## What You'll Build
 
-## Directory Structure
+A customer support agent system featuring:
+- **Multi-agent architecture** with specialized Database and Documents agents coordinated by a Supervisor
+- **Human-in-the-loop (HITL)** customer verification with LangGraph primitives
+- **Evaluation-driven development** using offline evaluation to identify and fix bottlenecks
+- **Production deployment** to LangSmith with monitoring and continuous improvement
+
+## Quick Setup
+
+```bash
+# Clone repository
+git clone <repository-url>
+cd lc-enablement-workshop
+
+# Install dependencies
+
+# Option 1: Using uv (recommended)
+uv sync
+
+# Option 2: Using pip with virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+uv pip compile pyproject.toml -o requirements.txt  # Generate requirements.txt
+pip install -r requirements.txt
+
+# Configure API keys
+cp .env.example .env
+# Edit .env and add your API keys:
+#   ANTHROPIC_API_KEY=sk-ant-...
+#   LANGSMITH_API_KEY=lsv2_pt_...
+
+# Build vectorstore (one-time setup, ~60 seconds)
+python data/data_generation/build_vectorstore.py
+
+# Launch Jupyter
+jupyter lab
+```
+
+## Workshop Structure
+
+### Module 1: Agent Development
+
+Build from manual tool calling to production-ready multi-agent systems.
+
+**Section 1: Foundation** (`workshop_modules/module_1/section_1_foundation.ipynb`)
+- Manual tool calling loop with database tools
+- Understanding how agents work under the hood
+
+**Section 2: Create Agent** (`section_2_create_agent.ipynb`)
+- Using `create_agent()` abstraction
+- Memory with checkpointers and thread separation
+- Streaming for better UX
+
+**Section 3: Multi-Agent** (`section_3_multi_agent.ipynb`)
+- Database Agent (order status, product info, pricing)
+- Documents Agent (product specs, policies via RAG)
+- Supervisor Agent coordinating parallel and sequential tasks
+
+**Section 4: LangGraph HITL** (`section_4_langgraph_hitl.ipynb`)
+- Customer verification with `interrupt()` for HITL
+- Query classification and conditional routing
+- Dynamic prompts injecting state (customer_id)
+- Full integration of verification + supervisor + sub-agents
+
+### Module 2: Evaluation & Improvement
+
+Learn evaluation-driven development to systematically improve agents.
+
+**Section 1: Baseline Evaluation** (`workshop_modules/module_2/section_1_baseline_evaluation.ipynb`)
+- Curated dataset with ground truth examples
+- LLM-as-judge correctness evaluator
+- Trace-based tool call counter
+- Running experiments in LangSmith
+
+**Section 2: Eval-Driven Development** (`section_2_eval_driven_development.ipynb`)
+- Identified problem: Rigid DB tools → excessive tool calls
+- Solution: SQL Agent with flexible query generation
+- Re-evaluation showing quantitative improvement
+- Composing improved agent with existing system
+
+### Module 3: Deployment & Monitoring (Coming Soon 🚧)
+
+Deploy to production with LangSmith and implement monitoring.
+
+**Planned Sections:**
+- LangGraph Studio for local testing
+- Deployment to LangSmith
+- Production monitoring and dashboards
+- Online evaluation and data flywheels
+
+## Getting Started
+
+1. **Start here:** Open `workshop_modules/module_1/section_1_foundation.ipynb`
+2. **Work sequentially** through sections - each builds on the previous
+3. **Run all cells** - notebooks are self-contained with explanations and examples
+4. **Check LangSmith traces** - links provided throughout notebooks
+
+Each notebook includes:
+- 📖 Clear explanations of concepts
+- 💻 Working code examples
+- 🎯 Hands-on exercises
+- 🔗 Links to LangSmith traces for observability
+
+## Project Architecture
 
 ```
 lc-enablement-workshop/
-├── data/                      # Dataset files and generation scripts
-│   ├── structured/            # Tabular data and database
-│   │   ├── SCHEMA.md          # Complete schema documentation
-│   │   ├── products.json      # 25 products
-│   │   ├── customers.json     # 50 customers
-│   │   ├── orders.json        # 250 orders
-│   │   ├── order_items.json   # 439 order items
-│   │   └── techhub.db         # SQLite database
-│   │
-│   ├── documents/             # RAG documents (unstructured)
-│   │   ├── policies/          # 5 policy documents
-│   │   ├── products/          # 25 product documents
-│   │   └── DOCUMENTS_OVERVIEW.md  # RAG corpus documentation
-│   │
-│   ├── vector_stores/         # Pre-built vectorstore
-│   │   └── techhub_vectorstore.pkl
-│   │
-│   └── data_generation/       # Generation scripts & documentation
-│       ├── README.md          # Complete generation guide
-│       ├── generate_customers.py
-│       ├── generate_orders.py
-│       ├── generate_order_items.py
-│       ├── create_database.py
-│       ├── validate_database.py
-│       ├── build_vectorstore.py
-│       └── sample_queries.sql
+├── workshop_modules/        # Interactive Jupyter notebooks
+│   ├── module_1/            # Agent Development (4 sections)
+│   ├── module_2/            # Evaluation & Improvement (2 sections)
+│   └── module_3/            # Deployment & Monitoring (coming soon)
 │
-└── README.md                  # This file
+├── agents/                  # Reusable agent factory functions
+│   ├── db_agent.py          # Database queries (rigid tools)
+│   ├── sql_agent.py         # Flexible SQL generation (improved)
+│   ├── docs_agent.py        # RAG for product docs & policies
+│   ├── supervisor_agent.py  # Multi-agent coordinator
+│   └── supervisor_hitl_agent.py  # Full verification + routing system
+│
+├── tools/                   # Database & document search tools
+│   ├── database.py          # 6 DB tools (orders, products, SQL)
+│   └── documents.py         # 2 RAG tools (products, policies)
+│
+├── evaluators/              # Evaluation metrics
+│   └── evaluators.py        # Correctness & tool call counters
+│
+├── deployments/             # Production-ready graph configurations
+│   ├── db_agent_graph.py                   # Baseline database agent
+│   ├── docs_agent_graph.py                 # RAG documents agent
+│   ├── sql_agent_graph.py                  # Improved SQL agent
+│   ├── supervisor_agent_graph.py           # Basic supervisor
+│   ├── supervisor_hitl_agent_graph.py      # Supervisor with verification
+│   └── supervisor_hitl_sql_agent_graph.py  # Complete system (best)
+│
+├── data/                    # Complete dataset & generation scripts
+│   ├── structured/          # SQLite DB + JSON files
+│   ├── documents/           # Markdown docs for RAG
+│   ├── vector_stores/       # Pre-built vectorstore
+│   └── data_generation/     # Scripts to regenerate data
+│
+├── config.py                # Workshop-wide configuration
+├── langgraph.json           # LangGraph deployment config
+└── pyproject.toml           # Dependencies
 ```
 
-## Quick Start - Using the Dataset
+## Key Concepts Covered
 
-The dataset is ready to use! All files are in the `data/` directory.
+### Agent Development
+- Tool calling and agent loops
+- Multi-agent systems with supervisor pattern
+- Sub-agent coordination (parallel & sequential)
+- State management and memory
+- Human-in-the-loop with interrupts
 
-### With Python
+### Evaluation & Testing
+- Offline evaluation with LangSmith
+- LLM-as-judge evaluators
+- Trace-based metrics
+- Experiment comparison
+- Evaluation-driven development workflow
 
-```python
-import sqlite3
+### Production Best Practices
+- Factory functions for agent reusability
+- Separation of dev (checkpointer) vs. deploy (platform-managed)
+- Dynamic prompts with state injection
+- Structured outputs with Pydantic
+- Streaming for better UX
 
-# Connect to database
-conn = sqlite3.connect('data/structured/techhub.db')
-cursor = conn.cursor()
+## Dataset Overview
 
-# Find customer by email (HITL scenario)
-cursor.execute(
-    "SELECT * FROM customers WHERE email = ?",
-    ('sarah.chen@gmail.com',)
-)
-customer = cursor.fetchone()
+The **TechHub dataset** is a high-quality synthetic e-commerce dataset:
+- **50 customers** across consumer, corporate, and home office segments
+- **25 products** (laptops, monitors, keyboards, audio, accessories)
+- **250 orders** spanning 2 years with realistic patterns
+- **439 order items** with product affinity patterns
+- **SQLite database** (156 KB) with full schema and indexes
+- **30 documents** (25 product specs + 5 policies) for RAG
 
-# Get customer's orders
-cursor.execute("""
-    SELECT order_id, order_date, status, total_amount
-    FROM orders 
-    WHERE customer_id = ?
-    ORDER BY order_date DESC
-""", (customer[0],))
-
-for order in cursor.fetchall():
-    print(order)
-
-conn.close()
-```
-
-### With SQLite CLI
-
-```bash
-# Open database
-sqlite3 data/structured/techhub.db
-
-# Try sample queries
-.read data/data_generation/sample_queries.sql
-
-# Or explore interactively
-SELECT * FROM customers LIMIT 5;
-SELECT COUNT(*) FROM orders WHERE status = 'Shipped';
-```
-
-### With JSON Files
-
-```python
-import json
-
-# Load data
-with open('data/structured/customers.json') as f:
-    customers = json.load(f)
-
-with open('data/structured/orders.json') as f:
-    orders = json.load(f)
-
-# Find customer
-customer = next(c for c in customers if c['email'] == 'sarah.chen@gmail.com')
-
-# Get their orders
-customer_orders = [o for o in orders if o['customer_id'] == customer['customer_id']]
-print(f"{customer['name']} has {len(customer_orders)} orders")
-```
-
-## Dataset Statistics
-
-| Resource | Count | Details |
-|----------|-------|---------|
-| **Products** | 25 | 5 Laptops, 4 Monitors, 6 Keyboards, 5 Audio, 5 Accessories |
-| **Customers** | 50 | 80% Consumer, 16% Corporate, 4% Home Office |
-| **Orders** | 250 | 80% Delivered, 12% Shipped, 7% Processing, 1% Cancelled |
-| **Order Items** | 439 | Avg 1.8 items/order with product affinity patterns |
-| **Database** | 156 KB | Fully indexed, <1ms query performance |
-
-### Product Categories
-
-- **Laptops:** $899 - $1,999 (MacBook Air, MacBook Pro, Dell XPS, Lenovo ThinkPad, HP Pavilion)
-- **Monitors:** $199 - $599 (Dell UltraSharp, LG, Samsung Curved, BenQ Designer)
-- **Keyboards & Mice:** $39 - $149 (Apple Magic, Logitech MX, Gaming keyboards)
-- **Audio:** $79 - $399 (Sony WH-1000XM5, AirPods Pro, Blue Yeti, JBL Flip)
-- **Accessories:** $19 - $79 (USB-C Hub, Laptop Stand, Webcam, Laptop Sleeve, Cables)
-
-## Workshop Scenarios
-
-This dataset supports key LangGraph workshop scenarios:
-
-### 1. Customer Verification (HITL)
-```
-User: "Show me my orders"
-Flow: Supervisor → HITL (ask for email) → Database Agent → Response
-```
-
-### 2. Multi-Agent Coordination (DB + RAG)
-```
-User: "I ordered a MacBook last week, what ports does it have?"
-Flow: Database Agent (find order) → RAG Agent (get specs) → Response
-```
-
-### 3. Complex Multi-Hop Query
-```
-User: "Can I return the monitor I bought and will it work with my Dell laptop?"
-Flow: Database (find monitor) → RAG (return policy + compatibility) → Response
-```
-
-### 4. Order Tracking
-```
-User: "What's the status of order ORD-2024-0001?"
-Flow: Database Agent → Response
-```
-
-### 5. Product Compatibility (Pure RAG)
-```
-User: "Do AirPods work with Windows laptops?"
-Flow: RAG Agent (compatibility guide) → Response
-```
-
-### 6. Bundle Recommendations
-```
-User: "I'm buying a laptop, what else should I get?"
-Flow: Database (bundle analysis) → RAG (product details) → Response
-```
-
-## Sample Queries
-
-See `data/data_generation/sample_queries.sql` for complete workshop queries including:
-- Customer verification
-- Order status tracking
-- Product bundle analysis
-- Refund calculations
-- Revenue by category
-- Shipping performance metrics
-
-## Data Regeneration
-
-**Don't need to regenerate?** Skip this section - the data is ready to use!
-
-To regenerate the dataset from scratch (e.g., for different data, learning purposes):
-
-```bash
-python data/data_generation/generate_customers.py   # Requires: pip install faker
-python data/data_generation/generate_orders.py
-python data/data_generation/generate_order_items.py
-python data/data_generation/create_database.py
-python data/data_generation/validate_database.py
-python data/data_generation/build_vectorstore.py    # Requires: pip install langchain-huggingface sentence-transformers
-```
-
-**See `data/data_generation/README.md` for complete regeneration guide.**
-
-## Data Characteristics
-
-### Realistic Patterns
-
-- **Temporal:** Orders span 2 years with seasonal patterns (Q4 spike)
-- **Behavioral:** Power law distribution (20% of customers = 60% of orders)
-- **Product Affinity:** Laptops bought with accessories, monitors with keyboards
-- **Pricing:** 80% at current price, 20% with ±5% historical variance
-- **Geographic:** Customers distributed across US regions
-
-### Data Quality
-
-- ✅ Zero foreign key violations
-- ✅ Zero date logic errors
-- ✅ 100% order total accuracy
-- ✅ Perfect segment distributions
-- ✅ All queries <1ms (target: <100ms)
-
-## Documentation
-
-### Database Schema
-
-**For complete schema documentation** (including all constraints, relationships, query patterns, and tips for text-to-SQL agents), see **`data/structured/SCHEMA.md`**.
-
-### RAG Document Corpus
-
-**For complete document corpus documentation** (including document structure, policy details, content guidelines, and multi-agent scenario support), see **`data/documents/DOCUMENTS_OVERVIEW.md`**.
-
-### Database Quick Overview
-
-```sql
-customers (50 records)
-├── customer_id (PK)
-├── email (UNIQUE)
-├── name
-├── phone
-├── city
-├── state
-└── segment (Consumer/Corporate/Home Office)
-
-products (25 records)
-├── product_id (PK)
-├── name
-├── category (Laptops/Monitors/Keyboards/Audio/Accessories)
-├── price
-└── in_stock (0/1)
-
-orders (250 records)
-├── order_id (PK)
-├── customer_id (FK → customers)
-├── order_date
-├── status (Processing/Shipped/Delivered/Cancelled)
-├── shipped_date
-├── tracking_number
-└── total_amount
-
-order_items (439 records)
-├── order_item_id (PK, AUTOINCREMENT)
-├── order_id (FK → orders)
-├── product_id (FK → products)
-├── quantity
-└── price_per_unit
-```
-
-7 indexes on key fields for optimal query performance.
-
-## Workshop Materials
-
-### ✅ Completed
-- Synthetic dataset (products, customers, orders, order_items)
-- SQLite database with full schema and indexes
-- Sample queries for workshop scenarios
-- Comprehensive validation
-
-### 🔜 Coming Next
-1. **RAG Documents:** 30 markdown files (25 product docs + 5 policy docs)
-2. **Multi-Agent System:** Supervisor, Database Agent, RAG Agent implementation
-3. **Evaluation Sets:** Test cases for various evaluation types
-4. **Notebooks:** Workshop jupyter notebooks with exercises
-
-## Use Cases
-
-This dataset is designed for:
-
-- **Teaching LangGraph:** Multi-agent systems, HITL, persistence, memory
-- **Evaluation Practice:** All eval types (final response, trajectory, single-step, multi-turn)
-- **Agent Development:** Database agent, RAG agent, supervisor patterns
-- **Production Deployment:** Monitoring, data flywheels, annotation queues
-
-## License
-
-Synthetic data created for educational purposes. Free to use and distribute.
+All data is ready to use! See `data/data_generation/README.md` for details.
 
 ## Additional Resources
 
-- **Database Schema:** `data/structured/SCHEMA.md` - Complete database documentation
-- **RAG Documents:** `data/documents/DOCUMENTS_OVERVIEW.md` - Complete corpus documentation
-- **Generation Guide:** `data/data_generation/README.md` - How to regenerate dataset
-- **Sample Queries:** `data/data_generation/sample_queries.sql` - Workshop SQL queries
-- **Validation:** Run `python data/data_generation/validate_database.py` anytime
+### Documentation
+- **Data Generation Guide:** `data/data_generation/README.md` - Complete dataset documentation
+- **Database Schema:** `data/structured/SCHEMA.md` - Full schema reference
+- **RAG Documents:** `data/documents/DOCUMENTS_OVERVIEW.md` - Document corpus guide
+- **Agent Architecture:** `agents/README.md` - Agent factory patterns
+
+### External Links
+- [LangChain Python Docs](https://python.langchain.com)
+- [LangGraph Python Docs](https://langchain-ai.github.io/langgraph)
+- [LangSmith Platform](https://smith.langchain.com)
+- [LangChain Academy](https://academy.langchain.com)
+
+## Prerequisites
+
+### Required (Complete Before Workshop)
+
+Free courses from [LangChain Academy](https://academy.langchain.com):
+- [LangChain Essentials - Python](https://academy.langchain.com/courses/langchain-essentials-python) (30 min)
+- [LangGraph Essentials - Python](https://academy.langchain.com/courses/langgraph-essentials-python) (1 hour)
+- [LangSmith Essentials](https://academy.langchain.com/courses/quickstart-langsmith-essentials) (30 min)
+
+### Recommended (For Deeper Understanding)
+
+- [Foundation: Introduction to LangGraph](https://academy.langchain.com/courses/intro-to-langgraph) (6 hours)
+- [Foundation: Introduction to Agent Observability & Evaluations](https://academy.langchain.com/courses/intro-to-langsmith) (3.5 hours)
+
+### Technical Requirements
+
+- **Python 3.10+**
+- **API Keys:**
+  - LangSmith (free tier: [smith.langchain.com](https://smith.langchain.com))
+  - Anthropic or OpenAI (workshop uses Claude Haiku 4.5 by default)
+- **Tools:** Git, Jupyter, uv (or pip)
+
+## License
+
+Educational workshop materials. Synthetic dataset free to use and distribute.
 
 ---
 
-**Questions?** See `data/data_generation/README.md` for detailed documentation on dataset design, generation process, and customization options.
+**Ready to begin?** Open `workshop_modules/module_1/section_1_foundation.ipynb` and start building! 🚀
