@@ -18,23 +18,26 @@ The TechHub dataset is a high-quality synthetic dataset designed to teach enterp
 To regenerate the complete dataset from scratch:
 
 ```bash
-# Step 0: Manually create/edit products.json in ../data/structured/
+# Step 0: Manually create/edit products.json in data/structured/
 # (Products are statically defined - see products.json for template)
 
 # Step 1: Generate customers (requires: pip install faker)
-python generate_customers.py
+python data/data_generation/generate_customers.py
 
 # Step 2: Generate orders
-python generate_orders.py
+python data/data_generation/generate_orders.py
 
 # Step 3: Generate order items and calculate totals
-python generate_order_items.py
+python data/data_generation/generate_order_items.py
 
 # Step 4: Create SQLite database
-python create_database.py
+python data/data_generation/create_database.py
 
 # Step 5: Validate everything
-python validate_database.py
+python data/data_generation/validate_database.py
+
+# Step 6: Build vectorstore (requires: pip install langchain-huggingface sentence-transformers)
+python data/data_generation/build_vectorstore.py
 ```
 
 **Total time:** ~5 minutes (plus manual product definition)
@@ -43,7 +46,7 @@ python validate_database.py
 
 ### Step 0: Products (Static Definition)
 
-**File:** `../data/structured/products.json`
+**File:** `data/structured/products.json`
 
 Products are manually defined in JSON format with exact specifications from the project plan. This gives us complete control over the product catalog for workshop scenarios.
 
@@ -57,7 +60,7 @@ Products are manually defined in JSON format with exact specifications from the 
 ### Step 1: Generate Customers
 
 **Script:** `generate_customers.py`  
-**Output:** `../data/structured/customers.json`  
+**Output:** `data/structured/customers.json`  
 **Requirements:** `pip install faker`
 
 Generates 50 diverse customer records using the Faker library for realistic names, addresses, and contact information.
@@ -76,7 +79,7 @@ Generates 50 diverse customer records using the Faker library for realistic name
 ### Step 2: Generate Orders
 
 **Script:** `generate_orders.py`  
-**Output:** `../data/structured/orders.json`  
+**Output:** `data/structured/orders.json`  
 **Dependencies:** customers.json, products.json
 
 Generates 250 orders with realistic temporal and behavioral patterns.
@@ -96,7 +99,7 @@ Generates 250 orders with realistic temporal and behavioral patterns.
 ### Step 3: Generate Order Items
 
 **Script:** `generate_order_items.py`  
-**Output:** `../data/structured/order_items.json` + updates `../data/structured/orders.json` totals  
+**Output:** `data/structured/order_items.json` + updates `data/structured/orders.json` totals  
 **Dependencies:** customers.json, products.json, orders.json
 
 Generates ~440 order items with product affinity patterns and calculates order totals.
@@ -115,7 +118,7 @@ Generates ~440 order items with product affinity patterns and calculates order t
 ### Step 4: Create Database
 
 **Script:** `create_database.py`  
-**Output:** `../data/structured/techhub.db`  
+**Output:** `data/structured/techhub.db`  
 **Dependencies:** All JSON files
 
 Creates SQLite database with full schema, constraints, and indexes. See `../data/structured/SCHEMA.md` for complete schema documentation.
@@ -127,12 +130,12 @@ Creates SQLite database with full schema, constraints, and indexes. See `../data
 - 7 indexes for query performance
 - Foreign key enforcement enabled
 
-**Schema:** See lines 1284-1336 in `project_plan/full_project_plan.md`
+**Schema:** See `data/structured/SCHEMA.md` for complete database schema documentation
 
 ### Step 5: Validate Database
 
 **Script:** `validate_database.py`  
-**Input:** `../data/structured/techhub.db`  
+**Input:** `data/structured/techhub.db`  
 **Output:** Comprehensive validation report
 
 Runs extensive validation checks on the generated database.
@@ -157,13 +160,14 @@ Runs extensive validation checks on the generated database.
 | `generate_order_items.py` | Generate ~440 items + totals | ~15 sec |
 | `create_database.py` | Create SQLite database | ~5 sec |
 | `validate_database.py` | Comprehensive validation | ~2 sec |
+| `build_vectorstore.py` | Build vectorstore from documents | ~60 sec |
 
 ### Supporting Files
 
 | File | Purpose |
 |------|---------|
 | `sample_queries.sql` | Workshop scenario SQL queries |
-| `project_plan/` | Complete project planning documents |
+| `README.md` | This documentation file |
 
 ## Dependencies
 
@@ -173,6 +177,7 @@ Runs extensive validation checks on the generated database.
 
 **Optional:**
 - `faker` library (for generate_customers.py): `pip install faker`
+- `langchain-huggingface`, `sentence-transformers` (for build_vectorstore.py): `pip install langchain-huggingface sentence-transformers`
 
 ## Data Characteristics
 
@@ -249,19 +254,18 @@ See `sample_queries.sql` for example workshop queries.
 
 ## Additional Resources
 
-- **Schema documentation:** `../data/structured/SCHEMA.md` (complete database schema reference)
-- **Documents overview:** `../data/documents/DOCUMENTS_OVERVIEW.md` (complete RAG corpus documentation)
-- **Full project plan:** `project_plan/full_project_plan.md` (comprehensive 2000+ line spec)
+- **Schema documentation:** `data/structured/SCHEMA.md` (complete database schema reference)
+- **Documents overview:** `data/documents/DOCUMENTS_OVERVIEW.md` (complete RAG corpus documentation)
 - **Sample queries:** `sample_queries.sql` (workshop scenario queries)
-- **Main README:** `../README.md` (usage instructions for workshop participants)
+- **Main README:** `README.md` at project root (usage instructions for workshop participants)
 
 ## Questions or Issues?
 
 This is synthetic data for educational purposes. For questions about:
-- **Dataset design:** See `project_plan/full_project_plan.md`
+- **Dataset design:** See `data/structured/SCHEMA.md` and `data/documents/DOCUMENTS_OVERVIEW.md`
 - **Generation process:** See this README or script comments
 - **Workshop scenarios:** See `sample_queries.sql`
-- **Data quality:** Run `validate_database.py`
+- **Data quality:** Run `python data/data_generation/validate_database.py`
 
 ---
 

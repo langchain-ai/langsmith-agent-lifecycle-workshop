@@ -15,7 +15,7 @@ This dataset simulates a customer support system for "TechHub," a consumer elect
 
 ```
 lc-enablement-workshop/
-├── data/                      # Dataset files (ready to use)
+├── data/                      # Dataset files and generation scripts
 │   ├── structured/            # Tabular data and database
 │   │   ├── SCHEMA.md          # Complete schema documentation
 │   │   ├── products.json      # 25 products
@@ -24,19 +24,23 @@ lc-enablement-workshop/
 │   │   ├── order_items.json   # 439 order items
 │   │   └── techhub.db         # SQLite database
 │   │
-│   └── documents/             # RAG documents (unstructured)
-│       ├── policies/          # 5 policy documents
-│       ├── products/          # 25 product documents
-│       └── DOCUMENTS_OVERVIEW.md  # RAG corpus documentation
-│
-├── data_generation/           # Generation scripts & documentation
-│   ├── README.md              # Complete generation guide
-│   ├── generate_customers.py
-│   ├── generate_orders.py
-│   ├── generate_order_items.py
-│   ├── create_database.py
-│   ├── validate_database.py
-│   └── sample_queries.sql
+│   ├── documents/             # RAG documents (unstructured)
+│   │   ├── policies/          # 5 policy documents
+│   │   ├── products/          # 25 product documents
+│   │   └── DOCUMENTS_OVERVIEW.md  # RAG corpus documentation
+│   │
+│   ├── vector_stores/         # Pre-built vectorstore
+│   │   └── techhub_vectorstore.pkl
+│   │
+│   └── data_generation/       # Generation scripts & documentation
+│       ├── README.md          # Complete generation guide
+│       ├── generate_customers.py
+│       ├── generate_orders.py
+│       ├── generate_order_items.py
+│       ├── create_database.py
+│       ├── validate_database.py
+│       ├── build_vectorstore.py
+│       └── sample_queries.sql
 │
 └── README.md                  # This file
 ```
@@ -82,7 +86,7 @@ conn.close()
 sqlite3 data/structured/techhub.db
 
 # Try sample queries
-.read data_generation/sample_queries.sql
+.read data/data_generation/sample_queries.sql
 
 # Or explore interactively
 SELECT * FROM customers LIMIT 5;
@@ -169,7 +173,7 @@ Flow: Database (bundle analysis) → RAG (product details) → Response
 
 ## Sample Queries
 
-See `data_generation/sample_queries.sql` for complete workshop queries including:
+See `data/data_generation/sample_queries.sql` for complete workshop queries including:
 - Customer verification
 - Order status tracking
 - Product bundle analysis
@@ -184,15 +188,15 @@ See `data_generation/sample_queries.sql` for complete workshop queries including
 To regenerate the dataset from scratch (e.g., for different data, learning purposes):
 
 ```bash
-cd data_generation
-python generate_customers.py   # Requires: pip install faker
-python generate_orders.py
-python generate_order_items.py
-python create_database.py
-python validate_database.py
+python data/data_generation/generate_customers.py   # Requires: pip install faker
+python data/data_generation/generate_orders.py
+python data/data_generation/generate_order_items.py
+python data/data_generation/create_database.py
+python data/data_generation/validate_database.py
+python data/data_generation/build_vectorstore.py    # Requires: pip install langchain-huggingface sentence-transformers
 ```
 
-**See `data_generation/README.md` for complete regeneration guide.**
+**See `data/data_generation/README.md` for complete regeneration guide.**
 
 ## Data Characteristics
 
@@ -291,11 +295,10 @@ Synthetic data created for educational purposes. Free to use and distribute.
 
 - **Database Schema:** `data/structured/SCHEMA.md` - Complete database documentation
 - **RAG Documents:** `data/documents/DOCUMENTS_OVERVIEW.md` - Complete corpus documentation
-- **Generation Guide:** `data_generation/README.md` - How to regenerate dataset
-- **Project Plan:** `data_generation/project_plan/full_project_plan.md` - Full specification
-- **Sample Queries:** `data_generation/sample_queries.sql` - Workshop SQL queries
-- **Validation:** Run `python data_generation/validate_database.py` anytime
+- **Generation Guide:** `data/data_generation/README.md` - How to regenerate dataset
+- **Sample Queries:** `data/data_generation/sample_queries.sql` - Workshop SQL queries
+- **Validation:** Run `python data/data_generation/validate_database.py` anytime
 
 ---
 
-**Questions?** See `data_generation/README.md` for detailed documentation on dataset design, generation process, and customization options.
+**Questions?** See `data/data_generation/README.md` for detailed documentation on dataset design, generation process, and customization options.

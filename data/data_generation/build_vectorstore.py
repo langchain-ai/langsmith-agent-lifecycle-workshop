@@ -9,7 +9,7 @@ This script:
 5. Saves it to a pickle file for quick loading
 
 Run this script once to build the vectorstore:
-    python utils/build_vectorstore.py
+    python data/data_generation/build_vectorstore.py
 """
 
 import pickle
