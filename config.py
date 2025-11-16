@@ -28,7 +28,15 @@ DEFAULT_MODEL = os.getenv("WORKSHOP_MODEL", "anthropic:claude-haiku-4-5")
 # DATA PATHS CONFIGURATION
 # ============================================================================
 
-DEFAULT_DB_PATH = Path(__file__).parent / "data" / "structured" / "techhub.db"
+# Determine the base path (works in both local dev and LS deployment environments)
+if Path("/api").exists():
+    # Running in LangSmith deployment
+    BASE_PATH = Path("/api")
+else:
+    # Running locally
+    BASE_PATH = Path(__file__).parent
+
+DEFAULT_DB_PATH = BASE_PATH / "data" / "structured" / "techhub.db"
 DEFAULT_VECTORSTORE_PATH = (
-    Path(__file__).parent / "data" / "vector_stores" / "techhub_vectorstore.pkl"
+    BASE_PATH / "data" / "vector_stores" / "techhub_vectorstore.pkl"
 )

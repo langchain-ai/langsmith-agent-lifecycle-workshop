@@ -11,6 +11,6 @@
   "env": ".env",
   "python_version": "3.13",
    "dockerfile_lines": [
-     "RUN cd /deps/techhub-workshop && python data/data_generation/build_vectorstore.py"
+      "RUN cd /api && python data/data_generation/build_vectorstore.py"
   ]
 }
