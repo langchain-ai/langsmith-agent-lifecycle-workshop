@@ -9,6 +9,8 @@
     "supervisor_hitl_sql_agent": "./deployments/supervisor_hitl_sql_agent_graph.py:graph"
   },
   "env": ".env",
-  "python_version": "3.13"
+  "python_version": "3.13",
+   "dockerfile_lines": [
+    "RUN python data/data_generation/build_vectorstore.py || echo 'Warning: Vectorstore build had issues but continuing...'"
+  ]
 }
-
