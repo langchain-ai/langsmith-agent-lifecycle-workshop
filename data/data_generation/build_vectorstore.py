@@ -27,6 +27,10 @@ def build_vectorstore():
     print("🔧 Building TechHub VectorStore...")
     print("=" * 60)
 
+    # Get the project root directory (2 levels up from this script)
+    script_dir = Path(__file__).parent
+    project_root = script_dir.parent.parent
+
     # Initialize embeddings (local model, no API key needed)
     print("\n1. Loading embedding model (sentence-transformers/all-mpnet-base-v2)...")
     embeddings = HuggingFaceEmbeddings(
@@ -37,7 +41,7 @@ def build_vectorstore():
     # Load product documents
     print("\n2. Loading product documents...")
     product_docs = []
-    products_dir = Path("data/documents/products")
+    products_dir = project_root / "data/documents/products"
     for md_file in sorted(products_dir.glob("*.md")):
         loader = TextLoader(str(md_file), encoding="utf-8")
         product_docs.extend(loader.load())
@@ -59,7 +63,7 @@ def build_vectorstore():
     # Load policy documents
     print("\n3. Loading policy documents...")
     policy_docs = []
-    policies_dir = Path("data/documents/policies")
+    policies_dir = project_root / "data/documents/policies"
     for md_file in sorted(policies_dir.glob("*.md")):
         loader = TextLoader(str(md_file), encoding="utf-8")
         policy_docs.extend(loader.load())
@@ -101,7 +105,7 @@ def build_vectorstore():
 
     # Save to file
     print("\n7. Saving vectorstore...")
-    output_dir = Path("data/vector_stores")
+    output_dir = project_root / "data/vector_stores"
     output_dir.mkdir(exist_ok=True)
 
     output_path = output_dir / "techhub_vectorstore.pkl"
