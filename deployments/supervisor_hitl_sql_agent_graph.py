@@ -23,10 +23,6 @@ managed persistence automatically.
 from agents.docs_agent import create_docs_agent
 from agents.sql_agent import create_sql_agent
 from agents.supervisor_hitl_agent import create_supervisor_hitl_agent
-from tools.documents import get_vectorstore
-
-# Lazy load vectorstore to ensure it's built on-demand at deployment time
-get_vectorstore()
 
 # Instantiate improved SQL agent for deployment
 sql_agent = create_sql_agent(
