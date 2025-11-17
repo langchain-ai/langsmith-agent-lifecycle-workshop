@@ -12,25 +12,26 @@ A customer support agent system featuring:
 - **Multi-agent architecture** with specialized Database and Documents agents coordinated by a Supervisor
 - **Human-in-the-loop (HITL)** customer verification with LangGraph primitives
 - **Evaluation-driven development** using offline evaluation to identify and fix bottlenecks
-- **Production deployment** to LangSmith with monitoring and continuous improvement
+- **Production deployment** to LangSmith with online evaluation and data flywheels for continuous improvement
 
 ## Quick Setup
+
+This workshop uses [uv](https://docs.astral.sh/uv/) - a fast Python package installer and resolver. If you don't have it:
+
+```bash
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Then set up the workshop:
 
 ```bash
 # Clone repository
 git clone https://github.com/langchain-ai/techhub-workshop.git
 cd techhub-workshop
 
-# Install dependencies
-
-# Option 1: Using uv (recommended)
+# Install dependencies (creates virtual environment automatically)
 uv sync
-
-# Option 2: Using pip with virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-uv pip compile pyproject.toml -o requirements.txt  # Generate requirements.txt
-pip install -r requirements.txt
 
 # Configure API keys
 cp .env.example .env
@@ -39,11 +40,23 @@ cp .env.example .env
 #   LANGSMITH_API_KEY=lsv2_pt_...
 
 # Build vectorstore (one-time setup, ~60 seconds)
-python data/data_generation/build_vectorstore.py
+uv run python data/data_generation/build_vectorstore.py
 
 # Launch Jupyter
-jupyter lab
+uv run jupyter lab
 ```
+
+## Workshop Outline
+
+This workshop consists of three modules that take you from manual tool calling to production deployment:
+
+1. **Module 1: Agent Development** - Build from basics to multi-agent systems with HITL
+2. **Module 2: Evaluation & Improvement** - Use eval-driven development to systematically improve agents
+3. **Module 3: Deployment & Continuous Improvement** - Deploy to production and build a data flywheel
+
+📚 To get started, see [workshop_modules/README.md](workshop_modules/README.md)
+
+
 ## Repo Structure
 
 ```
@@ -51,7 +64,7 @@ techhub-workshop/
 ├── workshop_modules/        # Interactive Jupyter notebooks
 │   ├── module_1/            # Agent Development (4 sections)
 │   ├── module_2/            # Evaluation & Improvement (2 sections)
-│   └── module_3/            # Deployment & Monitoring (coming soon)
+│   └── module_3/            # Deployment & Continuous Improvement (2 sections)
 │
 ├── agents/                  # Reusable agent factory functions
 │   ├── db_agent.py          # Database queries (rigid tools)
@@ -86,93 +99,14 @@ techhub-workshop/
 └── pyproject.toml           # Dependencies
 ```
 
-## Workshop Structure
-
-### Module 1: Agent Development
-
-Build from manual tool calling to production-ready multi-agent systems.
-
-**Section 1: Foundation** (`workshop_modules/module_1/section_1_foundation.ipynb`)
-- Manual tool calling loop with database tools
-- Understanding how agents work under the hood
-
-**Section 2: Create Agent** (`section_2_create_agent.ipynb`)
-- Using `create_agent()` abstraction
-- Memory with checkpointers and thread separation
-- Streaming for better UX
-
-**Section 3: Multi-Agent** (`section_3_multi_agent.ipynb`)
-- Database Agent (order status, product info, pricing)
-- Documents Agent (product specs, policies via RAG)
-- Supervisor Agent coordinating parallel and sequential tasks
-
-**Section 4: LangGraph HITL** (`section_4_langgraph_hitl.ipynb`)
-- Customer verification with `interrupt()` for HITL
-- Query classification and conditional routing
-- Dynamic prompts injecting state (customer_id)
-- Full integration of verification + supervisor + sub-agents
-
-### Module 2: Evaluation & Improvement
-
-Learn evaluation-driven development to systematically improve agents.
-
-**Section 1: Baseline Evaluation** (`workshop_modules/module_2/section_1_baseline_evaluation.ipynb`)
-- Curated dataset with ground truth examples
-- LLM-as-judge correctness evaluator
-- Trace-based tool call counter
-- Running experiments in LangSmith
-
-**Section 2: Eval-Driven Development** (`section_2_eval_driven_development.ipynb`)
-- Identified problem: Rigid DB tools → excessive tool calls
-- Solution: SQL Agent with flexible query generation
-- Re-evaluation showing quantitative improvement
-- Composing improved agent with existing system
-
-### Module 3: Deployment & Monitoring (Coming Soon 🚧)
-
-Deploy to production with LangSmith and implement monitoring.
-
-**Planned Sections:**
-- LangGraph Studio for local testing
-- Deployment to LangSmith
-- Production monitoring and dashboards
-- Online evaluation and data flywheels
-
-## Getting Started
-
-1. **Start here:** Open `workshop_modules/module_1/section_1_foundation.ipynb`
-2. **Work sequentially** through sections - each builds on the previous
-3. **Run all cells** - notebooks are self-contained with explanations and examples
-4. **Check LangSmith traces** - links provided throughout notebooks
-
-Each notebook includes:
-- 📖 Clear explanations of concepts
-- 💻 Working code examples
-- 🎯 Hands-on exercises
-- 🔗 Links to LangSmith traces for observability
-
 ## Key Concepts Covered
 
-### Agent Development
-- Tool calling and agent loops
-- Multi-agent systems with supervisor pattern
-- Sub-agent coordination (parallel & sequential)
-- State management and memory
-- Human-in-the-loop with interrupts
+- **Agent Development:** Tool calling, multi-agent systems, supervisor pattern, HITL with interrupts
+- **Evaluation & Testing:** Offline evaluation, LLM-as-judge, trace metrics, eval-driven development
+- **Deployment & Production:** LangSmith deployments, online evaluation, annotation queues, SDK integration
+- **Best Practices:** Factory functions, state management, dynamic prompts, structured outputs, streaming
 
-### Evaluation & Testing
-- Offline evaluation with LangSmith
-- LLM-as-judge evaluators
-- Trace-based metrics
-- Experiment comparison
-- Evaluation-driven development workflow
-
-### Production Best Practices
-- Factory functions for agent reusability
-- Separation of dev (checkpointer) vs. deploy (platform-managed)
-- Dynamic prompts with state injection
-- Structured outputs with Pydantic
-- Streaming for better UX
+See [workshop_modules/README.md](workshop_modules/README.md) for detailed breakdown by module.
 
 ## Dataset Overview
 
