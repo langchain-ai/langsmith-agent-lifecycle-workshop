@@ -36,6 +36,3 @@ dev = []
 
 [tool.hatch.build.targets.wheel]
 packages = ["tools", "agents", "deployments", "evaluators"]
-
-[project.scripts]
-build-vectorstore = "data/data_generation/build_vectorstore.py:build_vectorstore"

@@ -9,8 +9,5 @@
     "supervisor_hitl_sql_agent": "./deployments/supervisor_hitl_sql_agent_graph.py:graph"
   },
   "env": ".env",
-  "python_version": "3.13",
-   "dockerfile_lines": [
-      "RUN build-vectorstore"
-  ]
+  "python_version": "3.13"
 }
