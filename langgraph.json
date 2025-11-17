@@ -1,5 +1,5 @@
 {
-  "dependencies": ["."],
+  "dependencies": [".", "./data"],
   "graphs": {
     "db_agent": "./deployments/db_agent_graph.py:graph",
     "docs_agent": "./deployments/docs_agent_graph.py:graph",
@@ -11,6 +11,7 @@
   "env": ".env",
   "python_version": "3.13",
    "dockerfile_lines": [
-      "RUN cd /api && python data/data_generation/build_vectorstore.py"
+      "RUN cd /api && python data/data_generation/build_vectorstore.py",
+      "RUN cp -r /api/data/vector_stores /deps/techhub-workshop/data/"
   ]
 }
