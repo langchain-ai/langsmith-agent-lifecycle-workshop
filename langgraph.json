@@ -11,6 +11,9 @@
   "env": ".env",
   "python_version": "3.13",
    "dockerfile_lines": [
+      "RUN ls -la /api/",
+      "RUN find /api -name 'build_vectorstore.py' -type f",
+      "COPY data/ /api/data/",
       "RUN python data/data_generation/build_vectorstore.py"
   ]
 }
