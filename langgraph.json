@@ -11,6 +11,6 @@
   "env": ".env",
   "python_version": "3.13",
    "dockerfile_lines": [
-      "RUN build-vectorstore"
+      "RUN python data/data_generation/build_vectorstore.py"
   ]
 }
