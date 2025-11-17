@@ -33,7 +33,7 @@ def get_vectorstore():
     """Lazy load the vectorstore.
 
     Creates the vectorstore on first call, then returns the cached instance
-    for all subsequent calls.
+    for all subsequent calls. If the vectorstore doesn't exist, builds it automatically.
 
     Returns:
         InMemoryVectorStore: Cached vectorstore instance.
@@ -41,10 +41,13 @@ def get_vectorstore():
     global _vectorstore
     if _vectorstore is None:
         if not DEFAULT_VECTORSTORE_PATH.exists():
-            raise FileNotFoundError(
-                f"Vectorstore not found at {DEFAULT_VECTORSTORE_PATH}. "
-                "Please run: python utils/build_vectorstore.py"
+            # Auto-build vectorstore if it doesn't exist
+            print(
+                f"Vectorstore not found at {DEFAULT_VECTORSTORE_PATH}. Building now..."
             )
+            from data.data_generation.build_vectorstore import build_vectorstore
+
+            build_vectorstore()
         with open(DEFAULT_VECTORSTORE_PATH, "rb") as f:
             _vectorstore = pickle.load(f)
     return _vectorstore

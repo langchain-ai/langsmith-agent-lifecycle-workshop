@@ -20,6 +20,8 @@ from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+from config import BASE_PATH
+
 
 def build_vectorstore():
     """Build and save the TechHub vectorstore."""
@@ -27,9 +29,9 @@ def build_vectorstore():
     print("🔧 Building TechHub VectorStore...")
     print("=" * 60)
 
-    # Get the project root directory (2 levels up from this script)
-    script_dir = Path(__file__).parent
-    project_root = script_dir.parent.parent
+    # Use centralized BASE_PATH from config (handles local vs deployment)
+    project_root = BASE_PATH
+    print(f"   Using project root: {project_root}")
 
     # Initialize embeddings (local model, no API key needed)
     print("\n1. Loading embedding model (sentence-transformers/all-mpnet-base-v2)...")
