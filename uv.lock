@@ -1584,6 +1584,48 @@ wheels = [
 ]
 
 [[package]]
+name = "langsmith-agent-lifecycle-workshop"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "ipykernel" },
+    { name = "jupyter" },
+    { name = "langchain" },
+    { name = "langchain-anthropic" },
+    { name = "langchain-community" },
+    { name = "langchain-core" },
+    { name = "langchain-huggingface" },
+    { name = "langchain-openai" },
+    { name = "langchain-text-splitters" },
+    { name = "langgraph" },
+    { name = "langgraph-cli", extra = ["inmem"] },
+    { name = "langsmith" },
+    { name = "python-dotenv" },
+    { name = "sentence-transformers" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ipykernel", specifier = ">=6.29.0" },
+    { name = "jupyter", specifier = ">=1.0.0" },
+    { name = "langchain", specifier = ">=0.3.0" },
+    { name = "langchain-anthropic", specifier = ">=0.3.0" },
+    { name = "langchain-community", specifier = ">=0.3.0" },
+    { name = "langchain-core", specifier = ">=0.3.0" },
+    { name = "langchain-huggingface", specifier = ">=0.1.0" },
+    { name = "langchain-openai", specifier = ">=0.2.0" },
+    { name = "langchain-text-splitters", specifier = ">=0.3.0" },
+    { name = "langgraph", specifier = ">=0.2.0" },
+    { name = "langgraph-cli", extras = ["inmem"], specifier = ">=0.4.4" },
+    { name = "langsmith", specifier = ">=0.2.0" },
+    { name = "python-dotenv", specifier = ">=1.0.0" },
+    { name = "sentence-transformers", specifier = ">=3.0.0" },
+]
+
+[package.metadata.requires-dev]
+dev = []
+
+[[package]]
 name = "lark"
 version = "1.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3162,48 +3204,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/83/d3/803453b36afefb7c2
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl", hash = "sha256:e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5", size = 6299353, upload-time = "2025-04-27T18:04:59.103Z" },
 ]
-
-[[package]]
-name = "techhub-workshop"
-version = "0.1.0"
-source = { editable = "." }
-dependencies = [
-    { name = "ipykernel" },
-    { name = "jupyter" },
-    { name = "langchain" },
-    { name = "langchain-anthropic" },
-    { name = "langchain-community" },
-    { name = "langchain-core" },
-    { name = "langchain-huggingface" },
-    { name = "langchain-openai" },
-    { name = "langchain-text-splitters" },
-    { name = "langgraph" },
-    { name = "langgraph-cli", extra = ["inmem"] },
-    { name = "langsmith" },
-    { name = "python-dotenv" },
-    { name = "sentence-transformers" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "ipykernel", specifier = ">=6.29.0" },
-    { name = "jupyter", specifier = ">=1.0.0" },
-    { name = "langchain", specifier = ">=0.3.0" },
-    { name = "langchain-anthropic", specifier = ">=0.3.0" },
-    { name = "langchain-community", specifier = ">=0.3.0" },
-    { name = "langchain-core", specifier = ">=0.3.0" },
-    { name = "langchain-huggingface", specifier = ">=0.1.0" },
-    { name = "langchain-openai", specifier = ">=0.2.0" },
-    { name = "langchain-text-splitters", specifier = ">=0.3.0" },
-    { name = "langgraph", specifier = ">=0.2.0" },
-    { name = "langgraph-cli", extras = ["inmem"], specifier = ">=0.4.4" },
-    { name = "langsmith", specifier = ">=0.2.0" },
-    { name = "python-dotenv", specifier = ">=1.0.0" },
-    { name = "sentence-transformers", specifier = ">=3.0.0" },
-]
-
-[package.metadata.requires-dev]
-dev = []
 
 [[package]]
 name = "tenacity"
