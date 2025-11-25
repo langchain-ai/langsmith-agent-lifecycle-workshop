@@ -29,9 +29,9 @@ DEFAULT_MODEL = os.getenv("WORKSHOP_MODEL", "anthropic:claude-haiku-4-5")
 # ============================================================================
 
 # Determine the base path (works in both local dev and LS deployment environments)
-if Path("/deps/techhub-workshop").exists():
+if Path("/deps/langsmith-agent-lifecycle-workshop").exists():
     # Running in LangSmith deployment (data files are at /deps, not /api)
-    BASE_PATH = Path("/deps/techhub-workshop")
+    BASE_PATH = Path("/deps/langsmith-agent-lifecycle-workshop")
 else:
     # Running locally
     BASE_PATH = Path(__file__).parent

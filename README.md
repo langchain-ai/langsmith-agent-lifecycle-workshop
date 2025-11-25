@@ -27,8 +27,8 @@ Then set up the workshop:
 
 ```bash
 # Clone repository
-git clone https://github.com/langchain-ai/techhub-workshop.git
-cd techhub-workshop
+git clone https://github.com/langchain-ai/langsmith-agent-lifecycle-workshop.git
+cd langsmith-agent-lifecycle-workshop
 
 # Install dependencies (creates virtual environment automatically)
 uv sync
@@ -60,7 +60,7 @@ This workshop consists of three modules that take you from manual tool calling t
 ## Repo Structure
 
 ```
-techhub-workshop/
+langsmith-agent-lifecycle-workshop/
 ├── workshop_modules/        # Interactive Jupyter notebooks
 │   ├── module_1/            # Agent Development (4 sections)
 │   ├── module_2/            # Evaluation & Improvement (2 sections)

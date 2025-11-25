@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "techhub-workshop"
+name = "langsmith-agent-lifecycle-workshop"
 version = "0.1.0"
 description = "AI Engineering Lifecycle on LangSmith Platform - Workshop Series"
 readme = "README.md"
