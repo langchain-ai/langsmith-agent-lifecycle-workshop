@@ -1,10 +1,10 @@
 # AI Engineering Lifecycle on LangSmith Platform
 
-<div align="center">
-    <img src="images/techhub_logo.png" width="500">
-</div>
-
 Enterprise workshop series teaching the complete AI engineering lifecycle using LangChain, LangGraph, and LangSmith—centered around building a customer support agent for a fictional online technology e-commerce store called TechHub.
+
+<div align="center">
+    <img src="images/main_graphic.png">
+</div>
 
 ## What You'll Build
 
