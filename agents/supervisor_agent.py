@@ -124,6 +124,7 @@ def create_supervisor_agent(
     agent_kwargs = {
         "model": llm,
         "tools": [call_database_specialist, call_documentation_specialist],
+        "name": "supervisor_agent",
         "state_schema": state_schema or AgentState,
         "middleware": [supervisor_prompt],
     }

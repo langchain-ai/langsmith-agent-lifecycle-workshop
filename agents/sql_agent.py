@@ -113,6 +113,7 @@ def create_sql_agent(
     agent_kwargs = {
         "model": llm,
         "tools": tools,
+        "name": "sql_agent",
         "system_prompt": prompt,
         "state_schema": state_schema or AgentState,
     }

@@ -311,6 +311,8 @@ def create_supervisor_hitl_agent(
 
     # Compile with optional checkpointer
     if use_checkpointer:
-        return workflow.compile(checkpointer=MemorySaver())
+        return workflow.compile(
+            checkpointer=MemorySaver(), name="supervisor_hitl_agent"
+        )
     else:
-        return workflow.compile()
+        return workflow.compile(name="supervisor_hitl_agent")

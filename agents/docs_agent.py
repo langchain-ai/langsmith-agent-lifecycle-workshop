@@ -85,6 +85,7 @@ def create_docs_agent(
     agent_kwargs = {
         "model": llm,
         "tools": tools,
+        "name": "docs_agent",
         "system_prompt": prompt,
         "state_schema": state_schema or AgentState,
     }
