@@ -162,5 +162,6 @@ dmypy.json
 cython_debug/
 
 # project specific
+.cursor/
 build_plans/
 data/vector_stores/*.pkl
