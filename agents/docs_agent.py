@@ -4,9 +4,10 @@ This agent specializes in searching product documentation and store policies
 using retrieval-augmented generation (RAG).
 """
 
-from langchain.agents import AgentState, create_agent
+from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
 from langgraph.checkpoint.memory import MemorySaver
+from langgraph.graph import MessagesState
 
 from config import DEFAULT_MODEL
 from tools import search_policy_docs, search_product_docs
@@ -58,7 +59,7 @@ def create_docs_agent(
     - Has appropriate system prompt for documentation queries
 
     Args:
-        state_schema: Optional custom state schema (extends AgentState).
+        state_schema: Optional custom state schema (extends MessagesState).
         use_checkpointer: Whether to include checkpointer (True for dev, False for deployment).
         model: Model to use (defaults to WORKSHOP_MODEL from .env or claude-haiku-4-5).
         system_prompt: Custom system prompt (defaults to DOCS_AGENT_SYSTEM_PROMPT).
@@ -87,7 +88,7 @@ def create_docs_agent(
         "tools": tools,
         "name": "docs_agent",
         "system_prompt": prompt,
-        "state_schema": state_schema or AgentState,
+        "state_schema": state_schema or MessagesState,
     }
 
     # Add checkpointer for development (platform handles it for deployment)

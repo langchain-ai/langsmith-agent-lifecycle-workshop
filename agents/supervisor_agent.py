@@ -5,11 +5,12 @@ to handle customer queries. It routes queries to the appropriate specialist(s) a
 can orchestrate parallel or sequential coordination when needed.
 """
 
-from langchain.agents import AgentState, create_agent
+from langchain.agents import create_agent
 from langchain.agents.middleware import ModelRequest, dynamic_prompt
 from langchain.chat_models import init_chat_model
 from langchain.tools import tool
 from langgraph.checkpoint.memory import MemorySaver
+from langgraph.graph import MessagesState
 
 from config import DEFAULT_MODEL
 
@@ -63,7 +64,7 @@ def create_supervisor_agent(
     Args:
         db_agent: Compiled database agent graph (required).
         docs_agent: Compiled documents agent graph (required).
-        state_schema: Optional custom state schema (extends AgentState).
+        state_schema: Optional custom state schema (extends MessagesState).
         use_checkpointer: Whether to include checkpointer (True for dev, False for deployment).
         model: Model to use (defaults to WORKSHOP_MODEL from .env or claude-haiku-4-5).
         system_prompt: Custom system prompt (defaults to SUPERVISOR_AGENT_SYSTEM_PROMPT).
@@ -125,7 +126,7 @@ def create_supervisor_agent(
         "model": llm,
         "tools": [call_database_specialist, call_documentation_specialist],
         "name": "supervisor_agent",
-        "state_schema": state_schema or AgentState,
+        "state_schema": state_schema or MessagesState,
         "middleware": [supervisor_prompt],
     }
 

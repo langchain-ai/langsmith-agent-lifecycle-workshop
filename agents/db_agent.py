@@ -4,9 +4,10 @@ This agent specializes in querying structured data from the database,
 including order status, product information, and customer orders.
 """
 
-from langchain.agents import AgentState, create_agent
+from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
 from langgraph.checkpoint.memory import MemorySaver
+from langgraph.graph import MessagesState
 
 from config import DEFAULT_MODEL
 from tools import (
@@ -68,7 +69,7 @@ def create_db_agent(
     - Has appropriate system prompt for DB queries
 
     Args:
-        state_schema: Optional custom state schema (extends AgentState).
+        state_schema: Optional custom state schema (extends MessagesState).
         additional_tools: Additional tools beyond base DB tools (e.g., get_customer_orders).
         use_checkpointer: Whether to include checkpointer (True for dev, False for deployment).
         model: Model to use (defaults to WORKSHOP_MODEL from .env or claude-haiku-4-5).
@@ -103,7 +104,7 @@ def create_db_agent(
         "tools": tools,
         "name": "db_agent",
         "system_prompt": prompt,
-        "state_schema": state_schema or AgentState,
+        "state_schema": state_schema or MessagesState,
     }
 
     # Add checkpointer for development (platform handles it for deployment)

@@ -16,12 +16,11 @@ This demonstrates LangGraph primitives for complex orchestration:
 
 from typing import Literal, NamedTuple
 
-from langchain.agents import AgentState
 from langchain.chat_models import init_chat_model
 from langchain_community.utilities import SQLDatabase
 from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.graph import START, StateGraph
+from langgraph.graph import START, MessagesState, StateGraph
 from langgraph.types import Command, interrupt
 from typing_extensions import Annotated, TypedDict
 
@@ -38,10 +37,10 @@ from tools.database import get_database
 # ============================================================================
 
 
-class IntermediateState(AgentState):
-    """Intermediate AgentState with customer_id for verification tracking.
+class IntermediateState(MessagesState):
+    """Intermediate MessagesState with customer_id for verification tracking.
 
-    AgentState includes a `messages` key with proper reducers by default.
+    MessagesState includes a `messages` key with proper reducers by default.
     Shared keys automatically flow between parent and subgraphs.
     """
 
@@ -295,9 +294,9 @@ def create_supervisor_hitl_agent(
 
     # Build the verification graph
     workflow = StateGraph(
-        input_schema=AgentState,
+        input_schema=MessagesState,
         state_schema=IntermediateState,
-        output_schema=AgentState,
+        output_schema=MessagesState,
     )
 
     # Add nodes

@@ -47,9 +47,9 @@ db_agent = create_db_agent()  # Uses model from config
 Pass a custom state schema to share data between graphs:
 
 ```python
-from langchain.agents import AgentState
+from langgraph.graph import MessagesState
 
-class CustomState(AgentState):
+class CustomState(MessagesState):
     customer_id: str
 
 agent = create_db_agent(state_schema=CustomState)

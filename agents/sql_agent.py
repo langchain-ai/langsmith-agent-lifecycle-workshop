@@ -9,9 +9,10 @@ tools couldn't handle complex queries, so we built a flexible SQL agent that gen
 queries on-demand to handle any database question.
 """
 
-from langchain.agents import AgentState, create_agent
+from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
 from langgraph.checkpoint.memory import MemorySaver
+from langgraph.graph import MessagesState
 
 from config import DEFAULT_MODEL
 from tools.database import execute_sql, get_database
@@ -81,7 +82,7 @@ def create_sql_agent(
     - Provides flexible database access vs rigid tool-based approach
 
     Args:
-        state_schema: Optional custom state schema (extends AgentState).
+        state_schema: Optional custom state schema (extends MessagesState).
         additional_tools: Additional tools beyond base SQL execution tool.
         use_checkpointer: Whether to include checkpointer (True for dev, False for deployment).
         model: Model to use (defaults to WORKSHOP_MODEL from .env or claude-haiku-4-5).
@@ -115,7 +116,7 @@ def create_sql_agent(
         "tools": tools,
         "name": "sql_agent",
         "system_prompt": prompt,
-        "state_schema": state_schema or AgentState,
+        "state_schema": state_schema or MessagesState,
     }
 
     # Add checkpointer for development (platform handles it for deployment)
