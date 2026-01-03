@@ -93,12 +93,12 @@ def classify_query_intent(query: str) -> QueryClassification:
     """
     llm = init_chat_model(DEFAULT_MODEL)
     structured_llm = llm.with_structured_output(QueryClassification)
-    classification_prompt = """Analyze the user's query to determine if it requires knowing their customer identity in order to answer the question."""
+    classification_prompt = """Analyze the following user's query to determine if it requires knowing their customer identity in order to answer the question."""
 
     classification = structured_llm.invoke(
         [
             {"role": "system", "content": classification_prompt},
-            {"role": "user", "content": "Query: " + query},
+            {"role": "user", "content": query},
         ]
     )
 
