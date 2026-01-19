@@ -1,0 +1,292 @@
+{
+  "scenarios": [
+    {
+      "scenario_id": "power_user_analytics",
+      "customer": {
+        "email": "priya.patel@icloud.com",
+        "name": "Priya Patel",
+        "customer_id": "CUST-003",
+        "segment": "Consumer"
+      },
+      "persona": {
+        "description": "Power user who meticulously tracks spending across categories. Detail-oriented and asks follow-up questions about analytics and purchase patterns.",
+        "communication_style": "Professional, expects precision in numbers and data",
+        "sentiment": "neutral",
+        "typical_queries": [
+          "spending by category",
+          "order frequency analysis",
+          "product preference trends",
+          "most expensive purchases"
+        ]
+      },
+      "initial_query": "Hi, I'd like to analyze my purchasing patterns. Can you tell me how much I've spent on laptops versus monitors?",
+      "requires_verification": true,
+      "expected_flow": [
+        "classification -> verify_customer",
+        "collect_email (interrupt)",
+        "supervisor -> sql_agent",
+        "multi-turn follow-ups expected"
+      ],
+      "tags": ["analytics", "high_value_customer", "multi_turn"]
+    },
+    {
+      "scenario_id": "corporate_buyer_bulk",
+      "customer": {
+        "email": "it.purchasing@finance.com",
+        "name": "Jonathan Taylor",
+        "customer_id": "CUST-047",
+        "segment": "Corporate"
+      },
+      "persona": {
+        "description": "Corporate IT buyer managing department budgets. Focused on bulk purchases and spending tracking for finance department.",
+        "communication_style": "Formal, business-oriented, time-sensitive, professional",
+        "sentiment": "neutral",
+        "typical_queries": [
+          "total spending reports",
+          "keyboard orders for department",
+          "invoice details",
+          "bulk purchase history"
+        ]
+      },
+      "initial_query": "I need a breakdown of all keyboard purchases for our finance department. My email is it.purchasing@finance.com",
+      "requires_verification": true,
+      "expected_flow": [
+        "classification -> verify_customer (email in query)",
+        "supervisor -> sql_agent",
+        "likely follow-up on pricing and quantities"
+      ],
+      "tags": ["corporate", "bulk_purchase", "account_summary"]
+    },
+    {
+      "scenario_id": "order_tracker_simple",
+      "customer": {
+        "email": "sarah.chen@gmail.com",
+        "name": "Sarah Chen",
+        "customer_id": "CUST-001",
+        "segment": "Consumer"
+      },
+      "persona": {
+        "description": "Casual shopper checking order status. Friendly and appreciative when helped. Expects quick, clear answers.",
+        "communication_style": "Informal, friendly, uses casual language",
+        "sentiment": "positive",
+        "typical_queries": [
+          "where is my order",
+          "tracking number",
+          "delivery estimate",
+          "order confirmation"
+        ]
+      },
+      "initial_query": "Hey! What's the status of my recent order?",
+      "requires_verification": true,
+      "expected_flow": [
+        "classification -> verify_customer",
+        "collect_email (interrupt)",
+        "supervisor -> db_agent (simpler query)",
+        "2-3 turns, straightforward resolution"
+      ],
+      "tags": ["order_tracking", "simple_query", "hitl", "positive_experience"]
+    },
+    {
+      "scenario_id": "product_researcher_no_auth",
+      "customer": null,
+      "persona": {
+        "description": "Prospective buyer researching products before purchase. No account yet. Asks thoughtful comparison questions.",
+        "communication_style": "Curious, asks about features and specs, methodical",
+        "sentiment": "neutral",
+        "typical_queries": [
+          "product comparisons",
+          "feature details",
+          "compatibility questions",
+          "which model is better"
+        ]
+      },
+      "initial_query": "What are the key differences between the MacBook Air M2 and Dell XPS 13?",
+      "requires_verification": false,
+      "expected_flow": [
+        "classification -> supervisor (skip verification)",
+        "supervisor -> docs_agent",
+        "likely follow-up on specific specs"
+      ],
+      "tags": ["product_info", "no_verification", "docs_agent", "research"]
+    },
+    {
+      "scenario_id": "policy_question_warranty",
+      "customer": null,
+      "persona": {
+        "description": "Customer researching policies before making a purchase decision. Cautious and wants clarity on terms and conditions.",
+        "communication_style": "Cautious, wants clarity on terms, asks specific policy questions",
+        "sentiment": "neutral",
+        "typical_queries": [
+          "return policy details",
+          "warranty coverage",
+          "shipping terms",
+          "return window for opened items"
+        ]
+      },
+      "initial_query": "What's your return policy for opened electronics? I'm considering buying a laptop.",
+      "requires_verification": false,
+      "expected_flow": [
+        "classification -> supervisor (skip verification)",
+        "supervisor -> docs_agent",
+        "straightforward, fewer turns"
+      ],
+      "tags": ["policies", "no_verification", "docs_agent", "pre_purchase"]
+    },
+    {
+      "scenario_id": "support_seeker_account_issue",
+      "customer": {
+        "email": "daniel.park@yahoo.com",
+        "name": "Daniel Park",
+        "customer_id": "CUST-019",
+        "segment": "Consumer"
+      },
+      "persona": {
+        "description": "Customer with account management question for tax purposes. Polite but concerned about getting complete information.",
+        "communication_style": "Polite but concerned, needs detailed records",
+        "sentiment": "neutral",
+        "typical_queries": [
+          "order history review",
+          "account summary",
+          "past purchases for taxes",
+          "complete transaction history"
+        ]
+      },
+      "initial_query": "I need to review all my past orders for tax purposes. Can you help?",
+      "requires_verification": true,
+      "expected_flow": [
+        "classification -> verify_customer",
+        "collect_email (interrupt)",
+        "supervisor -> sql_agent (order history)",
+        "may ask for specific date ranges"
+      ],
+      "tags": ["account_management", "order_history", "hitl", "tax_records"]
+    },
+    {
+      "scenario_id": "product_spec_deep_dive",
+      "customer": null,
+      "persona": {
+        "description": "Tech enthusiast wanting detailed specifications before purchase. Excited about technology and appreciates thorough information.",
+        "communication_style": "Technical, detail-oriented, enthusiastic about specs",
+        "sentiment": "positive",
+        "typical_queries": [
+          "technical specs",
+          "compatibility details",
+          "performance metrics",
+          "technology features"
+        ]
+      },
+      "initial_query": "Can you tell me about the noise cancellation technology in the Sony WH-1000XM5 headphones?",
+      "requires_verification": false,
+      "expected_flow": [
+        "classification -> supervisor (skip verification)",
+        "supervisor -> docs_agent",
+        "multi-turn exploration of features"
+      ],
+      "tags": ["product_specs", "no_verification", "technical", "enthusiastic"]
+    },
+    {
+      "scenario_id": "multi_order_analysis",
+      "customer": {
+        "email": "jamal.washington@icloud.com",
+        "name": "Jamal Washington",
+        "customer_id": "CUST-026",
+        "segment": "Consumer"
+      },
+      "persona": {
+        "description": "Regular customer interested in spending patterns and loyalty benefits. Friendly and relationship-focused.",
+        "communication_style": "Friendly, relationship-focused, appreciative",
+        "sentiment": "positive",
+        "typical_queries": [
+          "total spending",
+          "order count",
+          "purchase history",
+          "most purchased products"
+        ]
+      },
+      "initial_query": "I'm a regular customer - can you show me my complete purchase history?",
+      "requires_verification": true,
+      "expected_flow": [
+        "classification -> verify_customer",
+        "collect_email (interrupt)",
+        "supervisor -> sql_agent (comprehensive query)",
+        "may express gratitude"
+      ],
+      "tags": ["loyalty", "purchase_history", "high_engagement", "positive"]
+    },
+    {
+      "scenario_id": "angry_delayed_order",
+      "customer": {
+        "email": "rachel.goldstein@yahoo.com",
+        "name": "Rachel Goldstein",
+        "customer_id": "CUST-015",
+        "segment": "Consumer"
+      },
+      "persona": {
+        "description": "Angry customer whose order is delayed beyond promised date. Frustrated, impatient, demanding immediate answers and resolution.",
+        "communication_style": "Short, curt, uses CAPS and exclamation marks, demands action",
+        "sentiment": "negative",
+        "typical_queries": [
+          "WHERE IS MY ORDER?!",
+          "This is unacceptable!",
+          "I want a refund NOW",
+          "When will it ACTUALLY ship?!"
+        ]
+      },
+      "initial_query": "My order is LATE and I need it TODAY! This is ridiculous!",
+      "requires_verification": true,
+      "expected_flow": [
+        "classification -> verify_customer",
+        "collect_email (interrupt)",
+        "supervisor -> db_agent (order status)",
+        "likely remains frustrated, demands updates"
+      ],
+      "tags": ["negative_sentiment", "order_issue", "urgent", "hitl", "complaint"]
+    },
+    {
+      "scenario_id": "frustrated_wrong_item",
+      "customer": {
+        "email": "lisa.martinez@yahoo.com",
+        "name": "Lisa Martinez",
+        "customer_id": "CUST-022",
+        "segment": "Consumer"
+      },
+      "persona": {
+        "description": "Frustrated customer who received wrong product AND email not in system. Tests verification failure loop - customer insists they've ordered before but can't be found. Loses patience when told email isn't found.",
+        "communication_style": "Sarcastic, demanding, loses patience quickly when verification fails, expresses disappointment and disbelief",
+        "sentiment": "negative",
+        "typical_queries": [
+          "This is the wrong item!",
+          "What do you MEAN you can't find me?!",
+          "I've ordered from you FIVE times!",
+          "This is ridiculous!"
+        ]
+      },
+      "initial_query": "I ordered a MacBook and got a KEYBOARD instead. How does that even happen?!",
+      "requires_verification": true,
+      "expected_flow": [
+        "classification -> verify_customer",
+        "collect_email (interrupt)",
+        "VERIFICATION FAILS - email not in database",
+        "agent asks to try again",
+        "customer gets MORE frustrated",
+        "tests failed verification edge case"
+      ],
+      "tags": ["negative_sentiment", "wrong_item", "verification_failure", "edge_case", "hitl", "complaint"]
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-01-19",
+    "total_scenarios": 10,
+    "distribution": {
+      "requires_verification": 8,
+      "no_verification": 2,
+      "uses_sql_agent": 5,
+      "uses_docs_agent": 3,
+      "uses_db_agent": 2,
+      "sentiment_neutral": 6,
+      "sentiment_positive": 2,
+      "sentiment_negative": 2
+    }
+  }
+}
