@@ -21,9 +21,14 @@ uv sync
 # Configure environment
 cp .env.example .env
 # Edit .env with your API keys
+# Optional: Set EMBEDDING_PROVIDER=openai if HuggingFace downloads are blocked
 
 # Build vectorstore (required one-time setup, ~60 seconds)
+# Uses HuggingFace embeddings by default (local, no API key)
+# Set EMBEDDING_PROVIDER=openai in .env to use OpenAI embeddings instead
 uv run python data/data_generation/build_vectorstore.py
+
+# Note: Changing EMBEDDING_PROVIDER requires rebuilding the vectorstore
 ```
 
 ### Development
@@ -99,8 +104,9 @@ class IntermediateState(MessagesState):
 
 Centralized in `config.py`:
 - `DEFAULT_MODEL` - Workshop-wide model setting (override with `WORKSHOP_MODEL` env var)
+- `DEFAULT_EMBEDDING_PROVIDER` - Embedding provider setting (override with `EMBEDDING_PROVIDER` env var, defaults to `huggingface`)
 - `DEFAULT_DB_PATH` - Path to SQLite database
-- `DEFAULT_VECTORSTORE_PATH` - Path to pre-built vectorstore
+- `DEFAULT_VECTORSTORE_PATH` - Path to pre-built vectorstore (includes provider in filename)
 - Path resolution handles both local dev and LangSmith deployment environments
 
 All agents inherit settings from `config.py` but can override:
@@ -124,7 +130,7 @@ agent = create_db_agent(model="anthropic:claude-sonnet-4")
 ### Data
 - `data/structured/techhub.db` - SQLite database (50 customers, 25 products, 250 orders)
 - `data/documents/` - 30 markdown docs (product specs + policies) for RAG
-- `data/vector_stores/techhub_vectorstore.pkl` - Pre-built vectorstore (must run `build_vectorstore.py` first)
+- `data/vector_stores/techhub_vectorstore_{provider}.pkl` - Pre-built vectorstore (must run `build_vectorstore.py` first, provider is `huggingface` or `openai`)
 - `data/structured/SCHEMA.md` - Complete database schema reference
 
 ### Deployment
@@ -153,7 +159,9 @@ See `data/structured/SCHEMA.md` for complete schema details.
 - Tools are designed for customer support queries (not admin functions)
 
 **Document Tools** (`tools/documents.py`):
-- Lazy-loaded InMemoryVectorStore with HuggingFace embeddings
+- Lazy-loaded InMemoryVectorStore with configurable embeddings (HuggingFace or OpenAI)
+- Embedding provider controlled by `EMBEDDING_PROVIDER` env var (defaults to HuggingFace)
+- Vectorstore filename includes provider: `techhub_vectorstore_{provider}.pkl`
 - 2 tools: `search_product_documents`, `search_policy_documents`
 - Vectorstore must be built first using `build_vectorstore.py`
 
@@ -249,6 +257,7 @@ Required API keys in `.env`:
 
 Optional configuration:
 - `WORKSHOP_MODEL` - Override default model for all agents (default: `anthropic:claude-haiku-4-5`)
+- `EMBEDDING_PROVIDER` - Embedding provider for vectorstore: `huggingface` (default, local) or `openai` (requires `OPENAI_API_KEY`)
 - `LANGSMITH_PROJECT` - Project name for traces (default: `langsmith-agent-lifecycle-workshop`)
 - `LANGSMITH_TRACING` - Enable/disable tracing (default: `true`)
 
@@ -263,7 +272,7 @@ Optional configuration:
 
 ## Common Gotchas
 
-- **Vectorstore not found**: Must run `uv run python data/data_generation/build_vectorstore.py` before using RAG tools
+- **Vectorstore not found**: Must run `uv run python data/data_generation/build_vectorstore.py` before using RAG tools. If changing `EMBEDDING_PROVIDER`, must rebuild vectorstore
 - **Checkpointer conflicts**: Use `use_checkpointer=False` for production deployments (LangSmith manages state)
 - **State schema mismatches**: Shared keys in custom state must match parent/subgraph schemas
 - **Path resolution**: `config.py` handles both local (`Path(__file__).parent`) and LangSmith deployment (`/deps/...`) paths

@@ -4,9 +4,17 @@ Build the InMemoryVectorStore from TechHub markdown documents.
 This script:
 1. Loads product and policy markdown documents
 2. Splits them into chunks with metadata
-3. Creates embeddings using small, local HuggingFace model (no API key needed)
+3. Creates embeddings using configured provider (HuggingFace or OpenAI)
 4. Builds an InMemoryVectorStore
 5. Saves it to a pickle file for quick loading
+
+Embedding providers:
+- HuggingFace (default): Local model, no API key needed
+- OpenAI: Requires OPENAI_API_KEY, uses text-embedding-3-small
+
+Configure via EMBEDDING_PROVIDER env var in .env:
+    EMBEDDING_PROVIDER=huggingface  # default
+    EMBEDDING_PROVIDER=openai       # requires OPENAI_API_KEY
 
 Run this script once to build the vectorstore:
     python data/data_generation/build_vectorstore.py
@@ -18,9 +26,25 @@ from pathlib import Path
 from langchain_community.document_loaders import TextLoader
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-from config import BASE_PATH
+from config import BASE_PATH, DEFAULT_EMBEDDING_PROVIDER, DEFAULT_VECTORSTORE_PATH
+
+
+def get_embeddings(provider: str = "huggingface"):
+    """Get embeddings based on the configured provider.
+
+    Args:
+        provider: Either "huggingface" (local, no API key) or "openai" (requires OPENAI_API_KEY)
+
+    Returns:
+        Embeddings instance for the specified provider
+    """
+    if provider == "openai":
+        return OpenAIEmbeddings(model="text-embedding-3-small")
+    else:
+        return HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
 
 def build_vectorstore():
@@ -33,12 +57,13 @@ def build_vectorstore():
     project_root = BASE_PATH
     print(f"   Using project root: {project_root}")
 
-    # Initialize embeddings (local model, no API key needed)
-    print("\n1. Loading embedding model (sentence-transformers/all-mpnet-base-v2)...")
-    embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-mpnet-base-v2"
-    )
-    print("   ✓ Embedding model loaded")
+    # Initialize embeddings based on configured provider
+    print(f"\n1. Loading embedding model (provider: {DEFAULT_EMBEDDING_PROVIDER})...")
+    embeddings = get_embeddings(DEFAULT_EMBEDDING_PROVIDER)
+    if DEFAULT_EMBEDDING_PROVIDER == "openai":
+        print("   ✓ OpenAI embeddings loaded (text-embedding-3-small)")
+    else:
+        print("   ✓ HuggingFace embeddings loaded (sentence-transformers/all-mpnet-base-v2)")
 
     # Load product documents
     print("\n2. Loading product documents...")
@@ -107,12 +132,19 @@ def build_vectorstore():
 
     # Save to file
     print("\n7. Saving vectorstore...")
-    output_dir = project_root / "data/vector_stores"
-    output_dir.mkdir(exist_ok=True)
+    output_path = DEFAULT_VECTORSTORE_PATH
+    output_path.parent.mkdir(exist_ok=True)
 
-    output_path = output_dir / "techhub_vectorstore.pkl"
+    # Store vectorstore data and provider info
+    # Note: We clear embeddings before pickling to avoid serialization issues with OpenAI
+    # The embeddings will be reconstructed on load based on the provider
+    vectorstore_data = {
+        "store": vectorstore.store,  # The actual vector data
+        "provider": DEFAULT_EMBEDDING_PROVIDER,  # Provider used for embeddings
+    }
+
     with open(output_path, "wb") as f:
-        pickle.dump(vectorstore, f)
+        pickle.dump(vectorstore_data, f)
 
     print(f"   ✓ Saved to {output_path}")
 

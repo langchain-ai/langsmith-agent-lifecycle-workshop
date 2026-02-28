@@ -27,6 +27,15 @@ from typing import Literal
 DEFAULT_MODEL = os.getenv("WORKSHOP_MODEL", "anthropic:claude-haiku-4-5")
 
 # ============================================================================
+# EMBEDDING CONFIGURATION
+# ============================================================================
+
+# Embedding provider for document vectorstore
+# Options: "huggingface" (local, no API key) or "openai" (requires OPENAI_API_KEY)
+# Default is HuggingFace for backwards compatibility and no external dependencies
+DEFAULT_EMBEDDING_PROVIDER = os.getenv("EMBEDDING_PROVIDER", "huggingface")
+
+# ============================================================================
 # RUNTIME CONFIGURATION
 # ============================================================================
 
@@ -64,7 +73,7 @@ else:
 
 DEFAULT_DB_PATH = BASE_PATH / "data" / "structured" / "techhub.db"
 DEFAULT_VECTORSTORE_PATH = (
-    BASE_PATH / "data" / "vector_stores" / "techhub_vectorstore.pkl"
+    BASE_PATH / "data" / "vector_stores" / f"techhub_vectorstore_{DEFAULT_EMBEDDING_PROVIDER}.pkl"
 )
 
 # ============================================================================

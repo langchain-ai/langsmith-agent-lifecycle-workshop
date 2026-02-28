@@ -6,7 +6,7 @@ These tools provide semantic search over:
 - Store policies (returns, warranties, shipping)
 
 The vectorstore is pre-built from markdown documents and uses:
-- HuggingFace embeddings (local, no API key needed)
+- Configurable embeddings (HuggingFace by default, or OpenAI)
 - InMemoryVectorStore for fast retrieval
 - VectorStoreRetriever for proper tracing and Runnable interface
 - Metadata filtering to separate products from policies
@@ -20,6 +20,7 @@ import pickle
 
 from langchain_core.documents import Document
 from langchain_core.tools import tool
+from langchain_core.vectorstores import InMemoryVectorStore
 
 from config import DEFAULT_VECTORSTORE_PATH
 
@@ -48,8 +49,22 @@ def get_vectorstore():
             from data.data_generation.build_vectorstore import build_vectorstore
 
             build_vectorstore()
+
         with open(DEFAULT_VECTORSTORE_PATH, "rb") as f:
-            _vectorstore = pickle.load(f)
+            data = pickle.load(f)
+
+        # Handle both old format (direct vectorstore) and new format (dict with store + provider)
+        if isinstance(data, dict) and "store" in data and "provider" in data:
+            # New format: reconstruct vectorstore with embeddings
+            from data.data_generation.build_vectorstore import get_embeddings
+
+            embeddings = get_embeddings(data["provider"])
+            _vectorstore = InMemoryVectorStore(embedding=embeddings)
+            _vectorstore.store = data["store"]
+        else:
+            # Old format: direct vectorstore pickle (backwards compatibility)
+            _vectorstore = data
+
     return _vectorstore
 
 
