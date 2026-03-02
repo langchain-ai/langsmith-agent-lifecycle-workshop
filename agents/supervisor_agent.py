@@ -7,12 +7,11 @@ can orchestrate parallel or sequential coordination when needed.
 
 from langchain.agents import create_agent
 from langchain.agents.middleware import ModelRequest, dynamic_prompt
-from langchain.chat_models import init_chat_model
 from langchain.tools import tool
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import MessagesState
 
-from config import DEFAULT_MODEL, Context
+from config import DEFAULT_MODEL, Context, init_workshop_chat_model
 
 # ============================================================================
 # AGENT CONFIGURATION
@@ -88,7 +87,7 @@ def create_supervisor_agent(
         ... )
     """
     # Use provided values or fall back to module defaults
-    llm = init_chat_model(model or DEFAULT_MODEL, configurable_fields=["model"])
+    llm = init_workshop_chat_model(model or DEFAULT_MODEL, configurable_fields=["model"])
     prompt = system_prompt or SUPERVISOR_AGENT_SYSTEM_PROMPT
 
     # Dynamic prompt middleware to inject customer_id if it exists in state

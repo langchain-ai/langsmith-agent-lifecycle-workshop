@@ -9,9 +9,56 @@ This makes it easy to adapt the workshop for different:
 """
 
 import os
+import atexit
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
+
+import certifi
+import httpx
+from dotenv import load_dotenv
+from langchain.chat_models import init_chat_model
+
+# Load .env if present so scripts that import config.py pick up local settings.
+load_dotenv()
+
+# Ensure outbound HTTPS clients have a CA bundle even when system trust paths are misconfigured.
+_default_ca_bundle = certifi.where()
+os.environ.setdefault("SSL_CERT_FILE", _default_ca_bundle)
+os.environ.setdefault("REQUESTS_CA_BUNDLE", _default_ca_bundle)
+
+_openai_http_client: httpx.Client | None = None
+
+
+def _is_openai_model(model: str) -> bool:
+    return model.startswith("openai:")
+
+
+def _openai_verify_value() -> bool | str:
+    ca_bundle = os.getenv("OPENAI_CA_BUNDLE")
+    if ca_bundle:
+        return ca_bundle
+
+    ssl_verify = os.getenv("OPENAI_SSL_VERIFY", "true").strip().lower()
+    if ssl_verify in {"0", "false", "no", "off"}:
+        return False
+    return True
+
+
+def _get_openai_http_client() -> httpx.Client:
+    global _openai_http_client
+    if _openai_http_client is None:
+        _openai_http_client = httpx.Client(verify=_openai_verify_value())
+        atexit.register(_openai_http_client.close)
+    return _openai_http_client
+
+
+def init_workshop_chat_model(model: str | None = None, **kwargs: Any):
+    """Initialize chat model with optional OpenAI TLS overrides from env vars."""
+    resolved_model = model or DEFAULT_MODEL
+    if _is_openai_model(resolved_model) and "http_client" not in kwargs:
+        kwargs["http_client"] = _get_openai_http_client()
+    return init_chat_model(resolved_model, **kwargs)
 
 # ============================================================================
 # MODEL CONFIGURATION

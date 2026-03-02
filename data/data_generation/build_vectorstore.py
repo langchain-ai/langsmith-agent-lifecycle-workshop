@@ -20,9 +20,12 @@ Run this script once to build the vectorstore:
     python data/data_generation/build_vectorstore.py
 """
 
+import atexit
+import os
 import pickle
 from pathlib import Path
 
+import httpx
 from langchain_community.document_loaders import TextLoader
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -30,6 +33,24 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from config import BASE_PATH, DEFAULT_EMBEDDING_PROVIDER, DEFAULT_VECTORSTORE_PATH
+
+
+def _build_openai_http_client() -> httpx.Client | None:
+    """Create an optional OpenAI HTTP client with configurable TLS verification."""
+    verify_value: bool | str = True
+    ca_bundle = os.getenv("OPENAI_CA_BUNDLE")
+    ssl_verify = os.getenv("OPENAI_SSL_VERIFY", "true").strip().lower()
+
+    if ca_bundle:
+        verify_value = ca_bundle
+        print(f"   Using custom OpenAI CA bundle: {ca_bundle}")
+    elif ssl_verify in {"0", "false", "no", "off"}:
+        verify_value = False
+        print("   WARNING: OPENAI_SSL_VERIFY=false (TLS verification disabled)")
+
+    client = httpx.Client(verify=verify_value)
+    atexit.register(client.close)
+    return client
 
 
 def get_embeddings(provider: str = "huggingface"):
@@ -42,7 +63,10 @@ def get_embeddings(provider: str = "huggingface"):
         Embeddings instance for the specified provider
     """
     if provider == "openai":
-        return OpenAIEmbeddings(model="text-embedding-3-small")
+        return OpenAIEmbeddings(
+            model="text-embedding-3-small",
+            http_client=_build_openai_http_client(),
+        )
     else:
         return HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 

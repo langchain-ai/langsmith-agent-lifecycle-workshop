@@ -5,11 +5,10 @@ including order status, product information, and customer orders.
 """
 
 from langchain.agents import create_agent
-from langchain.chat_models import init_chat_model
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import MessagesState
 
-from config import DEFAULT_MODEL, Context
+from config import DEFAULT_MODEL, Context, init_workshop_chat_model
 from tools import (
     get_order_item_price,
     get_order_items,
@@ -90,7 +89,7 @@ def create_db_agent(
         ... )
     """
     # Use provided values or fall back to module defaults
-    llm = init_chat_model(model or DEFAULT_MODEL, configurable_fields=["model"])
+    llm = init_workshop_chat_model(model or DEFAULT_MODEL, configurable_fields=["model"])
     prompt = system_prompt or DB_AGENT_SYSTEM_PROMPT
     tools = DB_AGENT_BASE_TOOLS.copy()
 

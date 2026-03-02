@@ -16,7 +16,6 @@ This demonstrates LangGraph primitives for complex orchestration:
 
 from typing import Literal, NamedTuple
 
-from langchain.chat_models import init_chat_model
 from langchain_community.utilities import SQLDatabase
 from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
@@ -29,7 +28,7 @@ from typing_extensions import Annotated, TypedDict
 from agents.db_agent import create_db_agent
 from agents.docs_agent import create_docs_agent
 from agents.supervisor_agent import create_supervisor_agent
-from config import DEFAULT_MODEL, Context
+from config import DEFAULT_MODEL, Context, init_workshop_chat_model
 from tools import get_customer_orders
 from tools.database import get_database
 
@@ -93,7 +92,7 @@ def classify_query_intent(query: str, model: str = DEFAULT_MODEL) -> QueryClassi
     Returns:
         QueryClassification dict with reasoning and requires_verification fields
     """
-    llm = init_chat_model(model, configurable_fields=["model"])
+    llm = init_workshop_chat_model(model, configurable_fields=["model"])
     structured_llm = llm.with_structured_output(QueryClassification)
     classification_prompt = """Analyze the following user's query to determine if it requires knowing their customer identity in order to answer the question."""
 
@@ -113,7 +112,7 @@ def create_email_extractor(model: str = DEFAULT_MODEL):
     Args:
         model: Model to use for email extraction (defaults to DEFAULT_MODEL)
     """
-    llm = init_chat_model(model, configurable_fields=["model"])
+    llm = init_workshop_chat_model(model, configurable_fields=["model"])
     return llm.with_structured_output(EmailExtraction)
 
 
