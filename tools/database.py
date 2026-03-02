@@ -191,7 +191,6 @@ def get_customer_orders(customer_id: str) -> str:
 
     Args:
         customer_id: The customer ID (e.g., "CUST-XYZ")
-        runtime: Runtime context (provides access to state)
 
     Returns:
         Formatted list of recent orders with order ID, date, and status.
