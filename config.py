@@ -73,7 +73,10 @@ else:
 
 DEFAULT_DB_PATH = BASE_PATH / "data" / "structured" / "techhub.db"
 DEFAULT_VECTORSTORE_PATH = (
-    BASE_PATH / "data" / "vector_stores" / f"techhub_vectorstore_{DEFAULT_EMBEDDING_PROVIDER}.pkl"
+    BASE_PATH
+    / "data"
+    / "vector_stores"
+    / f"techhub_vectorstore_{DEFAULT_EMBEDDING_PROVIDER}.pkl"
 )
 
 # ============================================================================
@@ -81,5 +84,5 @@ DEFAULT_VECTORSTORE_PATH = (
 # ============================================================================
 
 # LangGraph deployment URL (optional, used by simulation system)
-# Set LANGRAPH_DEPLOYMENT_URL in .env when running simulations against deployed graphs
-DEFAULT_DEPLOYMENT_URL = os.getenv("LANGRAPH_DEPLOYMENT_URL")
+# Set LANGGRAPH_DEPLOYMENT_URL in .env when running simulations against deployed graphs
+DEFAULT_DEPLOYMENT_URL = os.getenv("LANGGRAPH_DEPLOYMENT_URL")

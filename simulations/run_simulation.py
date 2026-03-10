@@ -18,6 +18,7 @@ Usage:
 import asyncio
 import json
 import logging
+import os
 import random
 import sys
 from pathlib import Path
@@ -33,7 +34,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from simulations.simulation_config import (
     DEFAULT_CONVERSATIONS_PER_RUN,
-    DEFAULT_DEPLOYMENT_URL,
+    DEFAULT_DB_PATH,
+    DEFAULT_SIMULATION_MODE,
     DEPLOYMENT_GRAPH_NAME,
     MAX_TURNS_PER_CONVERSATION,
     SCENARIOS_FILE,
@@ -104,13 +106,19 @@ class SimulationRunner:
 
         # Create thread with simulation metadata
         customer_segment = scenario.get("customer", {}).get("segment", "anonymous") if scenario.get("customer") else "anonymous"
+        extra_meta = {
+            "generation_mode": "dynamic" if scenario.get("_archetype_id") else "static",
+        }
+        if scenario.get("_archetype_id"):
+            extra_meta["archetype_id"] = scenario["_archetype_id"]
         thread = await self.sdk_client.threads.create(
             metadata={
                 **SIMULATION_METADATA,
                 "scenario_id": scenario_id,
                 "persona_type": customer_segment,
                 "requires_verification": scenario["requires_verification"],
-                "sentiment": scenario["persona"].get("sentiment", "neutral")
+                "sentiment": scenario["persona"].get("sentiment", "neutral"),
+                **extra_meta,
             }
         )
         thread_id = thread["thread_id"]
@@ -270,7 +278,7 @@ class SimulationRunner:
                 min_turns=min_turns
             )
 
-            followup_query = await self.llm.ainvoke(followup_prompt)
+            followup_query = await self.llm.ainvoke(followup_prompt, config={"callbacks": []})
             followup_content = followup_query.content.strip()
 
             # Check if persona decides to end conversation
@@ -381,10 +389,27 @@ Your response (just the customer's message, or CONVERSATION_END):"""
         # Check for explicit end signal
         return any(signal in query_lower for signal in end_signals)
 
-    async def run_all(self, count: int) -> None:
+    async def generate_scenarios(self, count: int, mode: str) -> list:
+        """Build the list of scenarios to run based on mode."""
+        if mode == "static":
+            return self.select_scenarios(self.load_scenarios(), count)
+        elif mode == "dynamic":
+            from simulations.dynamic_scenario_generator import generate_dynamic_scenario
+            return [await generate_dynamic_scenario(DEFAULT_DB_PATH, self.llm) for _ in range(count)]
+        elif mode == "mixed":
+            from simulations.dynamic_scenario_generator import generate_dynamic_scenario
+            half = count // 2
+            static = self.select_scenarios(self.load_scenarios(), half)
+            dynamic = [await generate_dynamic_scenario(DEFAULT_DB_PATH, self.llm) for _ in range(count - half)]
+            combined = static + dynamic
+            random.shuffle(combined)
+            return combined
+        else:
+            return self.select_scenarios(self.load_scenarios(), count)
+
+    async def run_all(self, count: int, mode: str = "static") -> None:
         """Main entry point: run N simulations."""
-        scenarios = self.load_scenarios()
-        selected = self.select_scenarios(scenarios, count)
+        selected = await self.generate_scenarios(count, mode)
 
         logger.info(f"Starting {len(selected)} simulation runs")
         logger.info(f"Deployment: {DEPLOYMENT_GRAPH_NAME}")
@@ -439,18 +464,25 @@ async def main():
     parser.add_argument(
         "--url",
         type=str,
-        default=DEFAULT_DEPLOYMENT_URL,
-        help=f"Deployment URL (default: {DEFAULT_DEPLOYMENT_URL})"
+        default=None,
+        help="Deployment URL (default: LANGGRAPH_DEPLOYMENT_URL env var)"
+    )
+    parser.add_argument(
+        "--mode",
+        choices=["static", "dynamic", "mixed"],
+        default=DEFAULT_SIMULATION_MODE,
+        help="Scenario generation mode: static (JSON file), dynamic (LLM+DB), or mixed (default: dynamic)"
     )
 
     args = parser.parse_args()
 
-    if not args.url:
-        logger.error("DEPLOYMENT_URL not set. Provide via --url or check DEFAULT_DEPLOYMENT_URL in config.")
+    url = args.url or os.getenv("LANGGRAPH_DEPLOYMENT_URL")
+    if not url:
+        logger.error("Deployment URL not set. Use --url or set LANGGRAPH_DEPLOYMENT_URL in .env")
         sys.exit(1)
 
-    logger.info(f"Connecting to deployment: {args.url}")
-    runner = SimulationRunner(deployment_url=args.url)
+    logger.info(f"Connecting to deployment: {url}")
+    runner = SimulationRunner(deployment_url=url)
 
     if args.scenario:
         # Run single scenario
@@ -466,7 +498,7 @@ async def main():
             sys.exit(1)
     else:
         # Run batch
-        await runner.run_all(args.count)
+        await runner.run_all(args.count, mode=args.mode)
 
 
 if __name__ == "__main__":

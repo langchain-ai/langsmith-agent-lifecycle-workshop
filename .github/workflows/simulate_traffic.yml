@@ -1,0 +1,38 @@
+name: Simulate TechHub Traffic
+
+on:
+  schedule:
+    - cron: '0 14 * * 1-5'    # 9am ET (Mon-Fri)
+    - cron: '0 16 * * 1-5'    # 11am ET
+    - cron: '0 18 * * 1-5'    # 1pm ET
+    - cron: '30 19 * * 1-5'   # 2:30pm ET
+    - cron: '0 21 * * 1-5'    # 4pm ET
+    - cron: '30 22 * * 1-5'   # 5:30pm ET
+  workflow_dispatch:
+    inputs:
+      count:
+        description: 'Number of conversations'
+        default: '2'
+      mode:
+        description: 'Scenario mode (static/dynamic/mixed)'
+        default: 'dynamic'
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+      - run: uv sync
+      - run: |
+          COUNT=${{ github.event.inputs.count || '1' }}
+          MODE=${{ github.event.inputs.mode || 'dynamic' }}
+          uv run python simulations/run_simulation.py --count $COUNT --mode $MODE
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
+          LANGSMITH_TRACING: "true"
+          LANGSMITH_PROJECT: "langsmith-agent-lifecycle-workshop"
+          LANGGRAPH_DEPLOYMENT_URL: ${{ secrets.LANGGRAPH_DEPLOYMENT_URL }}
+          WORKSHOP_MODEL: "anthropic:claude-haiku-4-5"

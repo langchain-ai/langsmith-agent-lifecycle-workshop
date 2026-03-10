@@ -6,10 +6,11 @@ from typing import Literal
 
 # Add parent directory to path to import from project root
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from config import DEFAULT_MODEL, DEFAULT_DEPLOYMENT_URL
+from config import DEFAULT_MODEL, DEFAULT_DEPLOYMENT_URL, DEFAULT_DB_PATH  # noqa: F401 (re-exported)
 
 # Simulation Parameters
-DEFAULT_CONVERSATIONS_PER_RUN = 7  # 5-10 range, default to middle
+DEFAULT_CONVERSATIONS_PER_RUN = 1  # GHA runs multiple times/day; keep per-run count low
+DEFAULT_SIMULATION_MODE = "dynamic"  # static | dynamic | mixed
 MAX_TURNS_PER_CONVERSATION = 8     # Prevent runaway conversations
 SIMULATION_MODEL = DEFAULT_MODEL  # Use same model as rest of project
 
