@@ -27,7 +27,7 @@ dependencies = [
     "jupyter>=1.0.0",
     "ipykernel>=6.29.0",
     # Utilities
-    "python-dotenv>=1.0.0",
+    "python-dotenv>=1.2.2",
     "langgraph-cli[inmem]>=0.4.4",
     # Evaluation
     "agentevals>=0.0.9",
