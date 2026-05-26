@@ -195,10 +195,13 @@ def verify_customer(
     email_extractor = create_email_extractor(model=model)
     extraction = email_extractor.invoke([last_message])
 
-    # If we have an email, attempt to validate it
-    if extraction["email"]:
+    # If we have an email, attempt to validate it.
+    # Reject sentinel placeholders (e.g. "<UNKNOWN>") and obvious non-emails
+    # that the structured-output LLM may emit when no real email is present.
+    extracted_email = (extraction.get("email") or "").strip()
+    if extracted_email and "@" in extracted_email and not extracted_email.startswith("<"):
         db = get_database()
-        customer = validate_customer_email(extraction["email"], db)
+        customer = validate_customer_email(extracted_email, db)
 
         if customer:
             # Success! Email verified → Go to supervisor
@@ -219,7 +222,7 @@ def verify_customer(
                 update={
                     "messages": [
                         AIMessage(
-                            content=f"I couldn't find '{extraction['email']}' in our system. Please check and try again."
+                            content=f"I couldn't find '{extracted_email}' in our system. Please check and try again."
                         )
                     ]
                 },
