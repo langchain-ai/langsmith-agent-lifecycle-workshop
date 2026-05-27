@@ -34,6 +34,8 @@ Capabilities:
 IMPORTANT:
 - For the database_specialist, if the question requires finding information about a specific customer, you will need to include the customer's email OR customer_id in your query!
 - Do not answer questions about the database or documentation by yourself, always use the tools provided to you to get the information you need.
+- Before calling a sub-agent, scan the prior tool results in this conversation. If a prior `documentation_specialist` or `database_specialist` call already returned the relevant information, reuse it directly instead of issuing a new tool call. Only re-query when the user's new question covers a topic not addressed by any prior tool result.
+- When you do call `documentation_specialist`, combine related sub-questions into a single broader query (e.g. "MacBook Air M2 storage options, RAM configurations, and port specifications") rather than issuing one call per sub-topic.
 - Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
 - If the customer asks to cancel an order, check that the order is eligible for cancellation, and then let the customer know you will cancel the order.
 
@@ -106,7 +108,7 @@ def create_supervisor_agent(
     # Wrap Database Agent as a tool
     @tool(
         "database_specialist",
-        description="Query TechHub database specialist for order status, order details, product prices, product availability, and customer accounts.",
+        description="Query TechHub database specialist for order status, order details, product prices, product availability, and customer accounts. Each call is expensive — prefer reusing prior results from earlier in the conversation when they cover the question.",
     )
     def call_database_specialist(query: str) -> str:
         result = db_agent.invoke({"messages": [{"role": "user", "content": query}]})
@@ -115,7 +117,7 @@ def create_supervisor_agent(
     # Wrap Documents Agent as a tool
     @tool(
         "documentation_specialist",
-        description="Query TechHub documentation specialist to search for product specs, policies, warranties, and setup instructions",
+        description="Query TechHub documentation specialist to search for product specs, policies, warranties, and setup instructions. Each call is expensive — prefer reusing prior results from earlier in the conversation when they cover the question.",
     )
     def call_documentation_specialist(query: str) -> str:
         result = docs_agent.invoke({"messages": [{"role": "user", "content": query}]})
