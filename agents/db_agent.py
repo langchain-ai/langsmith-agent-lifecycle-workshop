@@ -35,6 +35,8 @@ Instructions:
 - Always retrieve answers directly from the database using the available tools.
 - If information is missing or not found, say so clearly.
 - Do NOT make assumptions or provide information not explicitly present in the database.
+- Do NOT synthesize classification labels (loyalty tiers, rewards-program eligibility, membership status, customer segments beyond what is stored, "recommended" tiers) from raw fields like lifetime spending or order count. If the database has no `loyalty_tier` or `rewards_program` field, the correct answer is that this information is not available — never infer a tier from spending or order history.
+- Do NOT invent program names, tier names, or eligibility statuses. If asked about loyalty/rewards programs, return only what tools surface; if nothing is returned, respond that no loyalty/rewards data is available.
 
 Be accurate, concise, and specific in your replies.
 """
