@@ -5,14 +5,20 @@ to handle customer queries. It routes queries to the appropriate specialist(s) a
 can orchestrate parallel or sequential coordination when needed.
 """
 
+import re
+from typing import Annotated
+
 from langchain.agents import create_agent
 from langchain.agents.middleware import ModelRequest, dynamic_prompt
 from langchain.chat_models import init_chat_model
 from langchain.tools import tool
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import MessagesState
+from langgraph.prebuilt import InjectedState
 
 from config import DEFAULT_MODEL, Context
+
+_CUSTOMER_ID_PATTERN = re.compile(r"CUST-\d+")
 
 # ============================================================================
 # AGENT CONFIGURATION
@@ -44,6 +50,26 @@ Always provide helpful, accurate, concise, and specific responses to customer qu
 # ============================================================================
 # FACTORY FUNCTION
 # ============================================================================
+
+
+def _redact_other_customer_ids(text: str, authorized_customer_id: str | None) -> str:
+    """Redact rows that leak another customer's CUST-XXX identifier."""
+    if not authorized_customer_id or not isinstance(text, str):
+        return text
+    leaked = {
+        cid
+        for cid in _CUSTOMER_ID_PATTERN.findall(text)
+        if cid != authorized_customer_id
+    }
+    if not leaked:
+        return text
+    safe_lines = [
+        line
+        for line in text.splitlines()
+        if not any(cid in line for cid in leaked)
+    ]
+    refusal = "The requested record is not associated with your account."
+    return "\n".join(safe_lines).strip() or refusal
 
 
 def create_supervisor_agent(
@@ -108,9 +134,30 @@ def create_supervisor_agent(
         "database_specialist",
         description="Query TechHub database specialist for order status, order details, product prices, product availability, and customer accounts.",
     )
-    def call_database_specialist(query: str) -> str:
-        result = db_agent.invoke({"messages": [{"role": "user", "content": query}]})
-        return result["messages"][-1].content
+    def call_database_specialist(
+        query: str,
+        state: Annotated[dict, InjectedState],
+    ) -> str:
+        customer_id = state.get("customer_id") if state else None
+        if customer_id:
+            scoped_query = (
+                f"AUTHORIZATION: You may only return rows whose customer_id == '{customer_id}'.\n"
+                f"Every SELECT must include `WHERE customer_id = '{customer_id}'`.\n"
+                f"Do NOT JOIN the `customers` table to return any other customer's name, "
+                f"customer_id, email, phone, or address.\n"
+                f"If the requested order_id (or other record) does not belong to "
+                f"'{customer_id}', respond with exactly:\n"
+                f"  'Order <id> is not associated with your account.'\n"
+                f"and do NOT name, describe, or hint at the actual owner.\n\n"
+                f"Supervisor's question: {query}"
+            )
+        else:
+            scoped_query = query
+        result = db_agent.invoke(
+            {"messages": [{"role": "user", "content": scoped_query}]}
+        )
+        response = result["messages"][-1].content
+        return _redact_other_customer_ids(response, customer_id)
 
     # Wrap Documents Agent as a tool
     @tool(

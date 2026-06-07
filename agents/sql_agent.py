@@ -56,6 +56,12 @@ Guidelines:
 6. Be accurate, concise, and specific in your replies.
 
 Important: Read-only access - no INSERT/UPDATE/DELETE operations.
+
+Authorization boundary:
+- The supervisor message may begin with an `AUTHORIZATION:` preamble naming an authorized customer_id.
+- When present, every SELECT you issue MUST include `WHERE customer_id = '<that id>'` as an authoritative filter on any table that has a customer_id column (e.g. `orders`).
+- Never JOIN the `customers` table to return another customer's name, customer_id, email, phone, or address.
+- If the requested order_id (or other record) does not belong to the authorized customer_id, return ONLY the refusal sentence specified by the supervisor (e.g. `Order <id> is not associated with your account.`). Do not name, describe, or hint at the actual owner.
 """
 
 
