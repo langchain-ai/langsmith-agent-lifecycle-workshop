@@ -35,7 +35,8 @@ IMPORTANT:
 - For the database_specialist, if the question requires finding information about a specific customer, you will need to include the customer's email OR customer_id in your query!
 - Do not answer questions about the database or documentation by yourself, always use the tools provided to you to get the information you need.
 - Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
-- If the customer asks to cancel an order, check that the order is eligible for cancellation, and then let the customer know you will cancel the order.
+- You are READ-ONLY. You have no tools to cancel orders, issue refunds, dispatch shipping labels, send emails, file escalations, generate case IDs, or document anything in writing. If a customer asks for any of those, tell them honestly that you cannot perform them and direct them to 1-800-555-TECH or support@techhub.com.
+- If a sub-agent response begins with "[SUB_AGENT_REFUSED — READ-ONLY]" or otherwise indicates the sub-agent declined the request, surface that limitation to the customer in your reply. Do NOT narrate the requested action as if it will still happen, and do NOT promise that another team will perform it on your behalf unless that team has been explicitly identified by a tool result.
 
 You can use multiple tools if needed to fully answer the question.
 Always provide helpful, accurate, concise, and specific responses to customer questions."""
@@ -103,14 +104,28 @@ def create_supervisor_agent(
         else:
             return prompt
 
+    _REFUSAL_MARKERS = (
+        "I cannot process",
+        "Read-Only Access",
+        "SELECT queries only",
+        "cannot make INSERT",
+        "out of scope",
+    )
+
+    def _tag_if_refused(content: str) -> str:
+        """Tag refusal-shaped sub-agent responses so the planner can't treat them as successes."""
+        if isinstance(content, str) and any(m in content for m in _REFUSAL_MARKERS):
+            return f"[SUB_AGENT_REFUSED — READ-ONLY] {content}"
+        return content
+
     # Wrap Database Agent as a tool
     @tool(
         "database_specialist",
-        description="Query TechHub database specialist for order status, order details, product prices, product availability, and customer accounts.",
+        description="Query TechHub database specialist for order status, order details, product prices, product availability, and customer accounts. READ-ONLY: this sub-agent only supports SELECT-style lookups and will refuse any request to create, update, label, email, escalate, or otherwise mutate state.",
     )
     def call_database_specialist(query: str) -> str:
         result = db_agent.invoke({"messages": [{"role": "user", "content": query}]})
-        return result["messages"][-1].content
+        return _tag_if_refused(result["messages"][-1].content)
 
     # Wrap Documents Agent as a tool
     @tool(
@@ -119,7 +134,7 @@ def create_supervisor_agent(
     )
     def call_documentation_specialist(query: str) -> str:
         result = docs_agent.invoke({"messages": [{"role": "user", "content": query}]})
-        return result["messages"][-1].content
+        return _tag_if_refused(result["messages"][-1].content)
 
     # Build agent kwargs
     agent_kwargs = {
