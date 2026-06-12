@@ -140,6 +140,19 @@ class SimulationRunner:
             self.stats["failed"] += 1
             return {"success": False, "error": str(e), "scenario_id": scenario_id}
 
+    def _build_run_metadata(self, thread_id: str, scenario: Dict, **extra) -> Dict:
+        """Assemble per-run metadata (thread_id, user_id, environment, scenario_id)."""
+        customer_email = (scenario.get("customer") or {}).get("email")
+        metadata = {
+            "scenario_id": scenario["scenario_id"],
+            "thread_id": thread_id,
+            "environment": os.getenv("ENVIRONMENT", "production"),
+        }
+        if customer_email:
+            metadata["user_id"] = customer_email
+        metadata.update(extra)
+        return metadata
+
     async def _run_hitl_scenario(self, thread_id: str, scenario: Dict) -> Dict:
         """
         Handle scenario requiring email verification.
@@ -161,7 +174,7 @@ class SimulationRunner:
             thread_id,
             DEPLOYMENT_GRAPH_NAME,
             input=input_msg,
-            metadata={"scenario_id": scenario["scenario_id"]}
+            metadata=self._build_run_metadata(thread_id, scenario),
         )
 
         turn_count = 1
@@ -188,7 +201,7 @@ class SimulationRunner:
                 thread_id,
                 DEPLOYMENT_GRAPH_NAME,
                 command=Command(resume=email_response),
-                metadata={"scenario_id": scenario["scenario_id"]},
+                metadata=self._build_run_metadata(thread_id, scenario),
                 config={"metadata": {"is_interrupt_resume": True}},
             )
             turn_count += 1
@@ -222,7 +235,7 @@ class SimulationRunner:
             thread_id,
             DEPLOYMENT_GRAPH_NAME,
             input=input_msg,
-            metadata={"scenario_id": scenario["scenario_id"]}
+            metadata=self._build_run_metadata(thread_id, scenario),
         )
 
         # Continue conversation with follow-ups
@@ -301,7 +314,7 @@ class SimulationRunner:
                     thread_id,
                     DEPLOYMENT_GRAPH_NAME,
                     input=input_msg,
-                    metadata={"scenario_id": scenario["scenario_id"]}
+                    metadata=self._build_run_metadata(thread_id, scenario),
                 )
             except Exception as e:
                 # Agent may crash on certain queries - log and end conversation gracefully

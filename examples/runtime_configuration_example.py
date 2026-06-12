@@ -8,6 +8,9 @@ All agents in this workshop support runtime model configuration via the shared
 Context class defined in config.py.
 """
 
+import os
+import uuid
+
 from agents import create_supervisor_hitl_agent, create_db_agent
 from config import Context
 
@@ -19,12 +22,18 @@ from config import Context
 db_agent = create_db_agent(use_checkpointer=False)
 
 # Invoke with different model using SDK
+thread_id = str(uuid.uuid4())
 result = db_agent.invoke(
     {"messages": [{"role": "user", "content": "What products are in stock?"}]},
     config={
         "configurable": {
-            "model": "openai:gpt-5-nano"  # Override to use GPT-5 Nano instead of default
-        }
+            "thread_id": thread_id,
+            "model": "openai:gpt-5-nano",  # Override to use GPT-5 Nano instead of default
+        },
+        "metadata": {
+            "thread_id": thread_id,
+            "environment": os.getenv("ENVIRONMENT", "production"),
+        },
     },
 )
 
@@ -43,6 +52,7 @@ agent = create_supervisor_hitl_agent(use_checkpointer=False)
 # - The supervisor agent uses it
 # - The db_agent uses it
 # - The docs_agent uses it
+thread_id = str(uuid.uuid4())
 result = agent.invoke(
     {
         "messages": [
@@ -51,8 +61,13 @@ result = agent.invoke(
     },
     config={
         "configurable": {
-            "model": "anthropic:claude-sonnet-4-5"  # Override to use Sonnet instead of Haiku
-        }
+            "thread_id": thread_id,
+            "model": "anthropic:claude-sonnet-4-5",  # Override to use Sonnet instead of Haiku
+        },
+        "metadata": {
+            "thread_id": thread_id,
+            "environment": os.getenv("ENVIRONMENT", "production"),
+        },
     },
 )
 
@@ -106,7 +121,17 @@ def test_agent_with_models():
         print(f"Testing with model: {model}")
         print(f"{'=' * 60}\n")
 
-        result = agent.invoke(query, config={"configurable": {"model": model}})
+        thread_id = str(uuid.uuid4())
+        result = agent.invoke(
+            query,
+            config={
+                "configurable": {"thread_id": thread_id, "model": model},
+                "metadata": {
+                    "thread_id": thread_id,
+                    "environment": os.getenv("ENVIRONMENT", "production"),
+                },
+            },
+        )
         print(result["messages"][-1].content)
 
 

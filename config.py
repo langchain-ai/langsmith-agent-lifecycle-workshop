@@ -13,6 +13,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
 
+from langchain.chat_models import init_chat_model
+
 # ============================================================================
 # MODEL CONFIGURATION
 # ============================================================================
@@ -25,6 +27,23 @@ from typing import Literal
 #   - "openai:gpt-5-mini" (fast, OpenAI)
 #   - "openai:gpt-5-nano" (lightweight, OpenAI)
 DEFAULT_MODEL = os.getenv("WORKSHOP_MODEL", "anthropic:claude-haiku-4-5")
+
+
+def _split_model(model: str) -> tuple[str, str]:
+    """Split a 'provider:model' string into (provider, model_name)."""
+    if ":" in model:
+        provider, name = model.split(":", 1)
+        return provider, name
+    return "unknown", model
+
+
+def make_llm(model: str = DEFAULT_MODEL, **kwargs):
+    """Construct a chat model with ls_provider / ls_model_name metadata attached."""
+    provider, model_name = _split_model(model)
+    llm = init_chat_model(model, **kwargs)
+    return llm.with_config(
+        {"metadata": {"ls_provider": provider, "ls_model_name": model_name}}
+    )
 
 # ============================================================================
 # EMBEDDING CONFIGURATION
