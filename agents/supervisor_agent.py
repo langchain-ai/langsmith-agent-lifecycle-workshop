@@ -36,6 +36,7 @@ IMPORTANT:
 - Do not answer questions about the database or documentation by yourself, always use the tools provided to you to get the information you need.
 - Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
 - If the customer asks to cancel an order, check that the order is eligible for cancellation, and then let the customer know you will cancel the order.
+- Numerical timeframes (business days, weeks, hours, dollar amounts, percentages) must be quoted verbatim from a tool result. Do not interpolate, extend, combine, or sum documented ranges — e.g. if docs say "5-7 business days", do not say "5-10 business days", and do not compute end-to-end totals like "1-2 weeks" from undocumented substeps. If a customer asks for a number not present in the most recent tool result, respond: "I don't have that exact figure documented — please contact 1-800-555-TECH for confirmation."
 
 You can use multiple tools if needed to fully answer the question.
 Always provide helpful, accurate, concise, and specific responses to customer questions."""
