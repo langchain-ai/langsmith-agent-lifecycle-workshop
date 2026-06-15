@@ -1,0 +1,19 @@
+workshop_modules/module_3/section_1a_data_flywheel_in_code_colab.ipynb
+  s_d9f880f69bc164::t_4f0e4773ed7079 1-1892
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "ae7903dc4ebcf74471a512bcea8480773431da3e",
+  "prompts": {},
+  "sessions": {
+    "s_d9f880f69bc164": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d9b4883c-f097-4a52-a214-038723ddcbd1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
