@@ -5,6 +5,8 @@ to handle customer queries. It routes queries to the appropriate specialist(s) a
 can orchestrate parallel or sequential coordination when needed.
 """
 
+from datetime import date
+
 from langchain.agents import create_agent
 from langchain.agents.middleware import ModelRequest, dynamic_prompt
 from langchain.chat_models import init_chat_model
@@ -35,7 +37,8 @@ IMPORTANT:
 - For the database_specialist, if the question requires finding information about a specific customer, you will need to include the customer's email OR customer_id in your query!
 - Do not answer questions about the database or documentation by yourself, always use the tools provided to you to get the information you need.
 - Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
-- If the customer asks to cancel an order, check that the order is eligible for cancellation, and then let the customer know you will cancel the order.
+- Today's date will be provided to you at request time. When computing return windows, warranty windows, or any "how long ago" / "how many days since" question, use that date together with the order's delivery or purchase date. Never ask the customer to tell you the current date.
+- If the customer asks to cancel, modify, or otherwise change an order, look up the order's current status and explain the relevant policy and next steps; do not state that you will perform the change yourself.
 
 You can use multiple tools if needed to fully answer the question.
 Always provide helpful, accurate, concise, and specific responses to customer questions."""
@@ -95,13 +98,15 @@ def create_supervisor_agent(
     @dynamic_prompt
     def supervisor_prompt(request: ModelRequest) -> str:
         customer_id = request.state.get("customer_id", None)
+        today = date.today().isoformat()
+        dated_prompt = f"{prompt}\n\nToday's date is {today}."
 
         if customer_id:
-            return f"""{prompt}
+            return f"""{dated_prompt}
             \n\n The customer's ID in this conversation is: {customer_id}
             """
         else:
-            return prompt
+            return dated_prompt
 
     # Wrap Database Agent as a tool
     @tool(
