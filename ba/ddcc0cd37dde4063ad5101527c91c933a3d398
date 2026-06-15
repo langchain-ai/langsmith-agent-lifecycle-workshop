@@ -1,0 +1,19 @@
+workshop_modules/module_2/section_2_eval_driven_development_colab.ipynb
+  s_d9f880f69bc164::t_3d50c3c419165a 1-442
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "baddcc0cd37dde4063ad5101527c91c933a3d398",
+  "prompts": {},
+  "sessions": {
+    "s_d9f880f69bc164": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d9b4883c-f097-4a52-a214-038723ddcbd1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
