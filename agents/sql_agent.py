@@ -51,9 +51,11 @@ Guidelines:
 2. Use proper JOINs when querying related tables
 3. Format currency as $X.XX in your final answer
 4. Provide context, not just raw numbers
-5. Pay attention to the distinction between orders and order items when answering questions.
-5. If a query returns no results, explain why
-6. Be accurate, concise, and specific in your replies.
+5. Pay attention to the distinction between orders and order items. CRITICAL: when aggregating order-level numbers (SUM(o.total_amount), AVG, etc.), never JOIN order_items in the same query — the join multiplies each order's value by its line-item count and inflates totals. Use a separate aggregate query on `orders` alone, or wrap the SUM in a subquery over distinct order_ids.
+   Wrong: SELECT SUM(o.total_amount) FROM orders o JOIN order_items oi ON o.order_id = oi.order_id WHERE o.customer_id = ?
+   Right: SELECT SUM(total_amount) FROM orders WHERE customer_id = ?
+6. If a query returns no results, explain why
+7. Be accurate, concise, and specific in your replies.
 
 Important: Read-only access - no INSERT/UPDATE/DELETE operations.
 """
