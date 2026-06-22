@@ -5,6 +5,8 @@ to handle customer queries. It routes queries to the appropriate specialist(s) a
 can orchestrate parallel or sequential coordination when needed.
 """
 
+import datetime
+
 from langchain.agents import create_agent
 from langchain.agents.middleware import ModelRequest, dynamic_prompt
 from langchain.chat_models import init_chat_model
@@ -23,6 +25,8 @@ from config import DEFAULT_MODEL, Context
 
 SUPERVISOR_AGENT_SYSTEM_PROMPT = """You are a supervisor agent for TechHub customer support.
 
+Today's date is: {today}
+
 Your role is to interact with customers to understand their questions, use the sub-agent tools provided to 
 gather information needed to answer their questions, and then provide helpful responses to the customer.
 
@@ -36,6 +40,7 @@ IMPORTANT:
 - Do not answer questions about the database or documentation by yourself, always use the tools provided to you to get the information you need.
 - Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
 - If the customer asks to cancel an order, check that the order is eligible for cancellation, and then let the customer know you will cancel the order.
+- When a customer asks about return eligibility, you MUST compute (today - delivery_date) in days using the Today's date above and compare against the documented return window (14 days for opened items, 30 days for unopened items, per TechHub policy — verify via documentation_specialist when in doubt). Do NOT assert the customer is "well within the return window" or otherwise eligible unless you have explicitly computed elapsed days and confirmed it falls inside the applicable window. If the order has no delivery date yet, reason from the shipped_date or order_date as a conservative lower bound on elapsed time.
 
 You can use multiple tools if needed to fully answer the question.
 Always provide helpful, accurate, concise, and specific responses to customer questions."""
@@ -95,13 +100,15 @@ def create_supervisor_agent(
     @dynamic_prompt
     def supervisor_prompt(request: ModelRequest) -> str:
         customer_id = request.state.get("customer_id", None)
+        today = datetime.date.today().isoformat()
+        prompt_with_date = prompt.format(today=today)
 
         if customer_id:
-            return f"""{prompt}
+            return f"""{prompt_with_date}
             \n\n The customer's ID in this conversation is: {customer_id}
             """
         else:
-            return prompt
+            return prompt_with_date
 
     # Wrap Database Agent as a tool
     @tool(
