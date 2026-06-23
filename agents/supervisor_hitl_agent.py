@@ -187,13 +187,13 @@ def verify_customer(
 
     Uses Command to explicitly route based on result.
     """
-    # Get last message from user
-    last_message = state["messages"][-1]
+    # Look back over recent turns so an email supplied earlier in the thread is still recoverable.
+    recent_messages = state["messages"][-6:]
 
     # Try to extract email using structured output
     model = runtime.context.model if runtime.context is not None else DEFAULT_MODEL
     email_extractor = create_email_extractor(model=model)
-    extraction = email_extractor.invoke([last_message])
+    extraction = email_extractor.invoke(recent_messages)
 
     # If we have an email, attempt to validate it
     if extraction["email"]:
