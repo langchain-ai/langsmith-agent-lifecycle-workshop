@@ -1,0 +1,25 @@
+langsmith_links.py
+  s_3c45ca69195d8b::t_4166b6ba86385a 1-72
+workshop_modules/module_2/section_1_baseline_evaluation.ipynb
+  s_3c45ca69195d8b::t_0eb1a94ae02bf6 190,529-535,567
+workshop_modules/module_2/section_2_eval_driven_development.ipynb
+  s_3c45ca69195d8b::t_4cb6b1e5d3fbfe 198,271,279,356-363,396
+workshop_modules/module_2/section_3_advanced_evaluation.ipynb
+  s_3c45ca69195d8b::t_2a34895df65a2a 278-285,710-717,987-994,1061
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "604d3a74b559b76391bc7387f15cbd649ad05abf",
+  "prompts": {},
+  "sessions": {
+    "s_3c45ca69195d8b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0b112712-18cc-4c84-86dd-e3aaf6eaacc0",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
