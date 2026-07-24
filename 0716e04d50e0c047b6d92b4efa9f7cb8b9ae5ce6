@@ -1,0 +1,19 @@
+workshop_modules/module_2/section_1_baseline_evaluation_colab.ipynb
+  s_aaf9f7f5c1ab62::t_84ddbf3cfb239f 1-573
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "0716e04d50e0c047b6d92b4efa9f7cb8b9ae5ce6",
+  "prompts": {},
+  "sessions": {
+    "s_aaf9f7f5c1ab62": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a8b605b4-be8e-49fb-b31a-20d8f05bb7a2",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
