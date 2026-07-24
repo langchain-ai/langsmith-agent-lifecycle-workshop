@@ -1,0 +1,12 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "45aee0769685b077f20f69391a8924b2bac3e367",
+  "prompts": {},
+  "humans": {
+    "h_b5fa805487d01c": {
+      "author": "Andrew Reed <andrew.reed.r@gmail.com>"
+    }
+  }
+}
