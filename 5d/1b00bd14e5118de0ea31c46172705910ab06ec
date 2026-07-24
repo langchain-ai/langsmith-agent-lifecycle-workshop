@@ -1,0 +1,30 @@
+workshop_modules/README.md
+  s_03d65b9f76bc11::t_620e5b9fb91d2c 84-89
+evals/DEMO_TRIGGER.md
+  s_03d65b9f76bc11::t_b14cb17ef81fe8 1-10
+scripts/demo_ci_pr.sh
+  s_03d65b9f76bc11::t_ec8e57f51c29d4 1-38
+README.md
+  s_03d65b9f76bc11::t_b08e205dc18471 71-77,86,102-105,120-126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "5d1b00bd14e5118de0ea31c46172705910ab06ec",
+  "prompts": {},
+  "humans": {
+    "h_b5fa805487d01c": {
+      "author": "Andrew Reed <andrew.reed.r@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_03d65b9f76bc11": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6aec8e62-88a6-4a71-a172-40c4c0fc4b20",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Andrew Reed <andrew.reed.r@gmail.com>"
+    }
+  }
+}
