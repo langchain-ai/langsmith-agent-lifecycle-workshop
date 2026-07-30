@@ -18,7 +18,7 @@ This Mechanical Gaming Keyboard is a high-performance peripheral designed for ga
 - **Dimensions:** 17.5" x 5.2" x 1.5" (445 x 132 x 38 mm)
 - **Weight:** 2.4 lbs (1.1 kg)
 - **Additional Features:** Detachable wrist rest, media control keys, gaming mode (disables Windows key)
-- **Software:** RGB lighting control, macro programming, profile management (Windows/Mac)
+- **Software:** RGB lighting control, macro programming, profile management (Windows only; keyboard works as plug-and-play on macOS)
 
 ## Compatibility
 
