@@ -5,6 +5,8 @@ to handle customer queries. It routes queries to the appropriate specialist(s) a
 can orchestrate parallel or sequential coordination when needed.
 """
 
+from datetime import date
+
 from langchain.agents import create_agent
 from langchain.agents.middleware import ModelRequest, dynamic_prompt
 from langchain.chat_models import init_chat_model
@@ -37,8 +39,20 @@ IMPORTANT:
 - Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
 - If the customer asks to cancel an order, check that the order is eligible for cancellation, and then let the customer know you will cancel the order.
 
+TEMPORAL REASONING (critical):
+- Before making ANY statement about when an order will arrive, when it will ship, or whether a time window is still open, compute how many days have elapsed between today's date and the order_date / shipped_date returned by the database_specialist.
+- Only quote the documented fulfillment windows (processing 1-2 business days, standard shipping 5-7 business days, express shipping 2-3 business days) when the elapsed time is still inside that window.
+- If the elapsed time exceeds the documented window, do NOT restate the normal window and do NOT tell the customer the order is on track, will arrive soon, or will ship soon. State that the order is overdue or stuck, say how long it has been, and direct the customer to contact the carrier with their tracking number or to reach TechHub support at 1-800-555-TECH or support@techhub.com.
+
 You can use multiple tools if needed to fully answer the question.
 Always provide helpful, accurate, concise, and specific responses to customer questions."""
+
+
+@dynamic_prompt
+def supervisor_prompt_with_current_date(request: ModelRequest) -> str:
+    """Prepend today's date so the model can reason about elapsed time."""
+    base = request.system_prompt or SUPERVISOR_AGENT_SYSTEM_PROMPT
+    return f"Today's date is {date.today().isoformat()}.\n\n{base}"
 
 
 # ============================================================================
@@ -127,7 +141,7 @@ def create_supervisor_agent(
         "tools": [call_database_specialist, call_documentation_specialist],
         "name": "supervisor_agent",
         "state_schema": state_schema or MessagesState,
-        "middleware": [supervisor_prompt],
+        "middleware": [supervisor_prompt, supervisor_prompt_with_current_date],
         "context_schema": Context,
     }
 
