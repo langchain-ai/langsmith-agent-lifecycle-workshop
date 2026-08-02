@@ -14,6 +14,7 @@ This demonstrates LangGraph primitives for complex orchestration:
 - Subgraphs (supervisor agent as a node)
 """
 
+import re
 from typing import Literal, NamedTuple
 
 from langchain.chat_models import init_chat_model
@@ -76,6 +77,9 @@ class EmailExtraction(TypedDict):
     ]
 
 
+EMAIL_PATTERN = re.compile(r"[^@\s'\";]+@[^@\s'\";]+\.[A-Za-z]{2,}")
+
+
 class CustomerInfo(NamedTuple):
     """Customer information returned from validation."""
 
@@ -128,18 +132,20 @@ def validate_customer_email(email: str, db: SQLDatabase) -> CustomerInfo | None:
         CustomerInfo with customer_id and customer_name if valid, None otherwise
     """
     # Check email format
-    if not email or "@" not in email:
+    if not email or not EMAIL_PATTERN.fullmatch(email):
         return None
 
     # Lookup in database
     result = db._execute(
-        f"SELECT customer_id, name FROM customers WHERE email = '{email}'"
+        "SELECT customer_id, name FROM customers WHERE email = :email",
+        parameters={"email": email},
     )
 
     # Convert SQLDatabase query results to list of tuples (values only)
     result = [tuple(row.values()) for row in result]
 
-    if not result:
+    # Refuse to resolve an identity from an ambiguous match
+    if len(result) != 1:
         return None
 
     customer_id, customer_name = result[0]

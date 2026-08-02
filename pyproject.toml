@@ -35,7 +35,7 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = []
+dev = ["pytest>=8.0.0"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["tools", "agents", "deployments", "evaluators"]
