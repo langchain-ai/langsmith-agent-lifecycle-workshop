@@ -17,6 +17,7 @@ Tools use response_format="content_and_artifact" to return both:
 """
 
 import pickle
+import threading
 
 from langchain_core.documents import Document
 from langchain_core.tools import tool
@@ -29,6 +30,9 @@ _vectorstore = None
 _product_retriever = None
 _policy_retriever = None
 
+# Serializes the lazy load so parallel sub-agent calls don't all build/read at once
+_vectorstore_lock = threading.Lock()
+
 
 def get_vectorstore():
     """Lazy load the vectorstore.
@@ -40,18 +44,33 @@ def get_vectorstore():
         InMemoryVectorStore: Cached vectorstore instance.
     """
     global _vectorstore
-    if _vectorstore is None:
+    if _vectorstore is not None:
+        return _vectorstore
+
+    with _vectorstore_lock:
+        if _vectorstore is not None:
+            return _vectorstore
+
+        from data.data_generation.build_vectorstore import build_vectorstore
+
         if not DEFAULT_VECTORSTORE_PATH.exists():
             # Auto-build vectorstore if it doesn't exist
             print(
                 f"Vectorstore not found at {DEFAULT_VECTORSTORE_PATH}. Building now..."
             )
-            from data.data_generation.build_vectorstore import build_vectorstore
-
             build_vectorstore()
 
-        with open(DEFAULT_VECTORSTORE_PATH, "rb") as f:
-            data = pickle.load(f)
+        try:
+            with open(DEFAULT_VECTORSTORE_PATH, "rb") as f:
+                data = pickle.load(f)
+        except (pickle.UnpicklingError, EOFError) as e:
+            print(
+                f"Vectorstore at {DEFAULT_VECTORSTORE_PATH} is corrupt ({e}). Rebuilding..."
+            )
+            DEFAULT_VECTORSTORE_PATH.unlink(missing_ok=True)
+            build_vectorstore()
+            with open(DEFAULT_VECTORSTORE_PATH, "rb") as f:
+                data = pickle.load(f)
 
         # Handle both old format (direct vectorstore) and new format (dict with store + provider)
         if isinstance(data, dict) and "store" in data and "provider" in data:
@@ -131,10 +150,17 @@ def search_product_docs(query: str) -> tuple[str, list[Document]]:
         - formatted_content: Clean string for the LLM with product info
         - documents: List of raw Document objects for downstream use and tracing
     """
-    retriever = get_product_retriever()
+    try:
+        retriever = get_product_retriever()
 
-    # Use retriever to get documents (better tracing in LangSmith)
-    results = retriever.invoke(query)
+        # Use retriever to get documents (better tracing in LangSmith)
+        results = retriever.invoke(query)
+    except Exception as e:
+        return (
+            f"DOCUMENT_SEARCH_UNAVAILABLE: retrieval backend error ({e}) - "
+            "do not interpret as 'no documentation exists'",
+            [],
+        )
 
     if not results:
         return "No relevant product documentation found.", []
@@ -169,10 +195,17 @@ def search_policy_docs(query: str) -> tuple[str, list[Document]]:
         - formatted_content: Clean string for the LLM with policy info
         - documents: List of raw Document objects for downstream use and tracing
     """
-    retriever = get_policy_retriever()
+    try:
+        retriever = get_policy_retriever()
 
-    # Use retriever to get documents (better tracing in LangSmith)
-    results = retriever.invoke(query)
+        # Use retriever to get documents (better tracing in LangSmith)
+        results = retriever.invoke(query)
+    except Exception as e:
+        return (
+            f"POLICY_SEARCH_UNAVAILABLE: retrieval backend error ({e}) - "
+            "do not interpret as 'no policy documentation exists'",
+            [],
+        )
 
     if not results:
         return "No relevant policy information found.", []

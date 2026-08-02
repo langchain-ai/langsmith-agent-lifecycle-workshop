@@ -20,6 +20,7 @@ Run this script once to build the vectorstore:
     python data/data_generation/build_vectorstore.py
 """
 
+import os
 import pickle
 from pathlib import Path
 
@@ -143,8 +144,14 @@ def build_vectorstore():
         "provider": DEFAULT_EMBEDDING_PROVIDER,  # Provider used for embeddings
     }
 
-    with open(output_path, "wb") as f:
+    # Write to a temp file in the same directory and rename, so concurrent
+    # readers never observe a partially written cache file.
+    tmp_path = output_path.with_suffix(output_path.suffix + ".tmp")
+    with open(tmp_path, "wb") as f:
         pickle.dump(vectorstore_data, f)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp_path, output_path)
 
     print(f"   ✓ Saved to {output_path}")
 
