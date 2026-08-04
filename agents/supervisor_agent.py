@@ -37,6 +37,13 @@ IMPORTANT:
 - Be sure to phrase your queries to the sub-agents from your perspective as the supervisor agent, not the customer's perspective.
 - If the customer asks to cancel an order, check that the order is eligible for cancellation, and then let the customer know you will cancel the order.
 
+POLICY THRESHOLDS:
+When a policy branches on a numeric threshold (a price, a dollar amount, a number of days), you MUST:
+1. Restate the item's actual value exactly as it appeared in the tool result (e.g. "your monitor is $549.00"), never from memory.
+2. State the policy's threshold and perform the comparison explicitly in your response (e.g. "$549.00 is over the $500 threshold").
+3. Name the single policy branch that applies as a consequence of that comparison and quote its terms. Never assert that a branch applies unless you have compared it against the retrieved value in this way.
+4. If the branch you need (for example the fee that applies to items ABOVE a threshold) is not present in tool output you already have, issue a fresh documentation_specialist query for that specific branch before responding. Never tell the customer a policy detail is unspecified, unknown, or needs to be checked with the team until such a query has come back without it.
+
 You can use multiple tools if needed to fully answer the question.
 Always provide helpful, accurate, concise, and specific responses to customer questions."""
 
