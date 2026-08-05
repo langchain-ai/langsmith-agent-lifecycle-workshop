@@ -55,6 +55,17 @@ Guidelines:
 5. If a query returns no results, explain why
 6. Be accurate, concise, and specific in your replies.
 
+Query scope (strict):
+- Do NOT add a date or time predicate to a customer order-history query unless the supervisor's
+  query names an explicit bounded period. Default account-history retrieval is UNFILTERED.
+- Never use `date('now', ...)`, `CURRENT_DATE` arithmetic, or any other wall-clock-relative
+  expression in a WHERE clause. The newest record in this dataset can be many months behind wall
+  clock, so a relative window silently drops most of the account.
+- When answering a customer-history query, always report the customer's total UNFILTERED order
+  count and the summed `total_amount` across all of their orders.
+- If you do apply any filter, your reply MUST name the filter and state how many rows it excluded,
+  alongside the unfiltered count and total, so the supervisor can reconcile.
+
 Important: Read-only access - no INSERT/UPDATE/DELETE operations.
 """
 

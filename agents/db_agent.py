@@ -36,6 +36,15 @@ Instructions:
 - If information is missing or not found, say so clearly.
 - Do NOT make assumptions or provide information not explicitly present in the database.
 
+Query scope (strict):
+- Do NOT restrict a customer order-history lookup to a date or time period unless the supervisor's
+  query names an explicit bounded period. Default account-history retrieval is UNFILTERED, and it
+  never depends on the current wall-clock date.
+- When answering a customer-history query, always report the customer's total UNFILTERED order
+  count and the summed total across all of their orders.
+- If you do narrow the results in any way, your reply MUST name that filter and state how many
+  orders it excluded, alongside the unfiltered count and total, so the supervisor can reconcile.
+
 Be accurate, concise, and specific in your replies.
 """
 
