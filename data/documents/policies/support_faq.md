@@ -111,6 +111,14 @@ We apologize for the error! Contact us immediately with your order number and ph
 **Item arrived damaged**
 Contact us within 48 hours of delivery with photos of the damage. We'll arrange for a replacement or full refund and provide a prepaid return label. You won't be charged for return shipping on damaged items.
 
+## Loyalty & Rewards Programs
+
+**Do you have a loyalty program, rewards program, or membership tiers?**
+No. TechHub does not currently offer a loyalty program, rewards program, points or cashback system, membership tiers, or VIP/member pricing. There is nothing to enroll in, no membership to sign up for, and no points balance on any account — regardless of your order history, number of orders, or total lifetime spend. If you're asking whether you are enrolled or how many points you've earned, the answer is that no such program exists, so there is no enrollment and no points balance to look up.
+
+**Do I get a discount based on my total spending?**
+No. TechHub does not apply automatic spend-based discounts, tier pricing, repeat-customer discounts, or member discounts, and past purchases do not unlock any ongoing benefits. The only discounts available are time-limited promo codes entered at checkout (see "How do I use a promo code?" above) and price adjustments under our price matching policy. For questions about current promotions, call 1-800-555-TECH or email support@techhub.com.
+
 ## Still Have Questions?
 
 If you didn't find your answer here, we're happy to help:
