@@ -46,6 +46,9 @@ class IntermediateState(MessagesState):
     """
 
     customer_id: str
+    # The question that triggered verification, carried across the interrupt() in
+    # collect_email so it is answered instead of dropped once verification succeeds.
+    pending_query: str
 
 
 # ============================================================================
@@ -62,7 +65,7 @@ class QueryClassification(TypedDict):
     requires_verification: Annotated[
         bool,
         ...,
-        "True if the query requires knowing customer identity (e.g., 'my orders', 'my account', 'my purchases'). False for general questions (product info, policies, how-to questions).",
+        "True ONLY if answering requires reading this specific customer's own records (their orders, order status, account, purchase history, returns, refunds). False for product availability, inventory, stock, pricing, specifications, comparisons, policies, and how-to questions - including when the customer mentions a product they already own.",
     ]
 
 
@@ -83,23 +86,48 @@ class CustomerInfo(NamedTuple):
     customer_name: str
 
 
-def classify_query_intent(query: str, model: str = DEFAULT_MODEL) -> QueryClassification:
+def classify_query_intent(
+    query: str,
+    model: str = DEFAULT_MODEL,
+    history: list | None = None,
+) -> QueryClassification:
     """Classify whether a query requires customer identity verification.
 
     Args:
         query: The user's query string
         model: Model to use for classification (defaults to DEFAULT_MODEL)
+        history: Recent prior conversation messages used as context, so an incidental
+            possessive clause is not mistaken for a request for the customer's records
 
     Returns:
         QueryClassification dict with reasoning and requires_verification fields
     """
     llm = init_chat_model(model, configurable_fields=["model"])
     structured_llm = llm.with_structured_output(QueryClassification)
-    classification_prompt = """Analyze the following user's query to determine if it requires knowing their customer identity in order to answer the question."""
+    classification_prompt = """Analyze the user's latest query, using the preceding conversation as context, to determine if it requires knowing their customer identity in order to answer the question.
+
+Set requires_verification=False when the answer comes from public catalog or documentation data, including:
+- product availability, inventory, or stock ("do you have X in stock", "is there a newer generation")
+- pricing, specifications, features, or comparisons between products
+- store policies, warranties, shipping rules, and how-to questions
+
+A possessive reference to a product the customer already owns (e.g. "my current laptop", "the same model I currently have") is NOT a request for their records, and must not by itself require verification.
+
+Set requires_verification=True ONLY when answering requires reading that specific customer's own records: their orders, order status, account details, purchase history, returns, or refunds.
+
+If the query mixes both, set requires_verification=True but name the identity-free part in your reasoning so it can still be answered."""
+
+    context_messages = []
+    for message in (history or [])[-6:]:
+        role = "assistant" if getattr(message, "type", None) == "ai" else "user"
+        content = getattr(message, "content", message)
+        if isinstance(content, str) and content.strip():
+            context_messages.append({"role": role, "content": content})
 
     classification = structured_llm.invoke(
         [
             {"role": "system", "content": classification_prompt},
+            *context_messages,
             {"role": "user", "content": query},
         ]
     )
@@ -170,12 +198,15 @@ def query_router(
     last_message = state["messages"][-1]
     model = runtime.context.model if runtime.context is not None else DEFAULT_MODEL
     query_classification = classify_query_intent(
-        last_message.content, model=model
+        last_message.content, model=model, history=state["messages"][:-1]
     )
 
     # Route based on classification
     if query_classification.get("requires_verification"):
-        return Command(goto="verify_customer")
+        return Command(
+            update={"pending_query": last_message.content},
+            goto="verify_customer",
+        )
     return Command(goto="supervisor_agent")
 
 
@@ -202,14 +233,21 @@ def verify_customer(
 
         if customer:
             # Success! Email verified → Go to supervisor
+            messages = [
+                AIMessage(
+                    content=f"✓ Verified! Welcome back, {customer.customer_name}."
+                )
+            ]
+            # Re-ask the question that triggered verification so the supervisor
+            # answers it now instead of leaving the turn unanswered.
+            pending_query = state.get("pending_query")
+            if pending_query:
+                messages.append(HumanMessage(content=pending_query))
             return Command(
                 update={
                     "customer_id": customer.customer_id,
-                    "messages": [
-                        AIMessage(
-                            content=f"✓ Verified! Welcome back, {customer.customer_name}."
-                        )
-                    ],
+                    "pending_query": "",
+                    "messages": messages,
                 },
                 goto="supervisor_agent",
             )
