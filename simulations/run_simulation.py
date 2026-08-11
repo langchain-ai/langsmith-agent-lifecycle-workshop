@@ -52,6 +52,12 @@ load_dotenv()
 logging.basicConfig(level=LOG_LEVEL, format=LOG_FORMAT)
 logger = logging.getLogger(__name__)
 
+# Prompt-budget bound for a single rendered history turn. Set well above the
+# realistic maximum agent reply so the persona never mistakes a display bound
+# for the agent cutting itself off mid-sentence.
+MAX_HISTORY_TURN_CHARS = 8000
+HISTORY_TRUNCATION_MARKER = " ...[truncated]"
+
 
 class SimulationRunner:
     """Orchestrates multi-turn simulations against deployed agent."""
@@ -383,7 +389,9 @@ Your response (just the customer's message, or CONVERSATION_END):"""
         lines = []
         for msg in history:
             role = "Customer" if msg["role"] == "user" else "Agent"
-            content = msg["content"][:500]  # Truncate long messages
+            content = msg["content"]
+            if len(content) > MAX_HISTORY_TURN_CHARS:
+                content = content[:MAX_HISTORY_TURN_CHARS] + HISTORY_TRUNCATION_MARKER
             lines.append(f"{role}: {content}")
         return "\n".join(lines)
 
