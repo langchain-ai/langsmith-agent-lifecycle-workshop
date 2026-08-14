@@ -58,6 +58,25 @@ EMBEDDING_PROVIDER=openai
 uv run python data/data_generation/build_vectorstore.py
 ```
 
+### LLM Gateway (Optional)
+
+Instead of storing raw Anthropic/OpenAI API keys, orgs with access to LangSmith's [LLM Gateway](https://docs.langchain.com/langsmith/llm-gateway) can route chat model calls through it using a LangSmith API key with `gateway:invoke` permission:
+
+```bash
+# Add to your .env file instead of ANTHROPIC_API_KEY / OPENAI_API_KEY:
+LANGSMITH_GATEWAY="true"
+LANGSMITH_GATEWAY_API_KEY="<langsmith-api-key-with-gateway-invoke>"
+```
+
+This covers chat models only (requires `langchain-anthropic>=1.5.1` / `langchain-openai>=1.4.1`, already the repo minimums). If `EMBEDDING_PROVIDER=openai`, embeddings need their own gateway setup instead, since they aren't covered by `LANGSMITH_GATEWAY`:
+
+```bash
+OPENAI_API_KEY="<langsmith-api-key-with-gateway-invoke>"
+OPENAI_BASE_URL="https://gateway.smith.langchain.com/openai/v1"
+```
+
+This is entirely optional - direct provider API keys (the default setup above) work the same either way, so this only applies if your org has gateway access.
+
 ## Workshop Outline
 
 This workshop consists of three modules that take you from manual tool calling to production deployment:

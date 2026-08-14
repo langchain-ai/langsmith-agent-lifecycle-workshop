@@ -75,7 +75,18 @@ jobs:
           MODE=${{ github.event.inputs.mode || 'dynamic' }}
           uv run python simulations/run_simulation.py --count $COUNT --mode $MODE
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Routes the simulated-user LLM through LangSmith's LLM Gateway
+          # (private beta) instead of a raw Anthropic key: the gateway
+          # authenticates with LANGSMITH_API_KEY and resolves the actual
+          # Anthropic credential from workspace Provider Secrets. Requires
+          # langchain-anthropic>=1.5.1 (see pyproject.toml). This only covers
+          # the local init_chat_model call that generates the simulated
+          # user's turns (simulations/run_simulation.py) - the deployed agent
+          # itself is invoked over LANGGRAPH_DEPLOYMENT_URL and has its own
+          # separate credentials configured in the deployment's environment
+          # variables (LangSmith UI), not here.
+          LANGSMITH_GATEWAY: "true"
+          LANGSMITH_GATEWAY_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
           LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
           LANGSMITH_TRACING: "true"
           LANGSMITH_PROJECT: "langsmith-agent-lifecycle-workshop"

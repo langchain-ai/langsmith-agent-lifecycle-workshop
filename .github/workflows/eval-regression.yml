@@ -26,17 +26,22 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
       LANGSMITH_TRACING: "true"
       LANGSMITH_PROJECT: "langsmith-agent-lifecycle-workshop-ci"
       WORKSHOP_MODEL: "anthropic:claude-haiku-4-5"
-      # Route embeddings through LangSmith's LLM Gateway (private beta) instead
-      # of a raw OpenAI key: the gateway authenticates with LANGSMITH_API_KEY
-      # and resolves the actual OpenAI credential from workspace Provider
-      # Secrets. Requires the org to have gateway access - if this org loses
-      # access or the beta changes, drop these 3 vars to fall back to the
-      # default local HuggingFace embeddings (see build_vectorstore.py).
+      # Route chat completions through LangSmith's LLM Gateway (private beta)
+      # instead of a raw ANTHROPIC_API_KEY: the gateway authenticates with
+      # LANGSMITH_API_KEY and resolves the actual Anthropic credential from
+      # workspace Provider Secrets. Requires langchain-anthropic>=1.5.1 /
+      # langchain-openai>=1.4.1 (see pyproject.toml) and the org to have
+      # gateway access - if this org loses access or the beta changes, drop
+      # these 2 vars and restore ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}.
+      LANGSMITH_GATEWAY: "true"
+      LANGSMITH_GATEWAY_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
+      # Embeddings aren't covered by LANGSMITH_GATEWAY above, so they need
+      # their own gateway routing. Fall back to local HuggingFace embeddings
+      # by dropping these 3 vars (see build_vectorstore.py).
       EMBEDDING_PROVIDER: "openai"
       OPENAI_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
       OPENAI_BASE_URL: "https://gateway.smith.langchain.com/openai/v1"
