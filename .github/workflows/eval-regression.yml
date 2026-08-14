@@ -20,6 +20,8 @@ on:
       - 'evals/**'
       - 'config.py'
       - 'workshop_modules/module_2/baseline_dataset.json'
+      - 'pyproject.toml'
+      - 'uv.lock'
 
 jobs:
   eval:
