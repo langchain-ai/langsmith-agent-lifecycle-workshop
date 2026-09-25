@@ -31,7 +31,10 @@ jobs:
       LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
       LANGSMITH_TRACING: "true"
       LANGSMITH_PROJECT: "langsmith-agent-lifecycle-workshop-ci"
-      WORKSHOP_MODEL: "anthropic:claude-haiku-4-5"
+      # Use the OpenAI provider already exercised by the vectorstore build below.
+      # This keeps the gate on the Gateway without requiring an Anthropic
+      # workspace Provider Secret that is not configured for this workspace.
+      WORKSHOP_MODEL: "openai:gpt-5-mini"
       # Route chat completions through LangSmith's LLM Gateway (private beta)
       # instead of a raw ANTHROPIC_API_KEY: the gateway authenticates with
       # LANGSMITH_API_KEY and resolves the actual Anthropic credential from
