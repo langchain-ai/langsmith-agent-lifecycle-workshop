@@ -81,6 +81,12 @@ Deploy to production and build a data flywheel for continuous improvement.
 - Handling HITL interrupts programmatically
 - Building custom integrations and applications
 
+**Section 3: CI/CD Regression Gating** (`section_3_cicd_regression_gate.ipynb`)
+- Wiring the Module 2 evaluators into GitHub Actions as a merge-blocking check
+- Syncing a single, git-sourced LangSmith dataset for comparable experiments across PRs
+- Tracing experiments back to the PR/commit that produced them
+- How offline CI gating and the online eval flywheel (Section 1) reinforce each other
+
 ---
 
 ## Key Concepts Covered

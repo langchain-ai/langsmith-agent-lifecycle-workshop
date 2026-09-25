@@ -12,8 +12,8 @@ dependencies = [
     # LangChain Core
     "langchain>=1.3.10",
     "langchain-core>=1.3.3",
-    "langchain-anthropic>=1.4.6",
-    "langchain-openai>=1.1.14",
+    "langchain-anthropic>=1.5.1",
+    "langchain-openai>=1.4.1",
     # LangGraph
     "langgraph>=0.2.0",
     # LangSmith

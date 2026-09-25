@@ -58,6 +58,25 @@ EMBEDDING_PROVIDER=openai
 uv run python data/data_generation/build_vectorstore.py
 ```
 
+### LLM Gateway (Optional)
+
+Instead of storing raw Anthropic/OpenAI API keys, orgs with access to LangSmith's [LLM Gateway](https://docs.langchain.com/langsmith/llm-gateway) can route chat model calls through it using a LangSmith API key with `gateway:invoke` permission:
+
+```bash
+# Add to your .env file instead of ANTHROPIC_API_KEY / OPENAI_API_KEY:
+LANGSMITH_GATEWAY="true"
+LANGSMITH_GATEWAY_API_KEY="<langsmith-api-key-with-gateway-invoke>"
+```
+
+This covers chat models only (requires `langchain-anthropic>=1.5.1` / `langchain-openai>=1.4.1`, already the repo minimums). If `EMBEDDING_PROVIDER=openai`, embeddings need their own gateway setup instead, since they aren't covered by `LANGSMITH_GATEWAY`:
+
+```bash
+OPENAI_API_KEY="<langsmith-api-key-with-gateway-invoke>"
+OPENAI_BASE_URL="https://gateway.smith.langchain.com/openai/v1"
+```
+
+This is entirely optional - direct provider API keys (the default setup above) work the same either way, so this only applies if your org has gateway access.
+
 ## Workshop Outline
 
 This workshop consists of three modules that take you from manual tool calling to production deployment:
@@ -68,6 +87,13 @@ This workshop consists of three modules that take you from manual tool calling t
 
 📚 To get started, see [workshop_modules/README.md](workshop_modules/README.md)
 
+## Continuous Evaluation (CI/CD)
+
+Every PR that touches agent-relevant code (`agents/`, `tools/`, `evaluators/`, `deployments/`, `evals/`, `config.py`) is automatically evaluated against the Module 2 baseline dataset — the same `correctness` and `total_tool_calls` evaluators from Module 2, wired into GitHub Actions as a merge-blocking regression test rather than something you have to remember to run by hand.
+
+- **See it in code:** [`evals/run_ci_eval.py`](evals/run_ci_eval.py) and [`.github/workflows/eval-regression.yml`](.github/workflows/eval-regression.yml)
+- **See it explained:** [`workshop_modules/module_3/section_3_cicd_regression_gate.ipynb`](workshop_modules/module_3/section_3_cicd_regression_gate.ipynb)
+- **Demo it live:** run `./scripts/demo_ci_pr.sh` to open a throwaway PR that only touches `evals/DEMO_TRIGGER.md` — no real agent/eval code changes — so you can show the gate triggering and passing (or failing) an audience without needing a real code change every time. Close the PR without merging when you're done.
 
 ## Repo Structure
 
@@ -76,7 +102,7 @@ langsmith-agent-lifecycle-workshop/
 ├── workshop_modules/        # Interactive Jupyter notebooks
 │   ├── module_1/            # Agent Development (4 sections)
 │   ├── module_2/            # Evaluation & Improvement (3 sections)
-│   └── module_3/            # Deployment & Continuous Improvement (2 sections)
+│   └── module_3/            # Deployment & Continuous Improvement (3 sections)
 │
 ├── agents/                  # Reusable agent factory functions
 │   ├── db_agent.py          # Database queries (rigid tools)
@@ -92,6 +118,10 @@ langsmith-agent-lifecycle-workshop/
 ├── evaluators/              # Evaluation metrics
 │   └── evaluators.py        # Correctness & tool call counters
 │
+├── evals/                   # CI/CD regression gate
+│   ├── run_ci_eval.py       # Runs Module 2 evaluators, gates on threshold
+│   └── DEMO_TRIGGER.md      # No-op file for demoing the CI gate via a PR
+│
 ├── deployments/             # Production-ready graph configurations
 │   ├── db_agent_graph.py                   # Baseline database agent
 │   ├── docs_agent_graph.py                 # RAG documents agent
@@ -105,6 +135,13 @@ langsmith-agent-lifecycle-workshop/
 │   ├── documents/           # Markdown docs for RAG
 │   ├── vector_stores/       # Pre-built vectorstore
 │   └── data_generation/     # Scripts to regenerate data
+│
+├── scripts/                 # Maintenance & demo scripts
+│   └── demo_ci_pr.sh        # Opens a throwaway PR to demo the eval gate
+│
+├── .github/workflows/       # CI/CD
+│   ├── eval-regression.yml  # Eval Regression Gate (this section)
+│   └── simulate_traffic.yml # Simulated production traffic for demos
 │
 ├── config.py                # Workshop-wide configuration
 ├── langgraph.json           # LangGraph deployment config
