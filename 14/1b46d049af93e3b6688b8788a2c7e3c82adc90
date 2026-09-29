@@ -1,0 +1,31 @@
+docs/2026-09-29-module-4-deep-agents-product-research-prd.md
+  s_e18b9903717915::t_324fc1d2cc8663 1-428
+workshop_modules/module_4/build_notebooks.py
+  s_e18b9903717915::t_3b04584edac9f8 1-156
+pyproject.toml
+  s_e18b9903717915::t_c24aa93da42257 19-20,31-32
+docs/2026-09-08-module-4-deep-agents-prd.md
+  s_e18b9903717915::t_d788e90f292380 1-249
+.gitignore
+  s_e18b9903717915::t_1e862e70aa9be4 131-139
+data/agent/customer_communication/email_draft.txt
+  s_e18b9903717915::t_3b04584edac9f8 1-15
+uv.lock
+  s_e18b9903717915::t_8cf520aa5a95bd 315-323,626-642,697-705,803-841,1594-1609,1612,1619,1621,1681,1684,1695,1697-1712,1770,1780,1782,1944,1947,1966,1969,2085-2096,2908-2928,4067-4078
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "141b46d049af93e3b6688b8788a2c7e3c82adc90",
+  "prompts": {},
+  "sessions": {
+    "s_e18b9903717915": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "de455c42-e053-4e04-9c37-2dc824954486",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
