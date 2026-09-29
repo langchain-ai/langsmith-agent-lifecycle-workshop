@@ -1,0 +1,69 @@
+pyproject.toml
+  s_ed4004b3cfc4ba::t_0455b27e2bfd2c 19-20
+  s_ed4004b3cfc4ba::t_39f8c35f5a4c2d 31-32
+agents/resolution_agent.py
+  s_ed4004b3cfc4ba::t_f1d2a38593af60 136-138,142-146,148-150
+  s_ed4004b3cfc4ba::t_0d5091bb082089 96-100,103-106,108-123,125-126,129
+  s_ed4004b3cfc4ba::t_95d31f21f8571a 1-95,101-102,107,124,127-128,130-135,139-141,147,151-217,222-231,233,238-242,249-269
+  s_ed4004b3cfc4ba::t_31937757ef04a2 234-237
+  s_ed4004b3cfc4ba::t_91570785ae9d6a 243-248
+  s_ed4004b3cfc4ba::t_a8776f3334aca2 232
+  s_ed4004b3cfc4ba::t_d0d5c74bafa506 218-221
+tools/database.py
+  s_ed4004b3cfc4ba::t_b27538f98bc1e5 35,37,41-65
+  s_ed4004b3cfc4ba::t_5a7ddb19a8ebbf 13-14,20-21,23
+  s_ed4004b3cfc4ba::t_95f5f371f9f855 99-105,108,118-120,128-130
+  s_ed4004b3cfc4ba::t_87be2885dc384e 73-85
+  s_ed4004b3cfc4ba::t_bcee0c15af76cf 66-67
+data/data_generation/create_current_database.py
+  s_ed4004b3cfc4ba::t_abc54c62e93905 1-39,41-138,143-147,156,158,185-205,207-216,220-226,228-247,249-310,313-353
+  s_ed4004b3cfc4ba::t_cb77986ee6111a 139-142,148-155,157,159-184
+  s_ed4004b3cfc4ba::t_01c176c9c5f13e 40
+  s_ed4004b3cfc4ba::t_e7e56a57d3265d 206,217-219,227
+  s_ed4004b3cfc4ba::t_a586fb4a38ea09 311-312
+  s_ed4004b3cfc4ba::t_1d89be43b93370 248
+data/structured/techhub_current_meta.json
+  s_ed4004b3cfc4ba::t_4608b7910b7477 1-62
+docs/2026-09-08-module-4-deep-agents-prd.md
+  s_ed4004b3cfc4ba::t_51efa84299c5e4 222-223,225,227-234,237-242,246-249
+  s_ed4004b3cfc4ba::t_e75a421e75acd4 69-75
+  s_ed4004b3cfc4ba::t_a2b03000dab45b 1-68,76-100,102,106,110-170,172-173,176-179,183,210-221,224,226,235-236,243-245
+  s_ed4004b3cfc4ba::t_f0826570f60dd1 101,103-105,107-109
+  s_ed4004b3cfc4ba::t_9d8519a76ec2df 171,174-175,180-182,184-209
+data/agent/AGENTS.md
+  s_ed4004b3cfc4ba::t_04cfc353544013 6-8,12-13,15,19-21
+  s_ed4004b3cfc4ba::t_21cd217197b9ef 1-5,9-11,14,16-18,22-46
+data/agent/skills/return-eligibility/SKILL.md
+  s_ed4004b3cfc4ba::t_0d2079ca5438ac 1-23,46-87,90,96-107
+  s_ed4004b3cfc4ba::t_16dd1d23510052 24-45
+  s_ed4004b3cfc4ba::t_ced2ad120fd382 88-89,91-95
+workshop_modules/module_4/build_notebooks.py
+  s_ed4004b3cfc4ba::t_d512caafca36ec 1-156
+config.py
+  s_ed4004b3cfc4ba::t_7b1d380341b1f8 75-81
+uv.lock
+  s_ed4004b3cfc4ba::t_9f8499192ee754 143,148,154,156,314-322,625-641,696-704,802-840,1012-1024,1075-1099,1122,1124,1126,1593-1608,1611,1618,1620,1625,1632,1634,1680,1683,1694-1709,1711,1768,1778,1780,1942,1945,1964,1967,2083-2094,2906-2926,4079-4090
+data/agent/customer_communication/email_draft.txt
+  s_ed4004b3cfc4ba::t_0dac35153865cb 1-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4aeac1992999715717bac91ec2c87187b7475e4c",
+  "prompts": {},
+  "humans": {
+    "h_be5bc9f902892b": {
+      "author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  },
+  "sessions": {
+    "s_ed4004b3cfc4ba": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e02cdad1-9b3e-42b3-80bd-1f630592c77a",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
