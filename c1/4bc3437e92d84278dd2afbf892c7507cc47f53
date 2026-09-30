@@ -1,0 +1,34 @@
+tools/web_research.py
+  s_25ac73a9ad01c5::t_ad64aa907c644f 15-18,21-23,30-32,35,42-46,50-61
+  s_25ac73a9ad01c5::t_89ac2db6586363 124
+  s_25ac73a9ad01c5::t_b16786f5a2281c 107
+  s_25ac73a9ad01c5::t_444048acae6b2e 62-63
+workshop_modules/module_4/src/section_1_harness_and_delegation.py
+  s_25ac73a9ad01c5::t_5b97b77ec6c1b3 29-31
+  s_25ac73a9ad01c5::t_ddf73c390cf28c 205
+data/product_pages/lg-34wn80c-b.html
+  s_25ac73a9ad01c5::t_fb6fffe51ec485 5,25,27-28,30,32,34,36,38-47,49-54,56
+workshop_modules/module_4/section_1_harness_and_delegation.ipynb
+  s_25ac73a9ad01c5::t_d460a14da2f986 5,22-24,29,38,41-44,98,113,116-119,149,158,161-164,197,220,223-226,252,255-258,290,309,312-315,326,360,372,378,384,387-390,398-399,423,436,453-454,457-460,468-469,484-485,488-491,499,501,504,508,510,515-516,518-519,524-528,532-537,542,544,546,551-555,560-561,563-564,566,569-570,572,593,607,621,634,642-643,646-649,658,663-664,724,739-740,743-746,755,757,759,761,763,765,767,769,771,773,776-777,779-780,782-783,801,814,834-835,838-841,849,851-853,884,901,915-916,919-922,930,950,958,975
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c14bc3437e92d84278dd2afbf892c7507cc47f53",
+  "prompts": {},
+  "humans": {
+    "h_be5bc9f902892b": {
+      "author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  },
+  "sessions": {
+    "s_25ac73a9ad01c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f55bff40-e715-402a-83e7-60f5e34322dc",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
