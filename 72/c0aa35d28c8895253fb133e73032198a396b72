@@ -1,0 +1,33 @@
+agents/research_agent.py
+  s_e18b9903717915::t_cd67193551145b 1-159
+pyproject.toml
+  s_e18b9903717915::t_23d97f01f17710 23-24
+.env.example
+  h_be5bc9f902892b 22,33,35-36
+  s_e18b9903717915::t_fcbabbb59a6ac4 34
+tools/web_research.py
+  s_e18b9903717915::t_4ae2b3ff853b8d 1-97
+uv.lock
+  s_e18b9903717915::t_d0a0e1118484b8 1756-1770,1969,1992
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "72c0aa35d28c8895253fb133e73032198a396b72",
+  "prompts": {},
+  "humans": {
+    "h_be5bc9f902892b": {
+      "author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  },
+  "sessions": {
+    "s_e18b9903717915": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "de455c42-e053-4e04-9c37-2dc824954486",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
