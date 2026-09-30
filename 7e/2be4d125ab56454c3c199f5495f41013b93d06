@@ -1,0 +1,30 @@
+workshop_modules/module_4/section_1_harness_and_delegation.ipynb
+  s_25ac73a9ad01c5::t_dbc8fb0afb7be1 242-245,345-347,355-358,362-365,487-490,492-495,721-728,890-893
+workshop_modules/module_4/src/section_1_harness_and_delegation.py
+  s_25ac73a9ad01c5::t_e8f72338d8b05f 349-356
+  s_25ac73a9ad01c5::t_51ecd7097b002c 128-131
+  s_25ac73a9ad01c5::t_3425372ad8d7e1 258-261,263-266
+  s_25ac73a9ad01c5::t_44a9d367536ad1 182-184,192-195,199-202
+  s_25ac73a9ad01c5::t_ebc0c953df4f25 426-429
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7e2be4d125ab56454c3c199f5495f41013b93d06",
+  "prompts": {},
+  "humans": {
+    "h_be5bc9f902892b": {
+      "author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  },
+  "sessions": {
+    "s_25ac73a9ad01c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f55bff40-e715-402a-83e7-60f5e34322dc",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
