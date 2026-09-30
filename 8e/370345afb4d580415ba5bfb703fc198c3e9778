@@ -1,0 +1,27 @@
+workshop_modules/module_4/src/section_1_harness_and_delegation.py
+  s_d36f5fcfee9e64::t_afc55c65a424d6 378
+  s_d36f5fcfee9e64::t_9a00186b58cd89 232-235
+workshop_modules/module_4/section_1_harness_and_delegation.ipynb
+  s_d36f5fcfee9e64::t_2481638eb6e180 428-431,750
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8e370345afb4d580415ba5bfb703fc198c3e9778",
+  "prompts": {},
+  "humans": {
+    "h_be5bc9f902892b": {
+      "author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  },
+  "sessions": {
+    "s_d36f5fcfee9e64": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "72efd507-cb96-4ddd-95b1-d0ef0a55169a",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
