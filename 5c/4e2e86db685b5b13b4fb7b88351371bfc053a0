@@ -1,0 +1,26 @@
+docs/2026-09-30-module-4-handoff-prompt.md
+  s_e18b9903717915::t_32d614adbe6ce4 1-175
+data/product_pages/lg-34wn80c-b.html
+  s_e18b9903717915::t_9eabd4718accd0 27-28,30,32,34,36,38-45,47-49,52-58,60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5c4e2e86db685b5b13b4fb7b88351371bfc053a0",
+  "prompts": {},
+  "humans": {
+    "h_be5bc9f902892b": {
+      "author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  },
+  "sessions": {
+    "s_e18b9903717915": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "de455c42-e053-4e04-9c37-2dc824954486",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
