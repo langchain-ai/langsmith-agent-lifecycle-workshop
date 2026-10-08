@@ -1,0 +1,32 @@
+workshop_modules/module_3/section_3_cicd_regression_gate.ipynb
+  s_03d65b9f76bc11::t_c8125b3c68002c 5,23,39,58,66,86,96,108,125,135
+  s_03d65b9f76bc11::t_5ea9e4467326cd 1-4,6-9,11,13-15,18-22,24-28,30,32,34-38,40-57,59-60,62-65,67-71,73,79-85,87-95,97-98,100-107,109-115,118,120-124,126-134,136-147,149,151-166
+  s_03d65b9f76bc11::t_e6cee04b73bdea 10,12,16-17,29,31,33,61,72,74-78,99,116-117,119,148,150
+evals/run_ci_eval.py
+  s_03d65b9f76bc11::t_61f2bd4820e615 146
+  s_03d65b9f76bc11::t_a01c7c30494e04 1-45,50,68-145,147-174
+  s_03d65b9f76bc11::t_1c0f7dec73639c 46-49,51-67
+.github/workflows/eval-regression.yml
+  s_03d65b9f76bc11::t_17f501fb70a9d1 1-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "51d7edc3e9334be4d258aa16e46bdf872661c8b1",
+  "prompts": {},
+  "humans": {
+    "h_b5fa805487d01c": {
+      "author": "Andrew Reed <andrew.reed.r@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_03d65b9f76bc11": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6aec8e62-88a6-4a71-a172-40c4c0fc4b20",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Andrew Reed <andrew.reed.r@gmail.com>"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+README.md
+  s_324543e6d2e117::t_bf937f2578f9b6 61-62,64-66,70,74-79
+  s_324543e6d2e117::t_cf7403d6184546 63,67-69,71-73
+.github/workflows/eval-regression.yml
+  s_324543e6d2e117::t_f93f58c4d68fcd 33-44
+.env.example
+  s_324543e6d2e117::t_5ee1f24e7c5556 51-70
+  s_324543e6d2e117::t_3a48aaff24cca4 30,32,48-50,71-73
+  s_324543e6d2e117::t_7af2091d213272 74
+pyproject.toml
+  s_324543e6d2e117::t_4ab9036daea4b5 15-16
+.github/workflows/simulate_traffic.yml
+  s_324543e6d2e117::t_f899e1c6cd0769 78-80
+  s_324543e6d2e117::t_370445047ea03e 81-89
+uv.lock
+  s_324543e6d2e117::t_069752f6948a9c 143,155,157,939-951,1002-1026,1049,1051,1053,1536,1543,1545,1591,1604,1606,1625,1628,1633,1635,1861,1865,2397,2402,2409,2411
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "9f124eed246687c9fa4eaee2cab6a18686317572",
+  "prompts": {},
+  "humans": {
+    "h_b5fa805487d01c": {
+      "author": "Andrew Reed <andrew.reed.r@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_324543e6d2e117": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42540702-63ad-4cf6-af18-488cba74b63a",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Andrew Reed <andrew.reed.r@gmail.com>"
+    }
+  }
+}
