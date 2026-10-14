@@ -1,0 +1,35 @@
+workshop_modules/module_2/techhub-judge-review/README.md
+  s_7a780a0348b151::t_221b07a6db5d60 3
+workshop_modules/README.md
+  s_7a780a0348b151::t_7c941c9073cf37 71,73
+workshop_modules/module_2/techhub-judge-review/context.md
+  s_7a780a0348b151::t_221b07a6db5d60 7,11,24,26-27
+workshop_modules/module_2/techhub-judge-review/src/components/JudgeReview.tsx
+  s_7a780a0348b151::t_221b07a6db5d60 21,77-78,91,104,108,150-151
+workshop_modules/module_2/bonus_review_judge_in_custom_app.ipynb
+  s_7a780a0348b151::t_3452687e8486d8 10,12,16-17,19-20,28,66,80,90,92,94,114,119-121,126,131,136-137,157,165,169-170,175-179,187,190,192,197-198,231,236,241-244,246-262,267,275,280,285-286,300,305-310,315,323,330-331,350-351,362,373,378,383-384,415,426,436,454,471,490,507-508,510,520,536,545,547-548,550,555,560,569,572,574,579-580,601,604-605,608-611,613-617,622-623,637,642,644-647,649,654,659,662-664,666,671,676-677,680,685-686,701-704
+  s_7a780a0348b151::t_559e88d2f8f1bb 57-60,103-106,140-143,201-204,212-213,221,289-292,334-337,387-390,398,583-586,594,626-629,689-692,729,782,785-801,806,810,813-815,818,821,836-838,840,845,898,913,915,918,921,974-1010,1063,1066,1068,1071,1073,1075-1087
+  s_7a780a0348b151::t_c8bfedad4f9f0a 151-152,270,1062,1064-1065,1067,1069-1070,1072,1074
+  s_7a780a0348b151::t_12a76abc6ac2a3 99-100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "88413921927aa7d218e1c0733fb6dfd3d79cc442",
+  "prompts": {},
+  "humans": {
+    "h_be5bc9f902892b": {
+      "author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  },
+  "sessions": {
+    "s_7a780a0348b151": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd242c4c-d1cd-4334-8f25-7e87e54d78f8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
