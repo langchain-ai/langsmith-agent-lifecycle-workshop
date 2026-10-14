@@ -62,6 +62,11 @@ Learn evaluation-driven development to systematically improve agents.
 - Run-based evaluators: traversing the LangSmith trace tree to inspect sub-agent tool calls
 - Multi-turn simulation: realistic customer conversations with LLM-simulated users
 
+**Bonus: Aligning an LLM-as-Judge** (`bonus_align_llm_judge.ipynb`)
+- Measuring agreement between the Module 2 `correctness` judge and human labels on a 30-item golden set (`golden_set.json`)
+- Grouping disagreements by cause with a confusion matrix and the judge's reasoning
+- Fixing the rubric one rule at a time and re-measuring on the same frozen outputs
+
 ---
 
 ## Module 3: Deployment & Continuous Improvement

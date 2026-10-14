@@ -1,0 +1,22 @@
+flowchart LR
+    gold["Golden set: question + reference"] --> out["Frozen agent outputs"]
+    out --> judge["Evaluator prompt"]
+    judge --> verdict["Evaluator verdicts"]
+    gold -- "a person labels each output" --> human["Human labels"]
+    verdict --> cmp["Compare"]
+    human --> cmp
+    cmp --> agree["Agreement % + confusion matrix"]
+    cmp --> read["Read the disagreements"]
+    read --> fix["Fix the prompt, one rule per cause"]
+    fix -- "re-run" --> judge
+
+    classDef data stroke:#1971c2,color:#1971c2
+    classDef app stroke:#e8590c,color:#e8590c
+    classDef judgeC stroke:#2f9e44,color:#2f9e44
+    classDef humanC stroke:#9c36b5,color:#9c36b5
+    classDef loop stroke:#e03131,color:#e03131
+    class gold data
+    class out app
+    class judge,verdict judgeC
+    class human humanC
+    class read,fix loop
