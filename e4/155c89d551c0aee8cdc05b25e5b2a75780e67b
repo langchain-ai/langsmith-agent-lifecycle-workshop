@@ -1,0 +1,19 @@
+evals/DEMO_TRIGGER.md
+  s_084560341d025b::t_6b480b68ca4122 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e4155c89d551c0aee8cdc05b25e5b2a75780e67b",
+  "prompts": {},
+  "sessions": {
+    "s_084560341d025b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3d6ee49d-8e6b-446b-beae-c530c6209aed",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
