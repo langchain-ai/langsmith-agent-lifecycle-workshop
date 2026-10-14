@@ -1,0 +1,86 @@
+workshop_modules/module_2/techhub-judge-review/src/entry.tsx
+  s_7a780a0348b151::t_298e3f4ed23e76 1-38
+workshop_modules/module_2/techhub-judge-review/postcss.config.js
+  s_7a780a0348b151::t_298e3f4ed23e76 1-6
+workshop_modules/module_2/techhub-judge-review/src/components/QueueBar.tsx
+  s_7a780a0348b151::t_298e3f4ed23e76 1-30
+workshop_modules/module_2/techhub-judge-review/src/types.ts
+  s_7a780a0348b151::t_298e3f4ed23e76 1-24,27-123,127-133
+  s_7a780a0348b151::t_9dcc8830de8190 124-126
+  s_7a780a0348b151::t_d60f0b30ab80cf 25-26
+workshop_modules/module_2/techhub-judge-review/tailwind.config.js
+  s_7a780a0348b151::t_298e3f4ed23e76 1-7
+workshop_modules/module_2/techhub-judge-review/src/components/ThreadViewer.tsx
+  s_7a780a0348b151::t_298e3f4ed23e76 1-96
+workshop_modules/module_2/techhub-judge-review/vite.config.ts
+  s_7a780a0348b151::t_298e3f4ed23e76 1-26
+workshop_modules/module_2/techhub-judge-review/src/vite-env.d.ts
+  s_7a780a0348b151::t_298e3f4ed23e76 1
+workshop_modules/module_2/techhub-judge-review/context.md
+  s_7a780a0348b151::t_37d77b02283390 1-29
+workshop_modules/module_2/techhub-judge-review/src/components/RunList.tsx
+  s_7a780a0348b151::t_298e3f4ed23e76 1-265
+workshop_modules/module_2/techhub-judge-review/AGENTS.md
+  s_7a780a0348b151::t_298e3f4ed23e76 1-224
+workshop_modules/module_2/techhub-judge-review/src/components/SearchableSelect.tsx
+  s_7a780a0348b151::t_298e3f4ed23e76 1-127
+workshop_modules/module_2/techhub-judge-review/src/index.css
+  s_7a780a0348b151::t_298e3f4ed23e76 1-10
+workshop_modules/module_2/techhub-judge-review/src/components/JudgeReview.tsx
+  s_7a780a0348b151::t_00fd39020925ed 155
+  s_7a780a0348b151::t_45cba0a3a9fa92 1-154,156-158
+workshop_modules/module_2/techhub-judge-review/README.md
+  s_7a780a0348b151::t_298e3f4ed23e76 1-102
+workshop_modules/module_2/techhub-judge-review/src/components/FeedbackPanel.tsx
+  s_7a780a0348b151::t_298e3f4ed23e76 1-647
+workshop_modules/module_2/techhub-judge-review/src/global.d.ts
+  s_7a780a0348b151::t_298e3f4ed23e76 1-21
+workshop_modules/module_2/techhub-judge-review/src/components/FeedbackChip.tsx
+  s_7a780a0348b151::t_298e3f4ed23e76 1-23
+workshop_modules/module_2/techhub-judge-review/src/hooks/useItemSection.ts
+  s_7a780a0348b151::t_298e3f4ed23e76 1-106
+workshop_modules/module_2/techhub-judge-review/.gitignore
+  s_7a780a0348b151::t_298e3f4ed23e76 1-2
+  s_7a780a0348b151::t_3e3031b373bc97 3
+workshop_modules/module_2/techhub-judge-review/src/App.tsx
+  s_7a780a0348b151::t_298e3f4ed23e76 1-6,8-184,186-215
+  s_7a780a0348b151::t_62e57ef691c728 185
+  s_7a780a0348b151::t_7488455cc670ce 7
+workshop_modules/module_2/techhub-judge-review/tsconfig.json
+  s_7a780a0348b151::t_298e3f4ed23e76 1-20
+workshop_modules/module_2/techhub-judge-review/src/hooks/useHydratedItem.ts
+  s_7a780a0348b151::t_40d1bf1f49083f 40
+  s_7a780a0348b151::t_298e3f4ed23e76 1-39,41-79
+workshop_modules/module_2/techhub-judge-review/src/components/ReviewerNotes.tsx
+  s_7a780a0348b151::t_298e3f4ed23e76 1-153
+workshop_modules/module_2/techhub-judge-review/src/components/ErrorBanner.tsx
+  s_7a780a0348b151::t_298e3f4ed23e76 1-32
+workshop_modules/module_2/techhub-judge-review/src/api.ts
+  s_7a780a0348b151::t_f6beaa2f128e19 103,108-118,130-163
+  s_7a780a0348b151::t_298e3f4ed23e76 1-102,104-107,119-129,164-251
+workshop_modules/module_2/techhub-judge-review/package.json
+  s_7a780a0348b151::t_298e3f4ed23e76 1-31
+workshop_modules/module_2/techhub-judge-review/package-lock.json
+  s_7a780a0348b151::t_1ec043921d6132 1-6303
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4fbd7dce45b5b5748d555bc1a9e363ab83c8f0b6",
+  "prompts": {},
+  "humans": {
+    "h_be5bc9f902892b": {
+      "author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  },
+  "sessions": {
+    "s_7a780a0348b151": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd242c4c-d1cd-4334-8f25-7e87e54d78f8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
