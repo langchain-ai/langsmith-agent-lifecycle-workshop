@@ -1,0 +1,40 @@
+images/align-evals-workflow.mmd
+  s_bf36566cb47243::t_8280373be4e8cc 1-22
+workshop_modules/module_2/bonus_align_llm_judge.ipynb
+  s_eac23e1946cd0d::t_f3e3c6127e234c 1-2013
+workshop_modules/README.md
+  s_eac23e1946cd0d::t_7eb14ea764b081 65-69
+README.md
+  s_eac23e1946cd0d::t_81cfe4d6d500e8 104
+workshop_modules/module_2/golden_set.json
+  s_eac23e1946cd0d::t_f1df68b80b7a65 1-302
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6a9294679ecda93c8fafbbebc8b463998544c7ae",
+  "prompts": {},
+  "humans": {
+    "h_be5bc9f902892b": {
+      "author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  },
+  "sessions": {
+    "s_bf36566cb47243": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eead455d-4182-45c9-8314-45baff18e8be",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    },
+    "s_eac23e1946cd0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b964835e-3c4e-46e9-a2e8-c782d0fa94b9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
