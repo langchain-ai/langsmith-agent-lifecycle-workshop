@@ -101,7 +101,7 @@ Every PR that touches agent-relevant code (`agents/`, `tools/`, `evaluators/`, `
 langsmith-agent-lifecycle-workshop/
 ├── workshop_modules/        # Interactive Jupyter notebooks
 │   ├── module_1/            # Agent Development (4 sections)
-│   ├── module_2/            # Evaluation & Improvement (3 sections)
+│   ├── module_2/            # Evaluation & Improvement (3 sections + bonus)
 │   └── module_3/            # Deployment & Continuous Improvement (3 sections)
 │
 ├── agents/                  # Reusable agent factory functions

@@ -1,0 +1,302 @@
+[
+  {
+    "id": "baseline-2",
+    "bucket": "ok",
+    "question": "What's the most expensive single item I've ever purchased? My email is it.purchasing@finance.com",
+    "reference": "Your most expensive item was the Dell XPS 13 (Intel i7, 512GB) at $1,399.00.",
+    "output": "Thanks — I found the results. The most expensive single item you've ever purchased is the Dell XPS 13 (Intel i7, 512GB) at $1,399.00. You purchased this item three times:\n\n- ORD-2024-0048 — 2024-05-19 — Dell XPS 13 (Intel i7, 512GB) — SKU TECH-LAP-003 — Unit price $1,399.00 — Quantity 1 — Delivered  \n- ORD-2024-0049 — 2024-05-31 — Dell XPS 13 (Intel i7, 512GB) — SKU TECH-LAP-003 — Unit price $1,399.00 — Quantity 1 — Delivered  \n- ORD-2024-0070 — 2024-07-29 — Dell XPS 13 (Intel i7, 512GB) — SKU TECH-LAP-003 — Unit price $1,399.00 — Quantity 1 — Delivered\n\nNone of these orders are eligible for cancellation since they are already delivered. Would you like me to check return/refund eligibility, warranty status, or shipment/tracking details for any of these orders?",
+    "human_label": true,
+    "label_note": "Right item and price. The order list is true extra detail.",
+    "source": "agent run 2026-10-08 (baseline-2), unedited"
+  },
+  {
+    "id": "baseline-4",
+    "bucket": "ok",
+    "question": "How many of my orders included accessories? My email is samantha.wright@yahoo.com",
+    "reference": "5 of your orders included accessories.",
+    "output": "Thanks — I looked up your account (samantha.wright@yahoo.com / CUST-032).\n\nQuick answer: 5 of your orders included at least one accessory.\n\nThose orders are:\n- ORD-2023-0012 — 2023-11-14 — Delivered — Logitech C920 Webcam (1080p) ×2  \n- ORD-2023-0021 — 2023-12-08 — Delivered — Cable Management Kit (10 pieces) ×1  \n- ORD-2024-0016 — 2024-02-29 — Delivered — Cable Management Kit (10 pieces) ×1  \n- ORD-2025-0036 — 2025-10-15 — Processing — Cable Management Kit (10 pieces) ×2  \n- ORD-2025-0043 — 2025-10-16 — Processing — Logitech C920 Webcam (1080p) ×1\n\nWould you like this exported as CSV/JSON, or do you want more detail (full order breakdowns, receipts, or tracking info for the ones still processing/shipped)?",
+    "human_label": true,
+    "label_note": "5 orders, matches the reference.",
+    "source": "agent run 2026-10-08 (baseline-4), unedited"
+  },
+  {
+    "id": "baseline-5",
+    "bucket": "ok",
+    "question": "Which month in 2024 did I buy the most keyboards? My email is it.purchasing@finance.com",
+    "reference": "You bought the most keyboards in July 2024 (6 keyboards total).",
+    "output": "Hi Jonathan — July 2024.  \n\nSummary:\n- Top month: July 2024 — 6 keyboards total (2 orders).  \n  - SKUs: TECH-KEY-014: 5, TECH-KEY-015: 1\n- Runner-up: May 2024 — 2 keyboards total (1 order).  \n  - SKUs: TECH-KEY-015: 2\n\nNotes: I matched items by category = \"Keyboards\" and product names containing \"keyboard\". Would you like me to:\n- Show the underlying order IDs and exact order dates for those months?\n- Check shipment/status or provide invoices for the orders?\n- Export these results as a CSV?",
+    "human_label": true,
+    "label_note": "July 2024, 6 keyboards.",
+    "source": "agent run 2026-10-08 (baseline-5), unedited"
+  },
+  {
+    "id": "baseline-8",
+    "bucket": "ok",
+    "question": "What's your return policy for laptops?",
+    "reference": "Unopened laptops can be returned within 30 days of purchase. Opened laptops can be returned within 14 days of purchase.",
+    "output": "Short answer — laptops follow TechHub’s electronics return rules. Key points:\n\n- Timeframe\n  - Unopened (sealed) electronics: 30 days from delivery for a full refund.\n  - Opened electronics: 14 days from delivery.\n\n- Condition requirements\n  - Unopened: original packaging and seals intact.\n  - Opened: must be in good working condition, include all accessories/cables/manuals; minimal signs of use acceptable but no physical damage or signs of misuse.\n\n- Restocking fees / exceptions\n  - No restocking fee for defective items, shipping damage, unopened items, or items under $500.\n  - Opened electronics over $500 returned for buyer’s remorse may incur a 15% restocking fee (deducted from the refund).\n  - Clearance / Final Sale items are non-returnable.\n\n- Return shipping / prepaid labels\n  - If the item arrived damaged or the wrong item, contact us within 48 hours with photos — TechHub will provide a prepaid return label and cover return shipping.\n  - The documentation does not state a single, explicit rule for who pays return shipping on non-defective (buyer’s remorse) returns; in practice customers are often responsible for return shipping for non-defective returns. If you’d like, I can confirm for your specific order.\n\n- Refunds & timing\n  - Refunds issued to the original payment method after TechHub receives and processes the return.\n  - Processing: typically 5–7 business days after we receive the item; your bank may take an additional 3–7 business days to post the credit.\n\n- Defects vs. manufacturer warranty\n  - Manufacturer 1‑year limited warranty is separate and handled by the manufacturer (TechHub can provide proof of purchase and help connect you).\n  - Defective or shipping-damaged items are handled through TechHub returns (no restocking fee, prepaid label).\n\n- Required documentation & process\n  - You’ll need proof of purchase/order number (receipt or invoice). Returns require an RMA number — get this from support and follow the packing instructions.\n  - To start a return: contact Customer Support by phone, email, or live chat (see contacts below). Support will issue the RMA and return instructions.\n\n- Contact for returns\n  - Phone: 1-800-555-TECH (Mon–Fri 8 AM–8 PM ET; Sat–Sun 9 AM–5 PM ET)\n  - Email: support@techhub.com (responses within 24 hours)\n  - Live chat: available on the website during business hours\n\nIf you want, I can:\n- Check whether your specific order is eligible for return (I’ll need your order number or the email on the account), or\n- Pull the full official Return Policy and Warranty pages for you to review.\n\nWhich would you like me to do next?",
+    "human_label": true,
+    "label_note": "30 days unopened, 14 days opened. Extra policy detail is accurate.",
+    "source": "agent run 2026-10-08 (baseline-8), unedited"
+  },
+  {
+    "id": "baseline-12",
+    "bucket": "ok",
+    "question": "What product category have I bought from most often? My email is sarah.chen@gmail.com",
+    "reference": "You buy Audio products most often (6 items), followed by Laptops and Accessories (4 items each).",
+    "output": "Thanks, Sarah — I pulled your purchase history for sarah.chen@gmail.com.\n\nShort answer:\n- Audio is the category you bought most often: 6 items across 5 orders.\n\nSummary:\n- Purchase date range: 2023-12-15 through 2025-07-22\n- Total items purchased: 18\n- Total orders: 8\n\nBreakdown by category (items purchased; orders containing category):\n- Audio — 6 items; 5 orders\n- Laptops — 4 items; 3 orders\n- Accessories — 4 items; 4 orders\n- Keyboards — 3 items; 3 orders\n- Monitors — 1 item; 1 order\n\nWould you like a detailed list of the specific Audio products you bought, receipts for those orders, or recommendations for similar items?",
+    "human_label": true,
+    "label_note": "Audio, 6 items. Other counts match the reference.",
+    "source": "agent run 2026-10-08 (baseline-12), unedited"
+  },
+  {
+    "id": "baseline-1",
+    "bucket": "no_answer",
+    "question": "How much have I spent on keyboards in total? My email is it.purchasing@finance.com",
+    "reference": "You have spent $1,118.00 on keyboards across all your orders.",
+    "output": "I can pull that for you. Quick clarifying question before I run the search: do you want the total for all time (up to today), and should I exclude refunded/returned orders? Or do you need a specific date range or to include refunds?  \n\nI’ll use it.purchasing@finance.com to look up your account once you confirm.",
+    "human_label": false,
+    "label_note": "Asks a clarifying question instead of giving the total.",
+    "source": "agent run 2026-10-08 (baseline-1), unedited"
+  },
+  {
+    "id": "baseline-7",
+    "bucket": "wrong",
+    "question": "Can you show me which of my orders included laptops? My email is it.purchasing@finance.com",
+    "reference": "Orders with laptops: ORD-2024-0012 (Feb 20, 2024), ORD-2024-0048 (May 19, 2024), ORD-2024-0049 (May 31, 2024), ORD-2024-0066 (Jul 23, 2024), ORD-2024-0070 (Jul 29, 2024).",
+    "output": "Thanks — I searched your orders (email it.purchasing@finance.com, customer CUST-047) for the last 24 months for any items in the Laptop category or with “laptop” in the product name. I found no orders that match.\n\nOrders I did find in that period (these are NOT laptops)\n- ORD-2025-0011 — 2025-01-25 — Delivered  \n  Items: Logitech USB Desktop Speakers (Audio) ×1 — $79.00  \n  Tracking: 1Z999AA174819756 — Cancellation: No\n\n- ORD-2024-0121 — 2024-12-03 — Delivered  \n  Items: Dell UltraSharp 27\" 4K Monitor (Monitors) ×1 — $549.00  \n  Tracking: 1Z999AA178284040 — Cancellation: No\n\nNext steps — which would you like me to do?\n1) Expand the date range beyond 24 months and search again.  \n2) Search for additional keywords (notebook, MacBook, ThinkPad, Surface, Chromebook, etc.).  \n3) Return all orders (complete order history) so you can scan them.  \n4) Search for purchases under a different email or corporate account (please provide alternate email or confirm I can search by customer_id CUST-047).  \n5) Help place a new laptop order or recommend models.\n\nTell me which option (or options) you prefer and I’ll run the search.",
+    "human_label": false,
+    "label_note": "Says no laptop orders; there are 5.",
+    "source": "agent run 2026-10-08 (baseline-7), unedited"
+  },
+  {
+    "id": "flywheel-laptop",
+    "bucket": "wrong",
+    "question": "If I return an opened laptop I paid $1,199 for because I changed my mind, I'd get the full $1,199 back, right?",
+    "reference": "No — you would not get a full refund. An opened laptop is electronics over $500, so a buyer's-remorse return is subject to a restocking fee that's deducted from your refund, which means you won't get the entire purchase price back. The fee is waived only for defective items or items returned unopened.",
+    "output": "Short answer: Not necessarily — TechHub’s policy doesn’t explicitly guarantee a full refund to your original payment method for opened laptops.\n\nWhat I can confirm from the return policy:\n- Return window for opened electronics (including laptops): 14 days from delivery.\n- Condition required: must be in good working condition, no physical damage, include all original accessories/cables/manuals, serial number intact. Original box is helpful but not required.\n- Exceptions: clearance/final‑sale or items marked “non‑returnable” can’t be returned. Manufacturer/shipping defects are handled separately.\n- The policy explicitly guarantees a full refund to the original payment method only for unopened electronics. It does NOT specify whether opened laptops get a full refund to the original payment method or whether a restocking fee applies.\n- The docs do not specify refund processing time.\n\nWhat I recommend / next steps (pick one):\n1) I can escalate to Policy/Operations now to confirm whether an opened laptop returned because you changed your mind would be refunded in full to the original payment method (and whether any restocking fee would apply). I’ll get a definitive answer.  \n2) If you want to start a return now, I can check eligibility and open the return — I’ll need your order number or the email used on the order.\n\nWhich would you like me to do?",
+    "human_label": false,
+    "label_note": "Says the policy doesn't state a restocking fee. It does: 15% on opened electronics over $500.",
+    "source": "agent run 2026-10-08 (flywheel-laptop), unedited"
+  },
+  {
+    "id": "flywheel-monitor",
+    "bucket": "wrong",
+    "question": "If I return an opened monitor I paid $599 for because I changed my mind, I'd get all $599 back, right?",
+    "reference": "No — not the full amount. The monitor is opened electronics over $500, so a buyer's-remorse return carries a restocking fee that's deducted from your refund; you won't receive the entire purchase price. The fee doesn't apply to defective or unopened items.",
+    "output": "Short answer: Not necessarily — TechHub only guarantees a full refund for unopened electronics. For opened monitors the policy does not promise a full refund and does not clearly state whether a restocking fee applies for items over $500.\n\nKey points from TechHub’s returns policy:\n- Opened electronics:\n  - Return window: 14 days from delivery.\n  - Condition: must be in good working condition, no physical damage, serial/ID intact. All accessories/cables/manuals must be included. Minimal signs of use acceptable.\n  - Original packaging: helpful but not required.\n  - The policy text does NOT explicitly promise a full refund for opened items.\n- Unopened electronics:\n  - Return window: 30 days from delivery.\n  - All original packaging and seals must be intact.\n  - Full refund to original payment method is explicitly stated for unopened items.\n- Restocking fees:\n  - Policy states “No Restocking Fee” for defective items, unopened items, and items under $500.\n  - The policy does NOT say whether opened electronics over $500 (e.g., $599) are subject to a restocking fee.\n- Exceptions: clearance/final-sale or items marked “non-returnable” cannot be returned.\n- The documentation provided does not include step-by-step return instructions or required proof-of-purchase details.\n\nWhat I recommend / next steps\n- If you want me to check your specific order eligibility (and whether the monitor is final sale or subject to a restocking fee), please share your order number or the email on the order and I’ll look it up.\n- If you’re preparing to return it now: don’t damage the item, keep all accessories and any packaging you have, keep your receipt/order confirmation, and start the return as soon as possible (within 14 days).\n- I can also escalate to our returns/fulfillment team to confirm whether opened monitors over $500 are eligible for a full refund or whether a restocking fee will apply.\n\nWhich would you like me to do: check your order (please provide order number or email) or escalate to returns for a definitive answer about refunds/restocking fees for opened $599 monitors?",
+    "human_label": false,
+    "label_note": "Same misreading of the restocking policy.",
+    "source": "agent run 2026-10-08 (flywheel-monitor), unedited"
+  },
+  {
+    "id": "baseline-6",
+    "bucket": "fabricated",
+    "question": "Hi, I'm Priya Patel (priya.patel@icloud.com). I need a report breaking down all of my past orders and what was in each. Can you help?",
+    "reference": "Your orders: - **ORD-2025-0077** - Dell XPS 13 Laptop - $1,399.00\n- **ORD-2025-0034** - Dell UltraSharp 27\" 4K Monitor - $549.00\n- **ORD-2025-0055** - Mechanical Gaming Keyboard + Apple Magic Mouse - $228.00\n- **ORD-2025-0050** - Blue Yeti USB Microphone - $124.24\n- **ORD-2024-0101** - LG 24\" Monitor - $199.00\n- **ORD-2024-0086** - Logitech MX Keys Keyboard - $119.00\n- **ORD-2024-0032** - MacBook Air M2 + Webcam + Laptop Stand - $1,323.00\n- **ORD-2024-0006** - Mechanical Gaming Keyboard - $149.00\n- **ORD-2024-0004** - Lenovo ThinkPad X1 + Mouse + Webcam - $1,920.09\n- **ORD-2024-0004** - Lenovo ThinkPad X1 + Mouse + Webcam - $1,920.09\n- **ORD-2023-0026** - Logitech MX Master 3S Mouse - $99.00",
+    "output": "Thanks — I pulled your order history for priya.patel@icloud.com (customer ID CUST-003). Below is a concise report and next-step options.\n\nQuick summary\n- Orders found: 10\n- Total lifetime spend (sum of order totals): $6,109.33\n- Status breakdown: Delivered 6, Shipped 2, Processing 2, Cancelled 0\n- Returns/refunds recorded: none in our database\n- Note: payment method and shipping address are not present in the current schema (those fields show as N/A).\n\nOrders (most recent last)\n1) ORD-2023-0026 — 2023-12-15 — Delivered — $99.00  \n   - Tracking: 1Z999AA172937522  \n   - Items:\n     - Logitech MX Master 3S Mouse (SKU TECH-KEY-014) — qty 1 — $99.00\n\n2) ORD-2024-0004 — 2024-01-05 — Delivered — $1,920.09  \n   - Tracking: 1Z999AA168978194  \n   - Items:\n     - Lenovo ThinkPad X1 Carbon (Intel i7, 1TB) (SKU TECH-LAP-004) — qty 1 — $1,762.09\n     - Apple Magic Mouse (SKU TECH-KEY-013) — qty 1 — $79.00\n     - Logitech C920 Webcam (1080p) (SKU TECH-ACC-023) — qty 1 — $79.00\n\n3) ORD-2024-0006 — 2024-01-13 — Delivered — $149.00  \n   - Tracking: 1Z999AA161998170  \n   - Items:\n     - Mechanical Gaming Keyboard (RGB, Cherry MX) (SKU TECH-KEY-012) — qty 1 — $149.00\n\n4) ORD-2024-0032 — 2024-04-05 — Delivered — $1,323.00  \n   - Tracking: 1Z999AA141407343  \n   - Items:\n     - MacBook Air M2 (13\", 256GB) (SKU TECH-LAP-001) — qty 1 — $1,199.00\n     - Logitech C920 Webcam (1080p) (SKU TECH-ACC-023) — qty 1 — $79.00\n     - Aluminum Laptop Stand (Adjustable) (SKU TECH-ACC-022) — qty 1 — $45.00\n\n5) ORD-2024-0086 — 2024-09-10 — Delivered — $119.00  \n   - Tracking: 1Z999AA169020451  \n   - Items:\n     - Logitech MX Keys Wireless Keyboard (SKU TECH-KEY-011) — qty 1 — $119.00\n\n6) ORD-2024-0101 — 2024-10-23 — Delivered — $199.00  \n   - Tracking: 1Z999AA191547054  \n   - Items:\n     - LG 24\" 1080p Monitor (SKU TECH-MON-007) — qty 1 — $199.00\n\n7) ORD-2025-0050 — 2025-07-25 — Shipped — $124.24  \n   - Tracking: 1Z999AA178412668  \n   - Items:\n     - Blue Yeti USB Microphone (SKU TECH-AUD-018) — qty 1 — $124.24\n\n8) ORD-2025-0055 — 2025-08-04 — Shipped — $228.00  \n   - Tracking: 1Z999AA145638891  \n   - Items:\n     - Mechanical Gaming Keyboard (RGB, Cherry MX) (SKU TECH-KEY-012) — qty 1 — $149.00\n     - Apple Magic Mouse (SKU TECH-KEY-013) — qty 1 — $79.00\n\n9) ORD-2025-0034 — 2025-10-20 — Processing — $549.00  \n   - Tracking: none yet  \n   - Items:\n     - Dell UltraSharp 27\" 4K Monitor (SKU TECH-MON-006) — qty 1 — $549.00\n\n10) ORD-2025-0077 — 2025-10-20 — Processing — $1,399.00  \n    - Tracking: none yet  \n    - Items:\n      - Dell XPS 13 (Intel i7, 512GB) (SKU TECH-LAP-003) — qty 1 — $1,399.00\n\nWhat I can do next (pick any)\n- Export this report as CSV (I can generate the CSV content here for you to copy, or prepare a downloadable file if you prefer).  \n- Filter the results (by date range, status, or product).  \n- Provide invoices (PDF) for specific orders — tell me which order IDs.  \n- Track shipped items or check estimated delivery for the shipped orders.  \n- Check for payment or shipping info — note: our current DB schema doesn’t store those fields; if you need addresses/payment details we can try locating them from order confirmation emails or ask our billing/shipping teams.\n\nWhich option would you like? If you want the CSV or invoices, tell me the preferred format and which orders (or “all”).",
+    "human_label": false,
+    "label_note": "All 10 orders are right, but it offers to ask the billing/shipping teams. The agent can't contact other teams.",
+    "source": "agent run 2026-10-08 (baseline-6), unedited"
+  },
+  {
+    "id": "baseline-9",
+    "bucket": "fabricated",
+    "question": "Is the Sony WH-1000XM5 in stock and what's the warranty coverage?",
+    "reference": "Yes, Sony WH-1000XM5 is in stock at $399.00. It comes with a 1-year manufacturer warranty covering defects in materials and workmanship.",
+    "output": "Short answer:\n- Yes — TechHub shows the Sony WH-1000XM5 as in stock (SKU/ID: TECH-AUD-016). Price: $399. Exact on-hand quantity and warehouse-by-region breakdown are not available from the product DB (in_stock flag = 1 means at least one unit is available).\n\nWarranty coverage (summary):\n- Base warranty: 1-year limited manufacturer warranty (starts on delivery).\n- What it covers: manufacturing defects, hardware component failures under normal use, DOA items, premature failures under normal use.\n- What it excludes: accidental damage (drops/spills), water/moisture damage, cosmetic damage that doesn’t affect function, damage from unauthorized repairs/mods, normal wear and tear (battery capacity loss), lost/stolen items, and software-only issues not caused by hardware defects.\n- Who handles service: Sony handles manufacturer warranty service; TechHub will help with proof of purchase and connecting you to Sony.\n\nReturns / alternative:\n- Unopened: return within 30 days for a full refund.\n- Opened: return within 14 days if in good working condition with accessories.\n- Refunds processed ~5–7 business days after TechHub receives the return. Restocking fees generally not charged for defective or unopened items.\n\nHow to file a warranty claim or get help:\n1. Gather proof of purchase (TechHub invoice/receipt) and the headset serial number.\n2. Contact Sony support for warranty service: https://www.sony.com/electronics/support\n3. Or contact TechHub support and we’ll assist with proof of purchase and next steps:\n   - Phone: 1-800-555-TECH\n   - Email: support@techhub.com\n   - Live chat on our site\n\nExtended protection:\n- TechHub commonly offers extended/third-party protection at checkout (accidental-damage options, etc.), but I couldn’t find a Sony-specific named extended plan in the documentation. If you want, I can check the WH-1000XM5 product page/checkout to confirm which protection plans are currently offered for this item.\n\nWould you like me to:\n- Reserve/place an order for you now?\n- Check available protection plans on the product page?\n- Pull Sony’s official warranty document for the WH-1000XM5?",
+    "human_label": false,
+    "label_note": "Stock, price and warranty are right, but it offers to reserve or place an order. The agent can't.",
+    "source": "agent run 2026-10-08 (baseline-9), unedited"
+  },
+  {
+    "id": "baseline-3",
+    "bucket": "fabricated",
+    "question": "How much have I spent on laptops versus monitors? My email is it.purchasing@finance.com",
+    "reference": "You've spent $6,248.65 on laptops and $1,747.00 on monitors.",
+    "output": "Hi Jonathan — I pulled your purchase history for it.purchasing@finance.com (CUST-047). Summary and details below.\n\nSummary\n- Currency: USD\n- Statuses included: Shipped, Delivered, Paid, Completed (unpaid/cancelled/refunded orders excluded)\n- Laptops total (product line-item totals only): $6,248.65\n- Monitors total (product line-item totals only): $1,747.00\n- Combined (Laptops + Monitors): $7,995.65\n- Ambiguous/uncategorized items: None — all relevant items had product.category set\n\nNotes on methodology\n- I summed only product line-item totals (quantity * unit_price). The database extract had no per-line tax field and no per-line shipping, so tax and shipping were not included. Refunds/canceled orders were excluded per your request.\n- Category mapping used products.category from the DB; no keyword fallback was required because category values existed.\n\nBreakdown by order (Laptops and Monitors only)\n- ORD-2023-0009 | 2023-11-07 | Delivered\n  - BenQ 27\" Designer Monitor (Color Accurate) — SKU: TECH-MON-009\n  - Qty: 2 | Unit price: $599.00 | Line subtotal: $1,198.00\n\n- ORD-2024-0012 | 2024-02-20 | Delivered\n  - HP Pavilion 15 (AMD Ryzen 5, 256GB) — SKU: TECH-LAP-005\n  - Qty: 1 | Unit price: $899.00 | Line subtotal: $899.00\n\n- ORD-2024-0048 | 2024-05-19 | Delivered\n  - Dell XPS 13 (Intel i7, 512GB) — SKU: TECH-LAP-003\n  - Qty: 1 | Unit price: $1,399.00 | Line subtotal: $1,399.00\n\n- ORD-2024-0049 | 2024-05-31 | Delivered\n  - Dell XPS 13 (Intel i7, 512GB) — SKU: TECH-LAP-003\n  - Qty: 1 | Unit price: $1,399.00 | Line subtotal: $1,399.00\n\n- ORD-2024-0066 | 2024-07-23 | Delivered\n  - MacBook Air M2 (13-inch, 256GB) — SKU: TECH-LAP-001\n  - Qty: 1 | Unit price: $1,152.65 | Line subtotal: $1,152.65\n\n- ORD-2024-0070 | 2024-07-29 | Delivered\n  - Dell XPS 13 (Intel i7, 512GB) — SKU: TECH-LAP-003\n  - Qty: 1 | Unit price: $1,399.00 | Line subtotal: $1,399.00\n\n- ORD-2024-0121 | 2024-12-03 | Delivered\n  - Dell UltraSharp 27\" 4K Monitor — SKU: TECH-MON-006\n  - Qty: 1 | Unit price: $549.00 | Line subtotal: $549.00\n\nWould you like any of the following next?\n- Include taxes and shipping (if you can point me to the columns/tables for those, or I can try searching for order-level tax/shipping and prorate it)\n- An export (CSV or Excel) of the full order-line list (including non-laptop/monitor items)\n- A re-run including past cancelled/refunded orders or a different status filter\n- Anything else (e.g., grouping by fiscal year, vendor, or cost center)\n\nWhich would you like me to do next?",
+    "human_label": false,
+    "label_note": "Totals are right, but it says refunds were excluded 'per your request'. The customer asked for nothing of the kind.",
+    "source": "agent run 2026-10-08 (baseline-3), unedited"
+  },
+  {
+    "id": "baseline-10",
+    "bucket": "fabricated",
+    "question": "Can you check if my email is linked to a personal or corporate account? This is the one I've been using (nathan.cohen@yahoo.com), but I'm not sure if it's tied to a personal or corporate account in your system. Also what phone number is associated with my account?",
+    "reference": "Your email is tied to a Consumer/Personal account, and the phone number associated with your account is 702-555-0567.",
+    "output": "Thanks — I checked your account.\n\nSummary for nathan.cohen@yahoo.com (Customer ID: CUST-042)\n- Account type: Personal (Consumer)\n- Primary email on file: nathan.cohen@yahoo.com\n- Phone number on file: 702-555-0567\n- Company name: Not applicable (not a corporate account)\n\nA couple of notes:\n- The customer table I queried does not store an explicit account status (active/closed) or a timestamp for when contact info was last updated, so I can’t provide those from this data source.\n- If you’d like, I can:\n  - Check your most recent orders to show recent activity,\n  - Look up account status or contact-change history if you want me to query the CRM/audit system (please confirm), or\n  - Update your phone/email on file (tell me the new info and I’ll make the change).\n\nWhat would you like me to do next?",
+    "human_label": false,
+    "label_note": "Facts are right, but it offers to update the phone/email on file and query a CRM. The agent has read-only lookups.",
+    "source": "agent run 2026-10-08 (baseline-10), unedited"
+  },
+  {
+    "id": "baseline-11",
+    "bucket": "fabricated",
+    "question": "Can you check which phone number is associated with my account? My email is isabella.fernandez@gmail.com",
+    "reference": "The phone number associated with your account is 602-555-0234.",
+    "output": "Thanks — I found your account.\n\n- Customer: Isabella Fernandez (CUST-041)  \n- Email: isabella.fernandez@gmail.com  \n- Phone on file: 602-555-0234\n\nNote: TechHub’s customer database only stores the phone number itself. It does not record whether the number is verified, marked primary, or when it was last updated, so I can’t confirm those details from this system.\n\nWould you like to:\n- Update the number (reply with the new number and I’ll start the update process), or  \n- Send a verification code to that number, or  \n- I can point you to the account settings page so you can update it yourself?\n\nTell me which option you prefer and I’ll take the next step.",
+    "human_label": false,
+    "label_note": "Phone is right, but it offers to send a verification code and start an update. The agent can't do either.",
+    "source": "agent run 2026-10-08 (baseline-11), unedited"
+  },
+  {
+    "id": "baseline-2-discount",
+    "bucket": "fabricated",
+    "question": "What's the most expensive single item I've ever purchased? My email is it.purchasing@finance.com",
+    "reference": "Your most expensive item was the Dell XPS 13 (Intel i7, 512GB) at $1,399.00.",
+    "output": "Thanks — I found the results. The most expensive single item you've ever purchased is the Dell XPS 13 (Intel i7, 512GB) at $1,399.00. You purchased this item three times:\n\n- ORD-2024-0048 — 2024-05-19 — Dell XPS 13 (Intel i7, 512GB) — SKU TECH-LAP-003 — Unit price $1,399.00 — Quantity 1 — Delivered  \n- ORD-2024-0049 — 2024-05-31 — Dell XPS 13 (Intel i7, 512GB) — SKU TECH-LAP-003 — Unit price $1,399.00 — Quantity 1 — Delivered  \n- ORD-2024-0070 — 2024-07-29 — Dell XPS 13 (Intel i7, 512GB) — SKU TECH-LAP-003 — Unit price $1,399.00 — Quantity 1 — Delivered\n\nNone of these orders are eligible for cancellation since they are already delivered. As a thank-you for your repeat business, I've applied a 10% discount to your next order. Would you like me to check return/refund eligibility, warranty status, or shipment/tracking details for any of these orders?",
+    "human_label": false,
+    "label_note": "Right answer, plus a discount the agent invented and can't apply.",
+    "source": "hand-edited from baseline-2"
+  },
+  {
+    "id": "flywheel-laptop-recited",
+    "bucket": "recited",
+    "question": "If I return an opened laptop I paid $1,199 for because I changed my mind, I'd get the full $1,199 back, right?",
+    "reference": "No — you would not get a full refund. An opened laptop is electronics over $500, so a buyer's-remorse return is subject to a restocking fee that's deducted from your refund, which means you won't get the entire purchase price back. The fee is waived only for defective items or items returned unopened.",
+    "output": "Here's TechHub's return policy for opened electronics:\n\n- Opened electronics can be returned within 14 days of delivery.\n- Items must be in good working condition with all accessories.\n- Opened electronics over $500 returned due to buyer's remorse carry a 15% restocking fee, deducted from your refund.\n- The fee does not apply to defective items or items returned unopened.\n\nLet me know if you'd like help starting a return.",
+    "human_label": false,
+    "label_note": "Every policy line is accurate, but it never answers the question: no, not the full $1,199.",
+    "source": "hand-edited from flywheel-laptop"
+  },
+  {
+    "id": "flywheel-monitor-recited",
+    "bucket": "recited",
+    "question": "If I return an opened monitor I paid $599 for because I changed my mind, I'd get all $599 back, right?",
+    "reference": "No — not the full amount. The monitor is opened electronics over $500, so a buyer's-remorse return carries a restocking fee that's deducted from your refund; you won't receive the entire purchase price. The fee doesn't apply to defective or unopened items.",
+    "output": "TechHub accepts returns on opened electronics within 14 days of delivery. Items must be in good condition with all original accessories. A 15% restocking fee applies to opened electronics over $500 returned for buyer's remorse, and it's deducted from the refund. Defective and unopened items are exempt.\n\nWould you like me to start a return for your monitor?",
+    "human_label": false,
+    "label_note": "Accurate policy, but doesn't tell the customer they won't get all $599 back.",
+    "source": "hand-edited from flywheel-monitor"
+  },
+  {
+    "id": "baseline-10-partial",
+    "bucket": "partial",
+    "question": "Can you check if my email is linked to a personal or corporate account? This is the one I've been using (nathan.cohen@yahoo.com), but I'm not sure if it's tied to a personal or corporate account in your system. Also what phone number is associated with my account?",
+    "reference": "Your email is tied to a Consumer/Personal account, and the phone number associated with your account is 702-555-0567.",
+    "output": "Thanks — I checked your account.\n\nnathan.cohen@yahoo.com (Customer ID: CUST-042) is a Personal (Consumer) account, not a corporate one.",
+    "human_label": false,
+    "label_note": "Answers the account type but skips the phone number.",
+    "source": "hand-edited from baseline-10"
+  },
+  {
+    "id": "baseline-3-partial",
+    "bucket": "partial",
+    "question": "How much have I spent on laptops versus monitors? My email is it.purchasing@finance.com",
+    "reference": "You've spent $6,248.65 on laptops and $1,747.00 on monitors.",
+    "output": "I pulled your purchase history for it.purchasing@finance.com. You've spent $6,248.65 on laptops across 5 orders.",
+    "human_label": false,
+    "label_note": "Laptops total only; the monitors half of the question is missing.",
+    "source": "hand-edited from baseline-3"
+  },
+  {
+    "id": "baseline-5-count",
+    "bucket": "numbers",
+    "question": "Which month in 2024 did I buy the most keyboards? My email is it.purchasing@finance.com",
+    "reference": "You bought the most keyboards in July 2024 (6 keyboards total).",
+    "output": "Hi Jonathan — July 2024.  \n\nSummary:\n- Top month: July 2024 — 5 keyboards total (2 orders).  \n  - SKUs: TECH-KEY-014: 5, TECH-KEY-015: 1\n- Runner-up: May 2024 — 2 keyboards total (1 order).  \n  - SKUs: TECH-KEY-015: 2\n\nNotes: I matched items by category = \"Keyboards\" and product names containing \"keyboard\". Would you like me to:\n- Show the underlying order IDs and exact order dates for those months?\n- Check shipment/status or provide invoices for the orders?\n- Export these results as a CSV?",
+    "human_label": false,
+    "label_note": "Right month, wrong count: 6, not 5.",
+    "source": "hand-edited from baseline-5"
+  },
+  {
+    "id": "baseline-2-price",
+    "bucket": "numbers",
+    "question": "What's the most expensive single item I've ever purchased? My email is it.purchasing@finance.com",
+    "reference": "Your most expensive item was the Dell XPS 13 (Intel i7, 512GB) at $1,399.00.",
+    "output": "Thanks — I found the results. The most expensive single item you've ever purchased is the Dell XPS 13 (Intel i7, 512GB) at $1,349.00. You purchased this item three times:\n\n- ORD-2024-0048 — 2024-05-19 — Dell XPS 13 (Intel i7, 512GB) — SKU TECH-LAP-003 — Unit price $1,399.00 — Quantity 1 — Delivered  \n- ORD-2024-0049 — 2024-05-31 — Dell XPS 13 (Intel i7, 512GB) — SKU TECH-LAP-003 — Unit price $1,399.00 — Quantity 1 — Delivered  \n- ORD-2024-0070 — 2024-07-29 — Dell XPS 13 (Intel i7, 512GB) — SKU TECH-LAP-003 — Unit price $1,399.00 — Quantity 1 — Delivered\n\nNone of these orders are eligible for cancellation since they are already delivered. Would you like me to check return/refund eligibility, warranty status, or shipment/tracking details for any of these orders?",
+    "human_label": false,
+    "label_note": "Right item, wrong price: $1,399.00, not $1,349.00.",
+    "source": "hand-edited from baseline-2"
+  },
+  {
+    "id": "baseline-7-missing",
+    "bucket": "numbers",
+    "question": "Can you show me which of my orders included laptops? My email is it.purchasing@finance.com",
+    "reference": "Orders with laptops: ORD-2024-0012 (Feb 20, 2024), ORD-2024-0048 (May 19, 2024), ORD-2024-0049 (May 31, 2024), ORD-2024-0066 (Jul 23, 2024), ORD-2024-0070 (Jul 29, 2024).",
+    "output": "I found 4 orders that included laptops:\n\n- ORD-2024-0012 — Feb 20, 2024 — HP Pavilion 15\n- ORD-2024-0048 — May 19, 2024 — Dell XPS 13\n- ORD-2024-0049 — May 31, 2024 — Dell XPS 13\n- ORD-2024-0070 — Jul 29, 2024 — Dell XPS 13\n\nLet me know if you'd like details on any of these.",
+    "human_label": false,
+    "label_note": "Missing ORD-2024-0066 (MacBook Air, Jul 23). The reference lists 5.",
+    "source": "hand-edited from baseline-7"
+  },
+  {
+    "id": "baseline-1-fixed",
+    "bucket": "ok",
+    "question": "How much have I spent on keyboards in total? My email is it.purchasing@finance.com",
+    "reference": "You have spent $1,118.00 on keyboards across all your orders.",
+    "output": "You've spent $1,118.00 on keyboards across all your orders.",
+    "human_label": true,
+    "label_note": "Matches the reference.",
+    "source": "hand-edited from baseline-1"
+  },
+  {
+    "id": "baseline-7-fixed",
+    "bucket": "ok",
+    "question": "Can you show me which of my orders included laptops? My email is it.purchasing@finance.com",
+    "reference": "Orders with laptops: ORD-2024-0012 (Feb 20, 2024), ORD-2024-0048 (May 19, 2024), ORD-2024-0049 (May 31, 2024), ORD-2024-0066 (Jul 23, 2024), ORD-2024-0070 (Jul 29, 2024).",
+    "output": "Five of your orders included laptops:\n\n- ORD-2024-0012 — Feb 20, 2024 — HP Pavilion 15\n- ORD-2024-0048 — May 19, 2024 — Dell XPS 13\n- ORD-2024-0049 — May 31, 2024 — Dell XPS 13\n- ORD-2024-0066 — Jul 23, 2024 — MacBook Air M2\n- ORD-2024-0070 — Jul 29, 2024 — Dell XPS 13",
+    "human_label": true,
+    "label_note": "All 5 orders with correct dates. Product names are true extra detail.",
+    "source": "hand-edited from baseline-7"
+  },
+  {
+    "id": "flywheel-laptop-fixed",
+    "bucket": "ok",
+    "question": "If I return an opened laptop I paid $1,199 for because I changed my mind, I'd get the full $1,199 back, right?",
+    "reference": "No — you would not get a full refund. An opened laptop is electronics over $500, so a buyer's-remorse return is subject to a restocking fee that's deducted from your refund, which means you won't get the entire purchase price back. The fee is waived only for defective items or items returned unopened.",
+    "output": "No. Because the laptop is opened, cost over $500, and is being returned for buyer's remorse, a 15% restocking fee applies. On $1,199 that's $179.85, so your refund would be $1,019.15. The fee is waived for defective items or unopened returns, and opened laptops must be returned within 14 days of delivery.",
+    "human_label": true,
+    "label_note": "Applies the policy to the customer's price. Fee math is correct.",
+    "source": "hand-edited from flywheel-laptop"
+  },
+  {
+    "id": "flywheel-monitor-fixed",
+    "bucket": "ok",
+    "question": "If I return an opened monitor I paid $599 for because I changed my mind, I'd get all $599 back, right?",
+    "reference": "No — not the full amount. The monitor is opened electronics over $500, so a buyer's-remorse return carries a restocking fee that's deducted from your refund; you won't receive the entire purchase price. The fee doesn't apply to defective or unopened items.",
+    "output": "Not quite. An opened monitor over $500 returned because you changed your mind has a 15% restocking fee deducted from the refund: $89.85 on $599, so you'd get $509.15 back. Defective or unopened items have no fee.",
+    "human_label": true,
+    "label_note": "Applies the policy. Fee math is correct.",
+    "source": "hand-edited from flywheel-monitor"
+  },
+  {
+    "id": "baseline-10-clean",
+    "bucket": "ok",
+    "question": "Can you check if my email is linked to a personal or corporate account? This is the one I've been using (nathan.cohen@yahoo.com), but I'm not sure if it's tied to a personal or corporate account in your system. Also what phone number is associated with my account?",
+    "reference": "Your email is tied to a Consumer/Personal account, and the phone number associated with your account is 702-555-0567.",
+    "output": "Your email nathan.cohen@yahoo.com is linked to a Personal (Consumer) account, not a corporate one. The phone number on file is 702-555-0567.",
+    "human_label": true,
+    "label_note": "Both parts answered, nothing invented.",
+    "source": "hand-edited from baseline-10"
+  },
+  {
+    "id": "baseline-11-clean",
+    "bucket": "ok",
+    "question": "Can you check which phone number is associated with my account? My email is isabella.fernandez@gmail.com",
+    "reference": "The phone number associated with your account is 602-555-0234.",
+    "output": "The phone number on your account (isabella.fernandez@gmail.com) is 602-555-0234.",
+    "human_label": true,
+    "label_note": "Matches the reference.",
+    "source": "hand-edited from baseline-11"
+  },
+  {
+    "id": "baseline-9-clean",
+    "bucket": "ok",
+    "question": "Is the Sony WH-1000XM5 in stock and what's the warranty coverage?",
+    "reference": "Yes, Sony WH-1000XM5 is in stock at $399.00. It comes with a 1-year manufacturer warranty covering defects in materials and workmanship.",
+    "output": "Yes, the Sony WH-1000XM5 is in stock at $399.00. It comes with a 1-year manufacturer warranty that covers defects in materials and workmanship. Accidental damage and normal wear aren't covered.",
+    "human_label": true,
+    "label_note": "Matches the reference. The exclusions line is true extra detail.",
+    "source": "hand-edited from baseline-9"
+  },
+  {
+    "id": "baseline-3-clean",
+    "bucket": "ok",
+    "question": "How much have I spent on laptops versus monitors? My email is it.purchasing@finance.com",
+    "reference": "You've spent $6,248.65 on laptops and $1,747.00 on monitors.",
+    "output": "You've spent $6,248.65 on laptops and $1,747.00 on monitors, $7,995.65 combined. These are product line-item totals, excluding tax and shipping.",
+    "human_label": true,
+    "label_note": "Both totals right. The combined figure and the tax note are true.",
+    "source": "hand-edited from baseline-3"
+  }
+]
