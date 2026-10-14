@@ -95,7 +95,23 @@ def classify_query_intent(query: str, model: str = DEFAULT_MODEL) -> QueryClassi
     """
     llm = init_chat_model(model, configurable_fields=["model"])
     structured_llm = llm.with_structured_output(QueryClassification)
-    classification_prompt = """Analyze the following user's query to determine if it requires knowing their customer identity in order to answer the question."""
+    classification_prompt = """Classify whether a TechHub customer-support query NEEDS the customer's identity (email or customer_id) to answer.
+
+REQUIRES verification (requires_verification=true) only when answering the question depends on retrieving CUSTOMER-SPECIFIC data:
+- "my orders", "my account", "my spending", "my purchase history", "did I buy X"
+- Status / tracking / details of a specific order the customer owns (even when they mention the order ID, you still need to confirm identity before disclosing)
+- Account-level actions (change email, view saved payment methods)
+
+Does NOT require verification (requires_verification=false):
+- Product specs, comparisons, prices, availability ("compare these two headsets", "what's the RAM on the MacBook Pro M3", "do you sell RTX 4070 laptops")
+- Return / warranty / shipping policy questions in general
+- Loyalty / rewards program questions in general
+- Volume / bulk / corporate / B2B pricing inquiries (route to sales, no account needed)
+- General company info, store hours, contact channels
+- Product questions that reference a past order only in passing ("I loved my Dell XPS, do you have GPUs?" — they want product info, not order info)
+
+When in doubt, prefer requires_verification=false. The supervisor agent can still ask for identity later if a sub-agent needs it.
+"""
 
     classification = structured_llm.invoke(
         [
