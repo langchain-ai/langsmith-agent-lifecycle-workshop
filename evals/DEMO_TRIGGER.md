@@ -8,3 +8,4 @@ below and triggers the gate. It's safe to close the PR without merging once
 you're done demoing — nothing in this file affects the agent or the dataset.
 
 ## Demo log
+- PR #34 gate trigger: 2026-10-14T17:42:14Z
