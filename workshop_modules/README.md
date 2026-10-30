@@ -94,6 +94,65 @@ Deploy to production and build a data flywheel for continuous improvement.
 
 ---
 
+## Module 4: Deep Agents (101 → 201)
+
+Rebuild the TechHub support agent on the Deep Agents harness, then improve it by tuning the harness while the model stays fixed. Uses `agents/deep_support_agent.py`.
+
+**Section 1: Deep Agents 101** (`module_4/section_1_deep_agents_101.ipynb`), a TechHub pricing research agent (`agents/pricing_research_agent.py`)
+- What a deep agent is: `create_agent()` + a harness (planning, filesystem, subagents, context management)
+- Provider built-in web search (no search API key) + the TechHub catalog
+- Planning with `TodoListMiddleware`, saving reports to the filesystem
+- Subagents: `market-researcher` and `catalog-analyst` on a smaller model; `AGENTS.md` + a `competitive-pricing` skill
+- Follow-up research on the same thread, long-term memory for analyst preferences
+- Human approval before any price change
+- Guardrails: a research budget, a `think_tool` reflection step, numbered citations, and fault-tolerance middleware
+
+**Section 2: Deep Agents 201: Harness Engineering** (`module_4/section_2_harness_engineering.ipynb`)
+- The Module 1 supervisor as a deep agent (subagent specs instead of hand-wrapped tools)
+- Context engineering: `AGENTS.md` (always loaded) vs skills (on demand) vs memory
+- Routing memory with `CompositeBackend`: per-customer `/memories/`, read-only org assets
+- Context quarantine: subagent tool calls never enter the main context
+- Fewer tools per model call: provider tool search vs `LLMToolSelectorMiddleware`, measured on the order specialist
+- Custom middleware: PII redaction (input, output, tool results), verified-customer prompt, customer-scope guard
+- Fault tolerance: retries, a cross-provider fallback to Claude (with a simulated outage), and call limits
+- Human-in-the-loop on refunds and filesystem permissions
+
+**Section 3: Deep Agents 201: Orchestration and Verification** (`module_4/section_3_orchestration_and_verification.ipynb`)
+- Dynamic subagents: the agent writes the dispatch loop over a support inbox
+- Verification loop with `RubricMiddleware`
+- Multi-model harnesses: single- vs multi-model on the same tickets
+- Jev as a decision model (`langchain-typesafe`): triage the inbox with typed answers and probabilities, compare with a small LLM, route by confidence
+- Jev inside the agent: a tool-safety gate that sends likely side effects to a person
+- The four loops of loop engineering and where each lives in this workshop
+
+---
+
+## Module 5: Advanced Evaluation
+
+Reserved for the advanced evaluation module (align evals, Harbor, Jev).
+
+---
+
+## Module 6: Deploying Agents into Production
+
+Run the Module 4 agent as a Managed Deep Agent (`managed_agent/`). Requires a LangSmith Cloud workspace (GCP US/EU/APAC or AWS US) with MDA public beta access, and `mda deploy` (see `managed_agent/README.md`).
+
+**Section 1: Managed Deep Agents** (`module_6/section_1_managed_deep_agents.ipynb`)
+- From `create_deep_agent` to `define_deep_agent`: what moves where
+- Project anatomy, `mda dev` and `mda deploy`, the LLM Gateway model string
+- Calling the deployed agent with a verified customer as run context
+- Production guardrails MDA doesn't add for you; identity claims vs run context
+- Human-in-the-loop over the API; Context Hub, ops-only agent memory, and schedules
+
+**Section 2: Runtime and Sandboxes** (`module_6/section_2_runtime_and_sandboxes.ipynb`)
+- Agent Server primitives: assistants, threads, runs, streaming
+- Per-thread sandboxes provisioned by `setup.sh` snapshots
+- A default-deny egress allowlist, demonstrated with a blocked request
+- Why customer data stays out of the sandbox, and a sandbox security checklist
+- Harbor evals before you ship: correctness, authorization, and grounding tasks (`managed_agent/evals/`)
+
+---
+
 ## Key Concepts Covered
 
 ### Agent Development

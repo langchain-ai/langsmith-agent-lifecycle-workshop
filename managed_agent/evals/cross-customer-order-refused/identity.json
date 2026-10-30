@@ -1,0 +1,4 @@
+{
+  "user": {"id": "eval-customer-003", "kind": "person", "email": "eval-customer-003@example.com"},
+  "claims": {"customer_id": "CUST-003", "role": "customer"}
+}

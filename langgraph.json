@@ -1,12 +1,16 @@
 {
-  "dependencies": ["."],
+  "dependencies": [
+    "."
+  ],
   "graphs": {
     "db_agent": "./deployments/db_agent_graph.py:graph",
     "docs_agent": "./deployments/docs_agent_graph.py:graph",
     "sql_agent": "./deployments/sql_agent_graph.py:graph",
     "supervisor_agent": "./deployments/supervisor_agent_graph.py:graph",
     "supervisor_hitl_agent": "./deployments/supervisor_hitl_agent_graph.py:graph",
-    "supervisor_hitl_sql_agent": "./deployments/supervisor_hitl_sql_agent_graph.py:graph"
+    "supervisor_hitl_sql_agent": "./deployments/supervisor_hitl_sql_agent_graph.py:graph",
+    "deep_support_agent": "./deployments/deep_support_agent_graph.py:graph",
+    "pricing_research_agent": "./deployments/pricing_research_agent_graph.py:graph"
   },
   "env": ".env",
   "python_version": "3.13"
