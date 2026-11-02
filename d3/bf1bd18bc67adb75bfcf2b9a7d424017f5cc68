@@ -1,0 +1,39 @@
+scripts/notebook_builders/build_module4_101.py
+  s_c5d9f3540fdefe::t_7e34f94e0478eb 300-304
+  s_c5d9f3540fdefe::t_09e611ea1cefee 328,330,334-341,347-349
+  s_c5d9f3540fdefe::t_f2896e21880095 101-106
+  s_c5d9f3540fdefe::t_baaa99995aaff2 177-181
+  s_c5d9f3540fdefe::t_d2f3592c20ea0e 76-81,85
+  s_c5d9f3540fdefe::t_7c6f53ba16f398 99-100,249-251
+  s_c5d9f3540fdefe::t_6d574492f5d478 205-206,208-211
+scripts/notebook_builders/build_module4.py
+  s_c5d9f3540fdefe::t_05b76ac09fbf08 66-75
+  s_c5d9f3540fdefe::t_febe5a806a4f68 460
+  s_c5d9f3540fdefe::t_96d82b94d81d23 509-514
+  s_c5d9f3540fdefe::t_63b6f6b8c30476 217-222,226-231,236-241
+  s_c5d9f3540fdefe::t_77c8f81f91e89d 397-403,406-411,413
+  s_c5d9f3540fdefe::t_4bff7c6b5f3374 840-848
+  s_c5d9f3540fdefe::t_fe8105fe76fd55 478,480,485-493,499-501
+workshop_modules/module_4/section_1_deep_agents_101.ipynb
+  s_c5d9f3540fdefe::t_d90e9e936e15ee 79-84,88,115-129,153,166,178,189,220,231,235-239,250,271,275-276,278-288,312,332,338-347,354,382,394,405,419,430,434-438,449,464,475,481,483,487-494,502,507-509,514,535,548,557,579
+workshop_modules/module_4/section_2_harness_engineering.ipynb
+  s_c5d9f3540fdefe::t_e425c993f05b6b 79-88,262-267,271-276,288-293,509-515,525-530,532,603,638,640,645-653,666-668,688-693
+workshop_modules/module_4/section_3_orchestration_and_verification.ipynb
+  s_c5d9f3540fdefe::t_a2a95e2533c1fc 71-80,492-500
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d3bf1bd18bc67adb75bfcf2b9a7d424017f5cc68",
+  "prompts": {},
+  "sessions": {
+    "s_c5d9f3540fdefe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5a31baf4-0b2c-4020-ad35-979c42eaa1ef",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
