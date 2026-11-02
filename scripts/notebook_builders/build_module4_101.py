@@ -98,12 +98,34 @@ Two tools to start:
 - **`get_catalog_prices`**: TechHub's own prices from the product database.
 '''),
     code('''
-import inspect
+import sqlite3
 
-from agents.pricing_research_agent import get_catalog_prices, web_search_tool
+from langchain.tools import tool
 
-print(inspect.getsource(web_search_tool))
-print(inspect.getsource(get_catalog_prices.func))  # .func unwraps the @tool decorator
+from agents.pricing_research_agent import web_search_tool
+from config import DEFAULT_DB_PATH
+
+
+@tool
+def get_catalog_prices(category: str = "") -> str:
+    """Get TechHub's current catalog prices and stock, optionally for one category.
+
+    Args:
+        category: One of Laptops, Monitors, Keyboards, Audio, Accessories. Empty for all.
+    """
+    sql = "SELECT product_id, name, category, price, in_stock FROM products"
+    params: tuple = ()
+    if category:
+        sql += " WHERE lower(category) = lower(?)"
+        params = (category,)
+    with sqlite3.connect(DEFAULT_DB_PATH) as conn:
+        rows = conn.execute(sql + " ORDER BY category, price DESC", params).fetchall()
+    if not rows:
+        return f"No products found for category '{category}'."
+    return "\\n".join(
+        f"{pid} | {name} | {cat} | ${price:,.2f} | {'in stock' if stock else 'out of stock'}"
+        for pid, name, cat, price, stock in rows
+    )
 '''),
     code('''
 from deepagents import create_deep_agent
@@ -123,6 +145,8 @@ first_agent = create_deep_agent(
 )
 
 print("Built-in harness tools:", sorted(first_agent.nodes["tools"].bound.tools_by_name))
+
+first_agent
 '''),
     code('''
 with trace_link("First deep agent: one product"):
