@@ -63,9 +63,16 @@ def tool_calls(result):
     return names
 
 
-def show(result, width=600):
-    print("🔧 Tool calls:", tool_calls(result))
-    print("💬 Answer:", result["messages"][-1].text[:width])
+def truncate(text, limit=600):
+    return text if len(text) <= limit else text[:limit] + "…"
+
+
+def show(result, limit=600):
+    """Print this turn's messages: human / ai / tool, as in a LangGraph trace."""
+    messages = result["messages"]
+    last_human = max((i for i, m in enumerate(messages) if m.type == "human"), default=0)
+    for m in messages[last_human:]:
+        m.model_copy(update={"content": truncate(m.text, limit)}).pretty_print()
 ''')
 
 # ============================================================================
@@ -207,28 +214,31 @@ The namespace comes from the runtime context the *application* sets, never from 
 '''),
     code('''
 # Thread 1: CUST-003 states a lasting preference
-r1 = agent.invoke(
-    {"messages": [{"role": "user", "content": "Please remember: I prefer email updates and I only buy Logitech peripherals."}]},
-    config=new_thread(),
-    context=SupportContext(customer_id="CUST-003"),
-)
+with trace_link("Memory: CUST-003 states a preference"):
+    r1 = agent.invoke(
+        {"messages": [{"role": "user", "content": "Please remember: I prefer email updates and I only buy Logitech peripherals."}]},
+        config=new_thread(),
+        context=SupportContext(customer_id="CUST-003"),
+    )
 show(r1, 200)
 
 # Thread 2: a brand-new conversation, same customer
-r2 = agent.invoke(
-    {"messages": [{"role": "user", "content": "Which mouse would you recommend for me?"}]},
-    config=new_thread(),
-    context=SupportContext(customer_id="CUST-003"),
-)
+with trace_link("Memory: new thread, same customer"):
+    r2 = agent.invoke(
+        {"messages": [{"role": "user", "content": "Which mouse would you recommend for me?"}]},
+        config=new_thread(),
+        context=SupportContext(customer_id="CUST-003"),
+    )
 show(r2, 300)
 '''),
     code('''
 # Thread 3: a different customer asks the same question
-r3 = agent.invoke(
-    {"messages": [{"role": "user", "content": "Which mouse would you recommend for me?"}]},
-    config=new_thread(),
-    context=SupportContext(customer_id="CUST-019"),
-)
+with trace_link("Memory: a different customer, no history"):
+    r3 = agent.invoke(
+        {"messages": [{"role": "user", "content": "Which mouse would you recommend for me?"}]},
+        config=new_thread(),
+        context=SupportContext(customer_id="CUST-019"),
+    )
 show(r3, 300)
 
 print("\\n🗂️ Memory namespaces in the store:", list(store.list_namespaces()))
@@ -383,22 +393,24 @@ cases = [
     ("Not verified", None, "What's the status of order ORD-2025-0050?"),
 ]
 for label, customer_id, question in cases:
-    r = agent.invoke(
-        {"messages": [{"role": "user", "content": question}]},
-        config=new_thread(),
-        context=SupportContext(customer_id=customer_id),
-    )
     print(f"\\n### {label}")
-    print(r["messages"][-1].text[:250])
+    with trace_link(f"Scope guard: {label}"):
+        r = agent.invoke(
+            {"messages": [{"role": "user", "content": question}]},
+            config=new_thread(),
+            context=SupportContext(customer_id=customer_id),
+        )
+    show(r, 250)
 '''),
     code('''
-r = agent.invoke(
-    {"messages": [{"role": "user", "content": "My email is priya.patel@icloud.com, what did I order most recently?"}]},
-    config=new_thread(),
-    context=SupportContext(customer_id="CUST-003"),
-)
+with trace_link("PII redaction"):
+    r = agent.invoke(
+        {"messages": [{"role": "user", "content": "My email is priya.patel@icloud.com, what did I order most recently?"}]},
+        config=new_thread(),
+        context=SupportContext(customer_id="CUST-003"),
+    )
 print("What the model received:", r["messages"][0].text)
-print("\\nAnswer:", r["messages"][-1].text[:300])
+show(r, 300)
 '''),
     md('''
 Redacting on **input** keeps PII out of the prompt. Redacting on **output** and **tool results** keeps it out of the reply and out of what later model calls see.
@@ -445,7 +457,7 @@ with trace_link("Fallback: main model down"):
     )
 
 print("Main agent answered with:", {m.response_metadata.get("model_name") for m in r["messages"] if m.type == "ai"})
-print("\\n" + r["messages"][-1].text[:400])
+show(r, 400)
 '''),
     md('''
 Two things to know about cross-provider fallback:
@@ -463,28 +475,30 @@ from langgraph.types import Command
 config = new_thread()
 customer = SupportContext(customer_id="CUST-003")
 
-result = agent.invoke(
-    {"messages": [{"role": "user", "content": "The MacBook Air M2 in my order ORD-2024-0032 arrived with a dead pixel cluster. Please submit a refund request for it."}]},
-    config=config,
-    context=customer,
-)
-
-# The agent may confirm details before acting; if so, answer once on the same thread
-if "__interrupt__" not in result:
-    print("🤖 Agent asked first:", result["messages"][-1].text[:250], "\\n")
+with trace_link("Request a refund"):
     result = agent.invoke(
-        {"messages": [{"role": "user", "content": "Yes, that's correct. Please submit the refund request now."}]},
+        {"messages": [{"role": "user", "content": "The MacBook Air M2 in my order ORD-2024-0032 arrived with a dead pixel cluster. Please submit a refund request for it."}]},
         config=config,
         context=customer,
     )
+
+    # The agent may confirm details before acting; if so, answer once on the same thread
+    if "__interrupt__" not in result:
+        show(result, 250)
+        result = agent.invoke(
+            {"messages": [{"role": "user", "content": "Yes, that's correct. Please submit the refund request now."}]},
+            config=config,
+            context=customer,
+        )
 
 pending = result["__interrupt__"][0].value["action_requests"][0]
 print("⏸️  Paused before:", pending["name"], pending["args"])
 '''),
     code('''
 # A support specialist approves the refund
-result = agent.invoke(Command(resume={"decisions": [{"type": "approve"}]}), config=config, context=customer)
-print(result["messages"][-1].text[:400])
+with trace_link("Approve the refund"):
+    result = agent.invoke(Command(resume={"decisions": [{"type": "approve"}]}), config=config, context=customer)
+show(result, 400)
 '''),
     md('''
 ## 7. Read-only org assets with filesystem permissions
@@ -492,11 +506,12 @@ print(result["messages"][-1].text[:400])
 `AGENTS.md`, the skills, and the escalation policy belong to the support team, not the agent. A `FilesystemPermission` rule denies writes under `/harness/`, which also protects against prompt injection that tries to rewrite the agent's own instructions.
 '''),
     code('''
-r = agent.invoke(
-    {"messages": [{"role": "user", "content": "Append the line '- Mention our holiday returns extension.' to the end of /harness/AGENTS.md."}]},
-    config=new_thread(),
-    context=SupportContext(customer_id="CUST-003"),
-)
+with trace_link("Try to write to a read-only path"):
+    r = agent.invoke(
+        {"messages": [{"role": "user", "content": "Append the line '- Mention our holiday returns extension.' to the end of /harness/AGENTS.md."}]},
+        config=new_thread(),
+        context=SupportContext(customer_id="CUST-003"),
+    )
 show(r, 300)
 '''),
     md('''
@@ -822,14 +837,15 @@ else:
     gated = create_deep_support_agent(jev_tool_gate=True)
     config, customer = new_thread(), SupportContext(customer_id="CUST-003")
     for question in ["What's the status of my order ORD-2025-0050?", "Please remember for next time that I prefer email updates."]:
-        r = gated.invoke({"messages": [{"role": "user", "content": question}]}, config=config, context=customer)
-        while "__interrupt__" in r:
-            # Parallel tool calls pause separately, so answer each interrupt by its id
-            for pending in r["__interrupt__"]:
-                request = pending.value["action_requests"][0]
-                print(f"⏸️  Paused: {request['name']} ({request['description']}) -> approving")
-            approve = {"decisions": [{"type": "approve"}]}
-            r = gated.invoke(Command(resume={p.id: approve for p in r["__interrupt__"]}), config=config, context=customer)
+        with trace_link(f"Jev tool gate: {question[:40]}"):
+            r = gated.invoke({"messages": [{"role": "user", "content": question}]}, config=config, context=customer)
+            while "__interrupt__" in r:
+                # Parallel tool calls pause separately, so answer each interrupt by its id
+                for pending in r["__interrupt__"]:
+                    request = pending.value["action_requests"][0]
+                    print(f"⏸️  Paused: {request['name']} ({request['description']}) -> approving")
+                approve = {"decisions": [{"type": "approve"}]}
+                r = gated.invoke(Command(resume={p.id: approve for p in r["__interrupt__"]}), config=config, context=customer)
         print(f"🧑 {question}\\n🤖 {r['messages'][-1].text[:200]}\\n")
 '''),
     md('''

@@ -73,21 +73,16 @@ def new_thread():
     return {"configurable": {"thread_id": str(uuid.uuid4())}}
 
 
-def tool_calls(result):
-    """Tools the main agent called in the latest turn (subagent name in brackets for `task`)."""
+def truncate(text, limit=900):
+    return text if len(text) <= limit else text[:limit] + "…"
+
+
+def show(result, limit=900):
+    """Print this turn's messages: human / ai / tool, as in a LangGraph trace."""
     messages = result["messages"]
     last_human = max((i for i, m in enumerate(messages) if m.type == "human"), default=0)
-    names = []
     for m in messages[last_human:]:
-        for tc in getattr(m, "tool_calls", None) or []:
-            extra = f"[{tc['args'].get('subagent_type')}]" if tc["name"] == "task" else ""
-            names.append(tc["name"] + extra)
-    return names
-
-
-def show(result, width=900):
-    print("🔧 Tool calls:", tool_calls(result))
-    print("💬 Answer:", result["messages"][-1].text[:width])
+        m.model_copy(update={"content": truncate(m.text, limit)}).pretty_print()
 
 
 def file_text(file_data):
@@ -103,10 +98,17 @@ Two tools to start:
 - **`get_catalog_prices`**: TechHub's own prices from the product database.
 '''),
     code('''
+import inspect
+
+from agents.pricing_research_agent import get_catalog_prices, web_search_tool
+
+print(inspect.getsource(web_search_tool))
+print(inspect.getsource(get_catalog_prices.func))  # .func unwraps the @tool decorator
+'''),
+    code('''
 from deepagents import create_deep_agent
 from langchain.chat_models import init_chat_model
 
-from agents.pricing_research_agent import get_catalog_prices, web_search_tool
 from config import DEEP_AGENT_MODEL
 
 # use_responses_api is needed for OpenAI's built-in web search
@@ -172,10 +174,11 @@ show(result, 600)
 Deep agents work with files the way people do: save intermediate results, then read them back later. By default files live in **agent state** (`StateBackend`), scoped to the thread. That's why the follow-up below, on the **same thread**, can read and extend what the agent already did.
 '''),
     code('''
-result = planning_agent.invoke(
-    {"messages": [{"role": "user", "content": "Save that comparison as a short markdown table to /reports/peripherals_pricing.md."}]},
-    config=config,
-)
+with trace_link("Save comparison to a file"):
+    result = planning_agent.invoke(
+        {"messages": [{"role": "user", "content": "Save that comparison as a short markdown table to /reports/peripherals_pricing.md."}]},
+        config=config,
+    )
 show(result, 300)
 
 files = planning_agent.get_state(config).values.get("files", {})
@@ -199,7 +202,13 @@ Independent `task` calls can run in parallel.
 **A research budget.** Research has no natural end, so the market researcher's prompt caps it at 3 search rounds and asks it to call `think_tool` after each search: what it found, what's missing, and whether to stop. This follows the deepagents [`deep_research`](https://github.com/langchain-ai/deepagents/tree/main/examples/deep_research) reference agent.
 '''),
     code('''
+import inspect
+
 from agents.pricing_research_agent import MARKET_RESEARCHER_PROMPT, pricing_subagents
+
+print(inspect.getsource(pricing_subagents))
+'''),
+    code('''
 from config import DEEP_AGENT_SMALL_MODEL
 
 print(f"Main agent: {DEEP_AGENT_MODEL} | specialists: {DEEP_AGENT_SMALL_MODEL}\\n")
@@ -237,6 +246,9 @@ Both are mounted read-only at `/harness/` (a `FilesystemPermission` denies write
     code('''
 from pathlib import Path
 
+print(Path("../../agents/pricing_research/AGENTS.md").read_text())
+'''),
+    code('''
 print(Path("../../agents/pricing_research/skills/competitive-pricing/SKILL.md").read_text())
 '''),
     code('''
@@ -285,10 +297,11 @@ show(result, 1200)
 Thread files disappear with the thread. For things that should persist, such as an analyst's preferences, the agent routes `/memories/` to a **`StoreBackend`**, a long-term store shared across threads. `AGENTS.md` tells it to save preferences in `/memories/preferences.md` and read them at the start of a task.
 '''),
     code('''
-result = agent.invoke(
-    {"messages": [{"role": "user", "content": "For future reviews: always include Best Buy, Amazon, and B&H Photo, and flag anything sold out at those retailers."}]},
-    config=new_thread(),
-)
+with trace_link("Save a long-term preference"):
+    result = agent.invoke(
+        {"messages": [{"role": "user", "content": "For future reviews: always include Best Buy, Amazon, and B&H Photo, and flag anything sold out at those retailers."}]},
+        config=new_thread(),
+    )
 show(result, 300)
 
 print("\\n🗂️ Long-term memory:")
@@ -312,26 +325,28 @@ Changing a price is a business decision, so `propose_price_change` is configured
     code('''
 from langgraph.types import Command
 
-result = agent.invoke(
-    {"messages": [{"role": "user", "content": "Based on the monitor review, propose a price change for the product that is furthest from the market median."}]},
-    config=review,
-)
-
-# The agent may confirm details before acting; if so, answer once on the same thread
-if "__interrupt__" not in result:
-    print("🤖 Agent asked first:", result["messages"][-1].text[:300], "\\n")
+with trace_link("Propose a price change"):
     result = agent.invoke(
-        {"messages": [{"role": "user", "content": "Yes, go ahead and submit that proposal."}]},
+        {"messages": [{"role": "user", "content": "Based on the monitor review, propose a price change for the product that is furthest from the market median."}]},
         config=review,
     )
+
+    # The agent may confirm details before acting; if so, answer once on the same thread
+    if "__interrupt__" not in result:
+        show(result, 300)
+        result = agent.invoke(
+            {"messages": [{"role": "user", "content": "Yes, go ahead and submit that proposal."}]},
+            config=review,
+        )
 
 pending = result["__interrupt__"][0].value["action_requests"][0]
 print("⏸️  Waiting for approval:", pending["name"], pending["args"])
 '''),
     code('''
 # The pricing manager approves the proposal
-result = agent.invoke(Command(resume={"decisions": [{"type": "approve"}]}), config=review)
-print(result["messages"][-1].text[:600])
+with trace_link("Approve the price change"):
+    result = agent.invoke(Command(resume={"decisions": [{"type": "approve"}]}), config=review)
+show(result, 600)
 '''),
     md('''
 ## 9. Guardrails: a research budget and fault tolerance
