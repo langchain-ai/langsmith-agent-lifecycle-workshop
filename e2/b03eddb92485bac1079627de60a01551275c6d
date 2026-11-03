@@ -1,0 +1,23 @@
+scripts/notebook_builders/build_module4_101.py
+  s_c5d9f3540fdefe::t_5177d2aaffa02c 30
+  s_c5d9f3540fdefe::t_d3762b038e0df4 32
+  s_c5d9f3540fdefe::t_2b881b70c6b3ae 31
+workshop_modules/module_4/section_1_deep_agents_101.ipynb
+  s_c5d9f3540fdefe::t_6c22e4ac57f6e6 12,14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e2b03eddb92485bac1079627de60a01551275c6d",
+  "prompts": {},
+  "sessions": {
+    "s_c5d9f3540fdefe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5a31baf4-0b2c-4020-ad35-979c42eaa1ef",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
