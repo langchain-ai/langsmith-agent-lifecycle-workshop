@@ -4,13 +4,14 @@ MDA owns the run-scoped name, reuse across turns, and lifecycle. Delete this
 directory to run without a sandbox.
 
 To provision a recipe snapshot, add ``sandbox/setup.sh``. ``mda deploy`` and
-``mda dev`` bake it once; new threads clone it without re-running the script.
+``mda dev`` run it once and save the result as a snapshot; new threads clone it
+without re-running the script.
 """
 
 from managed_deepagents import define_sandbox
 
 # Egress allowlist (default-deny). The sandbox only reads the TechHub docs and
-# catalog baked into the snapshot, so the only hosts it needs are the ones
+# catalog saved in the snapshot, so the only hosts it needs are the ones
 # setup.sh uses: PyPI for packages and GitHub's tarball host for the docs.
 # Ports are pinned to 443, which also blocks raw TCP (SSH, databases) everywhere.
 # An organization on restricted egress applies its own allowlist instead.

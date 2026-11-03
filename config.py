@@ -29,6 +29,12 @@ from typing import Literal
 #   3. the file named by GATEWAY_ENV_FILE, if set and readable
 #
 # Set LANGCHAIN_DISABLE_GATEWAY=1 to skip step 3.
+#
+# The Gateway key itself: langchain-core reads LANGSMITH_GATEWAY_API_KEY (then
+# LANGSMITH_API_KEY). Two other spellings are in use, so they are copied into it
+# when it is unset: LANGSMITH_API_KEY_GATEWAY, and LC_GATEWAY_KEY (the key IT
+# provisions on LangChain-managed machines). Whatever the name, the key must be
+# workspace-scoped and its workspace must hold the provider secrets.
 
 _GATEWAY_ENV_FILE = Path(os.getenv("GATEWAY_ENV_FILE", "")) if os.getenv("GATEWAY_ENV_FILE") else None
 
@@ -40,6 +46,20 @@ _GATEWAY_VARS = (
     "ANTHROPIC_BASE_URL",
     "ANTHROPIC_CUSTOM_HEADERS",
 )
+
+
+GATEWAY_KEY_ALIASES = ("LANGSMITH_API_KEY_GATEWAY", "LC_GATEWAY_KEY")
+
+
+def _normalize_gateway_key() -> str | None:
+    """Copy an aliased Gateway key into LANGSMITH_GATEWAY_API_KEY. Returns the variable name used."""
+    if os.getenv("LANGSMITH_GATEWAY_API_KEY"):
+        return "LANGSMITH_GATEWAY_API_KEY"
+    for alias in GATEWAY_KEY_ALIASES:
+        if value := os.getenv(alias):
+            os.environ["LANGSMITH_GATEWAY_API_KEY"] = value
+            return alias
+    return None
 
 
 def _gateway_enabled() -> bool:
@@ -78,7 +98,9 @@ def _resolve_model_credentials() -> str:
     return "gateway-env-file" if applied else "none"
 
 
-# Which credential source is in play. Never contains a secret -- safe to print.
+# Which credential source is in play, and which variable supplied the Gateway key
+# (None when no Gateway key variable is set). Names only -- safe to print.
+GATEWAY_KEY_SOURCE = _normalize_gateway_key()
 MODEL_CREDENTIAL_SOURCE = _resolve_model_credentials()
 
 # ============================================================================
