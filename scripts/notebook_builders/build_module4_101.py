@@ -40,15 +40,16 @@ So far TechHub's agents answer customer questions in a few tool calls. Some work
 | **Guardrails** | Retries, a fallback model, and call limits for unattended runs | `middleware=` (LangChain built-ins) |
 
 We'll build a **TechHub pricing research agent** one capability at a time:
-1. Your first deep agent: market prices with web search
-2. Planning with a to-do list
-3. Saving work to the filesystem
-4. Delegating to subagents
-5. The full agent: `AGENTS.md`, skills, and a pricing review
-6. Follow-up research on the user's question
-7. Long-term memory across conversations
-8. Human approval for price changes
-9. Guardrails: a research budget and fault tolerance
+1. Your first deep agent: a bare agent, no tools required
+2. Adding custom tools: market prices with web search
+3. Planning with a to-do list
+4. Saving work to the filesystem
+5. Delegating to subagents
+6. The full agent: `AGENTS.md`, skills, and a pricing review
+7. Follow-up research on the user's question
+8. Long-term memory across conversations
+9. Human approval for price changes
+10. Guardrails: a research budget and fault tolerance
 
 Web search uses the model provider's **built-in search tool** (`{"type": "web_search"}` for OpenAI), so no search API key is needed.
 '''),
@@ -93,7 +94,52 @@ def file_text(file_data):
     md('''
 ## 1. Your first deep agent
 
-Two tools to start:
+`create_deep_agent()` gives you a filesystem, a todo list, and context management out of the box — no tools required.
+
+<img src="../../images/deep_agents_architecture.png" width="700">
+
+### What you get for free:
+
+- **Filesystem Tools** — `ls`, `read_file`, `write_file`, `edit_file`, `glob`, `grep`
+- **Planning Tool** — `write_todos` for task tracking
+- **Subagent Delegation** — `task()` tool for isolated work
+- **Large Tool Result Eviction** — Automatically offloads tool results >20k tokens to the filesystem
+- **Conversation Summarization** — Compresses history when approaching ~85% context capacity
+- **Dangling Tool Call Patching** — Fixes message history consistency automatically
+'''),
+    code('''
+from deepagents import create_deep_agent
+from langchain.chat_models import init_chat_model
+from langgraph.checkpoint.memory import MemorySaver
+
+from config import DEEP_AGENT_MODEL
+
+# use_responses_api is needed for OpenAI's built-in web search (added in the next section)
+llm = init_chat_model(DEEP_AGENT_MODEL, **({"use_responses_api": True} if DEEP_AGENT_MODEL.startswith("openai:") else {}))
+
+bare_agent = create_deep_agent(
+    model=llm,
+    system_prompt="You are TechHub's pricing analyst.",
+    checkpointer=MemorySaver(),
+)
+
+print("Built-in harness tools:", sorted(bare_agent.nodes["tools"].bound.tools_by_name))
+
+bare_agent
+'''),
+    code('''
+with trace_link("First deep agent: no tools needed"):
+    result = bare_agent.invoke(
+        {"messages": [{"role": "user", "content": """Write a haiku about great customer service
+to /note.txt, then read it back to me."""}]},
+        config=new_thread(),
+    )
+show(result, 400)
+'''),
+    md('''
+## 2. Adding custom tools
+
+The bare agent above already has a filesystem — now let's give it two tools of its own:
 - **`web_search`**: the model provider's built-in search. It runs on the provider's side, so there's nothing to install.
 - **`get_catalog_prices`**: TechHub's own prices from the product database.
 '''),
@@ -128,13 +174,6 @@ def get_catalog_prices(category: str = "") -> str:
     )
 '''),
     code('''
-from deepagents import create_deep_agent
-from langchain.chat_models import init_chat_model
-
-from config import DEEP_AGENT_MODEL
-
-# use_responses_api is needed for OpenAI's built-in web search
-llm = init_chat_model(DEEP_AGENT_MODEL, **({"use_responses_api": True} if DEEP_AGENT_MODEL.startswith("openai:") else {}))
 web_search = web_search_tool(DEEP_AGENT_MODEL)
 print("Model:", DEEP_AGENT_MODEL, "| search tool:", web_search)
 
@@ -150,7 +189,7 @@ print("Built-in harness tools:", sorted(first_agent.nodes["tools"].bound.tools_b
 first_agent
 '''),
     code('''
-with trace_link("First deep agent: one product"):
+with trace_link("Adding tools: one product"):
     result = first_agent.invoke(
         {"messages": [{"role": "user", "content": """How does our Sony WH-1000XM5 price compare
 with major US retailers right now?"""}]}
@@ -165,13 +204,12 @@ The harness added file tools and a `task` tool before we wrote any of our own. F
 Bigger jobs need more structure.
 '''),
     md('''
-## 2. Planning with a to-do list
+## 3. Planning with a to-do list
 
 Planning is **opt-in** (since deepagents 0.7): add `TodoListMiddleware` and the agent gets a `write_todos` tool. For multi-step work it writes a plan, marks items `in_progress` → `completed`, and revises the plan as it learns. The to-dos are part of the agent's state, so a UI can show progress live.
 '''),
     code('''
 from langchain.agents.middleware import TodoListMiddleware
-from langgraph.checkpoint.memory import MemorySaver
 
 planning_agent = create_deep_agent(
     model=llm,
@@ -197,7 +235,7 @@ print()
 show(result, 600)
 '''),
     md('''
-## 3. Saving work to the filesystem
+## 4. Saving work to the filesystem
 
 Deep agents work with files the way people do: save intermediate results, then read them back later. By default files live in **agent state** (`StateBackend`), scoped to the thread. That's why the follow-up below, on the **same thread**, can read and extend what the agent already did.
 '''),
@@ -216,7 +254,7 @@ for path, data in files.items():
     print(f"\\n--- {path} ---\\n{file_text(data)[:1500]}")
 '''),
     md('''
-## 4. Delegating to subagents
+## 5. Delegating to subagents
 
 A **subagent** is a specialist the main agent calls through the `task` tool. Each runs in its **own context window** and returns only its final answer, so dozens of search results never clutter the main agent's context.
 
@@ -290,7 +328,7 @@ with trace_link("Subagents: two audio products"):
 show(result, 800)
 '''),
     md('''
-## 5. The full agent: AGENTS.md, skills, and a pricing review
+## 6. The full agent: AGENTS.md, skills, and a pricing review
 
 The finished agent (`agents/pricing_research_agent.py`) packages everything, plus two kinds of context loaded from `agents/pricing_research/`:
 
@@ -339,7 +377,7 @@ for path, data in reports.items():
     print(f"--- {path} ---\\n{file_text(data)[:2500]}")
 '''),
     md('''
-## 6. Follow-up research on the user's question
+## 7. Follow-up research on the user's question
 
 The report is in the thread's filesystem, so a follow-up doesn't start over: the agent reads what it already found and researches only the new question.
 '''),
@@ -353,7 +391,7 @@ are there current promotions or a newer model that explain the market price? Upd
 show(result, 1200)
 '''),
     md('''
-## 7. Long-term memory across conversations
+## 8. Long-term memory across conversations
 
 Thread files disappear with the thread. For things that should persist, such as an analyst's preferences, the agent routes `/memories/` to a **`StoreBackend`**, a long-term store shared across threads. `AGENTS.md` tells it to save preferences in `/memories/preferences.md` and read them at the start of a task.
 '''),
@@ -380,7 +418,7 @@ with trace_link("New thread uses memory"):
 show(result, 800)
 '''),
     md('''
-## 8. Human approval for price changes
+## 9. Human approval for price changes
 
 Changing a price is a business decision, so `propose_price_change` is configured with `interrupt_on`. The run pauses before the tool runs; a pricing manager can **approve**, **edit** (for example, a different price), or **reject**, and the run resumes on the same thread.
 '''),
@@ -412,7 +450,7 @@ with trace_link("Approve the price change"):
 show(result, 600)
 '''),
     md('''
-## 9. Guardrails: a research budget and fault tolerance
+## 10. Guardrails: a research budget and fault tolerance
 
 Prompts ask the agent to stay on budget; middleware enforces it. A research agent that runs unattended (a nightly pricing review, say) also has to survive a provider hiccup. The full agent adds LangChain's built-in [fault-tolerance middleware](https://docs.langchain.com/oss/python/deepagents/fault-tolerance) through one helper, `agents/middleware/fault_tolerance.py`:
 
