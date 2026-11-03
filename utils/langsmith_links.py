@@ -20,6 +20,7 @@ from functools import lru_cache
 
 from langchain_core.tracers.context import collect_runs
 from langsmith import Client
+from langsmith.utils import LangSmithNotFoundError
 
 DEFAULT_PROJECT = "langsmith-agent-lifecycle-workshop"
 
@@ -29,16 +30,20 @@ def _project_name(project_name: str | None = None) -> str:
 
 
 @lru_cache(maxsize=None)
-def _project_ids(project_name: str) -> tuple[str, str]:
-    """Look up (tenant_id, project_id) for a project. Cached - one API call."""
-    project = Client().read_project(project_name=project_name)
-    return str(project.tenant_id), str(project.id)
+def _project_base_url(project_name: str) -> str:
+    """The project's URL in the LangSmith app (US, EU or self-hosted). Cached - one API call."""
+    client = Client()
+    try:
+        project = client.read_project(project_name=project_name)
+    except LangSmithNotFoundError:
+        # A fresh workspace has no project until its first trace arrives.
+        project = client.create_project(project_name=project_name)
+    return project.url
 
 
 def project_url(project_name: str | None = None) -> str:
     """URL of the LangSmith project collecting this workshop's traces."""
-    tenant_id, project_id = _project_ids(_project_name(project_name))
-    return f"https://smith.langchain.com/o/{tenant_id}/projects/p/{project_id}"
+    return _project_base_url(_project_name(project_name))
 
 
 def trace_url(run_id, project_name: str | None = None) -> str:
