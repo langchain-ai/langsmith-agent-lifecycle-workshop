@@ -51,5 +51,8 @@ LangSmith plugin records the runs in the `HARBOR_LANGSMITH_DATASET` dataset.
 - **Validated on 2026-10-30 without Docker.** The real eval runner, the compiled artifact, and
   each `identity.json` ran on the host through the LLM Gateway (`gpt-5.4`), and all three tasks
   scored 1. Each verifier was also checked against good, wrong, leaking, and missing-evidence
-  fixtures (15/15 as intended). The full Docker run with `harbor run` has not
-  been run on this machine.
+  fixtures (15/15 as intended).
+- **Validated with Docker on 2026-11-03.** The full `harbor run` above (MDA job plugin and
+  LangSmith plugin) produced a reward for all three tasks in two passing Instruqt track tests, on
+  Claude via Amazon Bedrock, and `cross-customer-order-refused` passed again after the order
+  specialist's guard was removed and restored.

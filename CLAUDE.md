@@ -262,7 +262,8 @@ model.with_structured_output(OutputSchema)
 - Models come from `config.py` (`DEEP_AGENT_MODEL`, `DEEP_AGENT_SMALL_MODEL`, `DEEP_AGENT_FALLBACK_MODELS`), which picks from whatever credentials are set
 
 ### Module 6: Managed Deep Agents
-- `managed_agent/` mirrors the Module 4 support agent; keep the two in sync (`middleware/` files are copies)
+- `managed_agent/` mirrors the Module 4 support agent; keep the two in sync. `middleware/fault_tolerance.py` is a copy;
+  `middleware/customer_scope.py` extends the Module 4 guard for MDA (identity claims win over run context, ops-only tools)
 - Managed fields (`backend`, `store`, `checkpointer`, `memory`, `skills`, `system_prompt`) are never set in `define_deep_agent`
 - Harbor evals live in `managed_agent/evals/<task>/` (see its README); verifiers read `/logs/agent/result.json`
 
@@ -280,7 +281,10 @@ Required API keys in `.env`:
 Optional configuration:
 - `WORKSHOP_MODEL` - Override default model for all agents (default: `anthropic:claude-haiku-4-5`)
 - `DEEP_AGENT_MODEL` / `DEEP_AGENT_SMALL_MODEL` / `DEEP_AGENT_FALLBACK_MODEL` - Modules 4 and 6 (defaults follow the credentials: OpenAI → gpt-5.4 / gpt-5.4-mini; Anthropic only → claude-sonnet-5-5 / claude-haiku-4-5)
-- `LANGSMITH_GATEWAY` (Module 4) / `LANGSMITH_GATEWAY_API_KEY` (MDA) - route model calls through the LangSmith LLM Gateway instead of provider keys
+- `LANGSMITH_GATEWAY` (Module 4) / `LANGSMITH_GATEWAY_API_KEY` (both) - route model calls through the LangSmith LLM Gateway instead of provider keys.
+  The key must be **workspace-scoped** (org-scoped keys aren't supported) and its workspace must hold the provider secrets:
+  chat-model calls can't target another workspace, so a 424 means that workspace lacks the secret. Jev alone can target
+  another workspace with `JEV_WORKSPACE_ID`
 - `MDA_DEPLOYMENT_URL` - Agent Server URL the Module 6 notebooks call
 - `EMBEDDING_PROVIDER` - Embedding provider for vectorstore: `huggingface` (default, local) or `openai` (requires `OPENAI_API_KEY`)
 - `LANGSMITH_PROJECT` - Project name for traces (default: `langsmith-agent-lifecycle-workshop`)
