@@ -86,18 +86,19 @@ def file_text(file_data):
     md('''
 ## 1. Your first deep agent
 
-`create_deep_agent()` gives you a filesystem, a todo list, and context management out of the box — no tools required.
+`create_deep_agent()` gives you a filesystem, subagents, and context management out of the box — no tools required.
 
 <img src="../../images/deep_agents_architecture.png" width="700">
 
 ### What you get for free:
 
-- **Filesystem Tools** — `ls`, `read_file`, `write_file`, `edit_file`, `glob`, `grep`
-- **Planning Tool** — `write_todos` for task tracking
+- **Filesystem Tools** — `ls`, `read_file`, `write_file`, `edit_file`, `delete`, `glob`, `grep` (plus `execute` for shell commands, which needs a sandbox backend)
 - **Subagent Delegation** — `task()` tool for isolated work
 - **Large Tool Result Eviction** — Automatically offloads tool results >20k tokens to the filesystem
 - **Conversation Summarization** — Compresses history when approaching ~85% context capacity
 - **Dangling Tool Call Patching** — Fixes message history consistency automatically
+
+The **Planning Tool** in the diagram (`write_todos`) is opt-in since deepagents 0.7: Section 3 adds it with `TodoListMiddleware`.
 '''),
     code('''
 from deepagents import create_deep_agent
