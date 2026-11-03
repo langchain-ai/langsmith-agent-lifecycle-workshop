@@ -226,24 +226,53 @@ Independent `task` calls can run in parallel.
 **A research budget.** Research has no natural end, so the market researcher's prompt caps it at 3 search rounds and asks it to call `think_tool` after each search: what it found, what's missing, and whether to stop. This follows the deepagents [`deep_research`](https://github.com/langchain-ai/deepagents/tree/main/examples/deep_research) reference agent.
 '''),
     code('''
-import inspect
-
-from agents.pricing_research_agent import MARKET_RESEARCHER_PROMPT, pricing_subagents
-
-print(inspect.getsource(pricing_subagents))
-'''),
-    code('''
 from config import DEEP_AGENT_SMALL_MODEL
 
-print(f"Main agent: {DEEP_AGENT_MODEL} | specialists: {DEEP_AGENT_SMALL_MODEL}\\n")
-for sub in pricing_subagents(DEEP_AGENT_SMALL_MODEL):
-    print(f"• {sub['name']}: {sub['description']}")
-print("\\nmarket-researcher prompt:\\n" + MARKET_RESEARCHER_PROMPT)
 
+@tool
+def think_tool(reflection: str) -> str:
+    """Record a short reflection after a search: what you found, what's missing, and whether to stop.
+
+    Args:
+        reflection: Findings so far, remaining gaps, and the decision (search again or stop).
+    """
+    return f"Reflection recorded: {reflection}"
+
+
+# Specialists run on a smaller, cheaper model: a multi-model harness
+subagent_llm = init_chat_model(
+    DEEP_AGENT_SMALL_MODEL, **({"use_responses_api": True} if DEEP_AGENT_SMALL_MODEL.startswith("openai:") else {})
+)
+
+market_researcher = {
+    "name": "market-researcher",
+    "description": "Searches the web for current retailer prices, promotions, and model refreshes for a "
+    "specific product. Returns prices with retailer names and source URLs.",
+    "system_prompt": """You research current US market prices for one consumer electronics product at a time.
+
+- Use web search. Aim for 3+ major US retailers (for example Amazon, Best Buy, the manufacturer's store).
+- After each search, call think_tool: what you found, what's missing, and whether to stop.
+- Budget: at most 3 search rounds. Stop early once you have 3 prices with URLs.
+- Return a short list: retailer, price, sale or regular, URL. Never invent prices; say "no reliable price found".""",
+    "model": subagent_llm,
+    "tools": [web_search_tool(DEEP_AGENT_SMALL_MODEL), think_tool],
+}
+
+catalog_analyst = {
+    "name": "catalog-analyst",
+    "description": "Looks up TechHub's own catalog prices, categories, and stock.",
+    "system_prompt": "You report TechHub's catalog data exactly as the tool returns it.",
+    "model": subagent_llm,
+    "tools": [get_catalog_prices],
+}
+
+print(f"Main agent: {DEEP_AGENT_MODEL} | specialists: {DEEP_AGENT_SMALL_MODEL}")
+'''),
+    code('''
 delegating_agent = create_deep_agent(
     model=llm,
     system_prompt="You are TechHub's pricing lead. Delegate catalog lookups and market research to your specialists, then compare.",
-    subagents=pricing_subagents(DEEP_AGENT_SMALL_MODEL),
+    subagents=[market_researcher, catalog_analyst],
     middleware=[TodoListMiddleware()],
 )
 
@@ -394,8 +423,10 @@ from agents.middleware import fault_tolerance_middleware
 
 print(inspect.getsource(fault_tolerance_middleware))
 '''),
-    md("Here is the call limit at work: the same delegating agent with a budget of 3 model calls. Instead of erroring or looping, the run ends cleanly and says why."),
+    md("Here is the call limit at work: the same two specialists, now built by the packaged `pricing_subagents()` (which adds its own per-specialist guardrails), with a budget of 3 model calls on top. Instead of erroring or looping, the run ends cleanly and says why."),
     code('''
+from agents.pricing_research_agent import pricing_subagents
+
 budget_agent = create_deep_agent(
     model=llm,
     system_prompt="You are TechHub's pricing lead. Delegate catalog lookups and market research to your specialists, then compare.",
