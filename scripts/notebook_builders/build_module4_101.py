@@ -27,17 +27,9 @@ cells = [
 
 So far TechHub's agents answer customer questions in a few tool calls. Some work is bigger: **"Are we priced competitively on monitors? Research the market, write it up, and recommend changes."** That takes planning, many searches, notes that outlive one turn, delegation, and a human sign-off. This is what **Deep Agents** is built for.
 
-**A deep agent is `create_agent()` plus a harness**, a pre-built middleware stack that gives the model:
+**A deep agent is `create_agent()` plus a harness**, a pre-built middleware stack:
 
-| Capability | What it adds | How |
-|---|---|---|
-| **Planning** | A to-do list the agent writes and updates (opt-in) | `TodoListMiddleware` → `write_todos` |
-| **Filesystem** | Files to save work, notes, and large results | `ls`, `read_file`, `write_file`, `edit_file`, `glob`, `grep` |
-| **Subagents** | Delegate a task to a specialist with its own context window | `task` tool |
-| **Context management** | Offloads large tool results and summarizes long conversations | On by default |
-| **Memory and skills** | `AGENTS.md` instructions always loaded; skills loaded on demand | `memory=`, `skills=` |
-| **Human-in-the-loop** | Pause before sensitive actions | `interrupt_on=` |
-| **Guardrails** | Retries, a fallback model, and call limits for unattended runs | `middleware=` (LangChain built-ins) |
+<img src="../../images/deep_agents_coordinator_diagram.png" width="700">
 
 We'll build a **TechHub pricing research agent** one capability at a time:
 1. Your first deep agent: a bare agent, no tools required
