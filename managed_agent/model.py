@@ -11,10 +11,17 @@ Clone the repo and set ONE of these in managed_agent/.env; no code changes:
    `langsmith:` provider authenticates with LANGSMITH_GATEWAY_API_KEY, falling back
    to LANGSMITH_API_KEY. LANGSMITH_API_KEY is reserved and never reaches a hosted
    deployment, so set LANGSMITH_GATEWAY_API_KEY in .env for `mda deploy`: a
-   LangSmith key whose workspace has the provider secrets.
+   workspace-scoped LangSmith key whose workspace has the provider secrets.
+   LANGSMITH_API_KEY_GATEWAY and LC_GATEWAY_KEY are accepted as aliases (copied
+   into LANGSMITH_GATEWAY_API_KEY at import, here and in the deployment).
 """
 
 import os
+
+GATEWAY_KEY_ALIASES = ("LANGSMITH_API_KEY_GATEWAY", "LC_GATEWAY_KEY")
+if not os.getenv("LANGSMITH_GATEWAY_API_KEY"):
+    if alias := next((a for a in GATEWAY_KEY_ALIASES if os.getenv(a)), None):
+        os.environ["LANGSMITH_GATEWAY_API_KEY"] = os.environ[alias]
 
 DEFAULT_MODELS = {"openai": "gpt-5.4", "anthropic": "claude-sonnet-5-5"}
 

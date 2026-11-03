@@ -28,6 +28,9 @@ cp .env.example .env
 # Edit .env with your API keys
 # Optional: Set EMBEDDING_PROVIDER=openai if HuggingFace downloads are blocked
 
+# Check which model path is active (direct keys / Gateway / gateway env file) and that each model answers
+uv run python verify_setup.py
+
 # Build vectorstore (required one-time setup, ~60 seconds)
 # Uses HuggingFace embeddings by default (local, no API key)
 # Set EMBEDDING_PROVIDER=openai in .env to use OpenAI embeddings instead
@@ -284,7 +287,10 @@ Optional configuration:
 - `LANGSMITH_GATEWAY` (Module 4) / `LANGSMITH_GATEWAY_API_KEY` (both) - route model calls through the LangSmith LLM Gateway instead of provider keys.
   The key must be **workspace-scoped** (org-scoped keys aren't supported) and its workspace must hold the provider secrets:
   chat-model calls can't target another workspace, so a 424 means that workspace lacks the secret. Jev alone can target
-  another workspace with `JEV_WORKSPACE_ID`
+  another workspace with `JEV_WORKSPACE_ID`. `LANGSMITH_API_KEY_GATEWAY` and `LC_GATEWAY_KEY` are accepted as aliases
+  (copied into `LANGSMITH_GATEWAY_API_KEY` by `config.py` / `managed_agent/model.py`)
+- `GATEWAY_ENV_FILE` - a provisioned gateway env file to load chat-model credentials from (`/etc/lc_internal/gateway_env`
+  on LangChain-managed Macs); used only when no provider key and no `LANGSMITH_GATEWAY` switch is set
 - `MDA_DEPLOYMENT_URL` - Agent Server URL the Module 6 notebooks call
 - `EMBEDDING_PROVIDER` - Embedding provider for vectorstore: `huggingface` (default, local) or `openai` (requires `OPENAI_API_KEY`)
 - `LANGSMITH_PROJECT` - Project name for traces (default: `langsmith-agent-lifecycle-workshop`)
