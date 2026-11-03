@@ -1,0 +1,30 @@
+scripts/notebook_builders/build_module4_101.py
+  s_c5d9f3540fdefe::t_65df549b2c7d3f 453
+  s_c5d9f3540fdefe::t_b2758f31bba438 43-52
+  s_c5d9f3540fdefe::t_4d88ef853b71e5 238
+  s_c5d9f3540fdefe::t_5b7b2c283f490c 394
+  s_c5d9f3540fdefe::t_4c3c4c54ba5e0a 421
+  s_c5d9f3540fdefe::t_ef30c587338a97 380
+  s_c5d9f3540fdefe::t_92ff15902c6fc0 257
+  s_c5d9f3540fdefe::t_a80fab7304673e 331
+  s_c5d9f3540fdefe::t_ed48d820614490 97-142,192
+  s_c5d9f3540fdefe::t_9025897099843b 207
+workshop_modules/module_4/section_1_deep_agents_101.ipynb
+  s_c5d9f3540fdefe::t_265d05abe45e78 25-34,105-169,177,214,236,240,250,262,265,273,305,308,316,336,339,357,407,429,432,449,461,471,499,511,514,522,537,540,548,568,583,586,594,622,634,637,655,718,727,753
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e3a51daf02ddfefa50b468f1047a4dccabe06a2e",
+  "prompts": {},
+  "sessions": {
+    "s_c5d9f3540fdefe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5a31baf4-0b2c-4020-ad35-979c42eaa1ef",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
