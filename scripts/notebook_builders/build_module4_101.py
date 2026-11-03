@@ -27,28 +27,21 @@ cells = [
 
 So far TechHub's agents answer customer questions in a few tool calls. Some work is bigger: **"Are we priced competitively on monitors? Research the market, write it up, and recommend changes."** That takes planning, many searches, notes that outlive one turn, delegation, and a human sign-off. This is what **Deep Agents** is built for.
 
-**A deep agent is `create_agent()` plus a harness**, a pre-built middleware stack that gives the model:
+**A deep agent is `create_agent()` plus a harness**, a pre-built middleware stack:
 
-| Capability | What it adds | How |
-|---|---|---|
-| **Planning** | A to-do list the agent writes and updates (opt-in) | `TodoListMiddleware` → `write_todos` |
-| **Filesystem** | Files to save work, notes, and large results | `ls`, `read_file`, `write_file`, `edit_file`, `glob`, `grep` |
-| **Subagents** | Delegate a task to a specialist with its own context window | `task` tool |
-| **Context management** | Offloads large tool results and summarizes long conversations | On by default |
-| **Memory and skills** | `AGENTS.md` instructions always loaded; skills loaded on demand | `memory=`, `skills=` |
-| **Human-in-the-loop** | Pause before sensitive actions | `interrupt_on=` |
-| **Guardrails** | Retries, a fallback model, and call limits for unattended runs | `middleware=` (LangChain built-ins) |
+<img src="../../images/deep_agents_coordinator_diagram.png" width="700">
 
 We'll build a **TechHub pricing research agent** one capability at a time:
-1. Your first deep agent: market prices with web search
-2. Planning with a to-do list
-3. Saving work to the filesystem
-4. Delegating to subagents
-5. The full agent: `AGENTS.md`, skills, and a pricing review
-6. Follow-up research on the user's question
-7. Long-term memory across conversations
-8. Human approval for price changes
-9. Guardrails: a research budget and fault tolerance
+1. Your first deep agent: a bare agent, no tools required
+2. Adding custom tools: market prices with web search
+3. Planning with a to-do list
+4. Saving work to the filesystem
+5. Delegating to subagents
+6. The full agent: `AGENTS.md`, skills, and a pricing review
+7. Follow-up research on the user's question
+8. Long-term memory across conversations
+9. Human approval for price changes
+10. Guardrails: a research budget and fault tolerance
 
 Web search uses the model provider's **built-in search tool** (`{"type": "web_search"}` for OpenAI), so no search API key is needed.
 '''),
@@ -73,21 +66,16 @@ def new_thread():
     return {"configurable": {"thread_id": str(uuid.uuid4())}}
 
 
-def tool_calls(result):
-    """Tools the main agent called in the latest turn (subagent name in brackets for `task`)."""
+def truncate(text, limit=900):
+    return text if len(text) <= limit else text[:limit] + "…"
+
+
+def show(result, limit=900):
+    """Print this turn's messages: human / ai / tool, as in a LangGraph trace."""
     messages = result["messages"]
     last_human = max((i for i, m in enumerate(messages) if m.type == "human"), default=0)
-    names = []
     for m in messages[last_human:]:
-        for tc in getattr(m, "tool_calls", None) or []:
-            extra = f"[{tc['args'].get('subagent_type')}]" if tc["name"] == "task" else ""
-            names.append(tc["name"] + extra)
-    return names
-
-
-def show(result, width=900):
-    print("🔧 Tool calls:", tool_calls(result))
-    print("💬 Answer:", result["messages"][-1].text[:width])
+        m.model_copy(update={"content": truncate(m.text, limit)}).pretty_print()
 
 
 def file_text(file_data):
@@ -98,34 +86,106 @@ def file_text(file_data):
     md('''
 ## 1. Your first deep agent
 
-Two tools to start:
-- **`web_search`**: the model provider's built-in search. It runs on the provider's side, so there's nothing to install.
-- **`get_catalog_prices`**: TechHub's own prices from the product database.
+`create_deep_agent()` gives you a filesystem, subagents, and context management out of the box — no tools required.
+
+<img src="../../images/deep_agents_architecture.png" width="700">
+
+### What you get for free:
+
+- **Filesystem Tools** — `ls`, `read_file`, `write_file`, `edit_file`, `delete`, `glob`, `grep` (plus `execute` for shell commands, which needs a sandbox backend)
+- **Subagent Delegation** — `task()` tool for isolated work
+- **Large Tool Result Eviction** — Automatically offloads tool results >20k tokens to the filesystem
+- **Conversation Summarization** — Compresses history when approaching ~85% context capacity
+- **Dangling Tool Call Patching** — Fixes message history consistency automatically
+
+The **Planning Tool** in the diagram (`write_todos`) is opt-in since deepagents 0.7: Section 3 adds it with `TodoListMiddleware`.
 '''),
     code('''
 from deepagents import create_deep_agent
 from langchain.chat_models import init_chat_model
+from langgraph.checkpoint.memory import MemorySaver
 
-from agents.pricing_research_agent import get_catalog_prices, web_search_tool
 from config import DEEP_AGENT_MODEL
 
-# use_responses_api is needed for OpenAI's built-in web search
+# use_responses_api is needed for OpenAI's built-in web search (added in the next section)
 llm = init_chat_model(DEEP_AGENT_MODEL, **({"use_responses_api": True} if DEEP_AGENT_MODEL.startswith("openai:") else {}))
+
+bare_agent = create_deep_agent(
+    model=llm,
+    system_prompt="You are TechHub's pricing analyst.",
+    checkpointer=MemorySaver(),
+)
+
+print("Built-in harness tools:", sorted(bare_agent.nodes["tools"].bound.tools_by_name))
+
+bare_agent
+'''),
+    code('''
+with trace_link("First deep agent: no tools needed"):
+    result = bare_agent.invoke(
+        {"messages": [{"role": "user", "content": """Write a haiku about great customer service
+to /note.txt, then read it back to me."""}]},
+        config=new_thread(),
+    )
+show(result, 400)
+'''),
+    md('''
+## 2. Adding custom tools
+
+The bare agent above already has a filesystem — now let's give it two tools of its own:
+- **`web_search`**: the model provider's built-in search. It runs on the provider's side, so there's nothing to install.
+- **`get_catalog_prices`**: TechHub's own prices from the product database.
+'''),
+    code('''
+import sqlite3
+
+from langchain.tools import tool
+
+from agents.pricing_research_agent import web_search_tool
+from config import DEFAULT_DB_PATH
+
+
+@tool
+def get_catalog_prices(category: str = "") -> str:
+    """Get TechHub's current catalog prices and stock, optionally for one category.
+
+    Args:
+        category: One of Laptops, Monitors, Keyboards, Audio, Accessories. Empty for all.
+    """
+    sql = "SELECT product_id, name, category, price, in_stock FROM products"
+    params: tuple = ()
+    if category:
+        sql += " WHERE lower(category) = lower(?)"
+        params = (category,)
+    with sqlite3.connect(DEFAULT_DB_PATH) as conn:
+        rows = conn.execute(sql + " ORDER BY category, price DESC", params).fetchall()
+    if not rows:
+        return f"No products found for category '{category}'."
+    return "\\n".join(
+        f"{pid} | {name} | {cat} | ${price:,.2f} | {'in stock' if stock else 'out of stock'}"
+        for pid, name, cat, price, stock in rows
+    )
+'''),
+    code('''
 web_search = web_search_tool(DEEP_AGENT_MODEL)
 print("Model:", DEEP_AGENT_MODEL, "| search tool:", web_search)
 
 first_agent = create_deep_agent(
     model=llm,
     tools=[web_search, get_catalog_prices],
-    system_prompt="You are TechHub's pricing analyst. Compare our prices with current US retail prices and cite sources.",
+    system_prompt="""You are TechHub's pricing analyst.
+Compare our prices with current US retail prices and cite sources.""",
 )
 
 print("Built-in harness tools:", sorted(first_agent.nodes["tools"].bound.tools_by_name))
+
+first_agent
 '''),
     code('''
-with trace_link("First deep agent: one product"):
+with trace_link("Adding tools: one product"):
     result = first_agent.invoke(
-        {"messages": [{"role": "user", "content": "How does our Sony WH-1000XM5 price compare with major US retailers right now?"}]}
+        {"messages": [{"role": "user", "content": """How does our Sony WH-1000XM5 price compare
+with major US retailers right now?"""}]}
     )
 show(result)
 '''),
@@ -137,18 +197,18 @@ The harness added file tools and a `task` tool before we wrote any of our own. F
 Bigger jobs need more structure.
 '''),
     md('''
-## 2. Planning with a to-do list
+## 3. Planning with a to-do list
 
 Planning is **opt-in** (since deepagents 0.7): add `TodoListMiddleware` and the agent gets a `write_todos` tool. For multi-step work it writes a plan, marks items `in_progress` → `completed`, and revises the plan as it learns. The to-dos are part of the agent's state, so a UI can show progress live.
 '''),
     code('''
 from langchain.agents.middleware import TodoListMiddleware
-from langgraph.checkpoint.memory import MemorySaver
 
 planning_agent = create_deep_agent(
     model=llm,
     tools=[web_search, get_catalog_prices],
-    system_prompt="You are TechHub's pricing analyst. Compare our prices with current US retail prices and cite sources.",
+    system_prompt="""You are TechHub's pricing analyst.
+Compare our prices with current US retail prices and cite sources.""",
     middleware=[TodoListMiddleware()],
     checkpointer=MemorySaver(),  # keeps state (to-dos, files) across turns of a thread
 )
@@ -156,7 +216,8 @@ planning_agent = create_deep_agent(
 config = new_thread()
 with trace_link("Planning: two keyboards"):
     result = planning_agent.invoke(
-        {"messages": [{"role": "user", "content": "Compare our prices for the Logitech MX Keys keyboard and the Logitech MX Master 3S mouse with 2-3 major US retailers each."}]},
+        {"messages": [{"role": "user", "content": """Compare our prices for the Logitech MX Keys keyboard
+and the Logitech MX Master 3S mouse with 2-3 major US retailers each."""}]},
         config=config,
     )
 
@@ -167,15 +228,17 @@ print()
 show(result, 600)
 '''),
     md('''
-## 3. Saving work to the filesystem
+## 4. Saving work to the filesystem
 
 Deep agents work with files the way people do: save intermediate results, then read them back later. By default files live in **agent state** (`StateBackend`), scoped to the thread. That's why the follow-up below, on the **same thread**, can read and extend what the agent already did.
 '''),
     code('''
-result = planning_agent.invoke(
-    {"messages": [{"role": "user", "content": "Save that comparison as a short markdown table to /reports/peripherals_pricing.md."}]},
-    config=config,
-)
+with trace_link("Save comparison to a file"):
+    result = planning_agent.invoke(
+        {"messages": [{"role": "user", "content": """Save that comparison as a short markdown table
+to /reports/peripherals_pricing.md."""}]},
+        config=config,
+    )
 show(result, 300)
 
 files = planning_agent.get_state(config).values.get("files", {})
@@ -184,7 +247,7 @@ for path, data in files.items():
     print(f"\\n--- {path} ---\\n{file_text(data)[:1500]}")
 '''),
     md('''
-## 4. Delegating to subagents
+## 5. Delegating to subagents
 
 A **subagent** is a specialist the main agent calls through the `task` tool. Each runs in its **own context window** and returns only its final answer, so dozens of search results never clutter the main agent's context.
 
@@ -199,29 +262,66 @@ Independent `task` calls can run in parallel.
 **A research budget.** Research has no natural end, so the market researcher's prompt caps it at 3 search rounds and asks it to call `think_tool` after each search: what it found, what's missing, and whether to stop. This follows the deepagents [`deep_research`](https://github.com/langchain-ai/deepagents/tree/main/examples/deep_research) reference agent.
 '''),
     code('''
-from agents.pricing_research_agent import MARKET_RESEARCHER_PROMPT, pricing_subagents
 from config import DEEP_AGENT_SMALL_MODEL
 
-print(f"Main agent: {DEEP_AGENT_MODEL} | specialists: {DEEP_AGENT_SMALL_MODEL}\\n")
-for sub in pricing_subagents(DEEP_AGENT_SMALL_MODEL):
-    print(f"• {sub['name']}: {sub['description']}")
-print("\\nmarket-researcher prompt:\\n" + MARKET_RESEARCHER_PROMPT)
 
+@tool
+def think_tool(reflection: str) -> str:
+    """Record a short reflection after a search: what you found, what's missing, and whether to stop.
+
+    Args:
+        reflection: Findings so far, remaining gaps, and the decision (search again or stop).
+    """
+    return f"Reflection recorded: {reflection}"
+
+
+# Specialists run on a smaller, cheaper model: a multi-model harness
+subagent_llm = init_chat_model(
+    DEEP_AGENT_SMALL_MODEL, **({"use_responses_api": True} if DEEP_AGENT_SMALL_MODEL.startswith("openai:") else {})
+)
+
+market_researcher = {
+    "name": "market-researcher",
+    "description": "Searches the web for current retailer prices, promotions, and model refreshes for a "
+    "specific product. Returns prices with retailer names and source URLs.",
+    "system_prompt": """You research current US market prices for one consumer electronics product at a time.
+
+- Use web search. Aim for 3+ major US retailers (for example Amazon, Best Buy, the manufacturer's store).
+- After each search, call think_tool: what you found, what's missing, and whether to stop.
+- Budget: at most 3 search rounds. Stop early once you have 3 prices with URLs.
+- Return a short list: retailer, price, sale or regular, URL. Never invent prices; say "no reliable price found".""",
+    "model": subagent_llm,
+    "tools": [web_search_tool(DEEP_AGENT_SMALL_MODEL), think_tool],
+}
+
+catalog_analyst = {
+    "name": "catalog-analyst",
+    "description": "Looks up TechHub's own catalog prices, categories, and stock.",
+    "system_prompt": "You report TechHub's catalog data exactly as the tool returns it.",
+    "model": subagent_llm,
+    "tools": [get_catalog_prices],
+}
+
+print(f"Main agent: {DEEP_AGENT_MODEL} | specialists: {DEEP_AGENT_SMALL_MODEL}")
+'''),
+    code('''
 delegating_agent = create_deep_agent(
     model=llm,
-    system_prompt="You are TechHub's pricing lead. Delegate catalog lookups and market research to your specialists, then compare.",
-    subagents=pricing_subagents(DEEP_AGENT_SMALL_MODEL),
+    system_prompt="""You are TechHub's pricing lead.
+Delegate catalog lookups and market research to your specialists, then compare.""",
+    subagents=[market_researcher, catalog_analyst],
     middleware=[TodoListMiddleware()],
 )
 
 with trace_link("Subagents: two audio products"):
     result = delegating_agent.invoke(
-        {"messages": [{"role": "user", "content": "Are we competitively priced on the AirPods Pro (2nd gen) and the JBL Flip 6?"}]}
+        {"messages": [{"role": "user", "content": """Are we competitively priced on the AirPods Pro
+(2nd gen) and the JBL Flip 6?"""}]}
     )
 show(result, 800)
 '''),
     md('''
-## 5. The full agent: AGENTS.md, skills, and a pricing review
+## 6. The full agent: AGENTS.md, skills, and a pricing review
 
 The finished agent (`agents/pricing_research_agent.py`) packages everything, plus two kinds of context loaded from `agents/pricing_research/`:
 
@@ -237,6 +337,9 @@ Both are mounted read-only at `/harness/` (a `FilesystemPermission` denies write
     code('''
 from pathlib import Path
 
+print(Path("../../agents/pricing_research/AGENTS.md").read_text())
+'''),
+    code('''
 print(Path("../../agents/pricing_research/skills/competitive-pricing/SKILL.md").read_text())
 '''),
     code('''
@@ -267,28 +370,31 @@ for path, data in reports.items():
     print(f"--- {path} ---\\n{file_text(data)[:2500]}")
 '''),
     md('''
-## 6. Follow-up research on the user's question
+## 7. Follow-up research on the user's question
 
 The report is in the thread's filesystem, so a follow-up doesn't start over: the agent reads what it already found and researches only the new question.
 '''),
     code('''
 with trace_link("Follow-up research"):
     result = agent.invoke(
-        {"messages": [{"role": "user", "content": "Dig deeper on the Samsung 32-inch curved gaming monitor: are there current promotions or a newer model that explain the market price? Update the report."}]},
+        {"messages": [{"role": "user", "content": """Dig deeper on the Samsung 32-inch curved gaming monitor:
+are there current promotions or a newer model that explain the market price? Update the report."""}]},
         config=review,
     )
 show(result, 1200)
 '''),
     md('''
-## 7. Long-term memory across conversations
+## 8. Long-term memory across conversations
 
 Thread files disappear with the thread. For things that should persist, such as an analyst's preferences, the agent routes `/memories/` to a **`StoreBackend`**, a long-term store shared across threads. `AGENTS.md` tells it to save preferences in `/memories/preferences.md` and read them at the start of a task.
 '''),
     code('''
-result = agent.invoke(
-    {"messages": [{"role": "user", "content": "For future reviews: always include Best Buy, Amazon, and B&H Photo, and flag anything sold out at those retailers."}]},
-    config=new_thread(),
-)
+with trace_link("Save a long-term preference"):
+    result = agent.invoke(
+        {"messages": [{"role": "user", "content": """For future reviews: always include Best Buy, Amazon, and B&H Photo,
+and flag anything sold out at those retailers."""}]},
+        config=new_thread(),
+    )
 show(result, 300)
 
 print("\\n🗂️ Long-term memory:")
@@ -305,36 +411,39 @@ with trace_link("New thread uses memory"):
 show(result, 800)
 '''),
     md('''
-## 8. Human approval for price changes
+## 9. Human approval for price changes
 
 Changing a price is a business decision, so `propose_price_change` is configured with `interrupt_on`. The run pauses before the tool runs; a pricing manager can **approve**, **edit** (for example, a different price), or **reject**, and the run resumes on the same thread.
 '''),
     code('''
 from langgraph.types import Command
 
-result = agent.invoke(
-    {"messages": [{"role": "user", "content": "Based on the monitor review, propose a price change for the product that is furthest from the market median."}]},
-    config=review,
-)
-
-# The agent may confirm details before acting; if so, answer once on the same thread
-if "__interrupt__" not in result:
-    print("🤖 Agent asked first:", result["messages"][-1].text[:300], "\\n")
+with trace_link("Propose a price change"):
     result = agent.invoke(
-        {"messages": [{"role": "user", "content": "Yes, go ahead and submit that proposal."}]},
+        {"messages": [{"role": "user", "content": """Based on the monitor review, propose a price change
+for the product that is furthest from the market median."""}]},
         config=review,
     )
+
+    # The agent may confirm details before acting; if so, answer once on the same thread
+    if "__interrupt__" not in result:
+        show(result, 300)
+        result = agent.invoke(
+            {"messages": [{"role": "user", "content": "Yes, go ahead and submit that proposal."}]},
+            config=review,
+        )
 
 pending = result["__interrupt__"][0].value["action_requests"][0]
 print("⏸️  Waiting for approval:", pending["name"], pending["args"])
 '''),
     code('''
 # The pricing manager approves the proposal
-result = agent.invoke(Command(resume={"decisions": [{"type": "approve"}]}), config=review)
-print(result["messages"][-1].text[:600])
+with trace_link("Approve the price change"):
+    result = agent.invoke(Command(resume={"decisions": [{"type": "approve"}]}), config=review)
+show(result, 600)
 '''),
     md('''
-## 9. Guardrails: a research budget and fault tolerance
+## 10. Guardrails: a research budget and fault tolerance
 
 Prompts ask the agent to stay on budget; middleware enforces it. A research agent that runs unattended (a nightly pricing review, say) also has to survive a provider hiccup. The full agent adds LangChain's built-in [fault-tolerance middleware](https://docs.langchain.com/oss/python/deepagents/fault-tolerance) through one helper, `agents/middleware/fault_tolerance.py`:
 
@@ -349,24 +458,78 @@ Prompts ask the agent to stay on budget; middleware enforces it. A research agen
 Order matters: middleware listed first wraps the rest, so the fallback sits outside the retries.
 '''),
     code('''
-import inspect
+from langchain.agents.middleware import (
+    ModelCallLimitMiddleware,
+    ModelFallbackMiddleware,
+    ModelRetryMiddleware,
+    ToolCallLimitMiddleware,
+    ToolRetryMiddleware,
+)
+from langchain_core.exceptions import ModelError
 
-from agents.middleware import fault_tolerance_middleware
+# Retry only what a retry can fix: rate limits, timeouts, conflicts, server errors, and
+# network failures. Anything else (bad request, auth, unknown model, or a bug in our own
+# code such as a ValueError) goes straight to the fallback instead of ~7s of retries.
+_TRANSIENT_STATUSES = {408, 409, 429}
+_TRANSIENT_ERRORS = {  # matched by class name, so no provider SDK import is needed
+    "APIConnectionError", "APITimeoutError",  # openai, anthropic
+    "TimeoutException", "ConnectError", "ReadError", "RemoteProtocolError",  # httpx
+    "TimeoutError", "ConnectionError",  # builtins
+}
 
-print(inspect.getsource(fault_tolerance_middleware))
+
+def is_transient(exc: BaseException) -> bool:
+    """Retry rate limits, 5xx errors, timeouts, and connection errors; nothing else."""
+    if not isinstance(exc, Exception):
+        return False
+    if isinstance(exc, ModelError):
+        return exc.is_retryable
+    status = getattr(exc, "status_code", None)
+    if isinstance(status, int):
+        return status in _TRANSIENT_STATUSES or status >= 500
+    return any(cls.__name__ in _TRANSIENT_ERRORS for cls in type(exc).__mro__)
+
+
+def fault_tolerance_middleware(
+    fallback_models: list | None = None,
+    retry_tools: list | None = None,
+    model_call_limit: int = 40,
+    tool_call_limit: int = 80,
+    tool_limits: dict[str, int] | None = None,
+) -> list:
+    """Build the fault-tolerance middleware stack."""
+    middleware = []
+    if fallback_models:
+        middleware.append(ModelFallbackMiddleware(*fallback_models))
+    middleware.append(
+        ModelRetryMiddleware(
+            max_retries=3, backoff_factor=2.0, initial_delay=1.0, retry_on=is_transient, on_failure="error"
+        )
+    )
+    if retry_tools:
+        middleware.append(ToolRetryMiddleware(max_retries=2, tools=retry_tools))
+    middleware.append(ModelCallLimitMiddleware(run_limit=model_call_limit, exit_behavior="end"))
+    middleware.append(ToolCallLimitMiddleware(run_limit=tool_call_limit))
+    for tool_name, limit in (tool_limits or {}).items():
+        middleware.append(ToolCallLimitMiddleware(tool_name=tool_name, run_limit=limit))
+    return middleware
 '''),
-    md("Here is the call limit at work: the same delegating agent with a budget of 3 model calls. Instead of erroring or looping, the run ends cleanly and says why."),
+    md("Here is the call limit at work: the same two specialists, now built by the packaged `pricing_subagents()` (which adds its own per-specialist guardrails), with a budget of 3 model calls on top. Instead of erroring or looping, the run ends cleanly and says why."),
     code('''
+from agents.pricing_research_agent import pricing_subagents
+
 budget_agent = create_deep_agent(
     model=llm,
-    system_prompt="You are TechHub's pricing lead. Delegate catalog lookups and market research to your specialists, then compare.",
+    system_prompt="""You are TechHub's pricing lead.
+Delegate catalog lookups and market research to your specialists, then compare.""",
     subagents=pricing_subagents(DEEP_AGENT_SMALL_MODEL),
     middleware=[TodoListMiddleware(), *fault_tolerance_middleware(model_call_limit=3)],
 )
 
 with trace_link("Guardrails: model call limit"):
     result = budget_agent.invoke(
-        {"messages": [{"role": "user", "content": "Benchmark every keyboard and every audio product we sell against 3 retailers each."}]}
+        {"messages": [{"role": "user", "content": """Benchmark every keyboard and every audio product
+we sell against 3 retailers each."""}]}
     )
 limit_notice = "Model call limits exceeded"
 print("Model calls made by the main agent:", sum(1 for m in result["messages"] if m.type == "ai" and not m.text.startswith(limit_notice)))
