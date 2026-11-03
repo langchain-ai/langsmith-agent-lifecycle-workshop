@@ -1,0 +1,31 @@
+scripts/notebook_builders/build_module4_101.py
+  s_c5d9f3540fdefe::t_1a1b9bb14ca9d7 363-364
+  s_c5d9f3540fdefe::t_cd674115ee199b 279-280,492-493
+  s_c5d9f3540fdefe::t_744bcba3c37a89 207-208
+  s_c5d9f3540fdefe::t_d0826c96874493 144-145,179-180
+  s_c5d9f3540fdefe::t_a17a1cb4ea9009 287-288
+  s_c5d9f3540fdefe::t_c1afe5a29bbb02 188-189
+  s_c5d9f3540fdefe::t_23800e5fa290e1 349-350
+  s_c5d9f3540fdefe::t_d76380182dc883 500-501
+  s_c5d9f3540fdefe::t_7cfb8898378cd7 392-393
+  s_c5d9f3540fdefe::t_17d193e513cbeb 430-447,450-484
+  s_c5d9f3540fdefe::t_0c0ab9b62d3b37 155-156
+workshop_modules/module_4/section_1_deep_agents_101.ipynb
+  s_c5d9f3540fdefe::t_9225060d2e5cbe 166-167,184-185,225-226,234-235,265-266,356-357,364-365,471-472,497-498,545-546,602-619,622-656,678-679,686-687
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ec2176c7034dc3789c193084e383164753bf147c",
+  "prompts": {},
+  "sessions": {
+    "s_c5d9f3540fdefe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5a31baf4-0b2c-4020-ad35-979c42eaa1ef",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
