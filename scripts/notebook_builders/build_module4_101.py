@@ -141,7 +141,8 @@ print("Model:", DEEP_AGENT_MODEL, "| search tool:", web_search)
 first_agent = create_deep_agent(
     model=llm,
     tools=[web_search, get_catalog_prices],
-    system_prompt="You are TechHub's pricing analyst. Compare our prices with current US retail prices and cite sources.",
+    system_prompt="""You are TechHub's pricing analyst.
+Compare our prices with current US retail prices and cite sources.""",
 )
 
 print("Built-in harness tools:", sorted(first_agent.nodes["tools"].bound.tools_by_name))
@@ -151,7 +152,8 @@ first_agent
     code('''
 with trace_link("First deep agent: one product"):
     result = first_agent.invoke(
-        {"messages": [{"role": "user", "content": "How does our Sony WH-1000XM5 price compare with major US retailers right now?"}]}
+        {"messages": [{"role": "user", "content": """How does our Sony WH-1000XM5 price compare
+with major US retailers right now?"""}]}
     )
 show(result)
 '''),
@@ -174,7 +176,8 @@ from langgraph.checkpoint.memory import MemorySaver
 planning_agent = create_deep_agent(
     model=llm,
     tools=[web_search, get_catalog_prices],
-    system_prompt="You are TechHub's pricing analyst. Compare our prices with current US retail prices and cite sources.",
+    system_prompt="""You are TechHub's pricing analyst.
+Compare our prices with current US retail prices and cite sources.""",
     middleware=[TodoListMiddleware()],
     checkpointer=MemorySaver(),  # keeps state (to-dos, files) across turns of a thread
 )
@@ -182,7 +185,8 @@ planning_agent = create_deep_agent(
 config = new_thread()
 with trace_link("Planning: two keyboards"):
     result = planning_agent.invoke(
-        {"messages": [{"role": "user", "content": "Compare our prices for the Logitech MX Keys keyboard and the Logitech MX Master 3S mouse with 2-3 major US retailers each."}]},
+        {"messages": [{"role": "user", "content": """Compare our prices for the Logitech MX Keys keyboard
+and the Logitech MX Master 3S mouse with 2-3 major US retailers each."""}]},
         config=config,
     )
 
@@ -200,7 +204,8 @@ Deep agents work with files the way people do: save intermediate results, then r
     code('''
 with trace_link("Save comparison to a file"):
     result = planning_agent.invoke(
-        {"messages": [{"role": "user", "content": "Save that comparison as a short markdown table to /reports/peripherals_pricing.md."}]},
+        {"messages": [{"role": "user", "content": """Save that comparison as a short markdown table
+to /reports/peripherals_pricing.md."""}]},
         config=config,
     )
 show(result, 300)
@@ -271,14 +276,16 @@ print(f"Main agent: {DEEP_AGENT_MODEL} | specialists: {DEEP_AGENT_SMALL_MODEL}")
     code('''
 delegating_agent = create_deep_agent(
     model=llm,
-    system_prompt="You are TechHub's pricing lead. Delegate catalog lookups and market research to your specialists, then compare.",
+    system_prompt="""You are TechHub's pricing lead.
+Delegate catalog lookups and market research to your specialists, then compare.""",
     subagents=[market_researcher, catalog_analyst],
     middleware=[TodoListMiddleware()],
 )
 
 with trace_link("Subagents: two audio products"):
     result = delegating_agent.invoke(
-        {"messages": [{"role": "user", "content": "Are we competitively priced on the AirPods Pro (2nd gen) and the JBL Flip 6?"}]}
+        {"messages": [{"role": "user", "content": """Are we competitively priced on the AirPods Pro
+(2nd gen) and the JBL Flip 6?"""}]}
     )
 show(result, 800)
 '''),
@@ -339,7 +346,8 @@ The report is in the thread's filesystem, so a follow-up doesn't start over: the
     code('''
 with trace_link("Follow-up research"):
     result = agent.invoke(
-        {"messages": [{"role": "user", "content": "Dig deeper on the Samsung 32-inch curved gaming monitor: are there current promotions or a newer model that explain the market price? Update the report."}]},
+        {"messages": [{"role": "user", "content": """Dig deeper on the Samsung 32-inch curved gaming monitor:
+are there current promotions or a newer model that explain the market price? Update the report."""}]},
         config=review,
     )
 show(result, 1200)
@@ -352,7 +360,8 @@ Thread files disappear with the thread. For things that should persist, such as 
     code('''
 with trace_link("Save a long-term preference"):
     result = agent.invoke(
-        {"messages": [{"role": "user", "content": "For future reviews: always include Best Buy, Amazon, and B&H Photo, and flag anything sold out at those retailers."}]},
+        {"messages": [{"role": "user", "content": """For future reviews: always include Best Buy, Amazon, and B&H Photo,
+and flag anything sold out at those retailers."""}]},
         config=new_thread(),
     )
 show(result, 300)
@@ -380,7 +389,8 @@ from langgraph.types import Command
 
 with trace_link("Propose a price change"):
     result = agent.invoke(
-        {"messages": [{"role": "user", "content": "Based on the monitor review, propose a price change for the product that is furthest from the market median."}]},
+        {"messages": [{"role": "user", "content": """Based on the monitor review, propose a price change
+for the product that is furthest from the market median."""}]},
         config=review,
     )
 
@@ -417,11 +427,61 @@ Prompts ask the agent to stay on budget; middleware enforces it. A research agen
 Order matters: middleware listed first wraps the rest, so the fallback sits outside the retries.
 '''),
     code('''
-import inspect
+from langchain.agents.middleware import (
+    ModelCallLimitMiddleware,
+    ModelFallbackMiddleware,
+    ModelRetryMiddleware,
+    ToolCallLimitMiddleware,
+    ToolRetryMiddleware,
+)
+from langchain_core.exceptions import ModelError
 
-from agents.middleware import fault_tolerance_middleware
+# Retry only what a retry can fix: rate limits, timeouts, conflicts, server errors, and
+# network failures. Anything else (bad request, auth, unknown model, or a bug in our own
+# code such as a ValueError) goes straight to the fallback instead of ~7s of retries.
+_TRANSIENT_STATUSES = {408, 409, 429}
+_TRANSIENT_ERRORS = {  # matched by class name, so no provider SDK import is needed
+    "APIConnectionError", "APITimeoutError",  # openai, anthropic
+    "TimeoutException", "ConnectError", "ReadError", "RemoteProtocolError",  # httpx
+    "TimeoutError", "ConnectionError",  # builtins
+}
 
-print(inspect.getsource(fault_tolerance_middleware))
+
+def is_transient(exc: BaseException) -> bool:
+    """Retry rate limits, 5xx errors, timeouts, and connection errors; nothing else."""
+    if not isinstance(exc, Exception):
+        return False
+    if isinstance(exc, ModelError):
+        return exc.is_retryable
+    status = getattr(exc, "status_code", None)
+    if isinstance(status, int):
+        return status in _TRANSIENT_STATUSES or status >= 500
+    return any(cls.__name__ in _TRANSIENT_ERRORS for cls in type(exc).__mro__)
+
+
+def fault_tolerance_middleware(
+    fallback_models: list | None = None,
+    retry_tools: list | None = None,
+    model_call_limit: int = 40,
+    tool_call_limit: int = 80,
+    tool_limits: dict[str, int] | None = None,
+) -> list:
+    """Build the fault-tolerance middleware stack."""
+    middleware = []
+    if fallback_models:
+        middleware.append(ModelFallbackMiddleware(*fallback_models))
+    middleware.append(
+        ModelRetryMiddleware(
+            max_retries=3, backoff_factor=2.0, initial_delay=1.0, retry_on=is_transient, on_failure="error"
+        )
+    )
+    if retry_tools:
+        middleware.append(ToolRetryMiddleware(max_retries=2, tools=retry_tools))
+    middleware.append(ModelCallLimitMiddleware(run_limit=model_call_limit, exit_behavior="end"))
+    middleware.append(ToolCallLimitMiddleware(run_limit=tool_call_limit))
+    for tool_name, limit in (tool_limits or {}).items():
+        middleware.append(ToolCallLimitMiddleware(tool_name=tool_name, run_limit=limit))
+    return middleware
 '''),
     md("Here is the call limit at work: the same two specialists, now built by the packaged `pricing_subagents()` (which adds its own per-specialist guardrails), with a budget of 3 model calls on top. Instead of erroring or looping, the run ends cleanly and says why."),
     code('''
@@ -429,14 +489,16 @@ from agents.pricing_research_agent import pricing_subagents
 
 budget_agent = create_deep_agent(
     model=llm,
-    system_prompt="You are TechHub's pricing lead. Delegate catalog lookups and market research to your specialists, then compare.",
+    system_prompt="""You are TechHub's pricing lead.
+Delegate catalog lookups and market research to your specialists, then compare.""",
     subagents=pricing_subagents(DEEP_AGENT_SMALL_MODEL),
     middleware=[TodoListMiddleware(), *fault_tolerance_middleware(model_call_limit=3)],
 )
 
 with trace_link("Guardrails: model call limit"):
     result = budget_agent.invoke(
-        {"messages": [{"role": "user", "content": "Benchmark every keyboard and every audio product we sell against 3 retailers each."}]}
+        {"messages": [{"role": "user", "content": """Benchmark every keyboard and every audio product
+we sell against 3 retailers each."""}]}
     )
 limit_notice = "Model call limits exceeded"
 print("Model calls made by the main agent:", sum(1 for m in result["messages"] if m.type == "ai" and not m.text.startswith(limit_notice)))
