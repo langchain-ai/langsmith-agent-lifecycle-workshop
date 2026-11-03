@@ -6,6 +6,8 @@ used across multiple workshop modules.
 """
 
 from agents.db_agent import DB_AGENT_BASE_TOOLS, DB_AGENT_SYSTEM_PROMPT, create_db_agent
+from agents.deep_support_agent import SupportContext, create_deep_support_agent
+from agents.pricing_research_agent import create_pricing_research_agent
 from agents.docs_agent import (
     DOCS_AGENT_BASE_TOOLS,
     DOCS_AGENT_SYSTEM_PROMPT,
@@ -30,4 +32,7 @@ __all__ = [
     "create_supervisor_agent",
     "SUPERVISOR_AGENT_SYSTEM_PROMPT",
     "create_supervisor_hitl_agent",
+    "create_deep_support_agent",
+    "SupportContext",
+    "create_pricing_research_agent",
 ]

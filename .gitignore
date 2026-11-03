@@ -168,3 +168,32 @@ cython_debug/
 build_plans/
 data/vector_stores/*.pkl
 skills-lock.json
+GUIDE.md
+QUESTIONS.md
+studio.log
+prep.md
+scratch/
+
+# secrets / credentials (safety baseline)
+*.pem
+*.key
+*.crt
+credentials.json
+
+# editor
+*.code-workspace
+EVAL_GUIDE.md
+
+# slideware resource map (internal links)
+SLIDEWARE_RESOURCES.md
+slideware_resources.md
+
+# maintainer notes with internal links (kept local, not in the public repo)
+MODULES_4_6_GUIDE.md
+Eval.md
+prep_agents.md
+prep_agents_sp_global.md
+
+# local helpers for LangChain-managed laptops (internal gateway file)
+scripts/mda_dev_gateway.py
+scripts/mda_deploy_gateway.py

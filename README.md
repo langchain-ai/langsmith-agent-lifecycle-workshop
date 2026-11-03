@@ -85,6 +85,12 @@ This workshop consists of three modules that take you from manual tool calling t
 2. **Module 2: Evaluation & Improvement** - Use eval-driven development to systematically improve agents
 3. **Module 3: Deployment & Continuous Improvement** - Deploy to production and build a data flywheel
 
+Advanced (L200) modules build on the same TechHub agent:
+
+4. **Module 4: Deep Agents 101 → 201** - A pricing research deep agent (101), then harness engineering on the support agent: context, middleware, dynamic subagents, verification (201)
+5. **Module 5: Advanced Evaluation** - In progress
+6. **Module 6: Deploying Agents into Production** - Managed Deep Agents, Agent Server runtime, and sandboxes
+
 📚 To get started, see [workshop_modules/README.md](workshop_modules/README.md)
 
 ## Continuous Evaluation (CI/CD)
@@ -102,7 +108,11 @@ langsmith-agent-lifecycle-workshop/
 ├── workshop_modules/        # Interactive Jupyter notebooks
 │   ├── module_1/            # Agent Development (4 sections)
 │   ├── module_2/            # Evaluation & Improvement (3 sections + bonus)
-│   └── module_3/            # Deployment & Continuous Improvement (3 sections)
+│   ├── module_3/            # Deployment & Continuous Improvement (3 sections)
+│   ├── module_4/            # Deep Agents 101 (1 section) + 201 harness engineering (2 sections)
+│   └── module_6/            # Deploying to production: MDA, runtime, sandboxes (2 sections)
+│
+├── managed_agent/           # Module 6: the TechHub agent as a Managed Deep Agent (own uv project)
 │
 ├── agents/                  # Reusable agent factory functions
 │   ├── db_agent.py          # Database queries (rigid tools)
