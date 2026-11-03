@@ -14,7 +14,7 @@ cp .env.example .env   # LANGSMITH_API_KEY + ONE credential option:
                        #   A: OPENAI_API_KEY and/or ANTHROPIC_API_KEY
                        #   B: LANGSMITH_GATEWAY_API_KEY (LLM Gateway; workspace provider secrets)
                        #      workspace-scoped key; aliases LANGSMITH_API_KEY_GATEWAY / LC_GATEWAY_KEY
-mda dev       # local: compiles, bakes the sandbox snapshot, serves Studio
+mda dev       # local: compiles, builds the sandbox snapshot, serves Studio
 mda deploy    # hosted: prints the Agent Server URL -> set MDA_DEPLOYMENT_URL in the repo .env
 mda delete    # tear down when finished
 ```

@@ -81,25 +81,26 @@ s1 = [
     md('''
 # Module 6, Section 1: Managed Deep Agents
 
-In Module 4 we built the TechHub support agent with the open-source Deep Agents harness and wired everything ourselves: backends, store, checkpointer, middleware, and a `langgraph.json` entry. **Managed Deep Agents (MDA)** runs the same harness on LangSmith's managed runtime: you write the agent's behavior as files in a folder, and MDA supplies the server, persistence, sandbox, memory, schedules, and auth.
+In this section, we'll put the TechHub customer support agent into production with **Managed Deep Agents (MDA)**. The agent is built on [Deep Agents](https://docs.langchain.com/oss/python/deepagents/overview), LangChain's open-source agent harness. MDA runs that harness on LangSmith: you describe the agent as files in a folder, and LangSmith provides the server, persistence, sandbox, memory, schedules, and sign-in.
 
-In this section:
-1. **Same agent, managed**: what moves where, from `create_deep_agent` to `define_deep_agent`
+If you did Module 4, this is the same support agent you built there with `create_deep_agent`.
+
+We'll cover:
+1. **From Deep Agents to Managed Deep Agents**: what moves where, from `create_deep_agent` to `define_deep_agent`
 2. **Project anatomy**: an agent is a directory
 3. **Local dev and deploy**: `mda dev` → `mda deploy`
 4. **Call the deployed agent** with the LangGraph SDK, with a verified customer as run context
 5. **Human-in-the-loop over the API**
 6. **Context Hub, memory, and schedules**
 
-> ⚠️ **Availability (checked 2026-10-29; re-check before you deliver):** MDA is in **public beta** on LangSmith Cloud: GCP US (default), GCP EU, GCP APAC, and AWS US. Set `LANGSMITH_ENDPOINT` before the first `mda deploy` to pick the region. BYOC and self-hosted are not supported yet. The deep agent you built in Module 4 deploys anywhere LangSmith Deployment runs.
 '''),
     md("## Setup"),
     SETUP,
     HELPERS,
     md('''
-## 1. Same agent, managed
+## 1. From Deep Agents to Managed Deep Agents
 
-| Module 4 (`agents/deep_support_agent.py`) | Module 6 (`managed_agent/`) |
+| Deep Agents (`agents/deep_support_agent.py`) | Managed Deep Agents (`managed_agent/`) |
 |---|---|
 | `create_deep_agent(...)` builds and compiles the graph | `define_deep_agent(...)` only *declares* it; MDA compiles and runs it |
 | `memory=["/harness/AGENTS.md"]` | `instructions.md` (synced to Context Hub) |
@@ -108,7 +109,7 @@ In this section:
 | `StateBackend` scratch + no code execution | `sandbox/`: a real filesystem and shell per thread |
 | `MemorySaver` + `InMemoryStore` | Managed checkpointer and store |
 | `langgraph.json` + `langgraph deploy` | `mda deploy` |
-| Not built | `schedules/` (crons), `channels/` (Slack), `identity.py` (caller auth) |
+| You build these yourself | `schedules/` (crons), `channels/` (Slack), `identity.py` (caller auth) |
 
 The tools, subagents, middleware (fault tolerance, PII redaction, customer-scope guard), the multi-model setup, and refund approval carry over unchanged: `define_deep_agent` accepts the same `tools`, `subagents`, `middleware`, and `interrupt_on`.
 '''),
@@ -133,13 +134,12 @@ MDA supplies the server, persistence, sandbox, and auth. Limits and data control
     md('''
 ## 2. Project anatomy: an agent is a directory
 
-A file's location decides its role. Everything outside the managed paths is ordinary Python you import.
+A file's location decides its role. Everything outside the managed paths is ordinary Python you import. Here is the top level of `managed_agent/`. To read any file, open the folder in your editor (in Instruqt, the VS Code tab).
 '''),
     code('''
-for path in sorted(PROJECT.rglob("*")):
-    rel = path.relative_to(PROJECT)
-    if path.is_file() and not any(part.startswith(".") for part in rel.parts) and rel.suffix in {".py", ".md", ".sh", ".toml", ".db"}:
-        print(rel)
+for path in sorted(PROJECT.iterdir()):
+    if not path.name.startswith((".", "__")):
+        print(path.name + ("/" if path.is_dir() else ""))
 '''),
     code('''
 print((PROJECT / "agent.py").read_text())
@@ -165,7 +165,7 @@ From `managed_agent/` in a terminal:
 ```bash
 uv tool install --prerelease allow managed-deepagents   # once: installs the `mda` CLI
 uv sync                                                 # the project's own environment
-mda dev                                                 # compile, bake the sandbox, run locally in Studio
+mda dev                                                 # compile, build the sandbox snapshot, run locally in Studio
 mda deploy                                              # build and host it on LangSmith
 ```
 
@@ -191,7 +191,7 @@ sandbox/setup.sh             -> sandbox snapshot that new threads clone
     md('''
 ## 4. Call the deployed agent
 
-The deployment is a standard **Agent Server**, so any LangGraph SDK client can call it. The application passes the **verified** customer as run `context`; the customer-scope guard from Module 4 enforces it on every tool call.
+The deployment is a standard **Agent Server**, so any LangGraph SDK client can call it. The application passes the **verified** customer as run `context`; the customer-scope guard (`middleware/customer_scope.py`) enforces it on every tool call.
 '''),
     code('''
 assistants = await client.assistants.search()
@@ -319,7 +319,7 @@ For TechHub, a carrier's tracking API would be an agent-owned connection, and a 
     md('''
 ## Recap
 
-- MDA turns the Module 4 harness into a folder of files; `mda deploy` turns the folder into a hosted Agent Server.
+- MDA describes a Deep Agents harness as a folder of files; `mda deploy` turns the folder into a hosted Agent Server.
 - The guard, PII redaction, fault tolerance, and refund approval came along unchanged: harness choices are portable.
 - Context Hub lets you change instructions and skills without a redeploy.
 - Agent memory is shared by every run that mounts it: gate it with `allow` so customers can't write what other customers read.
@@ -463,7 +463,7 @@ for task in sorted(p for p in (PROJECT / "evals").iterdir() if (p / "instruction
     print()
 '''),
     md('''
-The verifiers are deterministic checks on the agent's output, not an LLM judge. The cross-customer task is the security one: it fails if any detail of another customer's order shows up anywhere in the run, including subagent reports. It would have caught the `general-purpose` subagent bypass from Module 4 Section 2:
+The verifiers are deterministic checks on the agent's output, not an LLM judge. The cross-customer task is the security one: it fails if any detail of another customer's order shows up anywhere in the run, including subagent reports. It also catches a leak through the default `general-purpose` subagent, which would otherwise get the order tools without the guard:
 '''),
     code('''
 print((PROJECT / "evals/cross-customer-order-refused/tests/verify.py").read_text())
@@ -486,7 +486,7 @@ With `LANGSMITH_API_KEY` set, the runs are recorded in the `HARBOR_LANGSMITH_DAT
 - If the task measured the wrong thing, fix the task or verifier.
 - If it exposed an agent failure, fix the agent and re-run.
 
-Then deploy. This is the verification loop from Module 4, applied before release. `managed_agent/evals/README.md` has the details, including how to run them through the LLM Gateway.
+Then deploy. Running the evals on every change, before release, is what makes them a gate. `managed_agent/evals/README.md` has the details, including how to run them through the LLM Gateway.
 
 > 💡 **Building your own:** the [`eval-engineering` skill](https://github.com/langchain-ai/langchain-skills/blob/main/config/skills/eval-engineering/SKILL.md) walks a coding agent through a Task Spec (`Task.md`), environment, and verifier. That's how these three were built.
 '''),
