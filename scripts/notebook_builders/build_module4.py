@@ -99,7 +99,7 @@ Section 3 covers dynamic subagents and verification loops.
 '''),
     md("""## Setup
 
-**Prerequisites:** `uv sync`, a `.env` with model credentials (see `.env.example`: your own OpenAI and/or Anthropic key, or the LLM Gateway), and the document vectorstore, which the product-policy specialist searches: `uv run python data/data_generation/build_vectorstore.py` (one-time, about 60 seconds)."""),
+**Prerequisites:** `uv sync`, a `.env` with model access (direct provider keys or the LLM Gateway, see [Model access](../../README.md#model-access-direct-keys-or-the-llm-gateway) in the README; `uv run python verify_setup.py` checks it), and the document vectorstore, which the product-policy specialist searches: `uv run python data/data_generation/build_vectorstore.py` (one-time, about 60 seconds)."""),
     SETUP,
     HELPERS,
     md('''
@@ -701,11 +701,11 @@ Some harness steps aren't generation at all: *which specialist?*, *does this nee
 |---|---|---|
 | `Noul` | Probability of "yes" | `r.nouls["needs_verification"].noul` → `0.89` |
 | `Choice` | One option, with per-option probabilities and a confidence | `r.choices["category"].choice` → `"order"` |
-| `Score` | An expected position on an ordered scale, from 0 to (levels − 1) | `r.scores["urgency"].score` → `1.15` on 0–2 |
+| `Score` | An expected position on an ordered scale, from 0 to (levels − 1) | `r.scores["urgency"].score` → `1.15` on a 0 to 2 scale |
 
 `langchain-typesafe`'s `TypeSafeClassifier` is a LangChain Runnable, so every Jev call is traced in LangSmith next to the agent's runs. `utils/jev.py` builds one that goes through the LangSmith LLM Gateway, which holds the TypeSafe key: you authenticate with a LangSmith key and use a `typesafe/` model id, pinned because thresholds don't transfer between versions.
 
-> ⚠️ **Which key:** `utils/jev.py` uses your `LANGSMITH_API_KEY`. The Gateway reads provider secrets from that key's workspace, so a workspace admin must first add a `TYPESAFE_API_KEY` provider secret there (otherwise: 424). If the secret is in another workspace you can access, set `JEV_WORKSPACE_ID` in `.env`.
+> ⚠️ **Which key:** Jev needs a `TYPESAFE_API_KEY` provider secret in the workspace of the key it uses, or every call returns 424. If that secret is in a different workspace you can access, set `JEV_WORKSPACE_ID` in `.env`. See [Model access](../../README.md#model-access-direct-keys-or-the-llm-gateway) in the README for which key the Gateway uses.
 >
 > **Which data:** TypeSafe offers zero data retention per organization on request, and no BAA. Use Jev with synthetic or test data like TechHub, not customer data, until your security team has reviewed it.
 

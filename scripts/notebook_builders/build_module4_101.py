@@ -45,7 +45,9 @@ We'll build a **TechHub pricing research agent** one capability at a time:
 
 Web search uses the model provider's **built-in search tool** (`{"type": "web_search"}` for OpenAI), so no search API key is needed.
 '''),
-    md("## Setup"),
+    md("""## Setup
+
+You need a `.env` with model access: direct provider keys or the LLM Gateway. See [Model access](../../README.md#model-access-direct-keys-or-the-llm-gateway) in the README, and run `uv run python verify_setup.py` to check it."""),
     code('''
 import uuid
 import warnings
@@ -86,17 +88,17 @@ def file_text(file_data):
     md('''
 ## 1. Your first deep agent
 
-`create_deep_agent()` gives you a filesystem, subagents, and context management out of the box — no tools required.
+`create_deep_agent()` gives you a filesystem, subagents, and context management out of the box, before you add any tools of your own.
 
 <img src="../../images/deep_agents_architecture.png" width="700">
 
-### What you get for free:
+### What you get without writing any code
 
-- **Filesystem Tools** — `ls`, `read_file`, `write_file`, `edit_file`, `delete`, `glob`, `grep` (plus `execute` for shell commands, which needs a sandbox backend)
-- **Subagent Delegation** — `task()` tool for isolated work
-- **Large Tool Result Eviction** — Automatically offloads tool results >20k tokens to the filesystem
-- **Conversation Summarization** — Compresses history when approaching ~85% context capacity
-- **Dangling Tool Call Patching** — Fixes message history consistency automatically
+- **Filesystem tools:** `ls`, `read_file`, `write_file`, `edit_file`, `delete`, `glob`, and `grep`, plus `execute` for shell commands when the backend is a sandbox.
+- **Subagents:** a `task()` tool that hands work to a subagent with its own context window.
+- **Large tool results:** a result over 20k tokens is saved to the filesystem instead of filling the context.
+- **Summarization:** the conversation history is summarized when it reaches about 85% of the context window.
+- **Dangling tool calls:** a tool call left without a result is patched, so the message history stays valid.
 
 The **Planning Tool** in the diagram (`write_todos`) is opt-in since deepagents 0.7: Section 3 adds it with `TodoListMiddleware`.
 '''),
@@ -132,7 +134,7 @@ show(result, 400)
     md('''
 ## 2. Adding custom tools
 
-The bare agent above already has a filesystem — now let's give it two tools of its own:
+The bare agent above already has a filesystem. Now let's give it two tools of its own:
 - **`web_search`**: the model provider's built-in search. It runs on the provider's side, so there's nothing to install.
 - **`get_catalog_prices`**: TechHub's own prices from the product database.
 '''),

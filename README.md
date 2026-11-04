@@ -60,24 +60,24 @@ uv run python data/data_generation/build_vectorstore.py
 
 ### Model access: direct keys or the LLM Gateway
 
-Every module reads its models from `config.py` (Modules 1-4) or `managed_agent/model.py` (Module 6), which pick
-whichever path your environment supports. No notebook needs to know which one is active.
+Modules 1 to 4 read their models from `config.py`, and Module 6 from `managed_agent/model.py`. Both pick whichever of
+the paths below your environment supports, so the notebooks work the same way on all of them.
 
 | Path | Set in `.env` | Notes |
 |---|---|---|
-| **Direct provider keys** (default) | `OPENAI_API_KEY` and/or `ANTHROPIC_API_KEY` | Simplest. OpenAI only, Anthropic only, or both (cross-provider fallback) |
-| **LLM Gateway** | `LANGSMITH_GATEWAY="true"` + `LANGSMITH_GATEWAY_API_KEY` | No provider key on your machine; spend caps and policies apply. `LANGSMITH_API_KEY_GATEWAY` and `LC_GATEWAY_KEY` are accepted as aliases |
-| **Gateway env file** (machines IT has provisioned) | `GATEWAY_ENV_FILE=/path/to/gateway_env` | For shells that load provider base URLs + keys only in interactive terminals, which a Jupyter kernel never sees. On LangChain-managed Macs: `/etc/lc_internal/gateway_env` |
+| **Direct provider keys** (default) | `OPENAI_API_KEY` and/or `ANTHROPIC_API_KEY` | The simplest setup. With both keys, the other provider becomes the fallback model |
+| **LLM Gateway** | `LANGSMITH_GATEWAY="true"` and `LANGSMITH_GATEWAY_API_KEY` | No provider key on your machine, and the Gateway's spend caps and policies apply. `LANGSMITH_API_KEY_GATEWAY` and `LC_GATEWAY_KEY` also work as the key's name |
+| **Gateway env file** (machines IT has provisioned) | `GATEWAY_ENV_FILE=/path/to/gateway_env` | Use this when the Gateway variables are only loaded in interactive terminals, so a Jupyter kernel never sees them. On LangChain-managed Macs the file is `/etc/lc_internal/gateway_env` |
 
-Use one path per `.env`: provider keys win if several are set.
+Use one path per `.env`. If you set more than one, provider keys win.
 
 **The Gateway key must be workspace-scoped, and its workspace must hold the provider secrets.** The
 [LLM Gateway](https://docs.langchain.com/langsmith/llm-gateway) reads provider keys (`OPENAI_API_KEY`,
 `ANTHROPIC_API_KEY`, `TYPESAFE_API_KEY` for Jev) from the workspace the API key belongs to, and
 [organization-scoped keys aren't supported](https://docs.langchain.com/langsmith/llm-gateway-authentication#use-a-workspace-scoped-key).
-A `424 Required workspace secret ... is missing` means that workspace lacks the secret; a `403` means the key
-lacks `gateway:invoke`. A workspace admin adds the provider secrets and issues a service key (ideally with a
-spend cap under **LLM Gateway > Cost Controls**). Jev alone can target another workspace with `JEV_WORKSPACE_ID`.
+A `424 Required workspace secret ... is missing` means that workspace lacks the secret. A `403` usually means the
+key lacks the `gateway:invoke` permission. A workspace admin adds the provider secrets and issues a service key,
+ideally with a spend cap under **LLM Gateway > Cost Controls**. Jev alone can target another workspace with `JEV_WORKSPACE_ID`.
 
 This covers chat models (`langchain-anthropic>=1.5.1` / `langchain-openai>=1.4.1`, already the repo minimums).
 If `EMBEDDING_PROVIDER=openai`, embeddings need their own Gateway setup, since `LANGSMITH_GATEWAY` doesn't
@@ -95,7 +95,7 @@ uv run python verify_setup.py              # prints the active path and models, 
 uv run python verify_setup.py --no-calls   # resolve and print only
 ```
 
-It prints variable names only, never values, and maps a `424`/`401`/`403` to the fix.
+It prints variable names, never their values, and explains what to fix for a `424`, `401` or `403`.
 
 ## Workshop Outline
 
