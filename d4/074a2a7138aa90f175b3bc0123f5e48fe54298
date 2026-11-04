@@ -1,0 +1,21 @@
+workshop_modules/module_2/demo_setup.py
+  s_6d0de950ba03b5::t_00abde63fa1b4b 1-106
+docs/2026-11-03-module2-no-code-demo.md
+  s_6d0de950ba03b5::t_3f65e648506f64 1-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d4074a2a7138aa90f175b3bc0123f5e48fe54298",
+  "prompts": {},
+  "sessions": {
+    "s_6d0de950ba03b5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "106fb3f6-dc1b-4cdf-a436-74294decaf5d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
