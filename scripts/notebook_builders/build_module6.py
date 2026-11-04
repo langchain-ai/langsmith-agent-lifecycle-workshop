@@ -153,7 +153,7 @@ import tempfile
 
 scratch = Path(tempfile.mkdtemp())
 subprocess.run(
-    ["uv", "run", "--project", str(PROJECT), "mda", "init", "support-bot",
+    ["uv", "run", "--project", str(PROJECT.resolve()), "mda", "init", "support-bot",
      "--model", "anthropic:claude-sonnet-5-5",
      "--instructions", "You are TechHub's support assistant.",
      "--no-sandbox"],
