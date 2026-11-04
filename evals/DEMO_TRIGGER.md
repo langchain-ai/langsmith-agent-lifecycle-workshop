@@ -9,3 +9,4 @@ you're done demoing — nothing in this file affects the agent or the dataset.
 
 ## Demo log
 - PR #34 gate trigger: 2026-10-14T17:42:14Z
+- PR #38 gate trigger: 2026-11-04T11:23:32Z

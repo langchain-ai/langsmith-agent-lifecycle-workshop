@@ -141,6 +141,92 @@ for path in sorted(PROJECT.iterdir()):
     if not path.name.startswith((".", "__")):
         print(path.name + ("/" if path.is_dir() else ""))
 '''),
+    md('''
+### How a project starts: `mda init`
+
+`managed_agent/` began as the project that `mda init` writes: a minimal agent you can deploy straight away. The next cell
+creates a throwaway one in a temporary folder, so you can see what you start from. Nothing is deployed.
+'''),
+    code('''
+import subprocess
+import tempfile
+
+scratch = Path(tempfile.mkdtemp())
+subprocess.run(
+    ["uv", "run", "--project", str(PROJECT), "mda", "init", "support-bot",
+     "--model", "anthropic:claude-sonnet-5-5",
+     "--instructions", "You are TechHub's support assistant.",
+     "--no-sandbox"],
+    cwd=scratch, stdin=subprocess.DEVNULL, capture_output=True, check=True,
+)
+starter = scratch / "support-bot"
+for path in sorted(starter.iterdir()):
+    print(path.name)
+print("\\n--- agent.py ---")
+print((starter / "agent.py").read_text())
+'''),
+    md('''
+That is a complete agent: a `name`, a `model`, `instructions.md` for the system prompt, and `identity.py` for who may call
+it. `--no-sandbox` left out the sandbox; without the flag, `mda init` also writes `sandbox/`. `mda init --help` lists the
+other options, such as `--memory agent` and `--channel slack`.
+
+`managed_agent/` is the same kind of project after adding what TechHub's support agent needs: `tools/` and `middleware/`
+(ordinary Python that `agent.py` imports), subagents and refund approval in `agent.py`, `memory.py`, `sandbox/`, and
+`evals/`. You add each of those files only when the agent needs it.
+'''),
+    md('''
+### Defining the agent: `define_deep_agent`
+
+Every MDA project has an `agent.py` that exports `agent = define_deep_agent(...)`. The starter from `mda init` only sets
+two arguments:
+
+```python
+from managed_deepagents import define_deep_agent
+
+agent = define_deep_agent(
+    name="support-bot",                    # the assistant ID callers use
+    model="anthropic:claude-sonnet-5-5",   # any provider:model string, or a chat model object
+)
+```
+
+TechHub's support agent uses the same call with more arguments. This is the definition in `managed_agent/agent.py`:
+
+```python
+agent = define_deep_agent(
+    name="techhub-support",
+    model=resolve_model(),
+    tools=[request_refund],
+    subagents=[ORDER_SPECIALIST, PRODUCT_POLICY_SPECIALIST, GENERAL_PURPOSE],
+    middleware=[
+        *fault_tolerance_middleware(
+            fallback_models=FALLBACK_MODELS,
+            model_call_limit=40,
+            tool_call_limit=80,
+            tool_limits={"task": 20},
+        ),
+        *pii_middleware(),
+        verified_customer_prompt,
+        customer_scope_guard,
+    ],
+    interrupt_on={"request_refund": True},
+    context_schema=SupportContext,
+)
+```
+
+| Argument | What it does here |
+|---|---|
+| `name` | The assistant ID. Callers use `techhub-support`, whatever the deployment is called |
+| `model` | `resolve_model()` in `model.py` picks a model from the credentials you have (in the Instruqt lab, Claude on Amazon Bedrock) |
+| `tools` | Tools the main agent can call itself. Order lookups live in the order specialist instead |
+| `subagents` | The order specialist, the product and policy specialist, and an explicit `general-purpose` subagent. Each lists its own tools and middleware |
+| `middleware` | Retries, fallback models and call limits; PII redaction; the verified-customer prompt; the customer-scope guard |
+| `interrupt_on` | Pauses before `request_refund` until a person approves it |
+| `context_schema` | The run context a caller can pass (`customer_id`, `role`) |
+
+There is no `system_prompt`, `memory`, `skills`, `backend`, `store` or `checkpointer` argument. MDA fills those in from
+`instructions.md`, `skills/`, `memory.py`, `sandbox/` and its managed runtime. The next cell prints the whole file,
+including the subagent definitions.
+'''),
     code('''
 print((PROJECT / "agent.py").read_text())
 '''),
@@ -169,14 +255,7 @@ mda dev                                                 # compile, build the san
 mda deploy                                              # build and host it on LangSmith
 ```
 
-`.env` (copy `.env.example`) needs `LANGSMITH_API_KEY` plus **one** way to reach the model. `model.py` picks the model strings from what's set:
-
-| Option | `managed_agent/.env` | Main / specialists |
-|---|---|---|
-| A. Your own provider key(s) | `OPENAI_API_KEY` and/or `ANTHROPIC_API_KEY` | `openai:gpt-5.4` / `gpt-5.4-mini`; Anthropic only: `claude-sonnet-5-5` / `claude-haiku-4-5`. With both keys, Claude is the fallback |
-| B. LangSmith LLM Gateway | `LANGSMITH_GATEWAY_API_KEY="<LangSmith key>"`, no provider keys. The workspace needs provider secrets, and the key needs `gateway:invoke` | `langsmith:openai/gpt-5.4` / `langsmith:openai/gpt-5.4-mini` |
-
-Why `LANGSMITH_GATEWAY_API_KEY` and not `LANGSMITH_API_KEY`? `LANGSMITH_API_KEY` is reserved: it authenticates the CLI and is never uploaded to the deployment. `DEEP_AGENT_MODEL` overrides the main model, e.g. `anthropic:claude-sonnet-5-5` or `langsmith:anthropic/claude-sonnet-5-5`.
+`managed_agent/.env` (copy `.env.example`) needs `LANGSMITH_API_KEY` plus one way to reach the model: your own provider key, or the LangSmith LLM Gateway. The README's [Model access](../../README.md#model-access-direct-keys-or-the-llm-gateway) section covers both, and `managed_agent/.env.example` lists the variables. `model.py` picks the model from whatever is set.
 
 `mda deploy` routes each input to a managed surface:
 
