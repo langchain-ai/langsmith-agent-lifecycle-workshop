@@ -141,6 +141,39 @@ for path in sorted(PROJECT.iterdir()):
     if not path.name.startswith((".", "__")):
         print(path.name + ("/" if path.is_dir() else ""))
 '''),
+    md('''
+### How a project starts: `mda init`
+
+`managed_agent/` began as the project that `mda init` writes: a minimal agent you can deploy straight away. The next cell
+creates a throwaway one in a temporary folder, so you can see what you start from. Nothing is deployed.
+'''),
+    code('''
+import subprocess
+import tempfile
+
+scratch = Path(tempfile.mkdtemp())
+subprocess.run(
+    ["uv", "run", "--project", str(PROJECT), "mda", "init", "support-bot",
+     "--model", "anthropic:claude-sonnet-5-5",
+     "--instructions", "You are TechHub's support assistant.",
+     "--no-sandbox"],
+    cwd=scratch, stdin=subprocess.DEVNULL, capture_output=True, check=True,
+)
+starter = scratch / "support-bot"
+for path in sorted(starter.iterdir()):
+    print(path.name)
+print("\\n--- agent.py ---")
+print((starter / "agent.py").read_text())
+'''),
+    md('''
+That is a complete agent: a `name`, a `model`, `instructions.md` for the system prompt, and `identity.py` for who may call
+it. `--no-sandbox` left out the sandbox; without the flag, `mda init` also writes `sandbox/`. `mda init --help` lists the
+other options, such as `--memory agent` and `--channel slack`.
+
+`managed_agent/` is the same kind of project after adding what TechHub's support agent needs: `tools/` and `middleware/`
+(ordinary Python that `agent.py` imports), subagents and refund approval in `agent.py`, `memory.py`, `sandbox/`, and
+`evals/`. You add each of those files only when the agent needs it.
+'''),
     code('''
 print((PROJECT / "agent.py").read_text())
 '''),
