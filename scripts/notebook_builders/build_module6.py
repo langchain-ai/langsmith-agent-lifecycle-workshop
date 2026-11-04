@@ -174,6 +174,59 @@ other options, such as `--memory agent` and `--channel slack`.
 (ordinary Python that `agent.py` imports), subagents and refund approval in `agent.py`, `memory.py`, `sandbox/`, and
 `evals/`. You add each of those files only when the agent needs it.
 '''),
+    md('''
+### Defining the agent: `define_deep_agent`
+
+Every MDA project has an `agent.py` that exports `agent = define_deep_agent(...)`. The starter from `mda init` only sets
+two arguments:
+
+```python
+from managed_deepagents import define_deep_agent
+
+agent = define_deep_agent(
+    name="support-bot",                    # the assistant ID callers use
+    model="anthropic:claude-sonnet-5-5",   # any provider:model string, or a chat model object
+)
+```
+
+TechHub's support agent uses the same call with more arguments. This is the definition in `managed_agent/agent.py`:
+
+```python
+agent = define_deep_agent(
+    name="techhub-support",
+    model=resolve_model(),
+    tools=[request_refund],
+    subagents=[ORDER_SPECIALIST, PRODUCT_POLICY_SPECIALIST, GENERAL_PURPOSE],
+    middleware=[
+        *fault_tolerance_middleware(
+            fallback_models=FALLBACK_MODELS,
+            model_call_limit=40,
+            tool_call_limit=80,
+            tool_limits={"task": 20},
+        ),
+        *pii_middleware(),
+        verified_customer_prompt,
+        customer_scope_guard,
+    ],
+    interrupt_on={"request_refund": True},
+    context_schema=SupportContext,
+)
+```
+
+| Argument | What it does here |
+|---|---|
+| `name` | The assistant ID. Callers use `techhub-support`, whatever the deployment is called |
+| `model` | `resolve_model()` in `model.py` picks a model from the credentials you have (in the Instruqt lab, Claude on Amazon Bedrock) |
+| `tools` | Tools the main agent can call itself. Order lookups live in the order specialist instead |
+| `subagents` | The order specialist, the product and policy specialist, and an explicit `general-purpose` subagent. Each lists its own tools and middleware |
+| `middleware` | Retries, fallback models and call limits; PII redaction; the verified-customer prompt; the customer-scope guard |
+| `interrupt_on` | Pauses before `request_refund` until a person approves it |
+| `context_schema` | The run context a caller can pass (`customer_id`, `role`) |
+
+There is no `system_prompt`, `memory`, `skills`, `backend`, `store` or `checkpointer` argument. MDA fills those in from
+`instructions.md`, `skills/`, `memory.py`, `sandbox/` and its managed runtime. The next cell prints the whole file,
+including the subagent definitions.
+'''),
     code('''
 print((PROJECT / "agent.py").read_text())
 '''),
