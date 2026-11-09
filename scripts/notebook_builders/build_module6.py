@@ -548,18 +548,22 @@ The verifiers are deterministic checks on the agent's output, not an LLM judge. 
 print((PROJECT / "evals/cross-customer-order-refused/tests/verify.py").read_text())
 '''),
     md('''
-**Run them** (needs Docker and `uv`; from `managed_agent/`):
+**Run them** (needs `uv`, plus Docker unless you use `--env langsmith`; from `managed_agent/`):
 
 ```bash
 HARBOR_LANGSMITH_DATASET=mda-techhub-support-evals \\
 PYTHONPATH=.mda/evals/harbor-adapter \\
-uv run --env-file .env --python 3.12 --with 'harbor[langsmith]==0.21.0' harbor run \\
+uv run --no-project --env-file .env --python 3.12 --with 'harbor[langsmith]==0.21.0' harbor run \\
   --config evals/harbor-job.json --yes \\
   --plugin mda_harbor.job_plugin:MDAJobPlugin \\
   --plugin mda_harbor.langsmith_plugin:LangSmithPlugin
 
-uv run --python 3.12 --with 'harbor[langsmith]==0.21.0' harbor view .mda/evals/jobs
+uv run --no-project --python 3.12 --with 'harbor[langsmith]==0.21.0' harbor view .mda/evals/jobs
 ```
+
+- `--no-project` keeps `uv` from rebuilding this project's environment on Python 3.12, which would delete the `mda` binary the job plugin uses to compile the agent.
+- **No Docker?** Add `--env langsmith` to run each trial in a LangSmith sandbox, built from the task's `environment/Dockerfile`.
+- **One task:** add `-p evals -i order-status-own-order`.
 
 With `LANGSMITH_API_KEY` set, the runs are recorded in the `HARBOR_LANGSMITH_DATASET` dataset in LangSmith. When an eval fails:
 - If the task measured the wrong thing, fix the task or verifier.

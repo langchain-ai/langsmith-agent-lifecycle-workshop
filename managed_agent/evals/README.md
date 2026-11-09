@@ -17,20 +17,30 @@ whose `claims` become the caller's verified identity, the way a signed-in custom
 
 ## Run
 
-Requires Docker and `uv`. From `managed_agent/`:
+Requires `uv`, plus Docker unless you use `--env langsmith` (below). From `managed_agent/`:
 
 ```bash
 uv run mda evals init          # once; already done, it keeps evals/harbor-job.json
 
 HARBOR_LANGSMITH_DATASET=mda-techhub-support-evals \
 PYTHONPATH=.mda/evals/harbor-adapter \
-uv run --env-file .env --python 3.12 --with 'harbor[langsmith]==0.21.0' harbor run \
+uv run --no-project --env-file .env --python 3.12 --with 'harbor[langsmith]==0.21.0' harbor run \
   --config evals/harbor-job.json --yes \
   --plugin mda_harbor.job_plugin:MDAJobPlugin \
   --plugin mda_harbor.langsmith_plugin:LangSmithPlugin
 
-uv run --python 3.12 --with 'harbor[langsmith]==0.21.0' harbor view .mda/evals/jobs
+uv run --no-project --python 3.12 --with 'harbor[langsmith]==0.21.0' harbor view .mda/evals/jobs
 ```
+
+- **Keep `--no-project`.** `mda evals init` records the absolute path of the `mda` binary in
+  `.mda/evals/runtime.json`. Without `--no-project`, `uv run --python 3.12` rebuilds this
+  project's `.venv` on 3.12 whenever it was created on another version (for example 3.14), the
+  recorded path disappears, and the job plugin stops in `_validate_runtime_paths` before any trial
+  runs. If that already happened, run `uv sync --python 3.14` and `uv run mda evals init` again.
+- **No Docker.** Add `--env langsmith` (and optionally `--ek delete_after_stop_seconds=600`) to run
+  each trial in a LangSmith sandbox built from the task's `environment/Dockerfile`.
+- **One task.** Add `-p evals -i <task-name>`. `-i` needs `-p` even though the job config
+  already lists the dataset.
 
 Model credentials come from `managed_agent/.env` (or the shell), as listed in
 `evals/harbor-job.json` → `agents[0].env`. To run the evals through the LLM Gateway, set
@@ -56,3 +66,6 @@ LangSmith plugin records the runs in the `HARBOR_LANGSMITH_DATASET` dataset.
   LangSmith plugin) produced a reward for all three tasks in two passing Instruqt track tests, on
   Claude via Amazon Bedrock, and `cross-customer-order-refused` passed again after the order
   specialist's guard was removed and restored.
+- **Validated on LangSmith sandboxes on 2026-11-09.** On a Mac with no Docker, the command above
+  with `--no-project` and `--env langsmith` scored 1 on all three tasks. The original command
+  without `--no-project` stopped before any trial ran, as described under Run.
