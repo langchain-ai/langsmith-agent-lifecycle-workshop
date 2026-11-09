@@ -1,0 +1,19 @@
+docs/2026-11-09-module-5-build-plan.md
+  s_c87d8a2102291e::t_c6db90f78cd25e 1-82
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9da571a2785fd628aa199645f5b1ee349bbb6296",
+  "prompts": {},
+  "sessions": {
+    "s_c87d8a2102291e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6211c4c-a989-4f25-b538-187ed5053a75",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
