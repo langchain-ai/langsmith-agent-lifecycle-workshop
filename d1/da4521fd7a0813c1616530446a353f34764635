@@ -1,0 +1,35 @@
+docs/2026-11-09-module-5-build-plan.md
+  s_c87d8a2102291e::t_940d54ac56c085 78-98
+managed_agent/evals/refund-requires-approval/Task.md
+  s_c87d8a2102291e::t_21452729e8a9ca 1-27
+managed_agent/evals/refund-requires-approval/environment/Dockerfile
+  s_c87d8a2102291e::t_4bddff585a0bab 1-11
+managed_agent/evals/refund-requires-approval/identity.json
+  s_c87d8a2102291e::t_be4e2253974bdb 1-4
+managed_agent/evals/refund-requires-approval/instruction.md
+  s_c87d8a2102291e::t_a442d165c23f7e 1
+managed_agent/evals/refund-requires-approval/task.toml
+  s_c87d8a2102291e::t_778bd6739da811 1-29
+managed_agent/evals/refund-requires-approval/tests/mda_result.py
+  s_c87d8a2102291e::t_4337957298ac82 1-76
+managed_agent/evals/refund-requires-approval/tests/test.sh
+  s_c87d8a2102291e::t_d8e23d728c9dbd 1-15
+managed_agent/evals/refund-requires-approval/tests/verify.py
+  s_c87d8a2102291e::t_47bbbd5ef0018b 1-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d1da4521fd7a0813c1616530446a353f34764635",
+  "prompts": {},
+  "sessions": {
+    "s_c87d8a2102291e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6211c4c-a989-4f25-b538-187ed5053a75",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
