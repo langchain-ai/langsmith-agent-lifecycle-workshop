@@ -79,6 +79,8 @@ Goal: evaluate inside a reproducible environment, for checks that a dataset row 
 
 One task (`order-status-own-order`) through the MDA adapter, run in a LangSmith sandbox on a Mac with no Docker installed. **Passed: reward 1.0, 2 min 24 s, built from the task's own Dockerfile.** LangSmith got a dataset (`m5-harbor-smoke`) and an experiment with `reward` feedback and the agent's answer in the run outputs.
 
+Follow-up run, same day: `cross-customer-order-refused` and `opened-item-return-window` together (`-n 2`), **both passed (reward 1.0), 2 min 27 s total.** All three existing tasks now pass on LangSmith sandboxes. The cross-customer answer refused without naming any detail of the other order, and the return-policy answer cited the 14-day opened-electronics window.
+
 Command that worked (from `managed_agent/`, after `uv sync --python 3.14` and `uv run mda evals init`):
 
 ```bash
