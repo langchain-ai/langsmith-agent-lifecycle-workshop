@@ -1,0 +1,25 @@
+managed_agent/evals/README.md
+  s_c87d8a2102291e::t_11ff1919d50349 20,27,32,35-43
+  s_c87d8a2102291e::t_1160c53cb3cfc3 44,69-71
+scripts/notebook_builders/build_module6.py
+  s_c87d8a2102291e::t_e557305df1e42d 551,556,561,564-566
+  s_c87d8a2102291e::t_5dd1609917d73f 567
+workshop_modules/module_6/section_2_runtime_and_sandboxes.ipynb
+  s_c87d8a2102291e::t_a6d83b1d62a469 298,303,308,311-314
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "55b4971104301f18bf0ad7f0eb88811259776c38",
+  "prompts": {},
+  "sessions": {
+    "s_c87d8a2102291e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6211c4c-a989-4f25-b538-187ed5053a75",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
