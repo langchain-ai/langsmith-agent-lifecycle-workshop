@@ -1,0 +1,19 @@
+docs/2026-11-06-module-5-evals-201-scope.md
+  s_c87d8a2102291e::t_ca63b1a494e5e7 78-101
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a6a0e167058647a9fcfe1cda353cb19b0a1f41ce",
+  "prompts": {},
+  "sessions": {
+    "s_c87d8a2102291e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6211c4c-a989-4f25-b538-187ed5053a75",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
