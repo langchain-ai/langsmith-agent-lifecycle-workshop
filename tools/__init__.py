@@ -12,6 +12,7 @@ from tools.database import (
     get_order_items,
     get_order_status,
     get_product_info,
+    query_my_orders,
 )
 from tools.documents import search_policy_docs, search_product_docs
 
@@ -21,6 +22,7 @@ __all__ = [
     "get_product_info",
     "get_order_item_price",
     "get_customer_orders",
+    "query_my_orders",
     "search_product_docs",
     "search_policy_docs",
 ]
