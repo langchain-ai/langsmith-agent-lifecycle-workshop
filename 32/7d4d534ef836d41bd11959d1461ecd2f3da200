@@ -1,0 +1,34 @@
+tests/test_query_my_orders.py
+  s_c87d8a2102291e::t_7763d5982a9b7c 1-85
+agents/deep_support_agent.py
+  s_c87d8a2102291e::t_75e17899b06852 221
+  s_c87d8a2102291e::t_f488e36983dcbf 252-254
+  s_c87d8a2102291e::t_220d94a19235b6 337
+  s_c87d8a2102291e::t_424b1d96a4d54a 322-327
+  s_c87d8a2102291e::t_a67f9f1b77684e 39,67-71
+tools/database.py
+  s_c87d8a2102291e::t_6e0dd2367621e3 278-281,283,285
+  s_c87d8a2102291e::t_9c68a07551d999 275-277
+  s_c87d8a2102291e::t_fe806e90472e60 282
+  s_c87d8a2102291e::t_46f5a5f114cdd1 284
+  s_c87d8a2102291e::t_37982db633945c 286-288
+  s_c87d8a2102291e::t_4ba093152ec5ce 13-17,259-274,289-335
+tools/__init__.py
+  s_c87d8a2102291e::t_f4b0eded0ba610 15,25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "327d4d534ef836d41bd11959d1461ecd2f3da200",
+  "prompts": {},
+  "sessions": {
+    "s_c87d8a2102291e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6211c4c-a989-4f25-b538-187ed5053a75",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
