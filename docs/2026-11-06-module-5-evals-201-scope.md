@@ -75,6 +75,30 @@ Goal: evaluate inside a reproducible environment, for checks that a dataset row 
 - **`--env langsmith`** runs each trial in a LangSmith sandbox instead of local Docker. If it works for our tasks, the Docker-in-Instruqt problem goes away.
 - **`--plugin langsmith`** turns a job into a LangSmith dataset plus experiment, with one feedback key per verifier reward and a `harbor_error` key for broken trials. Notebooks can link straight to it.
 
+## Smoke test: Harbor on LangSmith sandboxes (2026-11-09)
+
+One task (`order-status-own-order`) through the MDA adapter, run in a LangSmith sandbox on a Mac with no Docker installed. **Passed: reward 1.0, 2 min 24 s, built from the task's own Dockerfile.** LangSmith got a dataset (`m5-harbor-smoke`) and an experiment with `reward` feedback and the agent's answer in the run outputs.
+
+Command that worked (from `managed_agent/`, after `uv sync --python 3.14` and `uv run mda evals init`):
+
+```bash
+HARBOR_LANGSMITH_DATASET=m5-harbor-smoke \
+PYTHONPATH=.mda/evals/harbor-adapter \
+uv run --no-project --env-file ../.env --python 3.12 --with 'harbor[langsmith]==0.21.0' harbor run \
+  --config evals/harbor-job.json --yes \
+  -p evals -i 'order-status-own-order' \
+  --env langsmith --ek delete_after_stop_seconds=600 \
+  --plugin mda_harbor.job_plugin:MDAJobPlugin \
+  --plugin mda_harbor.langsmith_plugin:LangSmithPlugin
+```
+
+Findings:
+
+- **Bug in Module 6's documented command** (Module 6 S2 §4 and `managed_agent/evals/README.md`): `uv run --python 3.12` inside `managed_agent/` deletes the project's 3.14 venv and rebuilds it on 3.12. That removes the `mda` binary that `.mda/evals/runtime.json` points to, so the adapter can't compile the agent. Fix: add `--no-project`. Separate PR.
+- **`--env langsmith` works with the existing tasks unchanged**, so local Docker isn't required. Add it to Module 6 as the no-Docker option.
+- `-i` (task filter) needs `-p evals` as well, even though the job config already lists the dataset.
+- Gaps to look at for Module 5: the run recorded no `model` or token `usage` (both null in `agent/summary.json`), and the verifier's stdout wasn't downloaded ("No files in '/logs/agent' matched"), so a failing run would only show reward 0 without the reason.
+
 ## Risks and things to verify first
 
 - **No `harbor run` has been done end to end yet.** The README says the tasks were validated on the host without Docker on 2026-10-30. Try `--env langsmith` first (no local Docker), then local Docker as a fallback.
