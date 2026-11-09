@@ -75,6 +75,27 @@ Agent under test: the managed agent through the MDA adapter (proven 2026-11-09).
 3. **Section 3** (new task + notebook). PR.
 4. **Wrap-up.** READMEs, CLAUDE.md, Module 6 §5 link, Notion §9, Instruqt track check.
 
+## Spike results (2026-11-09)
+
+**Scoped SQL (Section 1): works.** `query_my_orders` plus `create_deep_support_agent(order_tools="sql")`, with 10 unittest cases for scope and bypass attempts (`tests/test_query_my_orders.py`). On the 12 baseline questions, one run each, judged by the unaligned `correctness_evaluator`:
+
+| | rigid | sql |
+|---|---|---|
+| Correct | 4/12 | 7/12 |
+| Tool calls | 132 (11.0/question) | 44 (3.7/question) |
+
+The remaining failures are teaching material:
+- The account phone/segment questions fail with rigid tools, since no tool reads the customer record. With SQL the agent masks the phone for privacy, which the reference doesn't expect: a harness vs dataset discussion.
+- The Sony stock question fails in both. The product-policy specialist has no stock tool, and SQL missed the product name: a trace-reading exercise.
+- The laptop return-policy answer fails in both because the unaligned judge penalizes extra detail: the setup for Section 2's aligned judge.
+- One real SQL error: keyboard spend $623 vs $1,118.
+
+Experiments: dataset `m5-spike-module2-baseline`, `m5-spike-rigid-*`, `m5-spike-sql-*`.
+
+**Jev judge (Section 2): blocked.** Gateway returns 424 Failed Dependency: the workspace has no `TYPESAFE_API_KEY` provider secret. The spike script is ready. The target to compare against is the Module 2 bonus: LLM judge agreement with the 30 human labels was 73% (v0), 90% (v1), 97% (v2).
+
+**Refund approval task (Section 3): works.** `managed_agent/evals/refund-requires-approval/` scored 1.0 with `interrupt_on={"request_refund": True}` (the run stops with no final answer) and 0.0 with `interrupt_on={}` (the agent says "I've submitted a refund request"). This is the "see it fail" demo for Section 3. The verifier was checked against paused, ran, and no-call fixtures. The verifier's stdout still isn't downloaded with `--env langsmith`, so only the reward is visible.
+
 ## Open decisions
 
 - Dataset for Section 1: the 12-question baseline (fast, matches Module 2) or the 30 golden-set questions too (more signal, slower)? Recommendation: the 12, plus the cross-customer example.
