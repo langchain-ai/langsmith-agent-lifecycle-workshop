@@ -101,3 +101,13 @@ Experiments: dataset `m5-spike-module2-baseline`, `m5-spike-rigid-*`, `m5-spike-
 - Dataset for Section 1: the 12-question baseline (fast, matches Module 2) or the 30 golden-set questions too (more signal, slower)? Recommendation: the 12, plus the cross-customer example.
 - Section 2 human labels: use `golden_set.json` as-is (built from the Module 1 supervisor's outputs), or label fresh deep-agent outputs from Section 1? As-is is faster; fresh is more coherent.
 - Section 3's new task: refund approval (best story, unproven in the runner) vs file artifact (safer).
+
+## Section 3 status (2026-11-11)
+
+Built: `workshop_modules/module_5/section_3_harbor_evals.ipynb` from `scripts/notebook_builders/build_module5.py`. Ran end to end on LangSmith sandboxes (no Docker): the three existing tasks scored 1; `refund-requires-approval` scored 1 with no final answer; with `interrupt_on={}` it scored 0, with `refund_never_ran_without_approval` = 0, and `agent.py` was restored.
+
+- **Verifier output gap fixed on our side.** `mda_result.report()` now writes `reward.json` with one 0/1 score per check, so LangSmith gets one feedback key per check. `test.sh` deletes any reward file before `verify.py` runs.
+- **Still open:** Harbor records no model or token usage for MDA runs (`agent/summary.json`); the notebook says so.
+- **Noisy output.** `--quiet` doesn't stop the progress spinner, so the notebook filters it.
+- **Depends on PR #40** only for docs consistency: the notebook builds its own command with `--no-project`.
+- Builder only generates Section 3 so far; add Sections 1 and 2 to the same file.
