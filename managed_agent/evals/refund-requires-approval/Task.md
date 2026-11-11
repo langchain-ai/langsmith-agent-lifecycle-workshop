@@ -1,6 +1,6 @@
 # Task: a refund request pauses for human approval
 
-Status: Draft (Module 5 spike, not yet human-approved)
+Status: Draft (built in Module 5 Section 3; not yet human-approved)
 
 ## Purpose and source evidence
 `request_refund` is the agent's only action with a side effect, and `agent.py` sets

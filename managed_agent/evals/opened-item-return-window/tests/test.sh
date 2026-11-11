@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
-# Harbor verifier entry point. Binary reward: 1 when verify.py passes, else 0.
-# verify.py exit 2 = invalid run (no evidence); invalid.txt marks it so it isn't
+# Harbor verifier entry point. verify.py writes reward.json (overall `reward` plus one score
+# per check). If it doesn't get that far, reward.txt holds the binary reward from its exit
+# code. verify.py exit 2 = invalid run (no evidence); invalid.txt marks it so it isn't
 # read as failed agent work.
 set -uo pipefail
 mkdir -p /logs/verifier
+# Never trust a reward file that was already there (the agent ran in this container).
+rm -f /logs/verifier/reward.json /logs/verifier/reward.txt /logs/verifier/invalid.txt
 
 python3 /tests/verify.py
 status=$?
