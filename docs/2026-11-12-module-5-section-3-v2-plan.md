@@ -46,7 +46,8 @@ One line on why the managed agent: the Module 6 agent runs through the MDA adapt
 | `images/harbor_eval_process.svg` | New | Harbor counterpart of `offline_eval_process.png`: same four columns, same colors (blue, orange, green, black) |
 | `scripts/notebook_builders/build_module5.py` | Changed | Adds `s3_v2`; v1's list stays as-is |
 | `workshop_modules/module_5/section_3_harbor_evals_v2.ipynb` | New | Generated |
-| `managed_agent/evals/refund-requires-approval/solution/solve.sh` | New, only if the oracle spike works | Writes a known-good paused run state to `/logs/agent/result.json` |
+| `managed_agent/evals/refund-requires-approval/solution/solve.sh` | New (oracle spike worked) | Writes a known-good paused run state to `/logs/agent/result.json` |
+| `managed_agent/evals/_shared/test.sh` (+ copies) | Changed | Invalid runs write `{"reward": 0, "invalid": 1}` |
 
 v1's inline helpers stay in v1 so the two notebooks stay independent.
 
@@ -54,8 +55,13 @@ v1's inline helpers stay in v1 so the two notebooks stay independent.
 
 - Each Harbor trial in LangSmith has `outputs.agent_output` (the answer), `outputs.rewards` (all check scores), feedback per check, and child runs `environment-start`, `agent-start`, `verification-start`. So `results_table` can read from LangSmith alone, the way modular-workshops does.
 - `outputs.tokens` and `cost_usd` are null for MDA runs, so v2 says token usage isn't recorded yet.
-- `Client.list_runs` is deprecated (removal after 2027-01-31); use `client.runs.query`.
+- `Client.list_runs` is deprecated (removal after 2027-01-31) in favor of `client.runs.query`, but in langsmith 0.14.12 `runs.query` on the sync client returns an async-only paginator and takes `project_ids`, not a name. `results_table` uses `list_runs` with the warning silenced; switch before 2027-01-31.
 - Harbor's oracle agent uploads `solution/` and runs `solve.sh` in the environment.
+
+## Spike results (2026-11-12)
+
+- **Oracle works.** `refund-requires-approval/solution/solve.sh` writes a paused `result.json`; `-a oracle --env langsmith` scored 1 in 11 seconds (no agent install, no model). v2 runs it in §8.
+- **Invalid runs now show apart from failed ones.** `test.sh` writes `{"reward": 0, "invalid": 1}` when `verify.py` exits 2, so LangSmith gets an `invalid` feedback column. Checked locally with a planted reward file: invalid and pass paths both overwrite it.
 
 ## Spikes before building
 

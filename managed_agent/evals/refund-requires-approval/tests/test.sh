@@ -12,7 +12,9 @@ python3 /tests/verify.py
 status=$?
 
 if [ "$status" -eq 0 ]; then echo 1 > /logs/verifier/reward.txt; else echo 0 > /logs/verifier/reward.txt; fi
-if [ "$status" -eq 2 ] && [ ! -s /logs/verifier/invalid.txt ]; then
-  echo "verifier exited 2 without a reason" > /logs/verifier/invalid.txt
+if [ "$status" -eq 2 ]; then
+  # Invalid run: score 0, plus an `invalid` key so LangSmith shows it apart from a failed answer.
+  echo '{"reward": 0, "invalid": 1}' > /logs/verifier/reward.json
+  [ -s /logs/verifier/invalid.txt ] || echo "verifier exited 2 without a reason" > /logs/verifier/invalid.txt
 fi
 exit 0

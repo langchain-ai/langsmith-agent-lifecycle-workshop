@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 350" width="1260" height="350" font-family="Helvetica, Arial, sans-serif">
+  <title>Harbor eval process: Task, Sandbox, Verifier, Experiment Results</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#222" stroke-width="1.5"/>
+    </marker>
+  </defs>
+  <!-- White background so it matches offline_eval_process.png in dark themes too -->
+  <rect width="1260" height="350" fill="#ffffff"/>
+
+  <!-- Column titles -->
+  <g font-size="26" font-weight="bold">
+    <text x="125" y="48" text-anchor="middle" fill="#3f6fd1">Task</text>
+    <text x="430" y="48" text-anchor="middle" fill="#e08a1e">Sandbox</text>
+    <text x="818" y="48" text-anchor="middle" fill="#4f9a3f">Verifier</text>
+    <text x="1248" y="48" text-anchor="end" fill="#222">Experiment Results</text>
+  </g>
+
+  <!-- Task: a folder of files -->
+  <rect x="40" y="80" width="170" height="200" rx="20" fill="none" stroke="#3f6fd1" stroke-width="2.5"/>
+  <rect x="60" y="96" width="122" height="148" fill="#fff" stroke="#3f6fd1" stroke-width="1.2"/>
+  <rect x="70" y="106" width="122" height="148" fill="#fff" stroke="#3f6fd1" stroke-width="1.2"/>
+  <rect x="80" y="116" width="122" height="148" fill="#fff" stroke="#3f6fd1" stroke-width="1.2"/>
+  <g font-size="14" fill="#3f6fd1">
+    <text x="90" y="140" font-weight="bold" font-size="15">Task folder</text>
+    <text x="90" y="166">instruction.md</text>
+    <text x="90" y="186">identity.json</text>
+    <text x="90" y="206">Dockerfile</text>
+    <text x="90" y="226">tests/</text>
+  </g>
+
+  <!-- Task -> Sandbox -->
+  <line x1="210" y1="180" x2="326" y2="180" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <rect x="226" y="156" width="88" height="48" fill="#fff" stroke="#3f6fd1" stroke-width="1.2"/>
+  <g font-size="13" fill="#3f6fd1" text-anchor="middle">
+    <text x="270" y="176">message</text>
+    <text x="270" y="194">+ caller</text>
+  </g>
+
+  <!-- Sandbox: fresh machine running the real agent -->
+  <rect x="330" y="80" width="200" height="200" rx="20" fill="none" stroke="#e08a1e" stroke-width="2.5"/>
+  <g stroke="#e08a1e" stroke-width="1.8" fill="none">
+    <circle cx="430" cy="112" r="15"/>
+    <circle cx="396" cy="156" r="15"/>
+    <circle cx="464" cy="156" r="15"/>
+    <circle cx="430" cy="200" r="15"/>
+    <line x1="421" y1="124" x2="405" y2="143"/>
+    <line x1="439" y1="124" x2="455" y2="143"/>
+    <line x1="405" y1="168" x2="421" y2="188" stroke-dasharray="3 3"/>
+    <line x1="455" y1="168" x2="439" y2="188" stroke-dasharray="3 3"/>
+  </g>
+  <g font-size="13" fill="#e08a1e" text-anchor="middle">
+    <text x="430" y="242">fresh machine,</text>
+    <text x="430" y="260">real agent and setup</text>
+  </g>
+
+  <!-- Sandbox -> Run state -->
+  <line x1="530" y1="180" x2="556" y2="180" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <rect x="560" y="126" width="124" height="108" fill="#fff" stroke="#222" stroke-width="1.2"/>
+  <g font-size="14">
+    <text x="570" y="148" font-weight="bold" fill="#222">Run state</text>
+    <text x="570" y="170" fill="#3f6fd1">message</text>
+    <text x="570" y="188" fill="#e08a1e">tool calls</text>
+    <text x="570" y="206" fill="#e08a1e">tool results</text>
+    <text x="570" y="224" fill="#e08a1e">final answer</text>
+  </g>
+
+  <!-- Run state -> Verifier -->
+  <line x1="684" y1="180" x2="716" y2="180" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <!-- Verifier: code over the saved run state -->
+  <rect x="720" y="84" width="186" height="192" rx="20" fill="#fff" stroke="#4f9a3f" stroke-width="2.5"/>
+  <rect x="734" y="98" width="186" height="192" rx="20" fill="#fff" stroke="#4f9a3f" stroke-width="2.5"/>
+  <g font-family="Menlo, Consolas, monospace" font-size="12" text-anchor="middle">
+    <text x="827" y="186" fill="#4f9a3f">verify.py(<tspan fill="#e08a1e">result.json</tspan>)</text>
+    <text x="827" y="210" fill="#4f9a3f">→ reward.json</text>
+  </g>
+
+  <!-- Verifier -> Result -->
+  <line x1="920" y1="180" x2="950" y2="180" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <rect x="954" y="122" width="116" height="116" fill="#fff" stroke="#222" stroke-width="1.2"/>
+  <g font-size="14">
+    <text x="964" y="144" font-weight="bold" fill="#222">Result</text>
+    <text x="964" y="166" fill="#e08a1e">answer</text>
+    <text x="964" y="184" fill="#4f9a3f">reward</text>
+    <text x="964" y="202" fill="#4f9a3f">check scores</text>
+    <text x="964" y="220" fill="#3f6fd1">task</text>
+  </g>
+
+  <!-- Result -> Experiment -->
+  <line x1="1070" y1="180" x2="1096" y2="180" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <rect x="1100" y="84" width="140" height="192" rx="20" fill="none" stroke="#222" stroke-width="2.5"/>
+  <rect x="1118" y="138" width="96" height="58" fill="#fff" stroke="#222" stroke-width="1.2"/>
+  <rect x="1126" y="148" width="96" height="58" fill="#fff" stroke="#222" stroke-width="1.2"/>
+  <rect x="1134" y="158" width="96" height="58" fill="#fff" stroke="#222" stroke-width="1.2"/>
+  <text x="1182" y="193" font-size="17" text-anchor="middle" fill="#222">Run</text>
+
+  <!-- tests/ carry the hidden truth to the verifier (like Example -> Evaluators) -->
+  <path d="M 125 280 L 125 318 L 813 318 L 813 294" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <rect x="356" y="296" width="196" height="44" fill="#fff" stroke="#3f6fd1" stroke-width="1.2"/>
+  <g font-size="14" fill="#3f6fd1" text-anchor="middle">
+    <text x="454" y="315">tests/: the checks and</text>
+    <text x="454" y="332">the hidden truth</text>
+  </g>
+</svg>
