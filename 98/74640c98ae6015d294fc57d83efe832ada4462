@@ -1,0 +1,32 @@
+scripts/notebook_builders/build_module5.py
+  s_34c8278f2e3e28::t_6a66b7ed2e9f4e 533-553
+  s_34c8278f2e3e28::t_71ad1c5a9d13cd 322
+  s_34c8278f2e3e28::t_9cd2f37acb4944 595-605
+  s_34c8278f2e3e28::t_60f1a9019552b6 721-729
+  s_34c8278f2e3e28::t_5cbd3fd781dcd4 687-703
+  s_34c8278f2e3e28::t_186e3950efe546 617-622,625-637
+  s_34c8278f2e3e28::t_cb3364e0342d54 456-468
+  s_34c8278f2e3e28::t_0c9d327a0cd944 339,345,347-434,438-446
+  s_34c8278f2e3e28::t_7c1bbacb59892e 747-768
+  s_34c8278f2e3e28::t_7168a018e6483e 490-501,506-523
+  s_34c8278f2e3e28::t_8350ef42696881 623-624
+  s_34c8278f2e3e28::t_2f08b0ca561ceb 657-667,670-682
+workshop_modules/module_5/section_3_harbor_evals.ipynb
+  s_34c8278f2e3e28::t_bd788475c499f4 326,360,366,368-460,464-472,478,488,524,529-542,548,559,572,583,622,637,642-653,658-675,683,718,725-745,751,791,798-809,815,825,832-853,859,880,885-895,898-910,915,920-936,950,963,966-974,992-1013
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9874640c98ae6015d294fc57d83efe832ada4462",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
