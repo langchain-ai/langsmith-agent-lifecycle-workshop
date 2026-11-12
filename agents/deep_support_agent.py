@@ -195,7 +195,8 @@ def _customer_namespace(runtime) -> tuple[str, ...]:
     if customer_id:
         return ("techhub", customer_id)
     info = getattr(runtime, "execution_info", None)
-    return ("techhub", "anonymous", getattr(info, "thread_id", None) or "no-thread")
+    # Callers may pass a UUID as the thread_id (LangGraph accepts it); store namespaces must be strings
+    return ("techhub", "anonymous", str(getattr(info, "thread_id", None) or "no-thread"))
 
 
 # ============================================================================
