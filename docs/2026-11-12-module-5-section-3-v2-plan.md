@@ -1,5 +1,7 @@
 # Module 5 Section 3 v2: Harbor evals, concept-first
 
+**Status (2026-11-12): adopted.** v2 is now `section_3_harbor_evals.ipynb`; v1 was removed (it's in git history before this change).
+
 A new notebook, `workshop_modules/module_5/section_3_harbor_evals_v2.ipynb`, built next to v1 (`section_3_harbor_evals.ipynb`, unchanged) so the two can be compared. After review, one of them is kept and the other deleted.
 
 ## Why a v2
