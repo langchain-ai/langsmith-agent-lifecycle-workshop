@@ -1,0 +1,26 @@
+evaluators/evaluators.py
+  s_34c8278f2e3e28::t_5448fef03f6dc5 180-255
+  s_34c8278f2e3e28::t_2456b0d29c6d0f 12
+docs/2026-11-12-module-5-section-4-prd.md
+  s_34c8278f2e3e28::t_4a338cc5c5b83c 99
+evaluators/__init__.py
+  s_34c8278f2e3e28::t_c7f1c23b6bed72 11,21,29
+tests/test_jev_correctness_evaluator.py
+  s_34c8278f2e3e28::t_66c9c4b3e6907e 1-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "99e99b16ffd9c1ec4f11f94b31bcee0b16d70627",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
