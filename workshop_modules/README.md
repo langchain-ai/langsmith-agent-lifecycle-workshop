@@ -145,7 +145,11 @@ Module 2's evaluation path, repeated on the Module 4 deep agent, then Harbor eva
 - Measure the Sections 1–2 judge against the labels, then add one rubric rule per cause of disagreement, with a hold-out
 - The aligned judge is saved as `deep_agent_correctness_evaluator` in `evaluators/`
 
-**Section 4: Jev as a Judge** (coming soon)
+**Section 4: Jev as a Judge** (`module_5/section_4_jev_as_judge.ipynb`)
+- Section 3's labeled answers graded by Jev, TypeSafe's decision model: a state, typed questions, and a threshold
+- The aligned rubric as three questions, a threshold chosen on the rule items with the hold-out checked, and a cascade to the aligned LLM judge for the uncertain middle
+- Jev vs the LLM judges on agreement, speed, and tokens; the same evaluator in the LangSmith UI
+- Needs a Jev key (see Model access in the README); without one, the Jev cells show recorded results
 
 **Section 5: Harbor Evals** (`module_5/section_5_harbor_evals.ipynb`)
 - Environment evals: the managed agent in a fresh LangSmith sandbox, graded on its saved run state

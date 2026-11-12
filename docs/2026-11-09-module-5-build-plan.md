@@ -94,7 +94,7 @@ The remaining failures are teaching material:
 
 Experiments: dataset `m5-spike-module2-baseline`, `m5-spike-rigid-*`, `m5-spike-sql-*`.
 
-**Jev judge (Section 2): blocked.** Gateway returns 424 Failed Dependency: the workspace has no `TYPESAFE_API_KEY` provider secret. The spike script is ready. The target to compare against is the Module 2 bonus: LLM judge agreement with the 30 human labels was 73% (v0), 90% (v1), 97% (v2).
+**Jev judge (Section 2, now Section 4): unblocked 2026-11-12** via `LC_GATEWAY_KEY` and built; see `docs/2026-11-12-module-5-section-4-prd.md`. Original note: **blocked.** Gateway returns 424 Failed Dependency: the workspace has no `TYPESAFE_API_KEY` provider secret. The spike script is ready. The target to compare against is the Module 2 bonus: LLM judge agreement with the 30 human labels was 73% (v0), 90% (v1), 97% (v2).
 
 **Refund approval task (Section 3): works.** `managed_agent/evals/refund-requires-approval/` scored 1.0 with `interrupt_on={"request_refund": True}` (the run stops with no final answer) and 0.0 with `interrupt_on={}` (the agent says "I've submitted a refund request"). This is the "see it fail" demo for Section 3. The verifier was checked against paused, ran, and no-call fixtures. The verifier's stdout still isn't downloaded with `--env langsmith`, so only the reward is visible.
 

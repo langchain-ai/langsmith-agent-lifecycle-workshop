@@ -100,8 +100,8 @@ The exact question design (§5 steps 2 and 4) is settled by the spike (T4), as S
 - [x] **T7** Add `s4` to `build_module5.py` and generate `section_4_jev_as_judge.ipynb` per §5. Every Jev cell checks `JEV_AVAILABLE` and otherwise prints the recorded results from §10.
 
 **Validate and document**
-- [ ] **T8** Run end to end twice from a fresh kernel: with `JEV_API_KEY` (full run; check every experiment for errors before reading scores), and without it (every Jev cell skips cleanly).
-- [ ] **T9** Docs: README "Model access" (`JEV_API_KEY`), `.env.example`, `workshop_modules/README.md` Section 4 entry, `CLAUDE.md` Module 5 notes, project memory, and the build plan's Jev status.
+- [x] **T8** Run end to end twice from a fresh kernel: with `JEV_API_KEY` (full run; check every experiment for errors before reading scores), and without it (every Jev cell skips cleanly).
+- [x] **T9** Docs: README "Model access" (`JEV_API_KEY`), `.env.example`, `workshop_modules/README.md` Section 4 entry, `CLAUDE.md` Module 5 notes, project memory, and the build plan's Jev status.
 
 ## 8. Acceptance criteria
 
@@ -138,6 +138,7 @@ Findings:
 - **The rubric design wins** and gives one feedback score per question (`facts_agree`, `answers_question`, `possible_actions`). Its first wording failed correct refusals on `answers_question` (0.01–0.02); one sentence in the false criterion ("declining because the data belongs to another customer is not leaving it unanswered") fixed both, including the hold-out one.
 - **Jev's one miss is arithmetic:** `sql-1`, whose breakdown doesn't add up to its total, passes `facts_agree` at 0.69. The aligned LLM judge's one miss was different (the mice). Decision models don't check sums.
 - **The cut-off sits in a narrow gap.** Every incorrect answer's lowest score is ≤0.07 (except `sql-1`), and every correct one's is ≥0.17. Four correct answers sit at 0.17–0.36 (both refusals, `sql-6` without prices, `rigid-8` with extra policy detail). At 0.25, agreement drops to 89%. Hence the cascade: Jev decides confident items and sends the gray zone (here 4 of 33, 12%) to the aligned LLM judge, which labels all four correctly. Same 97%, without depending on one exact number.
+- **Notebook runs (T8):** with the key (`LC_GATEWAY_KEY` via `GATEWAY_ENV_FILE`), 0 errored runs in all three Jev experiments; one question 85–88%, rubric 85% at 0.50, rubric + refusals 97% at 0.15 (rule items 96%, hold-out 100%), cascade 97% with the same 4 answers sent to the LLM judge. Without a key, every Jev cell skipped and printed the recorded results.
 - **Speed:** Jev about 20× faster (0.2 s vs 4.4 s) with about 7× fewer output tokens. Per-token prices aren't recorded here; check LangSmith run usage for cost.
 
 ## 11. Out of scope

@@ -1236,7 +1236,10 @@ sys.path.insert(0, str(REPO_ROOT))
 load_dotenv(REPO_ROOT / ".env")
 warnings.filterwarnings("ignore", category=UserWarning)
 
+from langchain_core._api import LangChainBetaWarning
 from langchain_typesafe import Choice, Noul, NoulCriteria
+
+warnings.filterwarnings("ignore", category=LangChainBetaWarning)  # TypeSafeClassifier is in beta
 from langsmith import Client
 
 from evaluators.evaluators import jev_state
@@ -1366,7 +1369,7 @@ def report(lowest: dict, threshold: float) -> float:
 
     rule_items = [i for i in lowest if i not in HOLDOUT]
     agreement = agreement_on(list(lowest))
-    print(f"Threshold {threshold:.2f}. Agreement: {agreement:.0%}  (rule items {agreement_on(rule_items):.0%}, hold-out {agreement_on(HOLDOUT):.0%})")
+    print(f"\\nThreshold {threshold:.2f}. Agreement: {agreement:.0%}  (rule items {agreement_on(rule_items):.0%}, hold-out {agreement_on(HOLDOUT):.0%})")
     for i, p in sorted(lowest.items(), key=lambda kv: kv[1]):
         if (p >= threshold) != GOLD[i]["human_label"]:
             print(f"  ✗ {i} [{GOLD[i]['bucket']}]{' (hold-out)' if i in HOLDOUT else ''} human={GOLD[i]['human_label']} lowest probability={p:.2f}")
@@ -1392,7 +1395,7 @@ SINGLE_QUESTION = {
 }
 
 if not JEV_AVAILABLE:
-    print("⏭️  Skipped: Jev unavailable. On our runs at 0.50: 85% (rule items 89%, hold-out 67%).")
+    print("⏭️  Skipped: Jev unavailable. On our runs at 0.50: 85-88% (hold-out 67%).")
 else:
     results_single = client.evaluate(
         frozen_agent, data=DATASET_NAME, evaluators=[make_jev_judge(SINGLE_QUESTION, 0.5)],
@@ -1448,7 +1451,7 @@ Open the experiment and look at the per-question feedback columns: they say *whi
 
 ### 4.1 Fix: a correct refusal answers the question
 
-One sentence in the false meaning, the same kind of fix as Section 3's rules:
+One sentence in the false meaning, the same kind of fix as Section 3's rules. Watch the refusals' probabilities, not just the total: at a threshold of 0.50 the fix can look like it did nothing.
 '''),
     code('''
 REFUSAL_IS_AN_ANSWER = (
@@ -1461,7 +1464,7 @@ RUBRIC_V2 = {
 }
 
 if not JEV_AVAILABLE:
-    print("⏭️  Skipped: Jev unavailable. On our runs at 0.50: 85%, with the refusals now passing; the threshold is the next problem.")
+    print("⏭️  Skipped: Jev unavailable. On our runs at 0.50: 85%. The refusals rise from 0.02 to 0.17-0.31, still below 0.50: the threshold is the next problem.")
 else:
     results_v2 = client.evaluate(
         frozen_agent, data=DATASET_NAME, evaluators=[make_jev_judge(RUBRIC_V2, 0.5)],
@@ -1501,7 +1504,7 @@ else:
         print(f"{p:.2f}  {'✅' if GOLD[i]['human_label'] else '❌'}  {i}")
 '''),
     md('''
-On our runs, every incorrect answer scored 0.07 or lower except one, and every correct answer 0.17 or higher. The threshold sits in a narrow gap: four correct answers (both refusals, an order report without prices, a policy answer with extra detail) score between 0.17 and 0.36, and moving the threshold to 0.25 drops agreement to 89%.
+On our runs, every incorrect answer scored about 0.08 or lower except one, and every correct answer 0.17 or higher. The refusal fix moved the two refusals from 0.02 into that range, which is why it only shows up once the threshold is chosen. The threshold sits in a narrow gap: four correct answers (both refusals, an order report without prices, a policy answer with extra detail) score between 0.17 and 0.36, and moving the threshold to 0.25 drops agreement to 89%.
 
 The one incorrect answer Jev passes is `sql-1`, whose itemized breakdown doesn't add up to its stated total (`facts_agree` about 0.7). Jev doesn't check arithmetic.
 
@@ -1544,6 +1547,8 @@ else:
 ## 6. Compare the judges
 '''),
     code('''
+if not agreement_by_version:
+    print("⏭️  Skipped: Jev unavailable. Our results are in the table below.")
 for version, agreement in agreement_by_version.items():
     print(f"{version:<36} {agreement:>4.0%}  {'█' * round(agreement * 30)}")
 '''),
@@ -1554,7 +1559,7 @@ Alongside the LLM judges from Section 3, on our runs (same 33 answers):
 |---|---|---|---|---|
 | LLM judge, unaligned (Sections 1–2) | 91–93% | 78–83% | about 4.4 s | about 350 |
 | LLM judge, aligned (Section 3) | 97% | 100% | about 4.4 s | about 410 |
-| Jev, one question (0.50) | 85% | 67% | about 0.2 s | — |
+| Jev, one question (0.50) | 85–88% | 67% | about 0.2 s | — |
 | Jev, rubric questions (0.15) | 97% | 100% | about 0.2 s | about 56 |
 | Cascade: Jev, plus the LLM judge for 4 of 33 | 97% | — | 0.2 s for most, 4.4 s for a few | — |
 

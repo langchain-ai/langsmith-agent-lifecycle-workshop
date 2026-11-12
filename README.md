@@ -77,7 +77,13 @@ Use one path per `.env`: provider keys win if several are set.
 [organization-scoped keys aren't supported](https://docs.langchain.com/langsmith/llm-gateway-authentication#use-a-workspace-scoped-key).
 A `424 Required workspace secret ... is missing` means that workspace lacks the secret; a `403` means the key
 lacks `gateway:invoke`. A workspace admin adds the provider secrets and issues a service key (ideally with a
-spend cap under **LLM Gateway > Cost Controls**). Jev alone can target another workspace with `JEV_WORKSPACE_ID`.
+spend cap under **LLM Gateway > Cost Controls**).
+
+**Jev** (Module 4 Section 3, Module 5 Section 4) uses its own key, so a key that only has Jev doesn't break
+your model calls: `JEV_API_KEY` (e.g. a workshop key), else `LANGSMITH_API_KEY` aimed at another workspace
+with `JEV_WORKSPACE_ID`, else `LC_GATEWAY_KEY` (on LangChain-managed Macs; set `GATEWAY_ENV_FILE` if you start
+Jupyter from a terminal), else the Gateway key above. `verify_setup.py` prints which one Jev uses. Without
+a working key, the Jev cells skip themselves.
 
 This covers chat models (`langchain-anthropic>=1.5.1` / `langchain-openai>=1.4.1`, already the repo minimums).
 If `EMBEDDING_PROVIDER=openai`, embeddings need their own Gateway setup, since `LANGSMITH_GATEWAY` doesn't

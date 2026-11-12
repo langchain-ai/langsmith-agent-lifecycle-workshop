@@ -272,6 +272,7 @@ model.with_structured_output(OutputSchema)
 - `query_my_orders` is the scoped SQL tool; never give a customer-facing agent a raw `execute_sql`
 - Section 3's aligned judge is `deep_agent_correctness_evaluator` / `DEEP_AGENT_CORRECTNESS_PROMPT` (pinned `DEEP_AGENT_JUDGE_MODEL`); the notebook asserts it matches. Change the rubric or model only by re-running Section 3 against `module_5/golden_set.json`, whose labels Ariel approved
 - Before reading any experiment's scores, check its runs for errors: an errored run scores as wrong
+- Section 4's Jev judge is `jev_correctness_evaluator` (`JEV_RUBRIC_QUESTIONS`, `JEV_THRESHOLD = 0.15`, pinned `typesafe/jev-1.14.0`); the notebook asserts the questions match. Jev picks its key in `utils/jev.py` (`JEV_API_KEY` → `JEV_WORKSPACE_ID` → `LC_GATEWAY_KEY`/`GATEWAY_ENV_FILE` → Gateway key), separate from model calls. Never print key values
 
 ### Module 6: Managed Deep Agents
 - `managed_agent/` mirrors the Module 4 support agent; keep the two in sync. `middleware/fault_tolerance.py` is a copy;
