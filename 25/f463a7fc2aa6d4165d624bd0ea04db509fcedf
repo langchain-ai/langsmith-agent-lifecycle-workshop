@@ -1,0 +1,23 @@
+docs/2026-11-12-module-5-golden-set-review.md
+  s_34c8278f2e3e28::t_1758e6ac616be2 3,11-17
+docs/2026-11-12-module-5-section-3-prd.md
+  s_34c8278f2e3e28::t_2923d36e245811 97
+workshop_modules/module_5/golden_set.json
+  s_34c8278f2e3e28::t_147db2b68be964 19,109,119,229
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "25f463a7fc2aa6d4165d624bd0ea04db509fcedf",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
