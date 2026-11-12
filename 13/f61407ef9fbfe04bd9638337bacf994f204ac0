@@ -1,0 +1,21 @@
+agents/deep_support_agent.py
+  s_34c8278f2e3e28::t_ade2c92123fdcb 198-199
+tests/test_customer_namespace.py
+  s_34c8278f2e3e28::t_7db1cef30b6d56 1-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "13f61407ef9fbfe04bd9638337bacf994f204ac0",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
