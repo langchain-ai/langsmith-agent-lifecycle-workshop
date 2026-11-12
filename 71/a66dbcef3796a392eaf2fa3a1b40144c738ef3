@@ -1,0 +1,23 @@
+docs/2026-11-12-module-5-section-3-v2-plan.md
+  s_34c8278f2e3e28::t_38658f916e19bc 3-4
+scripts/notebook_builders/build_module5.py
+  s_34c8278f2e3e28::t_71e65be3444885 36
+workshop_modules/module_5/section_3_harbor_evals.ipynb
+  s_34c8278f2e3e28::t_67875f0e5f38bd 10,12,14-26,29-39,47-90,92,94,96,102,120-121,132,141,147,149,151-154,157,168,178,186,188,193-209,221,229,233-234,237,239,247,257,261,265,267,269-273,275,283,285,288-297,300,310-311,315,319,323-324,327,329-330,334,338,340,342-347,349-350,352,362,370,372,374-379,381,391-400,402-409,417,427,429-430,438,440,451,459,481,489-494,496,498,506,511-517,520,532,534,542,544,546,548,555-557,560,563-564,569-573
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "71a66dbcef3796a392eaf2fa3a1b40144c738ef3",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
