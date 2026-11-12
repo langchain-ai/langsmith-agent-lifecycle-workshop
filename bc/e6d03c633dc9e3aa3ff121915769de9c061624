@@ -1,0 +1,35 @@
+docs/2026-11-06-module-5-evals-201-scope.md
+  s_34c8278f2e3e28::t_7f89320fbb13ea 5-6
+docs/2026-11-09-module-5-build-plan.md
+  s_34c8278f2e3e28::t_7c40cffab4546f 5-6
+docs/2026-11-12-module-5-section-3-v2-plan.md
+  s_34c8278f2e3e28::t_514bf4f933452d 3
+docs/2026-11-12-module-5-sections-1-2-prd.md
+  s_34c8278f2e3e28::t_63fb16c8845544 77-80,96
+managed_agent/evals/README.md
+  s_34c8278f2e3e28::t_12f8773494f154 14
+managed_agent/evals/refund-requires-approval/Task.md
+  s_34c8278f2e3e28::t_27e340e7505841 3
+scripts/notebook_builders/build_module5.py
+  s_34c8278f2e3e28::t_ca1778652b2a59 36,38,40,423
+utils/harbor_runs.py
+  s_34c8278f2e3e28::t_5348a517a8e843 1
+workshop_modules/module_5/section_5_harbor_evals.ipynb
+  s_34c8278f2e3e28::t_8ff6eb370ebb27 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bce6d03c633dc9e3aa3ff121915769de9c061624",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
