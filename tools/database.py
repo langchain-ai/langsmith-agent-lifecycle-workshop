@@ -10,6 +10,11 @@ Design note: Database connections are initialized at the module level using lazy
 The connection is created on first use and then cached for subsequent calls.
 """
 
+import re
+import sqlite3
+import time
+from pathlib import Path
+
 from langchain.tools import ToolRuntime, tool
 from langchain_community.utilities import SQLDatabase
 
@@ -251,3 +256,80 @@ def execute_sql(query: str) -> str:
         return result
     except Exception as e:
         return f"SQL Error: {str(e)}"
+
+
+# Customer-scoped SQL (Module 5): the flexibility of execute_sql without cross-customer reads.
+_CUSTOMER_ID = re.compile(r"^CUST-\d{3,}$")
+_SCOPED_VIEWS = {
+    "customers": "SELECT * FROM main.customers WHERE customer_id = '{cid}'",
+    "orders": "SELECT * FROM main.orders WHERE customer_id = '{cid}'",
+    "order_items": "SELECT oi.* FROM main.order_items oi "
+    "JOIN main.orders o ON o.order_id = oi.order_id WHERE o.customer_id = '{cid}'",
+}
+_MAX_ROWS = 200
+_MAX_SECONDS = 2.0
+
+
+def _scoped_authorizer(action, arg1, arg2, db_name, source):
+    """Allow plain reads only; customer tables only through the scoped views."""
+    if action in (sqlite3.SQLITE_SELECT, sqlite3.SQLITE_FUNCTION, sqlite3.SQLITE_RECURSIVE):
+        return sqlite3.SQLITE_OK
+    if action == sqlite3.SQLITE_READ:
+        if db_name is None:  # a CTE or subquery column; the tables under it are checked on their own
+            return sqlite3.SQLITE_OK
+        if db_name == "temp" and arg1 in _SCOPED_VIEWS:  # the scoped views themselves
+            return sqlite3.SQLITE_OK
+        if db_name == "main" and arg1 == "products":
+            return sqlite3.SQLITE_OK
+        if db_name == "main" and arg1 in _SCOPED_VIEWS and source in _SCOPED_VIEWS:
+            return sqlite3.SQLITE_OK
+    return sqlite3.SQLITE_DENY
+
+
+@tool
+def query_my_orders(query: str, runtime: ToolRuntime) -> str:
+    """Run one read-only SQL SELECT over the verified customer's own data.
+
+    Tables (SQLite):
+    - orders(order_id, customer_id, order_date, status, shipped_date, tracking_number, total_amount)
+      status is one of Processing, Shipped, Delivered, Cancelled
+    - order_items(order_item_id, order_id, product_id, quantity, price_per_unit)
+    - products(product_id, name, category, price, in_stock)
+      category is one of Laptops, Monitors, Keyboards, Audio, Accessories
+    - customers(customer_id, email, name, phone, city, state, segment)
+
+    orders, order_items, and customers only contain the verified customer's rows, so don't
+    filter by customer. products is the full public catalog.
+
+    Args:
+        query: A single SELECT (or WITH ... SELECT) statement.
+    """
+    context = runtime.context
+    customer_id = context.get("customer_id") if isinstance(context, dict) else getattr(context, "customer_id", None)
+    if not customer_id or not _CUSTOMER_ID.match(customer_id):
+        return "Access denied: no verified customer in this conversation."
+
+    path = Path(DEFAULT_DB_PATH).resolve()
+    conn = sqlite3.connect(f"{path.as_uri()}?mode=ro", uri=True)
+    try:
+        for name, sql in _SCOPED_VIEWS.items():
+            # customer_id is validated above, and views can't take parameters
+            conn.execute(f"CREATE TEMP VIEW {name} AS {sql.format(cid=customer_id)}")
+        conn.set_authorizer(_scoped_authorizer)
+        deadline = time.monotonic() + _MAX_SECONDS
+        conn.set_progress_handler(lambda: int(time.monotonic() > deadline), 10_000)
+
+        cursor = conn.execute(query)
+        columns = [d[0] for d in cursor.description or []]
+        rows = cursor.fetchmany(_MAX_ROWS + 1)
+    except sqlite3.Error as e:
+        return f"SQL Error: {e}"
+    finally:
+        conn.close()
+
+    if not rows:
+        return "No rows."
+    lines = [" | ".join(columns)] + [" | ".join(str(v) for v in row) for row in rows[:_MAX_ROWS]]
+    if len(rows) > _MAX_ROWS:
+        lines.append(f"(truncated to {_MAX_ROWS} rows)")
+    return "\n".join(lines)

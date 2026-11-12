@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1110 420" width="1110" height="420" font-family="Helvetica, Arial, sans-serif">
+  <title>TechHub deep support agent: main agent, order-specialist, product-policy-specialist</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#222" stroke-width="1.5"/>
+    </marker>
+  </defs>
+  <rect width="1110" height="420" fill="#ffffff"/>
+
+  <!-- Caller -->
+  <rect x="30" y="140" width="170" height="70" rx="10" fill="#fff" stroke="#3f6fd1" stroke-width="2"/>
+  <text x="115" y="170" font-size="15" font-weight="bold" fill="#3f6fd1" text-anchor="middle">Customer</text>
+  <text x="115" y="192" font-size="13" fill="#3f6fd1" text-anchor="middle">question</text>
+  <rect x="30" y="240" width="170" height="70" rx="10" fill="#fff" stroke="#3f6fd1" stroke-width="2"/>
+  <text x="115" y="267" font-size="14" font-weight="bold" fill="#3f6fd1" text-anchor="middle">customer_id</text>
+  <text x="115" y="287" font-size="12" fill="#3f6fd1" text-anchor="middle">run context,</text>
+  <text x="115" y="302" font-size="12" fill="#3f6fd1" text-anchor="middle">from sign-in</text>
+  <line x1="200" y1="175" x2="246" y2="175" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="200" y1="275" x2="246" y2="275" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <!-- Main agent -->
+  <rect x="250" y="80" width="290" height="270" rx="20" fill="#fff" stroke="#e08a1e" stroke-width="2.5"/>
+  <text x="395" y="112" font-size="20" font-weight="bold" fill="#e08a1e" text-anchor="middle">Main agent</text>
+  <text x="395" y="132" font-size="13" fill="#e08a1e" text-anchor="middle">create_deep_support_agent()</text>
+  <text x="272" y="170" font-size="13" font-weight="bold" fill="#222">tools</text>
+  <g font-family="Menlo, Consolas, monospace" font-size="13" fill="#222">
+    <text x="272" y="192">task(subagent, …)</text>
+    <text x="272" y="214">request_refund()</text>
+  </g>
+  <text x="420" y="214" font-size="12" fill="#c0392b">⏸ needs approval</text>
+  <text x="272" y="254" font-size="13" font-weight="bold" fill="#222">middleware</text>
+  <g font-size="13" fill="#222">
+    <text x="272" y="276">customer-scope guard</text>
+    <text x="272" y="298">PII redaction</text>
+    <text x="272" y="320">fault tolerance</text>
+  </g>
+
+  <!-- Delegation -->
+  <path d="M 540 160 L 596 130" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <path d="M 540 280 L 596 318" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="552" y="215" font-family="Menlo, Consolas, monospace" font-size="12" fill="#222">task()</text>
+
+  <!-- order-specialist -->
+  <rect x="600" y="30" width="290" height="210" rx="16" fill="#fff" stroke="#4f9a3f" stroke-width="2.5"/>
+  <text x="745" y="58" font-size="17" font-weight="bold" fill="#4f9a3f" text-anchor="middle">order-specialist</text>
+  <g font-family="Menlo, Consolas, monospace" font-size="13" fill="#222">
+    <text x="622" y="88">get_order_status()</text>
+    <text x="622" y="110">get_order_items()</text>
+    <text x="622" y="132">get_product_info()</text>
+    <text x="622" y="154">get_order_item_price()</text>
+    <text x="622" y="176">get_customer_orders()</text>
+  </g>
+  <text x="745" y="218" font-size="12" font-style="italic" fill="#4f9a3f" text-anchor="middle">guard: only the verified customer's orders</text>
+
+  <!-- product-policy-specialist -->
+  <rect x="600" y="270" width="290" height="120" rx="16" fill="#fff" stroke="#4f9a3f" stroke-width="2.5"/>
+  <text x="745" y="298" font-size="17" font-weight="bold" fill="#4f9a3f" text-anchor="middle">product-policy-specialist</text>
+  <g font-family="Menlo, Consolas, monospace" font-size="13" fill="#222">
+    <text x="622" y="328">search_product_docs()</text>
+    <text x="622" y="350">search_policy_docs()</text>
+  </g>
+  <text x="745" y="377" font-size="12" font-style="italic" fill="#4f9a3f" text-anchor="middle">product specs and store policies</text>
+
+  <!-- Data -->
+  <line x1="890" y1="135" x2="946" y2="135" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <path d="M 950 105 L 950 165 A 70 14 0 0 0 1090 165 L 1090 105" fill="#fff" stroke="#222" stroke-width="2"/>
+  <ellipse cx="1020" cy="105" rx="70" ry="14" fill="#fff" stroke="#222" stroke-width="2"/>
+  <text x="1020" y="148" font-size="14" fill="#222" text-anchor="middle">techhub.db</text>
+  <line x1="890" y1="330" x2="946" y2="330" stroke="#222" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <rect x="950" y="300" width="140" height="60" rx="8" fill="#fff" stroke="#222" stroke-width="2"/>
+  <text x="1020" y="326" font-size="14" fill="#222" text-anchor="middle">docs</text>
+  <text x="1020" y="345" font-size="14" fill="#222" text-anchor="middle">vectorstore</text>
+</svg>
