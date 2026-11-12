@@ -1,0 +1,23 @@
+images/order_specialist_improvement.svg
+  s_34c8278f2e3e28::t_75eb42740475d1 1-50
+images/deep_support_agent.svg
+  s_34c8278f2e3e28::t_0fa09a9187ca68 1-73
+docs/2026-11-12-module-5-sections-1-2-prd.md
+  s_34c8278f2e3e28::t_8cc6cef25544ee 105-106
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6c9a006a5504a1fc9c48274843c650f5f7a3b031",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
