@@ -1,0 +1,33 @@
+.env.example
+  s_34c8278f2e3e28::t_92cb43ac1418b3 24-30,32-34
+README.md
+  s_34c8278f2e3e28::t_a5576ac00b91eb 80-86
+CLAUDE.md
+  s_34c8278f2e3e28::t_9ae4bb49ed5e03 275
+docs/2026-11-09-module-5-build-plan.md
+  s_34c8278f2e3e28::t_62b70c6428d9a8 97
+docs/2026-11-12-module-5-section-4-prd.md
+  s_34c8278f2e3e28::t_fde7809d111aba 103-104,141
+scripts/notebook_builders/build_module5.py
+  s_34c8278f2e3e28::t_1a600b01658558 1239,1241-1242,1372,1398,1454,1467,1507,1550-1551,1562
+workshop_modules/README.md
+  s_34c8278f2e3e28::t_ea3f21e1898d69 148-152
+workshop_modules/module_5/section_4_jev_as_judge.ipynb
+  s_34c8278f2e3e28::t_b905815071fa6b 75,77-78,244,282,360,380,449,511-512,528
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a8d7fbca56bb75b95821f05329dc4a76145ed527",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
