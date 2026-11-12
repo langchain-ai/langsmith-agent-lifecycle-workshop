@@ -102,8 +102,8 @@ Each task ends with a commit. Check each item off here as it lands.
 **Data, evaluators, images**
 - [x] **T4** Create `workshop_modules/module_5/baseline_dataset.json`: Module 2's 12 examples unchanged, plus one cross-customer example. Use CUST-003's real email from the database, an order that belongs to another customer, and a reference answer that refuses without details. Metadata `category: "authorization"`, `example_number: 13`.
 - [x] **T5** Add `order_specialist_tool_calls_evaluator(run)` to `evaluators/evaluators.py` and export it; a unit test in `tests/` on a hand-built `Run` tree (order-specialist subtree vs. other subtrees).
-- [ ] **T6** Draw `images/deep_support_agent.svg`: main agent → `task` → `order-specialist` (the five rigid tools: `get_order_status`, `get_order_items`, `get_product_info`, `get_order_item_price`, `get_customer_orders`) and `product-policy-specialist` (`search_product_docs`, `search_policy_docs` over the vectorstore); `request_refund` with the approval pause; customer-scope guard; caller identity from context. Same style as `images/harbor_eval_process.svg`. Check that it renders in JupyterLab.
-- [ ] **T7** Draw `images/order_specialist_improvement.svg`: OLD/NEW panels in the layout of `db_agent_improvement.png`, rigid tools → `query_my_orders()`.
+- [x] **T6** Draw `images/deep_support_agent.svg`: main agent → `task` → `order-specialist` (the five rigid tools: `get_order_status`, `get_order_items`, `get_product_info`, `get_order_item_price`, `get_customer_orders`) and `product-policy-specialist` (`search_product_docs`, `search_policy_docs` over the vectorstore); `request_refund` with the approval pause; customer-scope guard; caller identity from context. Same style as `images/harbor_eval_process.svg`. Check that it renders in JupyterLab.
+- [x] **T7** Draw `images/order_specialist_improvement.svg`: OLD/NEW panels in the layout of `db_agent_improvement.png`, rigid tools → `query_my_orders()`.
 
 **Notebooks**
 - [ ] **T8** Add `s1` to `build_module5.py` and generate `section_1_baseline_evaluation.ipynb` per §4.
