@@ -106,8 +106,8 @@ Each task ends with a commit. Check each item off here as it lands.
 - [x] **T7** Draw `images/order_specialist_improvement.svg`: OLD/NEW panels in the layout of `db_agent_improvement.png`, rigid tools → `query_my_orders()`.
 
 **Notebooks**
-- [ ] **T8** Add `s1` to `build_module5.py` and generate `section_1_baseline_evaluation.ipynb` per §4.
-- [ ] **T9** Add `s2` to `build_module5.py` and generate `section_2_eval_driven_development.ipynb` per §5.
+- [x] **T8** Add `s1` to `build_module5.py` and generate `section_1_baseline_evaluation.ipynb` per §4.
+- [x] **T9** Add `s2` to `build_module5.py` and generate `section_2_eval_driven_development.ipynb` per §5.
 
 **Validate**
 - [ ] **T10** Run Section 1 end to end from a fresh kernel (13 examples). Record correctness, total tool calls, and order-specialist tool calls in §11.

@@ -32,6 +32,707 @@ def save(name, cells):
     print("wrote", OUT / name, len(cells), "cells")
 
 
+# Shared by Sections 1 and 2: the deep agent takes a verified customer ID from run context
+# (as an app does after sign-in), so the target function looks the customer up from the
+# email in the question. Mirrors Module 2's target function otherwise.
+TARGET_FUNCTION = r'''
+import re
+import sqlite3
+import uuid
+from pathlib import Path
+
+from config import DEFAULT_DB_PATH
+
+EMAIL = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
+
+
+def customer_id_for(question: str) -> str | None:
+    """Look up the customer the way sign-in would: by the email they gave."""
+    match = EMAIL.search(question)
+    if not match:
+        return None
+    with sqlite3.connect(f"{Path(DEFAULT_DB_PATH).resolve().as_uri()}?mode=ro", uri=True) as conn:
+        row = conn.execute("SELECT customer_id FROM customers WHERE email = ?", (match.group(0),)).fetchone()
+    return row[0] if row else None
+
+
+def target_function(inputs: dict) -> dict:
+    """Target function that runs our agent to get outputs for evaluation."""
+
+    thread_id = uuid.uuid4()
+    config = {"configurable": {"thread_id": thread_id}}
+    question = inputs["messages"][-1]["content"]
+
+    result = AGENT.invoke(
+        inputs,
+        config=config,
+        context=SupportContext(customer_id=customer_id_for(question)),
+    )
+
+    return {
+        "messages": [{"role": "assistant", "content": result["messages"][-1].text}]
+    }
+'''
+
+# ============================================================================
+# SECTION 1: Baseline evaluation (mirrors module_2/section_1_baseline_evaluation.ipynb;
+# see docs/2026-11-12-module-5-sections-1-2-prd.md)
+# ============================================================================
+s1 = [
+    md('''
+# Module 5, Section 1: Establishing Baseline with Offline Evaluation
+
+In Module 4 we built a TechHub customer support agent on the Deep Agents harness: a main agent that delegates order questions to an order specialist and product and policy questions to a product-policy specialist. But before we can put it in front of customers, we first need to build up confidence that it does the things we expect it to do.
+
+Throughout this module, we'll learn how to run offline evaluations to establish baseline performance and then systematically improve our agent with evaluation-driven development (EDD).
+
+**What is offline evaluation?**
+
+Evaluation is a crucial, ongoing process that allows us to quantitatively measure how well our application is working, identify areas for improvement, and reliably evolve our system over time.
+
+<div align="center">
+    <img src="../../images/offline_eval_process.png">
+</div>
+
+The offline evaluation process is comprised of a few components:
+
+1. Dataset - a curated set of representative examples, where each example includes:
+    - an input to the system
+    - a ground truth (reference) output that demonstrates what the expected, high quality outcome should look like
+2. Application - the LLM system that we intend to evaluate. We feed it our example inputs, and collect the system's actual output.
+3. Evaluators - functions that quantify some aspect of performance by comparing the inputs, outputs, and reference outputs
+
+
+**What makes a good eval setup?**
+
+When beginning to create a new eval suite, it's often best to:
+
+- Gather a small set of labeled examples that are representative of your system's core functionality and scenarios it should handle.
+- Lean on domain expertise to ensure the examples are representative and accurate.
+- Select only a few, simple metrics. In practice, binary evaluation metrics force clearer thinking, more consistent labeling, and are easier/faster to interpret when analyzing and iterating on your system.
+
+Starting with a large sample and/or many, complex metrics makes it harder to inspect and deeply understand system behavior, which quickly leads to analysis paralysis.
+
+Let's see how we can perform offline evaluation on our TechHub deep agent in LangSmith to establish the baseline performance!
+'''),
+    md('''
+#### Setup
+
+You need a `.env` with model access (see [Model access](../../README.md#model-access-direct-keys-or-the-llm-gateway) in the README) and the document vectorstore, which the product-policy specialist searches: `uv run python data/data_generation/build_vectorstore.py` (one-time, about 60 seconds).
+'''),
+    code('''
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+'''),
+    md('''
+## 1. Curate a set of representative examples
+
+In our use case, we've teamed up with the TechHub customer support team to create 13 ground truth examples. Each example has:
+
+- **inputs**: A customer's question
+- **outputs**: The expected correct answer (i.e. ground truth)
+- **metadata**: A category that the customer support team uses to bucket question types
+
+The last example asks about an order that belongs to a different customer. The correct answer is a refusal, which lets us check that the agent never shares another customer's data.
+
+This dataset structure allows us to evaluate the "end-to-end" nature of our agent - commonly referred to as [final answer evaluation](https://docs.langchain.com/langsmith/evaluation-approaches#evaluating-an-agent%E2%80%99s-final-response).
+
+<div align="center">
+    <img src="../../images/final-response-eval.png" width="800">
+</div>
+
+Let's load and explore the dataset:
+'''),
+    code('''
+import json
+from pathlib import Path
+from pprint import pprint
+
+# Load the dataset from JSON
+dataset_path = Path("baseline_dataset.json")
+
+with open(dataset_path, "r") as f:
+    examples = json.load(f)
+'''),
+    code('''
+pprint(examples[0])
+'''),
+    md('''
+## 2. Create a dataset in LangSmith
+
+Note that we convert the examples into `messages` format so that it's natively stored in LangSmith with the structure needed to use these examples when invoking our agent.
+'''),
+    code('''
+import uuid
+from langsmith import Client
+
+client = Client()
+
+dataset_name = f"techhub-deep-agent-baseline-{uuid.uuid4()}"
+dataset_description = "Representative set of customer support questions and answers curated by our support team"
+
+dataset = client.create_dataset(
+    dataset_name=dataset_name,
+    description=dataset_description,
+)
+
+client.create_examples(
+    dataset_id=dataset.id,
+    inputs=[
+        {"messages": [{"role": "user", "content": ex["inputs"]["question"]}]}
+        for ex in examples
+    ],
+    outputs=[
+        {"messages": [{"role": "assistant", "content": ex["outputs"]["answer"]}]}
+        for ex in examples
+    ],
+    metadata=[ex["metadata"] for ex in examples],
+)
+
+print(f"Created dataset: {dataset_name}")
+print(f"📊 {dataset.url}")
+'''),
+    md('''
+## 3. Initialize the agent we want to evaluate
+
+Here we'll use the deep support agent we built in Module 4:
+
+<div align="center">
+    <img src="../../images/deep_support_agent.svg" width="900">
+</div>
+
+The agent takes the customer's identity from **run context** (`SupportContext(customer_id=...)`), set by the app after sign-in, never from the conversation. The customer-scope guard only lets order tools return that customer's data.
+'''),
+    code('''
+from agents.deep_support_agent import SupportContext, create_deep_support_agent
+
+agent = create_deep_support_agent()
+'''),
+    md('''
+Quick test:
+'''),
+    code('''
+import uuid
+
+thread_id = uuid.uuid4()
+config = {"configurable": {"thread_id": thread_id}}
+
+t = agent.invoke(
+    {
+        "messages": [
+            {
+                "role": "user",
+                "content": "What's your return policy for opened electronics?",
+            }
+        ]
+    },
+    config=config,
+    context=SupportContext(),
+)
+'''),
+    code('''
+t["messages"][-1].pretty_print()
+'''),
+    md('''
+## 4. Define our evaluators
+
+Evaluators are functions that score how well your application performs on a particular example.
+
+We'll start out with three simple evaluators: `correctness`, `total_tool_calls`, and `order_specialist_tool_calls`
+'''),
+    md('''
+### Evaluator #1: Correctness
+
+An evaluator that uses LLM-as-a-Judge to determine if the agent's output is "correct" when comparing it against the reference output (i.e. ground truth output).
+
+> Note: We manually define the LLM-as-a-Judge evaluator below for clarity, but you can achieve the same goal with fewer lines of code via our [openevals](https://github.com/langchain-ai/openevals) library.
+'''),
+    code('''
+from pydantic import BaseModel, Field
+from langchain.chat_models import init_chat_model
+from config import DEFAULT_MODEL
+
+
+CORRECTNESS_PROMPT = """You are an expert data labeler evaluating model outputs for correctness.
+
+Your task is to assign a boolean score based on the following rubric:
+
+<Rubric>
+  A correct answer (True):
+  - Provides accurate and complete information
+  - Contains no factual errors
+  - Addresses all parts of the question
+  - Is logically consistent
+</Rubric>
+
+<Instructions>
+  - Carefully read the input and output
+  - Compare the output to the reference_output
+  - Check for factual accuracy and completeness
+  - Focus on correctness of information rather than style or verbosity differences
+  - Return a boolean score (True if correct, False if incorrect), not a string
+</Instructions>
+
+<Note>
+- It's ok if the ouput provides additional information that is not directly included in the reference output
+- The output is just the final output from an agent invocation, so it will not include all the intermediate steps or tool calls, this is ok.
+</Note>
+
+<input>
+{inputs}
+</input>
+
+<output>
+{outputs}
+</output>
+
+<reference_outputs>
+{reference_outputs}
+</reference_outputs>
+"""
+
+
+# For structured LLM output
+class CorrectnessScore(BaseModel):
+    reasoning: str = Field(..., description="A concise reasoning for the score")
+    score: bool = Field(
+        ..., description="True if the output is correct, False if incorrect."
+    )
+
+
+# Create a structured LLM
+correctness_evaluator_llm = init_chat_model(model=DEFAULT_MODEL).with_structured_output(
+    CorrectnessScore
+)
+
+
+# Define the evaluator function
+def correctness_evaluator(inputs: dict, outputs: dict, reference_outputs: dict) -> dict:
+    """Evaluate the correctness of the output against the reference output."""
+
+    formatted_prompt = CORRECTNESS_PROMPT.format(
+        inputs=inputs, outputs=outputs, reference_outputs=reference_outputs
+    )
+
+    eval_result = correctness_evaluator_llm.invoke(formatted_prompt)
+
+    # return a dictionary with the format the evaluator expects
+    return {
+        "key": "correctness",
+        "score": eval_result.score,
+        "comment": eval_result.reasoning,
+    }
+'''),
+    md('''
+**Shortcut with `openevals`:** The manual implementation above is useful for understanding what's happening under the hood. In practice, `openevals` wraps all of it — the structured output model, the LLM call, and the return format — into a single factory function:
+
+```python
+from openevals.llm import create_llm_as_judge
+
+correctness_evaluator = create_llm_as_judge(
+    model=DEFAULT_MODEL,
+    prompt=CORRECTNESS_PROMPT,  # same prompt template as above
+    feedback_key="correctness",
+)
+```
+
+The returned `correctness_evaluator` is a drop-in replacement — pass it directly to `client.evaluate()` the same way.
+'''),
+    md('''
+#### Target Function
+
+A target function is used to specify how `inputs` from our dataset are processed to produce `outputs` that we want to evaluate.
+
+Our agent needs one more thing than the question: the **verified customer**. In the app, sign-in provides it. Here, the target function looks the customer up by the email in the question and passes it as run context, so the agent is called exactly the way the app calls it.
+'''),
+    code("AGENT = agent\n" + TARGET_FUNCTION),
+    md('''
+Now, let's test the `correctness` evaluator on a single example from our dataset to see how everything works
+'''),
+    code('''
+# get an example from our dataset
+example = next(
+    client.list_examples(dataset_id=dataset.id, metadata={"example_number": 1})
+)
+pprint(example.inputs)
+'''),
+    code('''
+# run the example inputs through our target function
+output = target_function(example.inputs)
+pprint(output)
+'''),
+    code('''
+# score the agent output against the reference output
+correctness_score = correctness_evaluator(
+    inputs=example.inputs, outputs=output, reference_outputs=example.outputs
+)
+pprint(correctness_score)
+'''),
+    md('''
+### Evaluator #2: Total Tool Calls
+
+An evaluator that doesn't rely on a ground truth reference, but is a good thing to track as it can help reveal agent patterns and highlight inefficiencies
+'''),
+    code('''
+from langsmith.schemas import Run
+
+
+def count_total_tool_calls_evaluator(run: Run) -> dict:
+    """
+    Count total tool calls across the entire run (main agent + subagents).
+
+    Returns a single 'score' metric with the total count.
+    Use for tracking efficiency: fewer calls = more efficient.
+    """
+
+    def traverse_runs(run_obj: Run) -> int:
+        """Recursively count all tool-type runs in the tree."""
+        count = 0
+
+        # Count this run if it's a tool execution
+        if run_obj.run_type == "tool":
+            count = 1
+
+        # Recursively count child runs
+        if hasattr(run_obj, "child_runs") and run_obj.child_runs:
+            for child in run_obj.child_runs:
+                count += traverse_runs(child)
+
+        return count
+
+    total_tools = traverse_runs(run)
+
+    return {"key": "total_tool_calls", "score": total_tools}
+'''),
+    md('''
+### Evaluator #3: Order-Specialist Tool Calls
+
+Total tool calls counts everything in the run, including the main agent's `task` calls that hand work to a specialist and the product-policy specialist's document searches. To see how hard the order specialist works on its own, count only the tool calls inside it:
+
+```
+deep_support_agent                     (main agent)
+├── task  ──────────────────────────   counted in total only
+│   └── order-specialist
+│       ├── get_customer_orders  ───   counted in both
+│       └── get_order_items      ───   counted in both
+└── task  ──────────────────────────   counted in total only
+    └── product-policy-specialist
+        └── search_policy_docs   ───   counted in total only
+```
+'''),
+    code('''
+def order_specialist_tool_calls_evaluator(run: Run) -> dict:
+    """Count tool calls made inside the order-specialist subagent."""
+
+    def traverse_runs(run_obj: Run, inside: bool = False) -> int:
+        """Count tool runs that have an ancestor named "order-specialist"."""
+        inside = inside or run_obj.name == "order-specialist"
+        count = 1 if inside and run_obj.run_type == "tool" else 0
+        for child in getattr(run_obj, "child_runs", None) or []:
+            count += traverse_runs(child, inside)
+        return count
+
+    return {"key": "order_specialist_tool_calls", "score": traverse_runs(run)}
+'''),
+    md('''
+These evaluators don't depend on reference outputs to produce a score, but rather use metadata from the target function's execution on a given example. This is flexibly handled in the LangSmith SDK by passing a `Run` object as input to the evaluator.
+
+> Note: see [this docs page](https://docs.langchain.com/langsmith/code-evaluator#evaluator-args) for a list of all arguments accepted by an evaluator function
+
+Let's walk through an example to make this clear.
+'''),
+    code('''
+# get a recent sample run from our project
+runs = client.list_runs(
+    project_name=os.environ.get("LANGSMITH_PROJECT", "langsmith-agent-lifecycle-workshop"),  # Your project
+    filter="""and(eq(is_root, true), eq(name, "deep_support_agent"))""",  # get a deep agent run
+    limit=1,
+)
+run = next(runs)
+
+# Fetch the complete run with all children
+full_run = client.read_run(run.id, load_child_runs=True)
+'''),
+    code('''
+# we can inspect the full run metadata
+# vars(full_run)
+
+# or just look at the child runs
+vars(full_run).get("child_runs")
+'''),
+    code('''
+# now lets pass the run to our evaluators
+print(count_total_tool_calls_evaluator(full_run))
+print(order_specialist_tool_calls_evaluator(full_run))
+'''),
+    md('''
+## 5. Run an experiment on the full dataset
+
+Now we can use our target_function and three evaluators to programmatically run an offline evaluation over each example in our dataset - this is called an "experiment" in LangSmith.
+'''),
+    code('''
+# Disable parallelism warnings from the tokenizers library to keep notebook output clean
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+# Run the experiment
+results = client.evaluate(
+    target_function,
+    data=dataset_name,
+    evaluators=[correctness_evaluator, count_total_tool_calls_evaluator, order_specialist_tool_calls_evaluator],
+    experiment_prefix="deep-agent-baseline",
+    description="Evaluate the final answer correctness and tool calls of the deep agent on the baseline dataset",
+    max_concurrency=5,
+)
+'''),
+    md('''
+## 6. Error Analysis in LangSmith UI
+
+Now let's analyze our baseline performance in the LangSmith UI via the link above. Sort by each column and open the traces behind the low scores:
+
+| Look at | What to look for |
+|---|---|
+| `order_specialist_tool_calls` | Long chains of rigid lookups: `get_customer_orders` → `get_order_items` per order → `get_order_item_price` per item. Totals and counts get added up in the model's head |
+| `correctness` on account questions | Questions about the customer's own record (phone, segment): no order tool reads the customer record |
+| `correctness` on policy and product answers | Answers marked wrong for adding extra detail, or for masking data for privacy. That's the judge, not the agent: we come back to it when we align the judge |
+| The cross-customer example | The answer refuses and shows nothing from the other customer's order |
+'''),
+]
+
+# ============================================================================
+# SECTION 2: Eval-driven development (mirrors module_2/section_2_eval_driven_development.ipynb)
+# ============================================================================
+s2 = [
+    md('''
+# Module 5, Section 2: Eval-Driven Development
+
+The benefit of building out a dataset and eval metrics upfront is that we have a quantitative signal that we can use to understand how changes to our app impact downstream performance. Without this, we're just flying blind!
+
+
+<div align="center">
+    <img src="../../images/eval_process.png">
+</div>
+
+### Systematically Improving Our Application
+
+Our baseline evaluation revealed weaknesses in the deep agent's order specialist:
+
+**The Problem:**
+- ❌ **Excessive tool calls**: Sequential chains of `get_customer_orders` → multiple `get_order_items` → multiple `get_order_item_price` calls, etc.
+- ❌ **Missing capabilities**: Can't aggregate (SUM, COUNT, AVG), filter (WHERE), or JOIN across tables - so relies on in-memory math
+- ❌ **Limited flexibility**: Rigid tools can't adapt to complex or novel queries, and none of them reads the customer's own record
+
+**Possible Solution:**
+Give the order specialist a flexible SQL tool that generates custom queries at runtime, scoped to the signed-in customer's data.
+
+Let's use our evaluation setup to drive a targeted improvement!
+'''),
+    md('''
+## 1. Setup
+
+We'll give the order specialist a SQL tool that can answer complex questions about the customer's orders with a single query.
+
+<div align="center">
+    <img src="../../images/order_specialist_improvement.svg" width="700">
+</div>
+'''),
+    code('''
+from dotenv import load_dotenv
+from tools.database import query_my_orders
+
+load_dotenv()
+
+# The tool's description carries the schema the model needs to write queries
+print(query_my_orders.description)
+'''),
+    md('''
+## 2. Build SQL Agent
+
+In Module 2 the SQL agent got `execute_sql`, a tool that runs any SELECT. That can't work here: the order specialist serves a signed-in customer, and a raw SQL tool would let them read **every** customer's orders. The customer-scope guard only checks `customer_id` and `order_id` arguments, and a SQL string has neither.
+
+So the tool enforces the scope itself, from the verified customer in run context:
+
+```
+SupportContext(customer_id="CUST-010")      set by the app, not the conversation
+        │
+        ▼
+query_my_orders(sql)
+   1. read-only connection to techhub.db
+   2. temp views: orders, order_items, customers  ← only CUST-010's rows
+   3. authorizer: reads of the views and the public products table only
+   4. run the query (row cap, 2-second limit)
+        │
+        ▼
+"SELECT ... FROM orders"  sees CUST-010's orders, and nobody else's
+```
+'''),
+    code('''
+import inspect
+
+print(inspect.getsource(query_my_orders.func))
+'''),
+    md('''
+Now an agent that writes those queries, using the `create_agent()` abstraction with the same context schema as the deep agent:
+'''),
+    code('''
+from langchain.agents import create_agent
+from agents.deep_support_agent import SupportContext
+from config import DEFAULT_MODEL
+
+sql_agent = create_agent(
+    model=DEFAULT_MODEL,
+    tools=[query_my_orders],
+    name="sql_agent",
+    system_prompt="You are TechHub's order specialist. Answer with one SQL query when you can, and report exactly what it returns.",
+    context_schema=SupportContext,
+)
+sql_agent
+'''),
+    md('''
+#### 🔒 Production Security Note
+
+In Module 2, the SQL tool blocked writes with keyword filtering. This tool also has to keep each customer inside their own data, so it uses several layers:
+
+| Layer | What it blocks |
+|---|---|
+| Read-only connection (`mode=ro`) | Any write to the database |
+| Temp views over the verified customer's rows | Reading another customer's orders, order items, or account |
+| SQLite authorizer | Reading the underlying tables directly, `PRAGMA`, `ATTACH`, writes |
+| Row cap and 2-second limit | Huge results and runaway queries |
+| Customer ID from run context, validated | The conversation choosing whose data to read |
+
+In production PostgreSQL, you'd add database-level controls too: a read-only role and row-level security keyed to the signed-in customer.
+'''),
+    md('''
+## 3. Quick Demo
+
+Let's test the SQL agent on a query that previously took a chain of lookups, as the customer who owns the order:
+'''),
+    code('''
+# Test on a query that requires joining orders, items, and products
+question = "What items were in order ORD-2023-0002? How much did each cost?"
+
+result = sql_agent.invoke(
+    {"messages": [{"role": "user", "content": question}]},
+    context=SupportContext(customer_id="CUST-010"),
+)
+
+for message in result["messages"]:
+    message.pretty_print()
+'''),
+    md('''
+✅ **Success!** The SQL agent generates a custom query with JOINs to answer the question in a single tool call.
+
+Now the same question from a **different** customer. The query runs, but only over that customer's rows, so the other customer's order isn't there:
+'''),
+    code('''
+result = sql_agent.invoke(
+    {"messages": [{"role": "user", "content": question}]},
+    context=SupportContext(customer_id="CUST-003"),
+)
+
+result["messages"][-1].pretty_print()
+'''),
+    md('''
+Check the LangSmith traces to see the generated SQL queries!
+'''),
+    md('''
+## 4. Integrate SQL Agent with the Deep Agent
+
+Now let's swap the order specialist's rigid tools for this SQL tool in the full deep agent. `order_tools="sql"` gives the order specialist `query_my_orders` instead of the five lookups:
+
+<div align="center">
+    <img src="../../images/order_specialist_improvement.svg" width="500">
+</div>
+'''),
+    code('''
+from agents.deep_support_agent import create_deep_support_agent
+
+# Compose the deep agent with the SQL order specialist instead of the rigid one
+improved_agent = create_deep_support_agent(order_tools="sql")
+'''),
+    md('''
+Quick test:
+'''),
+    code('''
+import uuid
+
+# New thread
+thread_id = uuid.uuid4()
+config = {"configurable": {"thread_id": thread_id}}
+
+# The app has signed the customer in, so their ID comes from run context
+result = improved_agent.invoke(
+    {"messages": [{"role": "user", "content": "Whats the status of my recent order?"}]},
+    config=config,
+    context=SupportContext(customer_id="CUST-003"),
+)
+'''),
+    code('''
+for message in result["messages"]:
+    message.pretty_print()
+'''),
+    md('''
+## 5. Re-evaluate Performance
+
+Now let's run the same evaluation on the same dataset to quantitatively see how it impacts our performance metrics.
+'''),
+    code('''
+# Import evaluators from Section 1 (now packaged in evaluators module)
+from evaluators import (
+    correctness_evaluator,
+    count_total_tool_calls_evaluator,
+    order_specialist_tool_calls_evaluator,
+)
+'''),
+    code("from langsmith import Client\n\nclient = Client()\n\nAGENT = improved_agent\n" + TARGET_FUNCTION + '''
+
+# The Section 1 dataset: the most recent one with its name prefix
+dataset = max(
+    client.list_datasets(dataset_name_contains="techhub-deep-agent-baseline-"),
+    key=lambda ds: ds.created_at,
+)
+
+# Run evaluation on same dataset
+results = client.evaluate(
+    target_function,
+    data=dataset.name,  # Same dataset as section 1
+    evaluators=[correctness_evaluator, count_total_tool_calls_evaluator, order_specialist_tool_calls_evaluator],
+    experiment_prefix="deep-agent-sql",
+    description="Evaluate the SQL order specialist's flexible queries vs baseline rigid tools",
+    max_concurrency=5,
+)
+'''),
+    md('''
+## 6. Compare Results in LangSmith
+
+Now let's analyze our improvement using LangSmith's comparison features. Open both experiments side by side:
+'''),
+    code('''
+experiments = sorted(client.list_projects(reference_dataset_id=dataset.id), key=lambda p: p.start_time)
+baseline = next(p for p in reversed(experiments) if p.name.startswith("deep-agent-baseline"))
+improved = next(p for p in reversed(experiments) if p.name.startswith("deep-agent-sql"))
+
+print("Baseline:", baseline.name)
+print("Improved:", improved.name)
+print(f"📊 Compare: {dataset.url}/compare?selectedSessions={baseline.id},{improved.id}")
+'''),
+    md('''
+What to expect:
+
+| Metric | Direction | Why |
+|---|---|---|
+| `order_specialist_tool_calls` | ⬇️ Down sharply | One query replaces a chain of lookups |
+| `total_tool_calls` | ⬇️ Down | Same reason; delegations and doc searches stay about the same |
+| `correctness` | ⬆️ Same or better | Aggregations are computed by SQL instead of in the model's head, and the customer record is now readable |
+| Cross-customer example | Still refused | The SQL only ever sees the signed-in customer's rows |
+
+Some answers will still be marked wrong for adding detail or masking data for privacy. That's the judge, not the agent: aligning the judge is next.
+'''),
+]
+
 # ============================================================================
 # SECTION 5: Harbor evals (see docs/2026-11-12-module-5-section-3-v2-plan.md)
 # ============================================================================
@@ -420,4 +1121,6 @@ print("📊 Compare:", f"{dataset.url}/compare?selectedSessions={','.join(str(e.
 '''),
 ]
 
+save("section_1_baseline_evaluation.ipynb", s1)
+save("section_2_eval_driven_development.ipynb", s2)
 save("section_5_harbor_evals.ipynb", s5)
