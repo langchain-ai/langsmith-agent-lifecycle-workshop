@@ -1,0 +1,27 @@
+evaluators/evaluators.py
+  s_34c8278f2e3e28::t_6f7fc7c01be70f 175-206
+docs/2026-11-12-module-5-sections-1-2-prd.md
+  s_34c8278f2e3e28::t_6caab6dbf76bf9 99-100,103-104
+evaluators/__init__.py
+  s_34c8278f2e3e28::t_e5eb2d54d5cd30 9,18,24
+tests/test_order_specialist_tool_calls.py
+  s_34c8278f2e3e28::t_9a194533750a77 1-39
+workshop_modules/module_5/baseline_dataset.json
+  s_34c8278f2e3e28::t_8c1bcbfb0b3b5e 1-158
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "329d4c864d9024c582d71c4574440000117041b0",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
