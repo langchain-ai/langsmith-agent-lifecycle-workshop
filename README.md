@@ -108,8 +108,10 @@ This workshop consists of three modules that take you from manual tool calling t
 Advanced (L200) modules build on the same TechHub agent:
 
 4. **Module 4: Deep Agents 101 → 201** - A pricing research deep agent (101), then harness engineering on the support agent: context, middleware, dynamic subagents, verification (201)
-5. **Module 5: Advanced Evaluation** - In progress
+5. **Module 5: Advanced Evaluation** - Module 2's evaluation path on the deep agent (baseline, eval-driven development, judge alignment, Jev as a judge), then Harbor evals in sandboxes
 6. **Module 6: Deploying Agents into Production** - Managed Deep Agents, Agent Server runtime, and sandboxes
+
+There are two learning paths: Modules 1–3 build and evaluate a supervisor multi-agent system, and Modules 4–6 do the same for a deep agent. Module 5 deliberately mirrors Module 2 on the deep agent, so most people take one path or the other.
 
 📚 To get started, see [workshop_modules/README.md](workshop_modules/README.md)
 
