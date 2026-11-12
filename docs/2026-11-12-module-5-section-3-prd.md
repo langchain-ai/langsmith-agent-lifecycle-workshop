@@ -81,20 +81,20 @@ Schema, same as Module 2: `id`, `bucket`, `question`, `reference`, `output`, `hu
 
 | # | Question | Proposed | Status |
 |---|---|---|---|
-| Q1 | Golden-set source: real Section 1–2 outputs plus a few edits (D2), or Module 2's recipe (about 14 raw + 16 edited)? | Real outputs plus edits | Confirm |
-| Q2 | Labeling: Claude drafts every label, bucket, and note, flagging uncertain ones, and Ariel reviews all of them (in a LangSmith annotation queue or a review table); or Ariel labels from scratch? | Draft + full review; nothing is final until Ariel approves it | Confirm |
-| Q3 | Policy calls for labeling: is masking the phone number the verified customer asked for correct? Are meta statements ("I used the verified account on file") fine? | Masking: incorrect (the customer is verified and asked for their own data). Meta statements: fine | Ariel decides |
-| Q4 | Judge model: pin `openai:gpt-5-mini` like Module 2, or the model Sections 1–2 used (`DEFAULT_MODEL`)? | Pin like Module 2, and say so | Confirm |
-| Q5 | Save the final prompt in `evaluators/` (D5)? | Yes, as `DEEP_AGENT_CORRECTNESS_PROMPT` plus an evaluator, for Section 4 | Confirm |
+| Q1 | Golden-set source: real Section 1–2 outputs plus a few edits (D2), or Module 2's recipe (about 14 raw + 16 edited)? | Real outputs plus edits | Decided 2026-11-12 |
+| Q2 | Labeling: Claude drafts every label, bucket, and note, flagging uncertain ones, and Ariel reviews all of them (in a LangSmith annotation queue or a review table); or Ariel labels from scratch? | Draft + full review; nothing is final until Ariel approves it | Decided 2026-11-12 |
+| Q3 | Policy calls for labeling: is masking the phone number the verified customer asked for correct? Are meta statements ("I used the verified account on file") fine? | Masking: incorrect (the customer is verified and asked for their own data). Meta statements: fine | Decided 2026-11-12 (as proposed) |
+| Q4 | Judge model: pin `openai:gpt-5-mini` like Module 2, or the model Sections 1–2 used (`DEFAULT_MODEL`)? | Pin like Module 2, and say so | Decided 2026-11-12 |
+| Q5 | Save the final prompt in `evaluators/` (D5)? | Yes, as `DEEP_AGENT_CORRECTNESS_PROMPT` plus an evaluator, for Section 4 | Decided 2026-11-12 |
 
 ## 8. Tasks
 
 Each task ends with a commit. Check items off here as they land.
 
 **Golden set**
-- [ ] **T1** Export the 26 final answers (question, reference, output, experiment and run ID) from the two clean experiments into a candidates file. Check that none of those runs errored.
-- [ ] **T2** Draft a bucket, label, and `label_note` for each candidate, flagging uncertain ones. Add edited copies for buckets with no natural example.
-- [ ] **T3** **Ariel reviews every label** (per Q2) and settles the policy calls (Q3). Write `workshop_modules/module_5/golden_set.json`.
+- [x] **T1** Export the 26 final answers (question, reference, output, experiment and run ID) from the two clean experiments into a candidates file. Check that none of those runs errored.
+- [x] **T2** Draft a bucket, label, and `label_note` for each candidate, flagging uncertain ones. Add edited copies for buckets with no natural example.
+- [ ] **T3** **Ariel reviews every label** (per Q2) and settles the policy calls (Q3). Write `workshop_modules/module_5/golden_set.json`. **Draft written 2026-11-12 (33 items: 26 real, 7 edited); review doc: `docs/2026-11-12-module-5-golden-set-review.md`.**
 
 **Measure and fix**
 - [ ] **T4** Spike: run the v0 judge (the Sections 1–2 `CORRECTNESS_PROMPT`, pinned model) on the golden set 3 times. Record agreement, the confusion matrix, and every disagreement grouped by cause. Record the causes in §10.
