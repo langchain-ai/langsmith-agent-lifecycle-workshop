@@ -96,12 +96,12 @@ Each task ends with a commit. Check each item off here as it lands.
 - [x] **T1** Rename `section_3_harbor_evals.ipynb` → `section_5_harbor_evals.ipynb`: builder output name, notebook title ("Module 5, Section 5"), and every reference (`grep -rn "section_3_harbor\|Section 3" docs managed_agent workshop_modules utils`). Update the outline in `docs/2026-11-09-module-5-build-plan.md` to the five sections in §3.
 
 **Verify and spike**
-- [ ] **T2** Re-verify the spike code: run `tests/test_query_my_orders.py`; invoke `create_deep_support_agent(order_tools="sql")` once with `SupportContext(customer_id="CUST-003")`.
-- [ ] **T3** Spike the order-specialist evaluator: in one deep-agent trace, find how the order specialist's subtree is identifiable (subagent run name or the `task` tool call's `subagent_type`), and count tool runs under it. Write down the rule.
+- [x] **T2** Re-verify the spike code: run `tests/test_query_my_orders.py`; invoke `create_deep_support_agent(order_tools="sql")` once with `SupportContext(customer_id="CUST-003")`.
+- [x] **T3** Spike the order-specialist evaluator: in one deep-agent trace, find how the order specialist's subtree is identifiable (subagent run name or the `task` tool call's `subagent_type`), and count tool runs under it. Write down the rule. **Result:** the specialist is a chain run named `order-specialist` under the main agent's `task` tool run; count tool runs with that ancestor. On a probe trace: 1 order-specialist tool call vs 2 total (the `task` delegation counts toward the total).
 
 **Data, evaluators, images**
-- [ ] **T4** Create `workshop_modules/module_5/baseline_dataset.json`: Module 2's 12 examples unchanged, plus one cross-customer example. Use CUST-003's real email from the database, an order that belongs to another customer, and a reference answer that refuses without details. Metadata `category: "authorization"`, `example_number: 13`.
-- [ ] **T5** Add `order_specialist_tool_calls_evaluator(run)` to `evaluators/evaluators.py` and export it; a unit test in `tests/` on a hand-built `Run` tree (order-specialist subtree vs. other subtrees).
+- [x] **T4** Create `workshop_modules/module_5/baseline_dataset.json`: Module 2's 12 examples unchanged, plus one cross-customer example. Use CUST-003's real email from the database, an order that belongs to another customer, and a reference answer that refuses without details. Metadata `category: "authorization"`, `example_number: 13`.
+- [x] **T5** Add `order_specialist_tool_calls_evaluator(run)` to `evaluators/evaluators.py` and export it; a unit test in `tests/` on a hand-built `Run` tree (order-specialist subtree vs. other subtrees).
 - [ ] **T6** Draw `images/deep_support_agent.svg`: main agent → `task` → `order-specialist` (the five rigid tools: `get_order_status`, `get_order_items`, `get_product_info`, `get_order_item_price`, `get_customer_orders`) and `product-policy-specialist` (`search_product_docs`, `search_policy_docs` over the vectorstore); `request_refund` with the approval pause; customer-scope guard; caller identity from context. Same style as `images/harbor_eval_process.svg`. Check that it renders in JupyterLab.
 - [ ] **T7** Draw `images/order_specialist_improvement.svg`: OLD/NEW panels in the layout of `db_agent_improvement.png`, rigid tools → `query_my_orders()`.
 

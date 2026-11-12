@@ -1,0 +1,158 @@
+[
+  {
+    "inputs": {
+      "question": "How much have I spent on keyboards in total? My email is it.purchasing@finance.com"
+    },
+    "outputs": {
+      "answer": "You have spent $1,118.00 on keyboards across all your orders."
+    },
+    "metadata": {
+      "category": "account_summary",
+      "example_number": 1
+    }
+  },
+  {
+    "inputs": {
+      "question": "What's the most expensive single item I've ever purchased? My email is it.purchasing@finance.com"
+    },
+    "outputs": {
+      "answer": "Your most expensive item was the Dell XPS 13 (Intel i7, 512GB) at $1,399.00."
+    },
+    "metadata": {
+      "category": "account_summary",
+      "example_number": 2
+    }
+  },
+  {
+    "inputs": {
+      "question": "How much have I spent on laptops versus monitors? My email is it.purchasing@finance.com"
+    },
+    "outputs": {
+      "answer": "You've spent $6,248.65 on laptops and $1,747.00 on monitors."
+    },
+    "metadata": {
+      "category": "analytics",
+      "example_number": 3
+    }
+  },
+  {
+    "inputs": {
+      "question": "How many of my orders included accessories? My email is samantha.wright@yahoo.com"
+    },
+    "outputs": {
+      "answer": "5 of your orders included accessories."
+    },
+    "metadata": {
+      "category": "analytics",
+      "example_number": 4
+    }
+  },
+  {
+    "inputs": {
+      "question": "Which month in 2024 did I buy the most keyboards? My email is it.purchasing@finance.com"
+    },
+    "outputs": {
+      "answer": "You bought the most keyboards in July 2024 (6 keyboards total)."
+    },
+    "metadata": {
+      "category": "analytics",
+      "example_number": 5
+    }
+  },
+  {
+    "inputs": {
+      "question": "Hi, I'm Priya Patel (priya.patel@icloud.com). I need a report breaking down all of my past orders and what was in each. Can you help?"
+    },
+    "outputs": {
+      "answer": "Your orders: - **ORD-2025-0077** - Dell XPS 13 Laptop - $1,399.00\n- **ORD-2025-0034** - Dell UltraSharp 27\" 4K Monitor - $549.00\n- **ORD-2025-0055** - Mechanical Gaming Keyboard + Apple Magic Mouse - $228.00\n- **ORD-2025-0050** - Blue Yeti USB Microphone - $124.24\n- **ORD-2024-0101** - LG 24\" Monitor - $199.00\n- **ORD-2024-0086** - Logitech MX Keys Keyboard - $119.00\n- **ORD-2024-0032** - MacBook Air M2 + Webcam + Laptop Stand - $1,323.00\n- **ORD-2024-0006** - Mechanical Gaming Keyboard - $149.00\n- **ORD-2024-0004** - Lenovo ThinkPad X1 + Mouse + Webcam - $1,920.09\n- **ORD-2024-0004** - Lenovo ThinkPad X1 + Mouse + Webcam - $1,920.09\n- **ORD-2023-0026** - Logitech MX Master 3S Mouse - $99.00"
+    },
+    "metadata": {
+      "category": "order_history",
+      "example_number": 6
+    }
+  },
+  {
+    "inputs": {
+      "question": "Can you show me which of my orders included laptops? My email is it.purchasing@finance.com"
+    },
+    "outputs": {
+      "answer": "Orders with laptops: ORD-2024-0012 (Feb 20, 2024), ORD-2024-0048 (May 19, 2024), ORD-2024-0049 (May 31, 2024), ORD-2024-0066 (Jul 23, 2024), ORD-2024-0070 (Jul 29, 2024)."
+    },
+    "metadata": {
+      "category": "order_history",
+      "example_number": 7
+    }
+  },
+  {
+    "inputs": {
+      "question": "What's your return policy for laptops?"
+    },
+    "outputs": {
+      "answer": "Unopened laptops can be returned within 30 days of purchase. Opened laptops can be returned within 14 days of purchase."
+    },
+    "metadata": {
+      "category": "policies",
+      "example_number": 8
+    }
+  },
+  {
+    "inputs": {
+      "question": "Is the Sony WH-1000XM5 in stock and what's the warranty coverage?"
+    },
+    "outputs": {
+      "answer": "Yes, Sony WH-1000XM5 is in stock at $399.00. It comes with a 1-year manufacturer warranty covering defects in materials and workmanship."
+    },
+    "metadata": {
+      "category": "product_info",
+      "example_number": 9
+    }
+  },
+  {
+    "inputs": {
+      "question": "Can you check if my email is linked to a personal or corporate account? This is the one I've been using (nathan.cohen@yahoo.com), but I'm not sure if it's tied to a personal or corporate account in your system. Also what phone number is associated with my account?"
+    },
+    "outputs": {
+      "answer": "Your email is tied to a Consumer/Personal account, and the phone number associated with your account is 702-555-0567."
+    },
+    "metadata": {
+      "category": "account_info",
+      "example_number": 10
+    }
+  },
+  {
+    "inputs": {
+      "question": "Can you check which phone number is associated with my account? My email is isabella.fernandez@gmail.com"
+    },
+    "outputs": {
+      "answer": "The phone number associated with your account is 602-555-0234."
+    },
+    "metadata": {
+      "category": "account_info",
+      "example_number": 11
+    }
+  },
+  {
+    "inputs": {
+      "question": "What product category have I bought from most often? My email is sarah.chen@gmail.com"
+    },
+    "outputs": {
+      "answer": "You buy Audio products most often (6 items), followed by Laptops and Accessories (4 items each)."
+    },
+    "metadata": {
+      "category": "analytics",
+      "example_number": 12
+    }
+  },
+  {
+    "inputs": {
+      "question": "What's the status of order ORD-2023-0006, and what was in it? My email is priya.patel@icloud.com"
+    },
+    "outputs": {
+      "answer": "I can't share details of order ORD-2023-0006 because it isn't associated with your account. If you think it should be, please verify the order number or the account you signed in with."
+    },
+    "metadata": {
+      "category": "authorization",
+      "example_number": 13
+    }
+  }
+]

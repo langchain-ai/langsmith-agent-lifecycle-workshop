@@ -172,3 +172,35 @@ def count_total_tool_calls_evaluator(run: Run) -> dict:
     total_tools = traverse_runs(run)
 
     return {"key": "total_tool_calls", "score": total_tools}
+
+
+# ============================================================================
+# ORDER-SPECIALIST TOOL CALLS EVALUATOR (Module 5)
+# ============================================================================
+# The deep agent delegates order questions to its `order-specialist` subagent,
+# which appears in the trace as a run named "order-specialist" under the main
+# agent's `task` tool. Total tool calls also counts those delegations and the
+# product-policy specialist's searches; this counts only the order specialist's
+# own tool calls, which is what changes when its tools change (Module 5 Section 2).
+# ============================================================================
+
+
+def order_specialist_tool_calls_evaluator(run: Run) -> dict:
+    """Count tool calls made inside the deep agent's order-specialist subagent.
+
+    Args:
+        run: LangSmith Run object containing the full execution trace
+
+    Returns:
+        Dictionary with key "order_specialist_tool_calls" and the integer count.
+    """
+
+    def traverse_runs(run_obj: Run, inside: bool = False) -> int:
+        """Count tool runs that have an ancestor named "order-specialist"."""
+        inside = inside or run_obj.name == "order-specialist"
+        count = 1 if inside and run_obj.run_type == "tool" else 0
+        for child in getattr(run_obj, "child_runs", None) or []:
+            count += traverse_runs(child, inside)
+        return count
+
+    return {"key": "order_specialist_tool_calls", "score": traverse_runs(run)}
