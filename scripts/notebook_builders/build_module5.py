@@ -775,6 +775,408 @@ Some answers will still be marked wrong for adding detail or masking data for pr
 ]
 
 # ============================================================================
+# SECTION 3: Aligning the judge (mirrors module_2/bonus_align_llm_judge.ipynb;
+# see docs/2026-11-12-module-5-section-3-prd.md)
+# ============================================================================
+s3 = [
+    md('''
+# Module 5, Section 3: Aligning an LLM-as-Judge
+
+In Sections 1 and 2, every decision about the deep agent rested on one number: the `correctness` score from our LLM-as-judge. We used it to set a baseline and to justify replacing the order specialist's rigid tools with SQL. We never checked whether the judge agrees with a person.
+
+A judge is **aligned** when it reaches the same verdict a human would on the same output. In this notebook we measure that agreement against human labels, find where the judge is wrong, and fix its rubric until the two agree.
+
+| Step | What we do |
+|---|---|
+| 1. Golden set | Load 33 frozen deep-agent outputs, each labeled correct or incorrect by a person |
+| 2. Measure | Run the Sections 1–2 judge over them and count agreements with the labels |
+| 3. Diagnose | Read the disagreements and group them by cause |
+| 4. Fix | Add one rubric rule per cause and re-measure |
+'''),
+    md('''
+<div align="center">
+    <img src="../../images/align-evals-workflow.png" width="900">
+</div>
+'''),
+    md("## Setup"),
+    code('''
+import json
+import sys
+import warnings
+from collections import Counter
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+# Make the repo root importable regardless of the kernel's working directory.
+REPO_ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "config.py").exists())
+sys.path.insert(0, str(REPO_ROOT))
+load_dotenv(REPO_ROOT / ".env")
+warnings.filterwarnings("ignore", category=UserWarning)
+
+from langchain.chat_models import init_chat_model
+from langsmith import Client
+from pydantic import BaseModel, Field
+
+from evaluators.evaluators import CORRECTNESS_PROMPT
+
+client = Client()
+'''),
+    md('''
+We pin the judge model instead of reading it from `WORKSHOP_MODEL`. A judge is a measuring instrument: if its model changes, every score it produced before means something different.
+'''),
+    code('''
+JUDGE_MODEL = "openai:gpt-5-mini"
+'''),
+    md('''
+## 1. Load the golden set
+
+`golden_set.json` holds 33 items. Each one has a customer question, the reference answer from Section 1's dataset, a deep-agent output, and a human label:
+
+- **26 outputs are unedited.** They are the final answers from the Section 1 experiment (rigid order tools) and the Section 2 experiment (scoped SQL), one per question for each.
+- **7 outputs are edited copies** of those answers. Each edit introduces one specific mistake, such as claiming a refund was issued, or fixes one, such as giving the full phone number instead of a masked one, so that both labels appear for each kind of mistake.
+
+The outputs are frozen, so the only thing that changes between runs in this notebook is the judge.
+'''),
+    code('''
+GOLDEN_SET_PATH = REPO_ROOT / "workshop_modules" / "module_5" / "golden_set.json"
+golden_set = json.loads(GOLDEN_SET_PATH.read_text())
+GOLD = {item["id"]: item for item in golden_set}
+
+labels = Counter(item["human_label"] for item in golden_set)
+print(f"{len(golden_set)} items: {labels[True]} labeled correct, {labels[False]} labeled incorrect\\n")
+print(Counter(item["bucket"] for item in golden_set))
+'''),
+    md('''
+Every item has a `bucket` (the kind of output it is) and a `label_note` (why the labeler chose that label):
+
+| Bucket | Label | What the output does |
+|---|---|---|
+| `ok` | correct | Answers the question accurately |
+| `refused` | correct | Declines to share another customer's order |
+| `cut_off` | incorrect | Stops short because the order specialist hit its tool-call limit: a SKU instead of a name, a total marked "at least", wrong counts |
+| `partial` | incorrect | Answers one half of a two-part question, or gives only one of two return windows |
+| `masked` | incorrect | Masks the phone number the verified customer asked for |
+| `fabricated` | incorrect | Right facts, plus an action the agent didn't or can't take ("I've issued a refund") |
+| `numbers` | incorrect | A breakdown that doesn't add up to the total it supports |
+| `wrong` / `no_answer` | incorrect | Wrong answer, or no answer |
+
+Two principles decided the close calls:
+
+- **A right headline with wrong supporting facts is incorrect.** Customers act on the details.
+- **Judge against what the customer asked, not everything in the reference.** Extras in the reference aren't required, and details count when the question is about them.
+
+> **Note:** The judge gets aligned to these labels, so they deserve the most scrutiny in this notebook. Read a few `label_note` values before trusting any agreement number below.
+'''),
+    code('''
+for item_id in ["sql-1", "sql-6", "edit-sql-7-refund-offer"]:
+    item = GOLD[item_id]
+    print(f"--- {item_id} [{item['bucket']}] human_label={item['human_label']}")
+    print(f"Q:     {item['question']}")
+    print(f"Note:  {item['label_note']}\\n")
+'''),
+    md('''
+#### 🔒 Production Security Note
+
+The emails and phone numbers in this dataset belong to synthetic TechHub customers. With real traffic, a golden set is a copy of customer data that more people see and that lives longer than the original trace:
+
+1. **Scrub before labeling**: replace emails, names and phone numbers with tokens before outputs reach an annotation queue or a dataset
+2. **Scrub before judging**: the judge model sees everything you pass to it, so send it the fields it needs and nothing else
+3. **Match access controls**: give the dataset the same access and retention rules as the project the traces came from
+
+The deep agent's own PII redaction doesn't make a golden set safe: it redacts what the model sees, not what you copy out of traces and outputs.
+'''),
+    md('''
+### 1.1 Create the dataset in LangSmith
+
+Each example stores the question as input and the reference answer as output. The `example_id` in the inputs lets the target function find the frozen output. The judge never sees it, and never sees the human label.
+
+Re-running this cell reuses the dataset and only adds missing examples. It never deletes, so labels and experiments attached to existing examples stay intact.
+'''),
+    code('''
+DATASET_NAME = "techhub-deep-agent-judge-alignment"
+
+if client.has_dataset(dataset_name=DATASET_NAME):
+    dataset = client.read_dataset(dataset_name=DATASET_NAME)
+    print(f"Reusing dataset: {dataset.name}")
+else:
+    dataset = client.create_dataset(
+        dataset_name=DATASET_NAME,
+        description="Frozen TechHub deep-agent outputs with human correctness labels, for aligning the correctness judge.",
+    )
+    print(f"Created dataset: {dataset.name}")
+
+existing_ids = {ex.inputs.get("example_id") for ex in client.list_examples(dataset_id=dataset.id)}
+missing = [item for item in golden_set if item["id"] not in existing_ids]
+if missing:
+    client.create_examples(
+        dataset_id=dataset.id,
+        inputs=[
+            {"example_id": item["id"], "messages": [{"role": "user", "content": item["question"]}]}
+            for item in missing
+        ],
+        outputs=[{"messages": [{"role": "assistant", "content": item["reference"]}]} for item in missing],
+        metadata=[{"bucket": item["bucket"]} for item in missing],
+    )
+print(f"Added {len(missing)} example(s). Dataset: {dataset.url}")
+'''),
+    md('''
+### 1.2 Target function
+
+The target function returns the frozen output for each example instead of calling the agent. Every experiment in this notebook therefore grades the exact same 33 outputs.
+'''),
+    code('''
+def frozen_agent(inputs: dict) -> dict:
+    """Return the stored agent output for this example."""
+    output = GOLD[inputs["example_id"]]["output"]
+    return {"messages": [{"role": "assistant", "content": output}]}
+'''),
+    md('''
+## 2. Measure the Sections 1–2 judge
+
+`make_judge` turns a prompt into an evaluator with the same structure as `correctness_evaluator` in `evaluators/evaluators.py`. It returns two scores per example:
+
+- **`correctness`**: the judge's verdict
+- **`matches_human`**: 1 if that verdict equals the human label, 0 if not
+
+**Agreement** is the share of examples where `matches_human` is 1.
+'''),
+    code('''
+class CorrectnessScore(BaseModel):
+    """Structured output schema for correctness evaluation."""
+
+    reasoning: str = Field(..., description="A concise reasoning for the score")
+    score: bool = Field(..., description="True if the output is correct, False if incorrect.")
+
+
+judge_llm = init_chat_model(JUDGE_MODEL).with_structured_output(CorrectnessScore)
+
+
+def make_judge(prompt: str):
+    def judge(inputs: dict, outputs: dict, reference_outputs: dict) -> dict:
+        # Only the conversation reaches the judge: no example_id, no human label.
+        result = judge_llm.invoke(
+            prompt.format(
+                inputs={"messages": inputs["messages"]},
+                outputs=outputs,
+                reference_outputs=reference_outputs,
+            )
+        )
+        human_label = GOLD[inputs["example_id"]]["human_label"]
+        return {
+            "results": [
+                {"key": "correctness", "score": result.score, "comment": result.reasoning},
+                {"key": "matches_human", "score": int(result.score == human_label), "comment": f"human_label={human_label}"},
+            ]
+        }
+
+    return judge
+'''),
+    md('''
+We also set aside a **hold-out**: six labeled items, chosen before measuring anything, that the rubric rules are never written against. If a rule only works on the items it was written for, the hold-out shows it.
+
+`report` reads an experiment's results back and prints the agreement (overall, on the items the rules are written against, and on the hold-out), a confusion matrix of human label against judge verdict, and every disagreement with the judge's reasoning.
+'''),
+    code('''
+HOLDOUT = {"sql-4", "rigid-13", "rigid-3", "sql-9", "sql-10", "edit-sql-2-account-updated"}
+
+
+def report(results) -> float:
+    rows = []
+    for row in results:
+        example_id = row["example"].inputs["example_id"]
+        scores = {r.key: r for r in row["evaluation_results"]["results"]}
+        rows.append((GOLD[example_id], bool(scores["correctness"].score), scores["correctness"].comment))
+
+    def agreement_on(selected):
+        return sum(item["human_label"] == verdict for item, verdict, _ in selected) / len(selected)
+
+    agreement = agreement_on(rows)
+    rule_items = [r for r in rows if r[0]["id"] not in HOLDOUT]
+    holdout = [r for r in rows if r[0]["id"] in HOLDOUT]
+    matrix = Counter((item["human_label"], verdict) for item, verdict, _ in rows)
+
+    print(f"Agreement: {agreement:.0%} ({round(agreement * len(rows))}/{len(rows)})")
+    print(f"  rule items: {agreement_on(rule_items):.0%}   hold-out: {agreement_on(holdout):.0%}\\n")
+    print("                    judge=correct  judge=incorrect")
+    print(f"human=correct       {matrix[(True, True)]:>13}  {matrix[(True, False)]:>15}")
+    print(f"human=incorrect     {matrix[(False, True)]:>13}  {matrix[(False, False)]:>15}\\n")
+    for item, verdict, reasoning in rows:
+        if item["human_label"] != verdict:
+            holdout_tag = " (hold-out)" if item["id"] in HOLDOUT else ""
+            print(f"✗ {item['id']} [{item['bucket']}]{holdout_tag} human={item['human_label']} judge={verdict}")
+            print(f"    judge: {reasoning[:220]}")
+    return agreement
+
+
+agreement_by_version = {}
+'''),
+    md('''
+Now run the judge from Sections 1 and 2, unchanged, over the golden set.
+'''),
+    code('''
+results_v0 = client.evaluate(
+    frozen_agent,
+    data=DATASET_NAME,
+    evaluators=[make_judge(CORRECTNESS_PROMPT)],
+    experiment_prefix="deep-judge-v0-sections-1-2",
+    max_concurrency=8,
+)
+agreement_by_version["v0 (Sections 1–2)"] = report(results_v0)
+'''),
+    md('''
+### 2.1 Analyze Results
+
+Read the disagreements before changing anything. Look at the `bucket` of each one and at the judge's reasoning, and group them by cause.
+
+**Common failure patterns to look for:**
+- **The judge passes outputs the human failed.** The judge is too lenient on something the labeler cares about.
+- **The judge fails outputs the human passed.** The rubric asks for something the labeler doesn't.
+- **Disagreements cluster in one or two buckets.** Each cluster usually traces back to one sentence in the rubric that is missing or too loose.
+
+On our runs, the judge agreed with the labels on almost everything, including the close calls, and the disagreements were in one bucket:
+
+| Bucket | Why the judge passed it |
+|---|---|
+| `fabricated` | The rubric's `<Note>` says "It's ok if the output provides additional information". The judge reads an invented action ("I've also issued a refund", "I've updated your phone number") as an acceptable extra. |
+
+Occasionally it also passed a `masked` answer ("withholding the full number for privacy does not make the response incorrect").
+'''),
+    md('''
+## 3. Fix the rubric, one cause at a time
+
+Each fix below adds rules for exactly one cause and re-runs the judge on the same 33 outputs. Changing one thing per run tells you which rule moved the number.
+
+### 3.1 Fix 1: invented actions and claims
+
+The deep agent can look up orders, products, account details and policies, and it can **request** a refund, which waits for a person to approve it. The rubric now says so: offering a refund request is fine, but claiming a refund was issued, or any action it can't take, is not.
+
+We only add the rule. In our runs, also loosening the `<Note>` about additional information made the judge more lenient on other buckets.
+'''),
+    code('''
+RULE_NO_INVENTED_ACTIONS = (
+    "  - Does not offer or claim actions the assistant can't take. The assistant can look up orders, products, account "
+    "details, and store policies, and can submit a refund request, which a person must approve before anything is refunded. "
+    "Claiming that a refund was issued or approved, or offering or claiming to update account data, place or cancel orders, "
+    "open returns, send messages, labels, or codes, apply discounts or credits, or contact other teams or systems makes the "
+    "output incorrect, even if everything else is right. Offering to look something up, reformat the answer, or submit a "
+    "refund request is fine.\\n"
+    "  - Does not claim the customer asked for something they didn't. Details the assistant looked up, such as the "
+    "customer's name or ID, are fine.\\n"
+)
+
+PROMPT_V1 = CORRECTNESS_PROMPT.replace(
+    "  - Is logically consistent\\n",
+    "  - Is logically consistent\\n" + RULE_NO_INVENTED_ACTIONS,
+)
+assert PROMPT_V1 != CORRECTNESS_PROMPT, "the replace() target didn't match"
+
+results_v1 = client.evaluate(
+    frozen_agent,
+    data=DATASET_NAME,
+    evaluators=[make_judge(PROMPT_V1)],
+    experiment_prefix="deep-judge-v1-no-invented-actions",
+    max_concurrency=8,
+)
+agreement_by_version["v1 (+ no invented actions)"] = report(results_v1)
+'''),
+    md('''
+Compare the disagreements with the previous run, not just the totals. A new rule can fix one bucket and loosen another.
+
+On our runs, Fix 1 fixed both invented-action outputs, including the hold-out one the rule was never written against. But the judge started passing answers that withhold part of what was asked, with reasoning like "it does not claim any prohibited actions, so it meets the rubric": `masked` phone numbers, and `partial` answers that say "I couldn't verify stock" when the product is in stock.
+'''),
+    md('''
+### 3.2 Fix 2: answer what was asked
+
+The customer is already verified, so masking their own phone number doesn't answer their question. And "I couldn't verify" isn't an answer when the information exists. The new rule requires the information itself.
+
+The rule is scoped to what the customer **asks for**. Worded more broadly ("give the customer's account details in full"), it made the judge fail good answers for not repeating the customer's details.
+'''),
+    code('''
+RULE_ANSWER_WHAT_WAS_ASKED = (
+    "  - Answers what the customer asked with the information itself. If the customer asks for their own account "
+    "details (for example, their phone number or account type), the output must give them in full: the customer is "
+    "already verified, so masking or withholding them doesn't answer the question. If the output says it couldn't "
+    "find, check, or verify something the question asks for, and the reference output contains that information, that "
+    "part is unanswered and the output is incorrect.\\n"
+)
+
+PROMPT_V2 = PROMPT_V1.replace(
+    "  - Addresses all parts of the question\\n",
+    "  - Addresses all parts of the question\\n" + RULE_ANSWER_WHAT_WAS_ASKED,
+)
+assert PROMPT_V2 != PROMPT_V1, "the replace() target didn't match"
+
+results_v2 = client.evaluate(
+    frozen_agent,
+    data=DATASET_NAME,
+    evaluators=[make_judge(PROMPT_V2)],
+    experiment_prefix="deep-judge-v2-answer-what-was-asked",
+    max_concurrency=8,
+)
+agreement_by_version["v2 (+ answer what was asked)"] = report(results_v2)
+'''),
+    md("### 3.3 Compare the versions"),
+    code('''
+for version, agreement in agreement_by_version.items():
+    print(f"{version:<32} {agreement:>4.0%}  {'█' * round(agreement * 30)}")
+'''),
+    md('''
+Open the three experiments side by side in LangSmith (select them on the dataset's **Experiments** tab and click **"Compare"**) and filter on `matches_human = 0` to see which examples changed between versions.
+
+Before trusting the final number, check three things:
+
+- **Read the remaining disagreements.** For each one, decide whether the judge is wrong or the label is. On our runs, the one left was `edit-sql-1-breakdown-fixed`: the judge says the Logitech MX Master 3S mice shouldn't count as keyboards. The catalog files them under Keyboards and the reference total counts them, so the label follows the data. But the judge has found a real data-quality problem: the fix is in the catalog, not the rubric. If you agree with the judge on an item, change the label, not the rubric.
+- **Check the hold-out.** The rules were written against the other 27 items. If agreement on the hold-out drops while the rest rises, a rule is fitted to its examples. On our runs, the hold-out went from 78% to 100%, but six items are few.
+- **Add labels before calling the judge done.** 33 examples are enough to find failure modes, not to certify a judge. Re-measure on new labeled outputs that weren't used to write the rules.
+
+> **Note:** The judge model is not deterministic. Re-running a version can move agreement by an item or two. Compare versions on repeated runs, not on a single one.
+'''),
+    md('''
+## 4. Optional: label the outputs yourself
+
+The labels above come from one reviewer. To align the judge to *your* standard, label the outputs in an annotation queue and compare your labels with `golden_set.json`. Where you disagree, edit the file: the agreement numbers above are only as good as these labels.
+
+Set `LABEL_IN_QUEUE = True` to create a queue that contains the runs from the v0 experiment.
+'''),
+    code('''
+LABEL_IN_QUEUE = False
+
+if LABEL_IN_QUEUE:
+    QUEUE_NAME = "techhub-deep-agent-judge-alignment-labels"
+    existing = list(client.list_annotation_queues(name=QUEUE_NAME))
+    queue = existing[0] if existing else client.create_annotation_queue(
+        name=QUEUE_NAME,
+        description="Label each TechHub deep-agent output correct or incorrect against the reference answer.",
+    )
+    run_ids = [row["run"].id for row in results_v0]
+    client.add_runs_to_annotation_queue(queue.id, run_ids=run_ids)
+    print(f"Added {len(run_ids)} runs to queue '{queue.name}'. Open Annotation Queues in LangSmith to label them.")
+'''),
+    md('''
+## 5. Use the aligned judge
+
+`PROMPT_V2` is saved in `evaluators/evaluators.py` as `DEEP_AGENT_CORRECTNESS_PROMPT`, with `deep_agent_correctness_evaluator`, a drop-in replacement for `correctness_evaluator` on the same pinned model. The next section compares Jev against it. The cell below checks that the saved judge is the one you just measured.
+
+Keep the golden set next to the judge. When you change the rubric or the judge model, re-run this notebook first: if agreement drops, the change made the judge worse, whatever it does to the agent's scores.
+
+LangSmith also runs this loop in the UI with the **Align Evaluator**: you label runs in a queue, then test the judge prompt against your labels in the Evaluator Playground. See [Improve LLM-as-judge evaluators using human feedback](https://docs.langchain.com/langsmith/improve-judge-evaluator-feedback) and the [video walkthrough](https://www.youtube.com/watch?v=-9o94oj4x0A).
+
+| Step in this notebook | Same step in the UI |
+|---|---|
+| 1. Golden set + labels | <img src="https://mintcdn.com/langchain-5e9cc07a/E8FdemkcQxROovD9/langsmith/images/add-to-evaluator-queue.gif?s=3c457faaaf2c7f31425ba510a518260e" width="420"> |
+| 2. Measure agreement | <img src="https://mintcdn.com/langchain-5e9cc07a/0B2PFrFBMRWNccee/langsmith/images/evaluator-pg.gif?s=c8108ce3abc95ce756fcbd1b3726916d" width="420"> |
+| 2.1 Read the judge's reasoning | <img src="https://mintcdn.com/langchain-5e9cc07a/0B2PFrFBMRWNccee/langsmith/images/enable-reasoning.gif?s=d6ed09e4149a63723ef9305544b8b652" width="420"> |
+'''),
+    code('''
+from evaluators.evaluators import DEEP_AGENT_CORRECTNESS_PROMPT, DEEP_AGENT_JUDGE_MODEL
+
+assert PROMPT_V2 == DEEP_AGENT_CORRECTNESS_PROMPT and JUDGE_MODEL == DEEP_AGENT_JUDGE_MODEL, "evaluators/ is out of sync with this notebook"
+print(PROMPT_V2)
+'''),
+]
+
+# ============================================================================
 # SECTION 5: Harbor evals (see docs/2026-11-12-module-5-section-3-v2-plan.md)
 # ============================================================================
 s5 = [
@@ -1164,4 +1566,5 @@ print("📊 Compare:", f"{dataset.url}/compare?selectedSessions={','.join(str(e.
 
 save("section_1_baseline_evaluation.ipynb", s1)
 save("section_2_eval_driven_development.ipynb", s2)
+save("section_3_align_llm_judge.ipynb", s3)
 save("section_5_harbor_evals.ipynb", s5)

@@ -103,7 +103,7 @@ Each task ends with a commit. Check items off here as they land.
 
 **Code and notebook**
 - [x] **T7** Save the final prompt and evaluator in `evaluators/` (per Q5), with a unit test that the prompt formats and that each rule's `replace()` target exists.
-- [ ] **T8** Add `s3` to `build_module5.py` and generate `section_3_align_llm_judge.ipynb` per §4. The analysis tables in 2.1 and 3.x use the causes and wording from T4–T5.
+- [x] **T8** Add `s3` to `build_module5.py` and generate `section_3_align_llm_judge.ipynb` per §4. The analysis tables in 2.1 and 3.x use the causes and wording from T4–T5.
 
 **Validate and document**
 - [ ] **T9** Run the notebook end to end from a fresh kernel. Check every experiment for run errors before reading scores. Confirm the agreement numbers match §10 within run-to-run variance.
