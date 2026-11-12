@@ -1,0 +1,29 @@
+utils/jev.py
+  s_34c8278f2e3e28::t_3b9e99632feee2 55-75,77-79
+  s_34c8278f2e3e28::t_b56f6372462d16 17-26
+  s_34c8278f2e3e28::t_1c460b0bfbff30 101-103
+  s_34c8278f2e3e28::t_f6c6d5be90e325 37,40,44
+verify_setup.py
+  s_34c8278f2e3e28::t_a947efb2fee478 76-79
+  s_34c8278f2e3e28::t_df642cd2a794e9 111,113
+docs/2026-11-12-module-5-section-4-prd.md
+  s_34c8278f2e3e28::t_3706fa1cc6f3a4 91-92
+tests/test_jev_key_source.py
+  s_34c8278f2e3e28::t_30ef4e3b29088f 1-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "63da076849885f99944d9778b4656d10b03ed944",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
