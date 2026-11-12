@@ -1177,6 +1177,434 @@ print(PROMPT_V2)
 ]
 
 # ============================================================================
+# SECTION 4: Jev as a judge (see docs/2026-11-12-module-5-section-4-prd.md)
+# ============================================================================
+s4 = [
+    md('''
+# Module 5, Section 4: Jev as a Judge
+
+Section 3 ended with an aligned LLM judge: 97% agreement with human labels, about 4 seconds and a few hundred output tokens per answer. Grading every production trace that way adds up. **Jev**, TypeSafe's decision model, answers typed questions with probabilities instead of writing text, in a fraction of a second. Can it do the judge's job, and how would you know?
+
+```
+LLM judge                                   Decision model (Jev)
+─────────                                   ────────────────────
+prompt: rubric + question + answer          state: question + reference + answer
+        │                                          (no grading instructions)
+        ▼                                   questions: typed, each with what yes and no mean
+reasoning text  ──►  verdict: True/False           │
+                                                   ▼
+                                            probability per question  ──►  threshold  ──►  verdict
+```
+
+We grade the **same 33 human-labeled answers** as Section 3, so the numbers compare directly:
+
+| Step | What we do |
+|---|---|
+| 1. Jev in one cell | A quick recap of Jev's question types |
+| 2. Jev as an evaluator | A judge becomes a state, questions, and a threshold |
+| 3. Measure | One question, against the human labels |
+| 4. Fix | The aligned rubric as questions, one cause at a time |
+| 5. Pick the threshold | Choose it on the rule items, check the hold-out, and cascade the uncertain middle |
+| 6. Compare the judges | Agreement, speed, and cost side by side |
+| 7. In the UI | The same evaluator as a Decision Model Evaluator |
+'''),
+    md('''
+## Setup
+
+Jev runs through the LangSmith LLM Gateway with a key from a workspace that has Jev. `utils/jev.py` picks the key (first match wins, used only for Jev):
+
+| Where you are | What to set |
+|---|---|
+| **A workshop** | `JEV_API_KEY` in `.env`: the workshop key you were given |
+| **A LangChain-managed Mac** | Nothing, if `LC_GATEWAY_KEY` is in your environment. If you started Jupyter from a terminal, add `GATEWAY_ENV_FILE=/etc/lc_internal/gateway_env` to `.env` |
+| **Your own workspace** | Add a `TYPESAFE_API_KEY` provider secret to the workspace your key belongs to |
+
+Without a working key, every Jev cell skips itself and shows the results from our runs instead. `uv run python verify_setup.py` reports which key Jev is using.
+'''),
+    code('''
+import json
+import sys
+import warnings
+from collections import Counter
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+# Make the repo root importable regardless of the kernel's working directory.
+REPO_ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "config.py").exists())
+sys.path.insert(0, str(REPO_ROOT))
+load_dotenv(REPO_ROOT / ".env")
+warnings.filterwarnings("ignore", category=UserWarning)
+
+from langchain_typesafe import Choice, Noul, NoulCriteria
+from langsmith import Client
+
+from evaluators.evaluators import jev_state
+from utils.jev import JEV_MODEL, jev_classifier, jev_key_source
+
+client = Client()
+
+source = jev_key_source()
+try:
+    jev_classifier().invoke({"state": "Hello!", "questions": {"q": Noul(instructions="Is this a greeting?")}})
+    JEV_AVAILABLE = True
+    print(f"✓ Jev {JEV_MODEL}, key from {source[0]}")
+except Exception as e:  # e.g. 424: the key's workspace has no TYPESAFE_API_KEY provider secret
+    JEV_AVAILABLE = False
+    print(f"⏭️  Jev unavailable (key from {source[0] if source else 'nowhere'}: {type(e).__name__}). The Jev cells below show our results instead.")
+'''),
+    md('''
+## 1. Jev in one cell
+
+Module 4 Section 3 introduced Jev's three question types: a **`Noul`** returns the probability that a statement is true, a **`Choice`** picks one option with a probability for each, and a **`Score`** places the state on an ordered scale. Every answer is a number you can threshold, not text you have to parse.
+'''),
+    code('''
+if not JEV_AVAILABLE:
+    print("⏭️  Skipped: Jev unavailable. On our run: damaged 0.99, intent 'refund' (confidence 1.0).")
+else:
+    response = jev_classifier().invoke({
+        "state": "Customer: my monitor arrived with a cracked screen and I want my money back.",
+        "questions": {
+            "damaged": Noul(instructions="Does the customer report a damaged item?"),
+            "intent": Choice(instructions="What does the customer want?", criteria={"refund": None, "replacement": None, "information": None}),
+        },
+    })
+    print("damaged:", response.nouls["damaged"].noul)
+    print("intent: ", response.choices["intent"].choice, f"(confidence {response.choices['intent'].confidence:.2f})")
+'''),
+    md('''
+## 2. Jev as an evaluator
+
+An LLM judge reads a prompt that mixes instructions and data. A decision model separates them:
+
+```
+state      Customer question:                 ← what to judge, and nothing else
+           What's the most expensive item I've ever purchased? ...
+
+           Reference answer (ground truth):
+           Your most expensive item was the Dell XPS 13 ... at $1,399.00.
+
+           Agent answer:
+           Your most expensive single item was the Dell XPS 13 ...
+
+questions  correct: Noul(instructions=..., criteria=NoulCriteria(true=..., false=...))
+                                              ← the grading criteria live here
+threshold  correct if probability ≥ 0.5       ← turns a probability into a verdict
+```
+
+Question wording matters more than the threshold: say exactly what yes and no mean, including what should *not* count.
+
+We grade the same golden set and dataset as Section 3. The cell below reuses the dataset if Section 3 created it.
+'''),
+    code('''
+GOLDEN_SET_PATH = REPO_ROOT / "workshop_modules" / "module_5" / "golden_set.json"
+golden_set = json.loads(GOLDEN_SET_PATH.read_text())
+GOLD = {item["id"]: item for item in golden_set}
+HOLDOUT = {"sql-4", "rigid-13", "rigid-3", "sql-9", "sql-10", "edit-sql-2-account-updated"}  # same as Section 3
+DATASET_NAME = "techhub-deep-agent-judge-alignment"
+
+if client.has_dataset(dataset_name=DATASET_NAME):
+    dataset = client.read_dataset(dataset_name=DATASET_NAME)
+else:
+    dataset = client.create_dataset(dataset_name=DATASET_NAME, description="Frozen TechHub deep-agent outputs with human correctness labels.")
+existing_ids = {ex.inputs.get("example_id") for ex in client.list_examples(dataset_id=dataset.id)}
+missing = [item for item in golden_set if item["id"] not in existing_ids]
+if missing:
+    client.create_examples(
+        dataset_id=dataset.id,
+        inputs=[{"example_id": i["id"], "messages": [{"role": "user", "content": i["question"]}]} for i in missing],
+        outputs=[{"messages": [{"role": "assistant", "content": i["reference"]}]} for i in missing],
+        metadata=[{"bucket": i["bucket"]} for i in missing],
+    )
+print(f"{len(golden_set)} labeled answers. Dataset: {dataset.url}")
+
+
+def frozen_agent(inputs: dict) -> dict:
+    """Return the stored agent output for this example."""
+    return {"messages": [{"role": "assistant", "content": GOLD[inputs["example_id"]]["output"]}]}
+'''),
+    md('''
+`make_jev_judge` turns a set of questions and a threshold into an evaluator. Each question becomes its own feedback score; `correctness` is 1 when **every** question clears the threshold; `matches_human` compares that verdict with the label, as in Section 3.
+'''),
+    code('''
+def make_jev_judge(questions: dict, threshold: float):
+    def judge(inputs: dict, outputs: dict, reference_outputs: dict) -> dict:
+        # Only the conversation reaches Jev: no example_id, no human label.
+        state = jev_state(
+            inputs["messages"][-1]["content"],
+            reference_outputs["messages"][-1]["content"],
+            outputs["messages"][-1]["content"],
+        )
+        response = jev_classifier().invoke({"state": state, "questions": questions})
+        probabilities = {name: response.nouls[name].noul for name in questions}
+        verdict = min(probabilities.values()) >= threshold
+        human_label = GOLD[inputs["example_id"]]["human_label"]
+        return {
+            "results": [
+                *({"key": name, "score": p} for name, p in probabilities.items()),
+                {"key": "correctness", "score": int(verdict), "comment": f"lowest probability {min(probabilities.values()):.2f}"},
+                {"key": "matches_human", "score": int(verdict == human_label), "comment": f"human_label={human_label}"},
+            ]
+        }
+
+    return judge
+
+
+def lowest_probabilities(results, questions) -> dict:
+    """Each example's lowest question probability, read back from an experiment."""
+    lowest = {}
+    for row in results:
+        scores = {r.key: r.score for r in row["evaluation_results"]["results"]}
+        lowest[row["example"].inputs["example_id"]] = min(scores[name] for name in questions)
+    return lowest
+
+
+def report(lowest: dict, threshold: float) -> float:
+    """Agreement with the labels at a threshold: all, rule items, hold-out, and every disagreement."""
+    def agreement_on(ids):
+        return sum((lowest[i] >= threshold) == GOLD[i]["human_label"] for i in ids) / len(ids)
+
+    rule_items = [i for i in lowest if i not in HOLDOUT]
+    agreement = agreement_on(list(lowest))
+    print(f"Threshold {threshold:.2f}. Agreement: {agreement:.0%}  (rule items {agreement_on(rule_items):.0%}, hold-out {agreement_on(HOLDOUT):.0%})")
+    for i, p in sorted(lowest.items(), key=lambda kv: kv[1]):
+        if (p >= threshold) != GOLD[i]["human_label"]:
+            print(f"  ✗ {i} [{GOLD[i]['bucket']}]{' (hold-out)' if i in HOLDOUT else ''} human={GOLD[i]['human_label']} lowest probability={p:.2f}")
+    return agreement
+
+
+agreement_by_version = {}
+'''),
+    md('''
+## 3. Measure: one question
+
+Start with the simplest judge: a single question about correctness.
+'''),
+    code('''
+SINGLE_QUESTION = {
+    "correct": Noul(
+        instructions="Is the agent answer correct for the customer's question, judged against the reference answer?",
+        criteria=NoulCriteria(
+            true="It gives the information the customer asked for, and its facts agree with the reference answer.",
+            false="It gets a fact the customer asked about wrong, leaves part of the question unanswered, or claims something it can't back up.",
+        ),
+    ),
+}
+
+if not JEV_AVAILABLE:
+    print("⏭️  Skipped: Jev unavailable. On our runs at 0.50: 85% (rule items 89%, hold-out 67%).")
+else:
+    results_single = client.evaluate(
+        frozen_agent, data=DATASET_NAME, evaluators=[make_jev_judge(SINGLE_QUESTION, 0.5)],
+        experiment_prefix="jev-judge-single-question", max_concurrency=8,
+    )
+    agreement_by_version["Jev, one question"] = report(lowest_probabilities(results_single, SINGLE_QUESTION), 0.5)
+'''),
+    md('''
+### 3.1 Analyze Results
+
+On our runs, one question fails in both directions: it fails good answers that add policy detail or skip prices the customer didn't ask for, and it passes a masked phone number and an invented account update. A single "is it correct?" question has no way to say *which* criterion matters.
+'''),
+    md('''
+## 4. Fix: the aligned rubric as questions
+
+Section 3's aligned rubric has three ideas: the facts agree with the reference (and with each other), the answer gives what was asked, and the agent claims only actions it can take. Ask Jev each one as its own question; an answer is correct only if all three pass.
+'''),
+    code('''
+FACTS_AGREE = Noul(
+    instructions="Do the facts in the agent answer agree with the reference answer, and with each other? Check totals, counts, prices, dates, items, and any breakdown against its own total.",
+    criteria=NoulCriteria(
+        true="Every fact the reference answer covers matches, and any breakdown adds up to the total it supports. Extra details the reference doesn't mention are fine.",
+        false="A number, item, or fact contradicts the reference answer, or a breakdown doesn't add up to the total it supports.",
+    ),
+)
+ANSWERS_INSTRUCTIONS = "Does the agent answer give the customer the information they asked for, for every part of the question?"
+ANSWERS_TRUE = "It states the requested information itself for every part of the question."
+ANSWERS_FALSE = "It leaves part unanswered: it masks or withholds the customer's own details, says it couldn't find, check, or verify something, or answers only part of the question."
+POSSIBLE_ACTIONS = Noul(
+    instructions="Does the agent answer stay within what the assistant can do: look things up, and submit refund requests that a person approves?",
+    criteria=NoulCriteria(
+        true="It only reports what it looked up, offers to look something else up or reformat, or offers to submit a refund request for a person to approve.",
+        false="It claims or offers something else: says a refund was issued, updated account data, opened a return, sent an email or label, placed or cancelled an order, or contacted another team.",
+    ),
+)
+RUBRIC_V1 = {
+    "facts_agree": FACTS_AGREE,
+    "answers_question": Noul(instructions=ANSWERS_INSTRUCTIONS, criteria=NoulCriteria(true=ANSWERS_TRUE, false=ANSWERS_FALSE)),
+    "possible_actions": POSSIBLE_ACTIONS,
+}
+
+if not JEV_AVAILABLE:
+    print("⏭️  Skipped: Jev unavailable. On our runs at 0.50: 85%; both correct refusals fail answers_question (0.01-0.02).")
+else:
+    results_v1 = client.evaluate(
+        frozen_agent, data=DATASET_NAME, evaluators=[make_jev_judge(RUBRIC_V1, 0.5)],
+        experiment_prefix="jev-judge-rubric-v1", max_concurrency=8,
+    )
+    agreement_by_version["Jev, rubric questions"] = report(lowest_probabilities(results_v1, RUBRIC_V1), 0.5)
+'''),
+    md('''
+Open the experiment and look at the per-question feedback columns: they say *which* question failed each answer. On our runs, the clearest cause was the two correct refusals (another customer's order): they fail `answers_question` at 0.01–0.02, because the false meaning counts any withheld information as a failure.
+
+### 4.1 Fix: a correct refusal answers the question
+
+One sentence in the false meaning, the same kind of fix as Section 3's rules:
+'''),
+    code('''
+REFUSAL_IS_AN_ANSWER = (
+    " Declining because the order or data belongs to a different customer is not leaving it unanswered: "
+    "when the reference answer also declines, that is the right answer."
+)
+RUBRIC_V2 = {
+    **RUBRIC_V1,
+    "answers_question": Noul(instructions=ANSWERS_INSTRUCTIONS, criteria=NoulCriteria(true=ANSWERS_TRUE, false=ANSWERS_FALSE + REFUSAL_IS_AN_ANSWER)),
+}
+
+if not JEV_AVAILABLE:
+    print("⏭️  Skipped: Jev unavailable. On our runs at 0.50: 85%, with the refusals now passing; the threshold is the next problem.")
+else:
+    results_v2 = client.evaluate(
+        frozen_agent, data=DATASET_NAME, evaluators=[make_jev_judge(RUBRIC_V2, 0.5)],
+        experiment_prefix="jev-judge-rubric-v2-refusals", max_concurrency=8,
+    )
+    lowest_v2 = lowest_probabilities(results_v2, RUBRIC_V2)
+    agreement_by_version["Jev, rubric + refusals (0.50)"] = report(lowest_v2, 0.5)
+'''),
+    md('''
+## 5. Pick the threshold
+
+0.5 was a guess. A probability needs a cut-off, and choosing it is part of building the judge. Choose it on the **rule items only**, then check it on the hold-out. The experiment already holds every probability, so this costs no new calls.
+'''),
+    code('''
+if not JEV_AVAILABLE:
+    print("⏭️  Skipped: Jev unavailable. On our runs the best threshold on the rule items was 0.15:")
+    print("   97% overall (rule items 96%, hold-out 100%). At 0.25 it falls to 89%.")
+else:
+    rule_items = [i for i in lowest_v2 if i not in HOLDOUT]
+    thresholds = [t / 20 for t in range(1, 20)]
+
+    def rule_agreement(t):
+        return sum((lowest_v2[i] >= t) == GOLD[i]["human_label"] for i in rule_items) / len(rule_items)
+
+    print("Agreement on rule items:", "  ".join(f"{t:.2f}:{rule_agreement(t):.0%}" for t in thresholds[::2]))
+    THRESHOLD = max(thresholds, key=lambda t: (rule_agreement(t), -abs(t - 0.5)))
+    agreement_by_version[f"Jev, rubric + refusals ({THRESHOLD:.2f})"] = report(lowest_v2, THRESHOLD)
+'''),
+    md('''
+Before trusting it, look at how close the two groups sit. Sorted by each answer's lowest question probability:
+'''),
+    code('''
+if not JEV_AVAILABLE:
+    print("⏭️  Skipped: Jev unavailable. Our run's sorted scores are described below.")
+else:
+    for i, p in sorted(lowest_v2.items(), key=lambda kv: kv[1]):
+        print(f"{p:.2f}  {'✅' if GOLD[i]['human_label'] else '❌'}  {i}")
+'''),
+    md('''
+On our runs, every incorrect answer scored 0.07 or lower except one, and every correct answer 0.17 or higher. The threshold sits in a narrow gap: four correct answers (both refusals, an order report without prices, a policy answer with extra detail) score between 0.17 and 0.36, and moving the threshold to 0.25 drops agreement to 89%.
+
+The one incorrect answer Jev passes is `sql-1`, whose itemized breakdown doesn't add up to its stated total (`facts_agree` about 0.7). Jev doesn't check arithmetic.
+
+### 5.1 Cascade the uncertain middle
+
+You don't have to bet on one number. Let Jev decide the answers it's confident about, and send the uncertain middle to the aligned LLM judge from Section 3, the same confidence cascade Module 4 used for routing:
+
+```
+lowest probability   < 0.10          0.10 – 0.50                 ≥ 0.50
+                     incorrect       ask the aligned LLM judge   correct
+                     (Jev decides)   (about 4 s per answer)      (Jev decides)
+```
+'''),
+    code('''
+from evaluators import deep_agent_correctness_evaluator
+
+GRAY_ZONE = (0.10, 0.50)  # chosen on the rule items, like the threshold
+
+if not JEV_AVAILABLE:
+    print("⏭️  Skipped: Jev unavailable. On our runs: 4 of 33 answers went to the LLM judge, and the cascade agreed 97% (32/33).")
+else:
+    verdicts, sent_to_llm = {}, []
+    for i, p in lowest_v2.items():
+        if GRAY_ZONE[0] <= p < GRAY_ZONE[1]:
+            item = GOLD[i]
+            verdicts[i] = bool(deep_agent_correctness_evaluator(
+                inputs={"messages": [{"role": "user", "content": item["question"]}]},
+                outputs={"messages": [{"role": "assistant", "content": item["output"]}]},
+                reference_outputs={"messages": [{"role": "assistant", "content": item["reference"]}]},
+            )["score"])
+            sent_to_llm.append(i)
+        else:
+            verdicts[i] = p >= GRAY_ZONE[1]
+    agreement = sum(verdicts[i] == GOLD[i]["human_label"] for i in verdicts) / len(verdicts)
+    agreement_by_version["Cascade: Jev + aligned LLM judge"] = agreement
+    print(f"Sent {len(sent_to_llm)} of {len(verdicts)} answers to the LLM judge: {sent_to_llm}")
+    print(f"Cascade agreement: {agreement:.0%}")
+'''),
+    md('''
+## 6. Compare the judges
+'''),
+    code('''
+for version, agreement in agreement_by_version.items():
+    print(f"{version:<36} {agreement:>4.0%}  {'█' * round(agreement * 30)}")
+'''),
+    md('''
+Alongside the LLM judges from Section 3, on our runs (same 33 answers):
+
+| Judge | Agreement | Hold-out | Time per answer | Output tokens per answer |
+|---|---|---|---|---|
+| LLM judge, unaligned (Sections 1–2) | 91–93% | 78–83% | about 4.4 s | about 350 |
+| LLM judge, aligned (Section 3) | 97% | 100% | about 4.4 s | about 410 |
+| Jev, one question (0.50) | 85% | 67% | about 0.2 s | — |
+| Jev, rubric questions (0.15) | 97% | 100% | about 0.2 s | about 56 |
+| Cascade: Jev, plus the LLM judge for 4 of 33 | 97% | — | 0.2 s for most, 4.4 s for a few | — |
+
+Jev matched the aligned LLM judge's agreement about 20 times faster, and their single misses were different (Jev: arithmetic; the LLM judge: the mice in the keyboard total). Two cautions: 33 answers are a small benchmark, and Jev's threshold sits in a narrow gap. The cascade trades a few LLM calls for not depending on one exact number. For cost, compare the runs' usage in LangSmith; Jev bills by tokens like any model.
+'''),
+    md('''
+## 7. The same evaluator in the LangSmith UI
+
+LangSmith runs decision-model judges as **Decision Model Evaluators**, on a dataset (offline, like this notebook) or on a tracing project (online). The SDKs can't create them yet; use the UI or the REST endpoint `POST /api/v1/runs/rules/decision-models` ([docs](https://docs.langchain.com/langsmith/decision-model-evaluator)).
+
+| Step | In the UI |
+|---|---|
+| 1. Open the evaluator | On the `techhub-deep-agent-judge-alignment` dataset: **Evaluators → + Evaluator → Decision Model Evaluator** |
+| 2. Model, if your workspace has a `TYPESAFE_API_KEY` secret | Provider **TypeSafe**, model `jev-1.14.0` |
+| 2. Model, with a Gateway key instead (workshop key, `LC_GATEWAY_KEY`) | **Configure prompt & model → TypeSafe-compatible endpoint**: model `typesafe/jev-1.14.0`, base URL `https://gateway.smith.langchain.com`, check **Append /v1/systemone**, no extra headers, and the Gateway key saved as a workspace secret |
+| 3. State | Map the example input, the reference output, and the run output into the state, laid out as in section 2. No grading instructions |
+| 4. Questions | Three **Noul** questions, `facts_agree`, `answers_question`, and `possible_actions`, with the instructions and true/false meanings from section 4 (`RUBRIC_V2`) |
+| 5. Run | Each question becomes a feedback column, the same scores this notebook wrote |
+
+The UI evaluator returns the probabilities; the threshold and the cascade stay your decision.
+
+## 8. When to use which
+
+| | Decision model (Jev) | LLM judge |
+|---|---|---|
+| Speed and cost | About 0.2 s per answer, few output tokens | Seconds per answer, reasoning tokens |
+| Output | A probability per question | A verdict with a written reason |
+| Good for | Grading every production trace, routing, and the confident bulk of a cascade | Nuanced or new criteria, explanations, the uncertain middle |
+| Watch out for | Arithmetic and multi-step checks; thresholds that don't transfer between versions (pin `jev-1.14.0`); question wording | Cost at volume; run-to-run variance |
+
+**Data:** TypeSafe offers zero data retention per org on request and has no BAA. TechHub is synthetic; get a security review before sending real customer data.
+
+## Recap
+
+- A decision-model judge is a **state** (what to judge), **questions** (the criteria, with what yes and no mean), and a **threshold**.
+- Measure it against human labels exactly like an LLM judge, and fix it the same way: read the disagreements and change one question at a time.
+- Choose the threshold on the rule items, check the hold-out, and look at the gap. When it's narrow, cascade the middle to an LLM judge.
+- `evaluators.jev_correctness_evaluator` is the result: the three questions with a 0.15 threshold.
+'''),
+    code('''
+from evaluators.evaluators import JEV_RUBRIC_QUESTIONS, JEV_THRESHOLD
+
+assert {k: v.model_dump() for k, v in RUBRIC_V2.items()} == {k: v.model_dump() for k, v in JEV_RUBRIC_QUESTIONS.items()}, "evaluators/ is out of sync with this notebook"
+print(f"evaluators.jev_correctness_evaluator uses these questions with threshold {JEV_THRESHOLD}.")
+if JEV_AVAILABLE and THRESHOLD != JEV_THRESHOLD:
+    print(f"This run picked {THRESHOLD:.2f}: probabilities move a little between runs, so check the gap before changing the saved one.")
+'''),
+]
+
+# ============================================================================
 # SECTION 5: Harbor evals (see docs/2026-11-12-module-5-section-3-v2-plan.md)
 # ============================================================================
 s5 = [
@@ -1567,4 +1995,5 @@ print("📊 Compare:", f"{dataset.url}/compare?selectedSessions={','.join(str(e.
 save("section_1_baseline_evaluation.ipynb", s1)
 save("section_2_eval_driven_development.ipynb", s2)
 save("section_3_align_llm_judge.ipynb", s3)
+save("section_4_jev_as_judge.ipynb", s4)
 save("section_5_harbor_evals.ipynb", s5)
