@@ -1,0 +1,21 @@
+docs/2026-11-12-module-5-sections-1-2-prd.md
+  s_34c8278f2e3e28::t_bffbc59a20c662 51
+  s_34c8278f2e3e28::t_a4f1d24635e3a8 1-50,52-104,106-151
+  s_34c8278f2e3e28::t_e1761406f7e6b4 105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ac0e209d2cf67aac98d4b8048585adfe5692fe97",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
