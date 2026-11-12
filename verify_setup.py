@@ -73,7 +73,10 @@ def main() -> int:
     print(f"gateway env file  : {os.getenv('GATEWAY_ENV_FILE') or 'unset'}")
     print(f"langsmith key     : {'set' if os.getenv('LANGSMITH_API_KEY') else 'MISSING'}"
           f" · endpoint {os.getenv('LANGSMITH_ENDPOINT') or 'https://api.smith.langchain.com (default)'}")
-    print(f"jev workspace     : {'JEV_WORKSPACE_ID set' if os.getenv('JEV_WORKSPACE_ID') else 'key default'}")
+    from utils.jev import jev_key_source
+
+    jev_source = jev_key_source()
+    print(f"jev key from      : {jev_source[0] if jev_source else 'MISSING (Jev cells skip themselves)'}")
     print("── Models ───────────────────────────────────────────────")
     models = {
         "workshop (M1-3)": config.DEFAULT_MODEL,
@@ -105,9 +108,9 @@ def main() -> int:
         from utils.jev import jev_classifier
 
         r = jev_classifier().invoke({"state": "ping", "questions": {"q": Noul(instructions="Is this a greeting?")}})
-        print(f"✓ Jev ({r.nouls['q'].noul:.2f}), Module 4 Section 3")
+        print(f"✓ Jev ({r.nouls['q'].noul:.2f}), Module 4 Section 3 and Module 5 Section 4")
     except Exception as exc:  # noqa: BLE001 - Jev is optional: its cells skip themselves
-        print(f"• Jev unavailable (optional; Module 4 Section 3 skips its cells)\n      {explain(exc, True)}")
+        print(f"• Jev unavailable (optional; Module 4 Section 3 and Module 5 Section 4 skip its cells)\n      {explain(exc, True)}")
 
     print("─────────────────────────────────────────────────────────")
     print("✅ Ready" if not failed else f"❌ {failed} model(s) failed: see the fix lines above")

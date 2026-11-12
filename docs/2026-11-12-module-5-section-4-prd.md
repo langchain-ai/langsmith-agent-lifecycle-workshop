@@ -88,8 +88,8 @@ The exact question design (§5 steps 2 and 4) is settled by the spike (T4), as S
 
 **Access (blocking)**
 - [x] **T1** Access: internal presenters use `LC_GATEWAY_KEY` (Ask IT, 2026-11-12). External attendees still need option A (a workshop key as `JEV_API_KEY`) or C.
-- [ ] **T2** `utils/jev.py`: key chain `JEV_API_KEY` → `LC_GATEWAY_KEY` (environment, then the file named by `GATEWAY_ENV_FILE`) → the existing Gateway chain, used only for Jev. `verify_setup.py`: report which Jev key source is in use and that it works. Unit test for the key precedence.
-- [ ] **T3** Check access in both paths: one Jev call in code, and the UI decision-model evaluator on one example.
+- [x] **T2** `utils/jev.py`: key chain `JEV_API_KEY` → `LC_GATEWAY_KEY` (environment, then the file named by `GATEWAY_ENV_FILE`) → the existing Gateway chain, used only for Jev. `verify_setup.py`: report which Jev key source is in use and that it works. Unit test for the key precedence.
+- [ ] **T3** Check access in both paths: one Jev call in code (**done 2026-11-12**: 0.99 via `LC_GATEWAY_KEY` from `GATEWAY_ENV_FILE`), and the UI decision-model evaluator on one example (needs a workspace secret and model configuration in Ariel's workspace: Ariel's call, done during T8).
 
 **Spike**
 - [ ] **T4** On the Section 3 golden set: single `Noul` vs rubric `Noul`s vs a `Choice` (correct / partially correct / incorrect). For each: agreement on rule items and hold-out, consistency over 3 runs, and latency per item. Pick the threshold on the rule items only. Record in §10.
