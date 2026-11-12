@@ -122,10 +122,13 @@ You need a `.env` with model access (see [Model access](../../README.md#model-ac
 '''),
     code('''
 import os
+import warnings
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
+warnings.filterwarnings("ignore", category=UserWarning)
+warnings.filterwarnings("ignore", message=r".*is deprecated and will be removed after", category=DeprecationWarning)
 '''),
     md('''
 ## 1. Curate a set of representative examples
@@ -494,7 +497,7 @@ Now let's analyze our baseline performance in the LangSmith UI via the link abov
 
 | Look at | What to look for |
 |---|---|
-| `order_specialist_tool_calls` | Long chains of rigid lookups: `get_customer_orders` → `get_order_items` per order → `get_order_item_price` per item. Totals and counts get added up in the model's head |
+| `order_specialist_tool_calls` | Long chains of rigid lookups: `get_customer_orders` → `get_order_items` per order → `get_order_item_price` per item. Totals and counts get added up in the model's head. A score of exactly **15** means the specialist hit its tool-call limit and stopped before finishing |
 | `correctness` on account questions | Questions about the customer's own record (phone, segment): no order tool reads the customer record |
 | `correctness` on policy and product answers | Answers marked wrong for adding extra detail, or for masking data for privacy. That's the judge, not the agent: we come back to it when we align the judge |
 | The cross-customer example | The answer refuses and shows nothing from the other customer's order |
@@ -539,10 +542,15 @@ We'll give the order specialist a SQL tool that can answer complex questions abo
 </div>
 '''),
     code('''
+import warnings
 from dotenv import load_dotenv
-from tools.database import query_my_orders
 
+# Load .env before any workshop import: config.py picks the models from it at import time
 load_dotenv()
+warnings.filterwarnings("ignore", category=UserWarning)
+warnings.filterwarnings("ignore", message=r".*is deprecated and will be removed after", category=DeprecationWarning)
+
+from tools.database import query_my_orders
 
 # The tool's description carries the schema the model needs to write queries
 print(query_my_orders.description)
@@ -574,15 +582,15 @@ import inspect
 print(inspect.getsource(query_my_orders.func))
 '''),
     md('''
-Now an agent that writes those queries, using the `create_agent()` abstraction with the same context schema as the deep agent:
+Now an agent that writes those queries, using the `create_agent()` abstraction with the same context schema and model as the deep agent's order specialist:
 '''),
     code('''
 from langchain.agents import create_agent
 from agents.deep_support_agent import SupportContext
-from config import DEFAULT_MODEL
+from config import DEEP_AGENT_SMALL_MODEL  # the model the deep agent's specialists run on
 
 sql_agent = create_agent(
-    model=DEFAULT_MODEL,
+    model=DEEP_AGENT_SMALL_MODEL,
     tools=[query_my_orders],
     name="sql_agent",
     system_prompt="You are TechHub's order specialist. Answer with one SQL query when you can, and report exactly what it returns.",
@@ -728,6 +736,8 @@ What to expect:
 | `total_tool_calls` | ⬇️ Down | Same reason; delegations and doc searches stay about the same |
 | `correctness` | ⬆️ Same or better | Aggregations are computed by SQL instead of in the model's head, and the customer record is now readable |
 | Cross-customer example | Still refused | The SQL only ever sees the signed-in customer's rows |
+
+Totals can hide regressions, so also check any example that flipped from correct to wrong and open its trace: a change can fix many questions and break one.
 
 Some answers will still be marked wrong for adding detail or masking data for privacy. That's the judge, not the agent: aligning the judge is next.
 '''),

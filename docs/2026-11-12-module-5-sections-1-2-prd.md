@@ -110,12 +110,12 @@ Each task ends with a commit. Check each item off here as it lands.
 - [x] **T9** Add `s2` to `build_module5.py` and generate `section_2_eval_driven_development.ipynb` per §5.
 
 **Validate**
-- [ ] **T10** Run Section 1 end to end from a fresh kernel (13 examples). Record correctness, total tool calls, and order-specialist tool calls in §11.
-- [ ] **T11** Run Section 2 end to end from a fresh kernel against Section 1's dataset. Record the same numbers and the comparison link in §11. Confirm the cross-customer example is refused in both.
+- [x] **T10** Run Section 1 end to end from a fresh kernel (13 examples). Record correctness, total tool calls, and order-specialist tool calls in §11.
+- [x] **T11** Run Section 2 end to end from a fresh kernel against Section 1's dataset. Record the same numbers and the comparison link in §11. Confirm the cross-customer example is refused in both.
 - [ ] **T12** Open both notebooks in JupyterLab (root at the repo) and check that every image renders.
 
 **Docs**
-- [ ] **T13** README and `workshop_modules/README.md`: Module 5's five sections, and the two learning paths (Modules 1–2 or Modules 4–5). `CLAUDE.md`: Module 5 notes and gotchas. Update the project memory.
+- [x] **T13** README and `workshop_modules/README.md`: Module 5's five sections, and the two learning paths (Modules 1–2 or Modules 4–5). `CLAUDE.md`: Module 5 notes and gotchas. Update the project memory.
 
 ## 10. Acceptance criteria
 
@@ -127,15 +127,23 @@ Each task ends with a commit. Check each item off here as it lands.
 - Every image renders in JupyterLab with the server rooted at the repo.
 - `tests/` pass, including the new evaluator test.
 
-## 11. Results (fill in during T10–T11)
+## 11. Results (2026-11-12, one run each)
 
 | | Section 1 (rigid) | Section 2 (scoped SQL) |
 |---|---|---|
-| Correctness | | |
-| Total tool calls | | |
-| Order-specialist tool calls | | |
-| Cross-customer refused | | |
-| Experiment links | | |
+| Correctness | 6/13 | 10/13 |
+| Total tool calls | 139 | 37 |
+| Order-specialist tool calls | 112 | 13 |
+| Cross-customer refused | Yes (judged correct) | Yes (judged correct) |
+| Experiment links | [deep-agent-baseline-a4b02235](https://smith.langchain.com/o/58980ba0-8cc8-4407-acd7-0409ce9e7ca5/projects/p/2581484d-ed83-4252-ad4a-7452d7ee48fe) | [deep-agent-sql-11120cb7](https://smith.langchain.com/o/58980ba0-8cc8-4407-acd7-0409ce9e7ca5/projects/p/af755166-280b-4fcf-adc9-ba0f6c4f4a34) |
+
+[Comparison view](https://smith.langchain.com/o/58980ba0-8cc8-4407-acd7-0409ce9e7ca5/datasets/79504cf8-de38-4ad2-bfed-0faa6b30e33a/compare?selectedSessions=2581484d-ed83-4252-ad4a-7452d7ee48fe,af755166-280b-4fcf-adc9-ba0f6c4f4a34).
+
+Notes from the runs:
+- Six baseline examples used exactly 15 order-specialist tool calls: the specialist's `tool_call_limit`, so it stopped before finishing. Section 1's error-analysis table now says so.
+- Five examples flipped from wrong to right (spend comparisons, most expensive item, category counts, the account-type question). One flipped right to wrong: the Sony stock and warranty question. Still wrong in both: the phone-number question and the laptop return policy (judge material for Section 3).
+- Bugs found and fixed while running: Section 2 imported `tools.database` before `load_dotenv()`, so `config.py` fell back to an Anthropic default the Gateway can't serve (Module 2 Section 2 has the same import order). The standalone SQL agent now uses `DEEP_AGENT_SMALL_MODEL`, the order specialist's model, since the configured `WORKSHOP_MODEL` (`gpt-5.6-luna`) only supports tools through the Responses API.
+- After the runs, both setup cells gained warning filters (Pydantic serializer warnings from `SupportContext`, `list_runs` deprecation) and Section 2 §6 gained a line about checking regressions. Those changes weren't re-run.
 
 ## 12. Risks
 
