@@ -28,6 +28,8 @@ The question the section answers: *can a decision model replace the aligned LLM 
 | In a decision-model evaluator the **state** carries no grading instructions; the criteria go in the questions | Same page |
 | Data: TypeSafe offers zero data retention per org on request and no BAA. Synthetic data only | `utils/jev.py` |
 
+**Update 2026-11-12 (Ask IT):** on LangChain-managed Macs, Jev already works through the Gateway with the IT-provisioned **`LC_GATEWAY_KEY`** (in launchd and in `/etc/lc_internal/gateway_env`); no ticket or TypeSafe key needed. Smoke-tested: `typesafe/jev-latest` (now resolving to `jev-1.14.0`) and the pinned `typesafe/jev-1.14.0` both answer. Our 424 came from `utils/jev.py` preferring `LANGSMITH_GATEWAY_API_KEY` (a workspace without the TypeSafe secret). A JupyterLab started from a terminal doesn't see the launchd variable.
+
 The IT-4875 key was cut for a customer's workshop. We don't reuse it, and its share link never goes in the repo or docs.
 
 ### Prior art (checked 2026-11-12)
@@ -76,17 +78,17 @@ The exact question design (§5 steps 2 and 4) is settled by the spike (T4), as S
 
 | # | Question | Proposed | Status |
 |---|---|---|---|
-| Q1 | Workshop access | Option A (workshop key as `JEV_API_KEY`) plus C (skip with recorded results) | Confirm |
-| Q2 | Key handling | `JEV_API_KEY` used only by `utils/jev.py`, taking precedence over the Gateway key chain; never committed or printed; time-limited and revoked after each workshop | Confirm |
-| Q3 | Jev model version | Pin `typesafe/jev-1.14.0` (what `utils/jev.py` pins), since thresholds don't transfer between versions; the UI steps use the same ID, not `jev-latest` | Confirm |
-| Q4 | Judges to compare | v0 (unaligned), v2 (aligned, `deep_agent_correctness_evaluator`), and Jev (single question and rubric questions) | Confirm |
-| Q5 | Out of scope | `JevToolGate` evaluation (covered in Module 4), online-evaluation automation (Module 3 territory), OpenAI's decision model (`gpt-6-luna`) beyond one mention | Confirm |
+| Q1 | Workshop access | Option A (workshop key as `JEV_API_KEY`) plus C (skip with recorded results) | Decided 2026-11-12 |
+| Q2 | Key handling | `JEV_API_KEY` used only by `utils/jev.py`, taking precedence over the Gateway key chain; never committed or printed; time-limited and revoked after each workshop | Decided 2026-11-12 |
+| Q3 | Jev model version | Pin `typesafe/jev-1.14.0` (what `utils/jev.py` pins), since thresholds don't transfer between versions; the UI steps use the same ID, not `jev-latest` | Decided 2026-11-12 |
+| Q4 | Judges to compare | v0 (unaligned), v2 (aligned, `deep_agent_correctness_evaluator`), and Jev (single question and rubric questions) | Decided 2026-11-12 |
+| Q5 | Out of scope | `JevToolGate` evaluation (covered in Module 4), online-evaluation automation (Module 3 territory), OpenAI's decision model (`gpt-6-luna`) beyond one mention | Decided 2026-11-12 |
 
 ## 7. Tasks
 
 **Access (blocking)**
-- [ ] **T1** Ariel gets a Jev-capable key: a new IT request modeled on IT-4875 (scoped, time-limited, TypeSafe allowlist, spend cap if available). Put it in `.env` as `JEV_API_KEY`; never paste it in chat.
-- [ ] **T2** `utils/jev.py`: `JEV_API_KEY` first in the key chain, used only for Jev. `verify_setup.py`: report which Jev key source is in use and that it works. Unit test for the key precedence.
+- [x] **T1** Access: internal presenters use `LC_GATEWAY_KEY` (Ask IT, 2026-11-12). External attendees still need option A (a workshop key as `JEV_API_KEY`) or C.
+- [ ] **T2** `utils/jev.py`: key chain `JEV_API_KEY` → `LC_GATEWAY_KEY` (environment, then the file named by `GATEWAY_ENV_FILE`) → the existing Gateway chain, used only for Jev. `verify_setup.py`: report which Jev key source is in use and that it works. Unit test for the key precedence.
 - [ ] **T3** Check access in both paths: one Jev call in code, and the UI decision-model evaluator on one example.
 
 **Spike**
