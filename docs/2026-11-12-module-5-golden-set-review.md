@@ -1,6 +1,6 @@
 # Module 5 Section 3: golden-set label review
 
-Status: **draft, awaiting Ariel's review** (PRD T3). The judge is aligned to these labels, so they set TechHub's standard.
+Status: **approved by Ariel on 2026-11-12** (PRD T3), all 33 labels as proposed. The judge is aligned to these labels, so they set TechHub's standard.
 
 Full items (question, reference, output, note, source): `workshop_modules/module_5/golden_set.json`. To change a label, edit `human_label`, `bucket`, or `label_note` there, or tell Claude which ids to change.
 
@@ -8,7 +8,13 @@ Policy decisions applied (PRD Q3): masking data the verified customer asked for 
 
 Fact checks: every number and claim was checked against `techhub.db` and `data/documents/policies/`. Data quirk: the catalog files the Logitech MX Master 3S **mouse** under Keyboards, and the reference keyboard total ($1,118.00) counts it. The Priya Patel reference lists ORD-2024-0004 twice; the database has 10 orders.
 
-## Needs your call (4)
+## Labeling principles
+
+- **A. A right headline with wrong supporting facts is incorrect.** Customers act on the details (`sql-1`, `rigid-12`).
+- **B. Judge against what the customer asked, not everything in the reference.** Extras in the reference aren't required (`sql-6`), and details count when the question is about them (`rigid-6` vs `rigid-7`).
+- References are left exactly as in the Section 1–2 dataset, quirks included, so every section grades against the same references.
+
+## Debated items (4), all kept as proposed
 
 | id | Proposed | Why it's debatable |
 |---|---|---|

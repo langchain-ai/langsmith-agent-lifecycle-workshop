@@ -94,7 +94,7 @@ Each task ends with a commit. Check items off here as they land.
 **Golden set**
 - [x] **T1** Export the 26 final answers (question, reference, output, experiment and run ID) from the two clean experiments into a candidates file. Check that none of those runs errored.
 - [x] **T2** Draft a bucket, label, and `label_note` for each candidate, flagging uncertain ones. Add edited copies for buckets with no natural example.
-- [ ] **T3** **Ariel reviews every label** (per Q2) and settles the policy calls (Q3). Write `workshop_modules/module_5/golden_set.json`. **Draft written 2026-11-12 (33 items: 26 real, 7 edited); review doc: `docs/2026-11-12-module-5-golden-set-review.md`.**
+- [x] **T3** **Ariel reviews every label** (per Q2) and settles the policy calls (Q3). Write `workshop_modules/module_5/golden_set.json`. **Approved by Ariel 2026-11-12 (33 items: 26 real, 7 edited; 18 correct, 15 incorrect); review doc: `docs/2026-11-12-module-5-golden-set-review.md`.**
 
 **Measure and fix**
 - [ ] **T4** Spike: run the v0 judge (the Sections 1–2 `CORRECTNESS_PROMPT`, pinned model) on the golden set 3 times. Record agreement, the confusion matrix, and every disagreement grouped by cause. Record the causes in §10.
