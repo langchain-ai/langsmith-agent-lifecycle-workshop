@@ -24,10 +24,23 @@ The question the section answers: *can a decision model replace the aligned LLM 
 | Workable option: a **scoped, time-limited LangSmith API key with a model allowlist of only the TypeSafe model**, from a workspace that holds the TypeSafe secret, ideally under a Gateway spend cap | martha, Christine |
 | Such a key was cut (ticket IT-4875) and confirmed working, both in code and in the UI | Stephen Armstrong, Christine |
 | UI path: Evaluators → Decision Model Evaluator → configure prompt & model → **TypeSafe-compatible endpoint** → model `typesafe/jev-latest`, base URL `https://gateway.smith.langchain.com`, check **Append /v1/systemone**, no extra headers, the Gateway key as the secret | Christine |
-| Decision-model evaluators can only be created in the UI; the SDKs can't create them yet | [LangSmith docs](https://docs.langchain.com/langsmith/online-evaluations-decision-models) |
+| The SDKs can't create decision-model evaluators, but the REST API can: `POST /api/v1/runs/rules/decision-models` creates one and attaches it to a dataset or tracing project in one request (state as a prompt template like `Question: {{input}}\nAnswer: {{output}}`, plus `noul` / `choice` / `score` questions, each becoming a feedback key) | [Decision model evaluator docs](https://docs.langchain.com/langsmith/decision-model-evaluator) |
+| In a decision-model evaluator the **state** carries no grading instructions; the criteria go in the questions | Same page |
 | Data: TypeSafe offers zero data retention per org on request and no BAA. Synthetic data only | `utils/jev.py` |
 
 The IT-4875 key was cut for a customer's workshop. We don't reuse it, and its share link never goes in the repo or docs.
+
+### Prior art (checked 2026-11-12)
+
+No LangChain workshop or notebook uses Jev as a judge yet. Module 4 Section 3 of this repo is the only notebook with Jev (routing and the tool gate). What exists:
+
+| Source | What it is | How Section 4 uses it |
+|---|---|---|
+| [Decision model evaluator](https://docs.langchain.com/langsmith/decision-model-evaluator), [decision models for online evals](https://docs.langchain.com/langsmith/online-evaluations-decision-models), [compatible endpoints](https://docs.langchain.com/langsmith/compatible-decision-model-provider) | The UI and REST setup for Jev as a judge, question types, and feedback keys | §5 step 7, and possibly creating the UI evaluator from the notebook via REST |
+| [Decision models in the LLM Gateway](https://docs.langchain.com/langsmith/llm-gateway-decision-models#use-typesafe-jev) | Calling Jev through the Gateway | Already followed by `utils/jev.py` |
+| `langchain-skills` `langgraph-decision-models` skill | Routing with decision models: question wording matters more than thresholds, use `criteria` to say what each answer means, thresholds don't transfer between models | Question-design guidance for the spike (T4) |
+| `openevals.graph` (experimental, added 2026-11-12; not in the installed `openevals`) with the `langsmith-graph-evaluator` skill | Evaluators built as a graph of `LLM` and `DecisionModel` nodes; `DecisionModel` accepts a `typesafe:` name or any decision model object | Don't depend on it yet: brand new and unreleased here. Revisit if it ships; it would replace the hand-written Jev evaluator |
+| `open-swe` (`runtime_api/classifier.py`) | Jev as a classifier for routing | Not a judge; not used |
 
 ## 4. Access options for the workshop
 
