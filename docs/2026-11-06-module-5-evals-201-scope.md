@@ -2,6 +2,8 @@
 
 Status: draft for Ariel to review (2026-11-06). Nothing is built yet.
 
+> Superseded in part on 2026-11-12: the module is now five sections (see the note at the top of `docs/2026-11-09-module-5-build-plan.md`).
+
 ## Where this comes from
 
 - **Notion: [Advanced Workshop Content (L200+) Draft](https://app.notion.com/p/3e3808527b17816d82caf22119d43c8c), §9 "Evals 201: Offline, Harbour, and Jev".** Ariel owns Test/Evals. The exercises evaluate the same TechHub support agent before deployment: answers, tool calls, trajectories, and files/artifacts. Online evals belong to Evie's Monitor/Govern bucket; Ariel contributes evaluator design there.

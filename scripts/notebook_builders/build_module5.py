@@ -33,11 +33,11 @@ def save(name, cells):
 
 
 # ============================================================================
-# SECTION 3: Harbor evals (see docs/2026-11-12-module-5-section-3-v2-plan.md)
+# SECTION 5: Harbor evals (see docs/2026-11-12-module-5-section-3-v2-plan.md)
 # ============================================================================
-s3 = [
+s5 = [
     md('''
-# Module 5, Section 3: Harbor Evals
+# Module 5, Section 5: Harbor Evals
 
 **An environment eval runs the agent in a fresh sandbox and grades what the run left behind.**
 
@@ -420,4 +420,4 @@ print("📊 Compare:", f"{dataset.url}/compare?selectedSessions={','.join(str(e.
 '''),
 ]
 
-save("section_3_harbor_evals.ipynb", s3)
+save("section_5_harbor_evals.ipynb", s5)

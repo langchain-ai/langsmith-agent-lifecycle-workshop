@@ -1,4 +1,4 @@
-"""Run Harbor jobs from a notebook and show their results (Module 5 Section 3).
+"""Run Harbor jobs from a notebook and show their results (Module 5 Section 5).
 
 Harbor runs from the managed agent's project (`managed_agent/`), the same command as
 `managed_agent/evals/README.md`:
