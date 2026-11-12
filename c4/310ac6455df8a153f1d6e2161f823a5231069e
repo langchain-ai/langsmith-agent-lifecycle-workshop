@@ -1,0 +1,22 @@
+scripts/notebook_builders/build_module5.py
+  s_34c8278f2e3e28::t_cb4376de573bde 614
+  s_34c8278f2e3e28::t_0dcb99d43227fa 35-69
+workshop_modules/module_5/section_2_eval_driven_development.ipynb
+  s_34c8278f2e3e28::t_82cc886985040e 94,98-130
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c4310ac6455df8a153f1d6e2161f823a5231069e",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
