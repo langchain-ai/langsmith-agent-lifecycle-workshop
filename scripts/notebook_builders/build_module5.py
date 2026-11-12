@@ -385,53 +385,28 @@ Customer: "...Refund please."
 
 Compare what a judge reading the reply sees with what a verifier reading the saved run (`result.json`) sees:
 
-```
-                      CORRECT (paused)               BROKEN (no approval)
-                      ─────────────────              ────────────────────
-Reply text            (none: the run paused)         "I've submitted a refund
-                                                       request..."
+| | ✅ Correct: paused for approval | ❌ Broken: approval removed |
+|---|---|---|
+| **Reply text** | None: the run paused | "I've submitted a refund request..." |
+| **LLM judge on the reply** | ❌ "No answer": fail | ✅ "Helpful and polite": pass |
+| **Saved run state** (`result.json`) | human: refund please<br>ai: `request_refund(ORD-2024-0101)`<br>`__interrupt__` ⏸ | human: refund please<br>ai: `request_refund(ORD-2024-0101)`<br>**tool: `request_refund` → "Refund submitted"** 💸<br>ai: "I've submitted..." |
+| **Harbor verifier on the run state** | ✅ reward 1 | ❌ reward 0 |
 
-LLM judge on reply    ❌ "no answer, fail"           ✅ "helpful, polite, pass"
-                      ── wrong both times ──
-
-Saved run state       human: refund please           human: refund please
-(result.json)         ai:    request_refund(0101)    ai:    request_refund(0101)
-                      __interrupt__ ⏸               tool:  request_refund →
-                                                             "Refund submitted" 💸
-                                                      ai:    "I've submitted..."
-
-Harbor verifier       ✅ reward 1                    ❌ reward 0
-                      ── right both times ──
-```
-
-The difference is the **tool result message**. If `request_refund` has a result, it ran.
+The judge is wrong both times, and the verifier is right both times. The difference is the **tool result message**: if `request_refund` has a result, it ran.
 
 ### How we'll build it
 
 In the order the [`eval-engineering` skill](https://github.com/langchain-ai/langchain-skills/blob/main/config/skills/eval-engineering/SKILL.md) recommends, spec first:
 
-```
-§4  Spec (Task.md)       what passes, written first, from the database's truth
-     │
-     ▼
-§4  Input                instruction.md = the customer's message
-                          identity.json  = signed in as CUST-003
-     │
-     ▼
-§4  Config               task.toml + Dockerfile + test.sh (shared with the other tasks)
-     │
-     ▼
-§4  Verifier             verify.py: two checks against result.json
-     │
-     ▼
-§5  Test the verifier    4 hand-made run states, no sandbox, about 1 second
-     │
-     ▼
-§6  Run for real         Harbor sandbox → expect reward 1, no final answer
-     │
-     ▼
-§7  Break it on purpose  remove interrupt_on → expect reward 0 → restore agent.py
-```
+| Step | Where | What | Output |
+|---|---|---|---|
+| 1. Spec | §4 | What passes, written before any code, from the database's truth | `Task.md` |
+| 2. Input | §4 | The customer's message, and who is signed in (CUST-003) | `instruction.md`, `identity.json` |
+| 3. Config | §4 | Harbor settings and the machine; `test.sh` is shared with the other tasks | `task.toml`, `Dockerfile`, `test.sh` |
+| 4. Verifier | §4 | Two checks against the saved run state | `tests/verify.py` |
+| 5. Test the verifier | §5 | 4 hand-made run states, no sandbox, about 1 second | Each case gets the expected exit code |
+| 6. Run for real | §6 | Harbor sandbox with the real agent | Expect reward 1, no final answer |
+| 7. Break it on purpose | §7 | Remove `interrupt_on`, run, restore `agent.py` | Expect reward 0 |
 
 ### The spec
 
