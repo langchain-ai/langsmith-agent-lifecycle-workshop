@@ -77,7 +77,13 @@ Use one path per `.env`: provider keys win if several are set.
 [organization-scoped keys aren't supported](https://docs.langchain.com/langsmith/llm-gateway-authentication#use-a-workspace-scoped-key).
 A `424 Required workspace secret ... is missing` means that workspace lacks the secret; a `403` means the key
 lacks `gateway:invoke`. A workspace admin adds the provider secrets and issues a service key (ideally with a
-spend cap under **LLM Gateway > Cost Controls**). Jev alone can target another workspace with `JEV_WORKSPACE_ID`.
+spend cap under **LLM Gateway > Cost Controls**).
+
+**Jev** (Module 4 Section 3, Module 5 Section 4) uses its own key, so a key that only has Jev doesn't break
+your model calls: `JEV_API_KEY` (e.g. a workshop key), else `LANGSMITH_API_KEY` aimed at another workspace
+with `JEV_WORKSPACE_ID`, else `LC_GATEWAY_KEY` (on LangChain-managed Macs; set `GATEWAY_ENV_FILE` if you start
+Jupyter from a terminal), else the Gateway key above. `verify_setup.py` prints which one Jev uses. Without
+a working key, the Jev cells skip themselves.
 
 This covers chat models (`langchain-anthropic>=1.5.1` / `langchain-openai>=1.4.1`, already the repo minimums).
 If `EMBEDDING_PROVIDER=openai`, embeddings need their own Gateway setup, since `LANGSMITH_GATEWAY` doesn't
@@ -108,8 +114,10 @@ This workshop consists of three modules that take you from manual tool calling t
 Advanced (L200) modules build on the same TechHub agent:
 
 4. **Module 4: Deep Agents 101 → 201** - A pricing research deep agent (101), then harness engineering on the support agent: context, middleware, dynamic subagents, verification (201)
-5. **Module 5: Advanced Evaluation** - In progress
+5. **Module 5: Advanced Evaluation** - Module 2's evaluation path on the deep agent (baseline, eval-driven development, judge alignment, Jev as a judge), then Harbor evals in sandboxes
 6. **Module 6: Deploying Agents into Production** - Managed Deep Agents, Agent Server runtime, and sandboxes
+
+There are two learning paths: Modules 1–3 build and evaluate a supervisor multi-agent system, and Modules 4–6 do the same for a deep agent. Module 5 deliberately mirrors Module 2 on the deep agent, so most people take one path or the other.
 
 📚 To get started, see [workshop_modules/README.md](workshop_modules/README.md)
 

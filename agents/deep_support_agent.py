@@ -36,7 +36,7 @@ from agents.db_agent import DB_AGENT_BASE_TOOLS
 from agents.docs_agent import DOCS_AGENT_BASE_TOOLS
 from agents.middleware import JevToolGate, customer_scope_guard, fault_tolerance_middleware, verified_customer_prompt
 from config import DEEP_AGENT_FALLBACK_MODELS, DEEP_AGENT_MODEL, DEEP_AGENT_SMALL_MODEL
-from tools import get_customer_orders
+from tools import get_customer_orders, query_my_orders
 
 HARNESS_DIR = Path(__file__).parent / "deep_support"
 
@@ -62,6 +62,11 @@ ORDER_SPECIALIST = {
     "Report exactly what the tools return; if a tool refuses access, say so plainly.",
     "tools": [*DB_AGENT_BASE_TOOLS, get_customer_orders],
     "middleware": [verified_customer_prompt, customer_scope_guard],
+}
+
+ORDER_TOOLS = {
+    "rigid": ORDER_SPECIALIST["tools"],
+    "sql": [query_my_orders],
 }
 
 PRODUCT_POLICY_SPECIALIST = {
@@ -190,7 +195,8 @@ def _customer_namespace(runtime) -> tuple[str, ...]:
     if customer_id:
         return ("techhub", customer_id)
     info = getattr(runtime, "execution_info", None)
-    return ("techhub", "anonymous", getattr(info, "thread_id", None) or "no-thread")
+    # Callers may pass a UUID as the thread_id (LangGraph accepts it); store namespaces must be strings
+    return ("techhub", "anonymous", str(getattr(info, "thread_id", None) or "no-thread"))
 
 
 # ============================================================================
@@ -213,6 +219,7 @@ def create_deep_support_agent(
     fallback_models: list | None = None,
     narrow_tools: str | None = None,
     jev_tool_gate: bool = False,
+    order_tools: str = "rigid",
 ):
     """Create the TechHub support agent on the Deep Agents harness.
 
@@ -243,6 +250,9 @@ def create_deep_support_agent(
         jev_tool_gate: Add JevToolGate to the main agent: Jev scores each tool call for side
             effects and pauses likely ones for approval. Tools in `interrupt_on` and `task`
             are skipped. Needs Jev through the LLM Gateway; synthetic data only.
+        order_tools: The order specialist's tools. "rigid" (default): the four lookup tools
+            plus get_customer_orders. "sql": one `query_my_orders` tool that runs read-only
+            SQL over the verified customer's own rows (Module 5's improvement).
 
     Returns:
         Compiled deep agent graph. Invoke with `context=SupportContext(customer_id=...)`.
@@ -310,7 +320,12 @@ def create_deep_support_agent(
         },
     )
 
-    order_middleware = specialist_middleware(ORDER_SPECIALIST)
+    if order_tools not in ORDER_TOOLS:
+        raise ValueError(f"order_tools must be one of {list(ORDER_TOOLS)}")
+    if order_tools != "rigid" and narrow_tools:
+        raise ValueError("narrow_tools only applies to the rigid order tools")
+    order_spec = {**ORDER_SPECIALIST, "tools": ORDER_TOOLS[order_tools]}
+    order_middleware = specialist_middleware(order_spec)
     if narrow_tools:
         # Inside fault tolerance, so retries and the fallback also see the narrowed request
         order_middleware.append(TOOL_NARROWING[narrow_tools]())
@@ -320,7 +335,7 @@ def create_deep_support_agent(
         "tools": [request_refund],
         "system_prompt": DEEP_SUPPORT_SYSTEM_PROMPT,
         "subagents": [
-            _with_harness(ORDER_SPECIALIST, small_llm, order_middleware),
+            _with_harness(order_spec, small_llm, order_middleware),
             _with_harness(PRODUCT_POLICY_SPECIALIST, small_llm, specialist_middleware(PRODUCT_POLICY_SPECIALIST)),
             _general_purpose(small_llm, specialist_middleware({"tools": []})),
         ],

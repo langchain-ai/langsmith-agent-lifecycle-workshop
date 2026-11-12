@@ -6,16 +6,22 @@ independent of anything the agent writes into its workspace.
 
 Exit codes used by verify.py: 0 = pass, 1 = fail (agent work), 2 = invalid run
 (no evidence, so it is not the agent's fault).
+
+report() also writes /logs/verifier/reward.json: the overall `reward` plus one 0/1 score per
+check. Harbor prefers reward.json over reward.txt, and the LangSmith plugin turns each key
+into a feedback score, so a failed run shows which check failed.
 """
 
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
 # Overridable only for local verifier tests; Harbor uses the defaults.
 RESULT = Path(os.environ.get("MDA_EVAL_RESULT", "/logs/agent/result.json"))
 INVALID = Path(os.environ.get("MDA_EVAL_INVALID", "/logs/verifier/invalid.txt"))
+REWARD = Path(os.environ.get("MDA_EVAL_REWARD", "/logs/verifier/reward.json"))
 
 
 def invalid(reason: str) -> None:
@@ -73,4 +79,9 @@ def report(checks: dict[str, bool], reward_keys: list[str], stats: dict | None =
         print(f"[{'PASS' if ok else 'FAIL'}] {name} ({tag})")
     for name, value in (stats or {}).items():
         print(f"[stat] {name}: {value}")
-    sys.exit(0 if all(checks[k] for k in reward_keys) else 1)
+    passed = all(checks[k] for k in reward_keys)
+    rewards = {"reward": float(passed)}
+    rewards |= {re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_"): float(ok) for name, ok in checks.items()}
+    REWARD.parent.mkdir(parents=True, exist_ok=True)
+    REWARD.write_text(json.dumps(rewards) + "\n")
+    sys.exit(0 if passed else 1)

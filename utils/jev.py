@@ -14,11 +14,16 @@ LangSmith key (model ids take the `typesafe/` prefix). The Gateway reads provide
 secrets from the workspace the key belongs to, so that workspace needs a
 TYPESAFE_API_KEY provider secret (otherwise every call returns 424 Failed Dependency).
 
-- JEV_WORKSPACE_ID: set it when your key's default workspace isn't the one holding the
-  TYPESAFE_API_KEY secret (for example a personal access token with access to several
-  workspaces). It is sent as the X-Tenant-Id header, together with LANGSMITH_API_KEY.
-- Without it, the Gateway key is used: LANGSMITH_GATEWAY_API_KEY (or its aliases
-  LANGSMITH_API_KEY_GATEWAY / LC_GATEWAY_KEY), then LANGSMITH_API_KEY.
+Which key Jev uses, first match wins (used for Jev only; model calls keep their own key):
+
+1. JEV_API_KEY: a key from a workspace that has Jev, e.g. a workshop key allowlisted to
+   TypeSafe. Separate on purpose: an allowlisted key would break other model calls.
+2. JEV_WORKSPACE_ID: LANGSMITH_API_KEY, sent with X-Tenant-Id set to this workspace, for
+   keys whose default workspace isn't the one holding the TYPESAFE_API_KEY secret.
+3. LC_GATEWAY_KEY: the IT-provisioned Gateway key on LangChain-managed Macs, which has Jev.
+   Read from the environment, else from the file named by GATEWAY_ENV_FILE
+   (/etc/lc_internal/gateway_env), since a Jupyter started from a terminal doesn't see it.
+4. LANGSMITH_GATEWAY_API_KEY (or LANGSMITH_API_KEY_GATEWAY), then LANGSMITH_API_KEY.
 - Region: LANGSMITH_GATEWAY set to a URL is used as the Gateway; otherwise an EU
   LANGSMITH_ENDPOINT selects the EU Gateway, and anything else the US one.
 
@@ -29,12 +34,14 @@ reviewed it.
 
 import os
 from functools import lru_cache
+from pathlib import Path
 
 import httpx2
+from dotenv import dotenv_values
 from langchain_typesafe import TypeSafeClassifier
 
 _US_GATEWAY, _EU_GATEWAY = "https://gateway.smith.langchain.com", "https://eu.gateway.smith.langchain.com"
-_KEY_VARS = ("LANGSMITH_GATEWAY_API_KEY", "LANGSMITH_API_KEY_GATEWAY", "LC_GATEWAY_KEY", "LANGSMITH_API_KEY")
+_FALLBACK_KEY_VARS = ("LANGSMITH_GATEWAY_API_KEY", "LANGSMITH_API_KEY_GATEWAY", "LANGSMITH_API_KEY")
 
 
 def _gateway_url() -> str:
@@ -45,12 +52,31 @@ def _gateway_url() -> str:
     return _EU_GATEWAY if "://eu." in os.getenv("LANGSMITH_ENDPOINT", "") else _US_GATEWAY
 
 
+def _gateway_file_key() -> str | None:
+    """LC_GATEWAY_KEY from the IT gateway file named by GATEWAY_ENV_FILE, if there is one."""
+    path = os.getenv("GATEWAY_ENV_FILE")
+    if not path or not Path(path).is_file():
+        return None
+    return dotenv_values(path).get("LC_GATEWAY_KEY") or None
+
+
+def jev_key_source() -> tuple[str, str] | None:
+    """(where the key comes from, the key) in the order in the module docstring. Print only the first."""
+    if key := os.getenv("JEV_API_KEY"):
+        return "JEV_API_KEY", key
+    if os.getenv("JEV_WORKSPACE_ID") and (key := os.getenv("LANGSMITH_API_KEY")):
+        return "LANGSMITH_API_KEY + JEV_WORKSPACE_ID", key
+    if key := os.getenv("LC_GATEWAY_KEY"):
+        return "LC_GATEWAY_KEY", key
+    if key := _gateway_file_key():
+        return "LC_GATEWAY_KEY (GATEWAY_ENV_FILE)", key
+    return next(((name, os.environ[name]) for name in _FALLBACK_KEY_VARS if os.getenv(name)), None)
+
+
 def _api_key() -> str:
-    """LANGSMITH_API_KEY with JEV_WORKSPACE_ID (it picks the workspace), else the Gateway key."""
-    names = ("LANGSMITH_API_KEY",) if os.getenv("JEV_WORKSPACE_ID") else _KEY_VARS
-    if key := next((os.environ[n] for n in names if os.getenv(n)), None):
-        return key
-    raise RuntimeError("Jev needs LANGSMITH_GATEWAY_API_KEY or LANGSMITH_API_KEY (a workspace-scoped key).")
+    if source := jev_key_source():
+        return source[1]
+    raise RuntimeError("Jev needs JEV_API_KEY, LC_GATEWAY_KEY, or a LangSmith key from a workspace with Jev.")
 
 
 GATEWAY_URL = _gateway_url()
@@ -72,8 +98,9 @@ def jev_classifier(model: str = JEV_MODEL) -> TypeSafeClassifier:
         0.99
     """
     clients = {}
-    if workspace := os.getenv("JEV_WORKSPACE_ID"):
-        headers = {"X-Tenant-Id": workspace}
+    source = jev_key_source()
+    if source and source[0] == "LANGSMITH_API_KEY + JEV_WORKSPACE_ID":
+        headers = {"X-Tenant-Id": os.environ["JEV_WORKSPACE_ID"]}
         clients = {
             "client": httpx2.Client(headers=headers, timeout=_TIMEOUT),
             "async_client": httpx2.AsyncClient(headers=headers, timeout=_TIMEOUT),
