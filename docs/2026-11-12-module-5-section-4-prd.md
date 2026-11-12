@@ -67,7 +67,7 @@ No LangChain workshop or notebook uses Jev as a judge yet. Module 4 Section 3 of
 | 3 | Measure against the golden set | Same `frozen_agent`, `report()`, and hold-out as Section 3 | Agreement + confusion matrix | `client.evaluate` on the Section 3 dataset |
 | 3.1 | Analyze | Group disagreements by cause, as in Section 3 | Cause table | — |
 | 4 | Fix: from one question to the rubric's questions | Jev's version of rubric rules: one `Noul` per rule from Section 3 (correct against the reference / answers what was asked / no invented actions); verdict = all pass. Each question becomes its own feedback score | Question table | `jev_rubric_evaluator`; re-measure |
-| 5 | Pick the threshold | A probability needs a cut-off: choose it on the rule items, then check it on the hold-out | Agreement vs threshold printout | Sweep thresholds over stored probabilities (no new calls) |
+| 5 | Pick the threshold, then cascade | A probability needs a cut-off: choose it on the rule items, check it on the hold-out, and look at how close the two groups sit. Send the uncertain middle to the aligned LLM judge | Sorted-scores printout; agreement vs threshold | Sweep thresholds over stored probabilities (no new calls); cascade over the gray zone |
 | 6 | Compare the judges | Unaligned LLM judge, aligned LLM judge (Section 3), Jev: agreement, hold-out, run-to-run consistency, latency, cost | Comparison table | Repeated runs; latency from runs |
 | 7 | The same evaluator in the UI | Decision Model Evaluator on the dataset, mapping the reference output into the state; TypeSafe-compatible endpoint setup (§3) | Steps table, docs links | — |
 | 8 | When to use which | Decision model vs LLM judge: cost and latency vs explanations and nuance; pin the version; synthetic data only | Decision table | — |
@@ -92,8 +92,8 @@ The exact question design (§5 steps 2 and 4) is settled by the spike (T4), as S
 - [ ] **T3** Check access in both paths: one Jev call in code (**done 2026-11-12**: 0.99 via `LC_GATEWAY_KEY` from `GATEWAY_ENV_FILE`), and the UI decision-model evaluator on one example (needs a workspace secret and model configuration in Ariel's workspace: Ariel's call, done during T8).
 
 **Spike**
-- [ ] **T4** On the Section 3 golden set: single `Noul` vs rubric `Noul`s vs a `Choice` (correct / partially correct / incorrect). For each: agreement on rule items and hold-out, consistency over 3 runs, and latency per item. Pick the threshold on the rule items only. Record in §10.
-- [ ] **T5** Measure the LLM judges' latency per item on the same set (v0, v2) for the comparison table; record cost from LangSmith run usage where it's reported.
+- [x] **T4** On the Section 3 golden set: single `Noul` vs rubric `Noul`s vs a `Choice` (correct / partially correct / incorrect). For each: agreement on rule items and hold-out, consistency over 3 runs, and latency per item. Pick the threshold on the rule items only. Record in §10.
+- [x] **T5** Measure the LLM judges' latency per item on the same set (v0, v2) for the comparison table; record cost from LangSmith run usage where it's reported.
 
 **Build**
 - [ ] **T6** `evaluators/`: `jev_correctness_evaluator` (the design chosen in T4, pinned model and threshold), raising a clear error when Jev isn't reachable. Unit test for the question set and the threshold logic, with no network.
@@ -120,14 +120,25 @@ The exact question design (§5 steps 2 and 4) is settled by the spike (T4), as S
 - **Long states.** Some outputs (order reports) are long; if one exceeds Jev's context, the `TypeSafe-Danger-Zone-Long-Context` header raises the limit (docs). Spike checks.
 - **Data.** TypeSafe has no BAA. TechHub data is synthetic; the notebook says real customer data needs a security review first.
 
-## 10. Results (fill in during T4–T5 and T8)
+## 10. Results (T4–T5 spike, 2026-11-12; `typesafe/jev-1.14.0`, judge `openai:gpt-5-mini`; 3 runs each)
 
-| Judge | All | Rule items | Hold-out | Consistency (3 runs) | Latency / item | Cost |
-|---|---|---|---|---|---|---|
-| v0 LLM judge (unaligned) | 91–93% | 93–96% | 78–83% | | | |
-| v2 LLM judge (aligned) | 97% | 96% | 100% | | | |
-| Jev, single question | | | | | | |
-| Jev, rubric questions | | | | | | |
+Jev's state is the question, the reference, and the agent's answer, with no grading instructions (per the docs). Agreement is with Ariel's labels on Section 3's golden set; the cut-off is chosen on the 27 rule items only.
+
+| Judge | Cut-off | All | Rule items | Hold-out | Varies across runs by | Latency / item (median) | Tokens / item (in, out) |
+|---|---|---|---|---|---|---|---|
+| v0 LLM judge (unaligned) | — | 91–93% | 93–96% | 78–83% | an item or two | 4.4 s | 569, 347 |
+| v2 LLM judge (aligned, Section 3) | — | 97% | 96% | 100% | an item or two | 4.4 s | 814, 410 |
+| Jev, single question | 0.50 | 85% | 89% | 67% | ≤0.09 | 0.2 s | — |
+| Jev, choice (correct / partial / incorrect) | 0.25 | 91% | 89% | 100% | ≤0.10 | 0.2 s | — |
+| Jev, rubric (3 questions, all must pass), first wording | 0.15 | 91% | 93% | 83% | ≤0.06 | 0.2 s | — |
+| **Jev, rubric, refusals fixed** | **0.15** | **97%** | **96%** | **100%** | ≤0.09 | **0.2 s** | 891, 56 |
+| **Cascade: Jev rubric, gray zone 0.10–0.50 to the aligned LLM judge** | — | **97%** | — | — | — | 0.2 s for 29 items, plus 4.4 s for 4 | — |
+
+Findings:
+- **The rubric design wins** and gives one feedback score per question (`facts_agree`, `answers_question`, `possible_actions`). Its first wording failed correct refusals on `answers_question` (0.01–0.02); one sentence in the false criterion ("declining because the data belongs to another customer is not leaving it unanswered") fixed both, including the hold-out one.
+- **Jev's one miss is arithmetic:** `sql-1`, whose breakdown doesn't add up to its total, passes `facts_agree` at 0.69. The aligned LLM judge's one miss was different (the mice). Decision models don't check sums.
+- **The cut-off sits in a narrow gap.** Every incorrect answer's lowest score is ≤0.07 (except `sql-1`), and every correct one's is ≥0.17. Four correct answers sit at 0.17–0.36 (both refusals, `sql-6` without prices, `rigid-8` with extra policy detail). At 0.25, agreement drops to 89%. Hence the cascade: Jev decides confident items and sends the gray zone (here 4 of 33, 12%) to the aligned LLM judge, which labels all four correctly. Same 97%, without depending on one exact number.
+- **Speed:** Jev about 20× faster (0.2 s vs 4.4 s) with about 7× fewer output tokens. Per-token prices aren't recorded here; check LangSmith run usage for cost.
 
 ## 11. Out of scope
 
