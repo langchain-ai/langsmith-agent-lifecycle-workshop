@@ -1,0 +1,26 @@
+CLAUDE.md
+  s_34c8278f2e3e28::t_e9375f8889e775 14
+  s_34c8278f2e3e28::t_6ec6e61041ad92 267-273
+  s_34c8278f2e3e28::t_8e0fa321aeac6b 137
+workshop_modules/README.md
+  s_34c8278f2e3e28::t_0b5108da680345 132-149
+README.md
+  s_34c8278f2e3e28::t_427ff93ea2c3f6 111,114
+  s_34c8278f2e3e28::t_18534496511fb6 115
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "161c670545a46dcb775b0f8ec8d304c456774324",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
