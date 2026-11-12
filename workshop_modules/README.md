@@ -140,7 +140,10 @@ Module 2's evaluation path, repeated on the Module 4 deep agent, then Harbor eva
 - A customer-scoped SQL tool (`query_my_orders`) instead of a raw `execute_sql`
 - `create_deep_support_agent(order_tools="sql")`, re-evaluated on the same dataset and compared
 
-**Section 3: Aligning the Judge** (coming soon)
+**Section 3: Aligning the Judge** (`module_5/section_3_align_llm_judge.ipynb`)
+- A 33-item golden set of the deep agent's own answers with human labels (`module_5/golden_set.json`)
+- Measure the Sections 1–2 judge against the labels, then add one rubric rule per cause of disagreement, with a hold-out
+- The aligned judge is saved as `deep_agent_correctness_evaluator` in `evaluators/`
 
 **Section 4: Jev as a Judge** (coming soon)
 

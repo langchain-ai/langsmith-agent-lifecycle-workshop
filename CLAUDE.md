@@ -270,6 +270,8 @@ model.with_structured_output(OutputSchema)
 - Deep-agent target functions must pass `context=SupportContext(customer_id=...)`: the agent never takes identity from the conversation
 - `order_specialist_tool_calls_evaluator` counts tool runs under the `order-specialist` subagent run; total tool calls also counts `task` delegations
 - `query_my_orders` is the scoped SQL tool; never give a customer-facing agent a raw `execute_sql`
+- Section 3's aligned judge is `deep_agent_correctness_evaluator` / `DEEP_AGENT_CORRECTNESS_PROMPT` (pinned `DEEP_AGENT_JUDGE_MODEL`); the notebook asserts it matches. Change the rubric or model only by re-running Section 3 against `module_5/golden_set.json`, whose labels Ariel approved
+- Before reading any experiment's scores, check its runs for errors: an errored run scores as wrong
 
 ### Module 6: Managed Deep Agents
 - `managed_agent/` mirrors the Module 4 support agent; keep the two in sync. `middleware/fault_tolerance.py` is a copy;

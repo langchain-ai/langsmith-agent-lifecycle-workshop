@@ -1083,7 +1083,7 @@ agreement_by_version["v1 (+ no invented actions)"] = report(results_v1)
     md('''
 Compare the disagreements with the previous run, not just the totals. A new rule can fix one bucket and loosen another.
 
-On our runs, Fix 1 fixed both invented-action outputs, including the hold-out one the rule was never written against. But the judge started passing answers that withhold part of what was asked, with reasoning like "it does not claim any prohibited actions, so it meets the rubric": `masked` phone numbers, and `partial` answers that say "I couldn't verify stock" when the product is in stock.
+On our runs, Fix 1 fixed both invented-action outputs, including the hold-out one the rule was never written against. But with the action rule in place, the judge sometimes passes answers that leave part of the question unanswered, as long as they claim nothing they can't do ("it does not claim any prohibited actions, so it meets the rubric"): a masked phone number, a SKU instead of the item name, or "I couldn't verify stock" when the product is in stock. Which of these slip through varies from run to run.
 '''),
     md('''
 ### 3.2 Fix 2: answer what was asked
@@ -1127,10 +1127,10 @@ Open the three experiments side by side in LangSmith (select them on the dataset
 Before trusting the final number, check three things:
 
 - **Read the remaining disagreements.** For each one, decide whether the judge is wrong or the label is. On our runs, the one left was `edit-sql-1-breakdown-fixed`: the judge says the Logitech MX Master 3S mice shouldn't count as keyboards. The catalog files them under Keyboards and the reference total counts them, so the label follows the data. But the judge has found a real data-quality problem: the fix is in the catalog, not the rubric. If you agree with the judge on an item, change the label, not the rubric.
-- **Check the hold-out.** The rules were written against the other 27 items. If agreement on the hold-out drops while the rest rises, a rule is fitted to its examples. On our runs, the hold-out went from 78% to 100%, but six items are few.
+- **Check the hold-out.** The rules were written against the other 27 items. If agreement on the hold-out drops while the rest rises, a rule is fitted to its examples. On our runs, the hold-out went from 78–83% to 100%, but six items are few.
 - **Add labels before calling the judge done.** 33 examples are enough to find failure modes, not to certify a judge. Re-measure on new labeled outputs that weren't used to write the rules.
 
-> **Note:** The judge model is not deterministic. Re-running a version can move agreement by an item or two. Compare versions on repeated runs, not on a single one.
+> **Note:** The judge model is not deterministic. Re-running a version can move agreement by an item or two. Compare versions on repeated runs, not on a single one. In a single run, v1 and v2 can tie; over three runs each, v1 averaged 90% and v2 97%.
 '''),
     md('''
 ## 4. Optional: label the outputs yourself

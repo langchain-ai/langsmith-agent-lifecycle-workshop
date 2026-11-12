@@ -106,8 +106,8 @@ Each task ends with a commit. Check items off here as they land.
 - [x] **T8** Add `s3` to `build_module5.py` and generate `section_3_align_llm_judge.ipynb` per §4. The analysis tables in 2.1 and 3.x use the causes and wording from T4–T5.
 
 **Validate and document**
-- [ ] **T9** Run the notebook end to end from a fresh kernel. Check every experiment for run errors before reading scores. Confirm the agreement numbers match §10 within run-to-run variance.
-- [ ] **T10** Docs: `workshop_modules/README.md` Section 3 entry, `CLAUDE.md` Module 5 notes, project memory.
+- [x] **T9** Run the notebook end to end from a fresh kernel. Check every experiment for run errors before reading scores. Confirm the agreement numbers match §10 within run-to-run variance.
+- [x] **T10** Docs: `workshop_modules/README.md` Section 3 entry, `CLAUDE.md` Module 5 notes, project memory.
 
 ## 9. Acceptance criteria
 
@@ -131,6 +131,8 @@ Hold-out (chosen before measuring, never used to write rules): `sql-4`, `rigid-1
 | v2 draft (+ answer what was asked, unscoped) | 96% | 96% | 94% | Over-reaches: fails good answers for not repeating the customer's account details |
 | v3 (+ "reference facts are true") | 92% | 90% | 100% | Doesn't fix its target, adds noise. Dropped |
 | **v2 (v1a + answer what was asked, scoped)** | **97%** | **96%** | **100%** | One disagreement left, 3/3: `edit-sql-1-breakdown-fixed`, where the judge says mice aren't keyboards (the catalog files them under Keyboards) |
+
+Notebook run (T9, one run per version, 0 errored runs in all three experiments): v0 91% (hold-out 83%), v1 97% (100%), v2 97% (100%). v1's leniency showed up only once (`rigid-2`), so v1 and v2 tied in this run; the notebook says single runs can tie and gives the 3-run means. The check that the notebook's prompt equals `evaluators.DEEP_AGENT_CORRECTNESS_PROMPT` passed.
 
 Causes, for §2.1: (1) invented actions pass as extras, from the "additional information" note; (2) after an action rule, the judge treats "no disallowed claims" as the bar and passes honest non-answers ("couldn't verify stock") and masking; (3) the judge overrides the reference with world knowledge (the mice). Fix 1 addresses (1); Fix 2 addresses (2); (3) is left as the "judge or label?" discussion in §3.3.
 
