@@ -32,6 +32,41 @@ def save(name, cells):
     print("wrote", OUT / name, len(cells), "cells")
 
 
+# Section 2 shows an excerpt of query_my_orders as a colored markdown code block (like
+# modular-workshops' verifier excerpt). The lines are copied from tools/database.py at build
+# time, so the excerpt can't drift; a missing anchor fails the build.
+DATABASE_PY = (Path(__file__).resolve().parents[2] / "tools/database.py").read_text().splitlines()
+
+
+def source_lines(start: str, end: str | None = None) -> list[str]:
+    """Lines of tools/database.py from the first line starting with `start` to the next starting with `end`."""
+    starts = [n for n, line in enumerate(DATABASE_PY) if line.startswith(start)]
+    if not starts:
+        raise ValueError(f"tools/database.py has no line starting with {start!r}: update the Section 2 excerpt")
+    i = starts[0]
+    if end is None:
+        return DATABASE_PY[i : i + 1]
+    ends = [n for n in range(i, len(DATABASE_PY)) if DATABASE_PY[n].startswith(end)]
+    if not ends:
+        raise ValueError(f"tools/database.py has no line starting with {end!r} after {start!r}")
+    return DATABASE_PY[i : ends[0] + 1]
+
+
+_def = source_lines("def query_my_orders(")
+assert DATABASE_PY[DATABASE_PY.index(_def[0]) - 1] == "@tool", "query_my_orders is no longer a @tool"
+QUERY_MY_ORDERS_EXCERPT = "\n".join([
+    *source_lines("_SCOPED_VIEWS = {", "}"),
+    "# _scoped_authorizer (not shown) allows reads of these views and the public products table only",
+    "",
+    "",
+    "@tool",
+    *_def,
+    source_lines('    """Run one read-only SQL SELECT')[0] + ' ..."""',
+    *source_lines("    context = runtime.context", "        cursor = conn.execute(query)"),
+    "        ...  # fetch at most _MAX_ROWS rows and format them",
+])
+
+
 # Shared by Sections 1 and 2: the deep agent takes a verified customer ID from run context
 # (as an app does after sign-in), so the target function looks the customer up from the
 # email in the question. Mirrors Module 2's target function otherwise.
@@ -576,11 +611,7 @@ query_my_orders(sql)
 "SELECT ... FROM orders"  sees CUST-010's orders, and nobody else's
 ```
 '''),
-    code('''
-import inspect
-
-print(inspect.getsource(query_my_orders.func))
-'''),
+    md("The core of `query_my_orders` ([full source](../../tools/database.py)):\n\n```python\n" + QUERY_MY_ORDERS_EXCERPT + "\n```"),
     md('''
 Now an agent that writes those queries, using the `create_agent()` abstraction with the same context schema and model as the deep agent's order specialist:
 '''),
