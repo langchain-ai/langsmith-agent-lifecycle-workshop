@@ -9,6 +9,7 @@ how well our agent performs and identify areas for improvement.
 from functools import cache
 
 from langchain.chat_models import init_chat_model
+from langchain_typesafe import Noul, NoulCriteria
 from langsmith.schemas import Run
 from pydantic import BaseModel, Field
 
@@ -174,6 +175,82 @@ def deep_agent_correctness_evaluator(inputs: dict, outputs: dict, reference_outp
         DEEP_AGENT_CORRECTNESS_PROMPT.format(inputs=inputs, outputs=outputs, reference_outputs=reference_outputs)
     )
     return {"key": "correctness", "score": eval_result.score, "comment": eval_result.reasoning}
+
+
+# ============================================================================
+# JEV CORRECTNESS EVALUATOR (Module 5, Section 4)
+# ============================================================================
+# The aligned rubric as three typed questions for Jev, TypeSafe's decision model
+# (utils/jev.py). The state holds the question, the reference, and the answer;
+# the grading criteria live in the questions. An output is correct when every
+# question's probability is at least JEV_THRESHOLD, chosen on Module 5 Section 4's
+# rule items. Thresholds don't transfer between Jev versions (utils.jev.JEV_MODEL
+# is pinned): re-run Section 4 before changing either.
+# ============================================================================
+
+JEV_THRESHOLD = 0.15
+
+JEV_RUBRIC_QUESTIONS = {
+    "facts_agree": Noul(
+        instructions="Do the facts in the agent answer agree with the reference answer, and with each other? Check totals, "
+        "counts, prices, dates, items, and any breakdown against its own total.",
+        criteria=NoulCriteria(
+            true="Every fact the reference answer covers matches, and any breakdown adds up to the total it supports. "
+            "Extra details the reference doesn't mention are fine.",
+            false="A number, item, or fact contradicts the reference answer, or a breakdown doesn't add up to the total "
+            "it supports.",
+        ),
+    ),
+    "answers_question": Noul(
+        instructions="Does the agent answer give the customer the information they asked for, for every part of the question?",
+        criteria=NoulCriteria(
+            true="It states the requested information itself for every part of the question.",
+            false="It leaves part unanswered: it masks or withholds the customer's own details, says it couldn't find, "
+            "check, or verify something, or answers only part of the question. Declining because the order or data "
+            "belongs to a different customer is not leaving it unanswered: when the reference answer also declines, "
+            "that is the right answer.",
+        ),
+    ),
+    "possible_actions": Noul(
+        instructions="Does the agent answer stay within what the assistant can do: look things up, and submit refund "
+        "requests that a person approves?",
+        criteria=NoulCriteria(
+            true="It only reports what it looked up, offers to look something else up or reformat, or offers to submit "
+            "a refund request for a person to approve.",
+            false="It claims or offers something else: says a refund was issued, updated account data, opened a return, "
+            "sent an email or label, placed or cancelled an order, or contacted another team.",
+        ),
+    ),
+}
+
+
+def jev_state(question: str, reference: str, output: str) -> str:
+    """What Jev reads: the question, the reference, and the answer. No grading instructions."""
+    return f"Customer question:\n{question}\n\nReference answer (ground truth):\n{reference}\n\nAgent answer:\n{output}"
+
+
+def _last_content(messages_dict: dict) -> str:
+    return messages_dict["messages"][-1]["content"]
+
+
+def jev_correctness_evaluator(inputs: dict, outputs: dict, reference_outputs: dict) -> dict:
+    """Grade an answer with Jev: one feedback score per rubric question, plus an overall `correctness`.
+
+    `correctness` is 1 when every question's probability is at least JEV_THRESHOLD, and its
+    comment holds the lowest probability, so you can see how close the call was.
+    """
+    from utils.jev import jev_classifier  # imported here: needs the Jev key only when called
+
+    state = jev_state(_last_content(inputs), _last_content(reference_outputs), _last_content(outputs))
+    response = jev_classifier().invoke({"state": state, "questions": JEV_RUBRIC_QUESTIONS})
+    probabilities = {name: response.nouls[name].noul for name in JEV_RUBRIC_QUESTIONS}
+    lowest = min(probabilities.values())
+    return {
+        "results": [
+            *({"key": name, "score": p} for name, p in probabilities.items()),
+            {"key": "correctness", "score": int(lowest >= JEV_THRESHOLD), "comment": f"lowest question probability {lowest:.2f}"},
+        ]
+    }
 
 
 # ============================================================================

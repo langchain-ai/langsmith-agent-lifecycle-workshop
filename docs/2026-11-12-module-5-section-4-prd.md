@@ -96,7 +96,7 @@ The exact question design (§5 steps 2 and 4) is settled by the spike (T4), as S
 - [x] **T5** Measure the LLM judges' latency per item on the same set (v0, v2) for the comparison table; record cost from LangSmith run usage where it's reported.
 
 **Build**
-- [ ] **T6** `evaluators/`: `jev_correctness_evaluator` (the design chosen in T4, pinned model and threshold), raising a clear error when Jev isn't reachable. Unit test for the question set and the threshold logic, with no network.
+- [x] **T6** `evaluators/`: `jev_correctness_evaluator` (the design chosen in T4, pinned model and threshold), raising a clear error when Jev isn't reachable. Unit test for the question set and the threshold logic, with no network.
 - [ ] **T7** Add `s4` to `build_module5.py` and generate `section_4_jev_as_judge.ipynb` per §5. Every Jev cell checks `JEV_AVAILABLE` and otherwise prints the recorded results from §10.
 
 **Validate and document**
