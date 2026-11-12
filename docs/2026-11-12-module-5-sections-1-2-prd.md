@@ -127,23 +127,25 @@ Each task ends with a commit. Check each item off here as it lands.
 - Every image renders in JupyterLab with the server rooted at the repo.
 - `tests/` pass, including the new evaluator test.
 
-## 11. Results (2026-11-12, one run each)
+## 11. Results (2026-11-12, after the memory-namespace fix; one run each)
 
 | | Section 1 (rigid) | Section 2 (scoped SQL) |
 |---|---|---|
-| Correctness | 6/13 | 10/13 |
-| Total tool calls | 139 | 37 |
-| Order-specialist tool calls | 112 | 13 |
+| Correctness | 6/13 | 9/13 |
+| Total tool calls | 140 | 46 |
+| Order-specialist tool calls | 110 | 12 |
 | Cross-customer refused | Yes (judged correct) | Yes (judged correct) |
-| Experiment links | [deep-agent-baseline-a4b02235](https://smith.langchain.com/o/58980ba0-8cc8-4407-acd7-0409ce9e7ca5/projects/p/2581484d-ed83-4252-ad4a-7452d7ee48fe) | [deep-agent-sql-11120cb7](https://smith.langchain.com/o/58980ba0-8cc8-4407-acd7-0409ce9e7ca5/projects/p/af755166-280b-4fcf-adc9-ba0f6c4f4a34) |
+| Run errors | 0 | 0 |
+| Experiment links | [deep-agent-baseline-6d90ce6d](https://smith.langchain.com/o/58980ba0-8cc8-4407-acd7-0409ce9e7ca5/projects/p/64a16005-7d1f-46b4-8954-43b79d04175a) | [deep-agent-sql-3c01a2ba](https://smith.langchain.com/o/58980ba0-8cc8-4407-acd7-0409ce9e7ca5/projects/p/29d4dfde-6151-46bb-b2d3-89044dbe8844) |
 
-[Comparison view](https://smith.langchain.com/o/58980ba0-8cc8-4407-acd7-0409ce9e7ca5/datasets/79504cf8-de38-4ad2-bfed-0faa6b30e33a/compare?selectedSessions=2581484d-ed83-4252-ad4a-7452d7ee48fe,af755166-280b-4fcf-adc9-ba0f6c4f4a34).
+[Comparison view](https://smith.langchain.com/o/58980ba0-8cc8-4407-acd7-0409ce9e7ca5/datasets/89afaf69-03d8-4470-981b-89bd8c2d0274/compare?selectedSessions=64a16005-7d1f-46b4-8954-43b79d04175a,29d4dfde-6151-46bb-b2d3-89044dbe8844).
 
 Notes from the runs:
-- Six baseline examples used exactly 15 order-specialist tool calls: the specialist's `tool_call_limit`, so it stopped before finishing. Section 1's error-analysis table now says so.
-- Five examples flipped from wrong to right (spend comparisons, most expensive item, category counts, the account-type question). One flipped right to wrong: the Sony stock and warranty question. Still wrong in both: the phone-number question and the laptop return policy (judge material for Section 3).
-- Bugs found and fixed while running: Section 2 imported `tools.database` before `load_dotenv()`, so `config.py` fell back to an Anthropic default the Gateway can't serve (Module 2 Section 2 has the same import order). The standalone SQL agent now uses `DEEP_AGENT_SMALL_MODEL`, the order specialist's model, since the configured `WORKSHOP_MODEL` (`gpt-5.6-luna`) only supports tools through the Responses API.
-- After the runs, both setup cells gained warning filters (Pydantic serializer warnings from `SupportContext`, `list_runs` deprecation) and Section 2 §6 gained a line about checking regressions. Those changes weren't re-run.
+- **The first runs were invalid for two examples.** The deep agent put the thread ID into the anonymous memory namespace as-is; the notebooks pass a UUID (as Module 2 does), and StoreBackend rejects non-string parts. Any run with no verified customer that touched `/memories/` crashed. That hit the Sony and laptop-policy questions in the first Section 2 run (empty answers, judged wrong) and in Ariel's own Section 1 run. Fixed in `agents/deep_support_agent.py` (`_customer_namespace` converts to `str`), with `tests/test_customer_namespace.py`. Lesson: check run errors in **every** experiment before reading scores.
+- Baseline examples at 14–15 order-specialist calls hit the specialist's `tool_call_limit` (15) or came close. Section 1's error-analysis table says so.
+- Flipped wrong → right: the account-summary question, laptops vs monitors spend, top category, most expensive item. Flipped right → wrong: the laptop return policy, which uses neither order specialist (0 order-specialist calls in both), so it's run-to-run variation in the agent or the judge, not the change. Wrong in both: email-linked account type, phone number, Sony stock and warranty (the product-policy specialist has no stock tool). These are material for Section 3.
+- Setup bugs fixed during validation: Section 2 imported `tools.database` before `load_dotenv()`, so `config.py` fell back to an Anthropic default the Gateway can't serve (Module 2 Section 2 has the same import order). The standalone SQL agent uses `DEEP_AGENT_SMALL_MODEL`, the order specialist's model, because the configured `WORKSHOP_MODEL` (`gpt-5.6-luna`) only supports tools through the Responses API.
+- The rerun used the final notebooks, including the warning filters and the regression note in Section 2 §6.
 
 ## 12. Risks
 
