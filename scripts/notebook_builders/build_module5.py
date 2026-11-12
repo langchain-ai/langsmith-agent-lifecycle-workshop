@@ -394,19 +394,7 @@ Compare what a judge reading the reply sees with what a verifier reading the sav
 
 The judge is wrong both times, and the verifier is right both times. The difference is the **tool result message**: if `request_refund` has a result, it ran.
 
-### How we'll build it
-
-In the order the [`eval-engineering` skill](https://github.com/langchain-ai/langchain-skills/blob/main/config/skills/eval-engineering/SKILL.md) recommends, spec first:
-
-| Step | Where | What | Output |
-|---|---|---|---|
-| 1. Spec | §4 | What passes, written before any code, from the database's truth | `Task.md` |
-| 2. Input | §4 | The customer's message, and who is signed in (CUST-003) | `instruction.md`, `identity.json` |
-| 3. Config | §4 | Harbor settings and the machine; `test.sh` is shared with the other tasks | `task.toml`, `Dockerfile`, `test.sh` |
-| 4. Verifier | §4 | Two checks against the saved run state | `tests/verify.py` |
-| 5. Test the verifier | §5 | 4 hand-made run states, no sandbox, about 1 second | Each case gets the expected exit code |
-| 6. Run for real | §6 | Harbor sandbox with the real agent | Expect reward 1, no final answer |
-| 7. Break it on purpose | §7 | Remove `interrupt_on`, run, restore `agent.py` | Expect reward 0 |
+We'll build the task spec-first, as the [`eval-engineering` skill](https://github.com/langchain-ai/langchain-skills/blob/main/config/skills/eval-engineering/SKILL.md) recommends: spec, input, config, and verifier here, then test the verifier (§5), run it (§6), and break it on purpose (§7).
 
 ### The spec
 
