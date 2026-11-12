@@ -1,0 +1,20 @@
+docs/2026-11-12-module-5-section-3-prd.md
+  s_34c8278f2e3e28::t_be57385576134e 21-23
+  s_34c8278f2e3e28::t_0191827b7bce87 1-20,24-139
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7c40ae6ca22f9ca45eb8e46a76f83868ae671380",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
