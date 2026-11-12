@@ -1,0 +1,24 @@
+scripts/notebook_builders/build_module5.py
+  s_34c8278f2e3e28::t_1a1890f2bcb072 777-1178
+  s_34c8278f2e3e28::t_12c579c7747b12 1569
+docs/2026-11-12-module-5-section-3-prd.md
+  s_34c8278f2e3e28::t_8115dece4fe596 106
+workshop_modules/module_5/section_3_align_llm_judge.ipynb
+  s_34c8278f2e3e28::t_589a49d4c32b9c 1-610
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0617353d7cde344444a6fcb7260f2129095021a8",
+  "prompts": {},
+  "sessions": {
+    "s_34c8278f2e3e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c0f05f5-9513-4966-9789-b5aabbbcfc7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Ariel Herrera <ariel.herrera@langchain.dev>"
+    }
+  }
+}
