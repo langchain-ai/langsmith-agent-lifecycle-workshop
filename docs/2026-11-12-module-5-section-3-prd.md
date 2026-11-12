@@ -97,9 +97,9 @@ Each task ends with a commit. Check items off here as they land.
 - [x] **T3** **Ariel reviews every label** (per Q2) and settles the policy calls (Q3). Write `workshop_modules/module_5/golden_set.json`. **Approved by Ariel 2026-11-12 (33 items: 26 real, 7 edited; 18 correct, 15 incorrect); review doc: `docs/2026-11-12-module-5-golden-set-review.md`.**
 
 **Measure and fix**
-- [ ] **T4** Spike: run the v0 judge (the Sections 1–2 `CORRECTNESS_PROMPT`, pinned model) on the golden set 3 times. Record agreement, the confusion matrix, and every disagreement grouped by cause. Record the causes in §10.
-- [ ] **T5** For each cause, write one rubric rule, re-measure 3 times, and keep it only if it fixes its cause without breaking another bucket. Record each version's agreement in §10.
-- [ ] **T6** Hold-out check: before T5, set aside about 5 labeled items that the rules are not written against, and report agreement on them separately (addresses Module 2's overfitting warning).
+- [x] **T4** Spike: run the v0 judge (the Sections 1–2 `CORRECTNESS_PROMPT`, pinned model) on the golden set 3 times. Record agreement, the confusion matrix, and every disagreement grouped by cause. Record the causes in §10.
+- [x] **T5** For each cause, write one rubric rule, re-measure 3 times, and keep it only if it fixes its cause without breaking another bucket. Record each version's agreement in §10.
+- [x] **T6** Hold-out check: before T5, set aside about 5 labeled items that the rules are not written against, and report agreement on them separately (addresses Module 2's overfitting warning).
 
 **Code and notebook**
 - [ ] **T7** Save the final prompt and evaluator in `evaluators/` (per Q5), with a unit test that the prompt formats and that each rule's `replace()` target exists.
@@ -118,12 +118,21 @@ Each task ends with a commit. Check items off here as they land.
 - The notebook runs top to bottom in a fresh kernel.
 - `tests/` pass.
 
-## 10. Results (fill in during T4–T5 and T9)
+## 10. Results (T4–T6 spike, 2026-11-12; judge `openai:gpt-5-mini`; each row is 3 runs over 33 items)
 
-| Version | Agreement (mean of 3) | Hold-out | Notes |
-|---|---|---|---|
-| v0 (Sections 1–2 judge) | | | |
-| | | | |
+Hold-out (chosen before measuring, never used to write rules): `sql-4`, `rigid-13`, `rigid-3`, `sql-9`, `sql-10`, `edit-sql-2-account-updated`.
+
+| Version | All | Rubric items (27) | Hold-out (6) | Notes |
+|---|---|---|---|---|
+| v0 (Sections 1–2 judge) | 93% | 96% | 78% | Passes invented actions as "acceptable extras" (`edit-sql-7-refund-issued` 3/3; hold-out `edit-sql-2-account-updated` 3/3); hold-out masking 1/3 |
+| v1 (Module 2's full Fix 1: rule + "read every offer" + looser note) | 87% | 86% | 89% | Fixes invented actions but turns lenient: passes cut-off, partial, and masked answers ("no disallowed claims, so it is correct") |
+| v1a (the action rule only) | 90% | 90% | 89% | Same leniency, less of it. Kept as Fix 1 |
+| v1b (rule + "read every offer") | 86% | 88% | 78% | Worse |
+| v2 draft (+ answer what was asked, unscoped) | 96% | 96% | 94% | Over-reaches: fails good answers for not repeating the customer's account details |
+| v3 (+ "reference facts are true") | 92% | 90% | 100% | Doesn't fix its target, adds noise. Dropped |
+| **v2 (v1a + answer what was asked, scoped)** | **97%** | **96%** | **100%** | One disagreement left, 3/3: `edit-sql-1-breakdown-fixed`, where the judge says mice aren't keyboards (the catalog files them under Keyboards) |
+
+Causes, for §2.1: (1) invented actions pass as extras, from the "additional information" note; (2) after an action rule, the judge treats "no disallowed claims" as the bar and passes honest non-answers ("couldn't verify stock") and masking; (3) the judge overrides the reference with world knowledge (the mice). Fix 1 addresses (1); Fix 2 addresses (2); (3) is left as the "judge or label?" discussion in §3.3.
 
 ## 11. Risks
 
