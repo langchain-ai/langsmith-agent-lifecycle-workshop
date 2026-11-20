@@ -1,0 +1,129 @@
+{
+  "_fixture": {
+    "what": "Hand-built sample of a LangSmith Engine issue board for the TechHub support agent. NOT real Engine output. Generated from the Module 7 seed by utils/trace_seeding.py, so every trace it cites is a seeded trace.",
+    "shape_of_issues": "Each item in `issues` uses only keys from the REST schema `issues.Issue` (GET /api/v1/platform/issues, which returns a bare JSON array of these objects).",
+    "shape_of_evidence": "Items use the documented webhook `data.trace` shape (run_id, trace_id, start_time, comment) plus `seed_trace_key`, which is this module's own key for finding the trace in the seed. The shape of the API's own `traces` field is undocumented, so it is not used here.",
+    "shape_of_offline_examples": "Items mirror the request body of `langsmith projects issues examples propose` (run_id, assertions[{key, comment}]). The shape of the API's own `proposed_examples` field is undocumented, so it is not used here.",
+    "clock": "All timestamps are on the seed's clock. `utils.trace_seeding.load_engine_issues(seed)` shifts them together with the seed.",
+    "validation": "tests/test_module7_fixtures.py loads every issue with langsmith.types.issue.Issue and checks every evidence comment against the cited seed trace. The structure is validated; the wording, length and style of real Engine output are not."
+  },
+  "issues": [
+    {
+      "id": "7f3c2a10-5b1e-4c7a-9d42-0a1b2c3d4e01",
+      "tenant_id": "11111111-2222-3333-4444-555555555555",
+      "session_id": "66666666-7777-8888-9999-aaaaaaaaaaaa",
+      "type": "actionable",
+      "name": "Agent quotes the 30-day return window for opened electronics",
+      "description": "When a customer says the product has been opened or used, the agent still answers that it can be returned within 30 days. The return policy gives opened electronics 14 days from delivery. In these traces the product-policy-specialist answers without calling search_policy_docs, so no tool error is raised and the answer looks normal. Every trace is on app_version 1.5.0 (revision e4f5a6b). Customers outside the 14-day window are told they can still return the item.",
+      "severity": 1,
+      "status": "open",
+      "tags": [
+        "Hallucination"
+      ],
+      "created_at": "2026-11-19T02:35:08Z",
+      "updated_at": "2026-11-19T08:47:16Z",
+      "first_seen_at": "2026-11-19T02:10:08Z",
+      "last_seen_at": "2026-11-19T08:45:16Z",
+      "proposed_fix": "In the product-policy-specialist prompt, remove the sentence that states one return window for any item, require a search_policy_docs call for every return, refund or warranty question, and require the answer to name the product condition (unopened, opened, other) it applies to.",
+      "fixes": [],
+      "recurrences_since_watching": 0
+    },
+    {
+      "id": "7f3c2a10-5b1e-4c7a-9d42-0a1b2c3d4e02",
+      "tenant_id": "11111111-2222-3333-4444-555555555555",
+      "session_id": "66666666-7777-8888-9999-aaaaaaaaaaaa",
+      "type": "actionable",
+      "name": "Order lookup reports an existing order as not found",
+      "description": "For order IDs typed in lower case or without dashes, get_order_status returns 'Order <id> not found.' with a success status. The order-specialist treats that text as proof that the order does not exist and the agent tells the customer so, although the order exists under the normalised ID and belongs to that customer.",
+      "severity": 2,
+      "status": "fixing",
+      "tags": [
+        "Silent tool error"
+      ],
+      "created_at": "2026-11-18T14:02:50Z",
+      "updated_at": "2026-11-19T07:58:29Z",
+      "first_seen_at": "2026-11-18T13:32:50Z",
+      "last_seen_at": "2026-11-19T07:56:29Z",
+      "proposed_fix": "Normalise order IDs to the ORD-YYYY-NNNN form before the lookup, and have get_order_status say that no order with this ID exists for this customer instead of a bare 'not found'.",
+      "fix_branch": "engine/normalise-order-ids",
+      "fix_pr_number": 42,
+      "fix_dispatched_at": "2026-11-19T06:00:00Z",
+      "fixes": [
+        {
+          "id": "9c1d7e52-3a4b-4f6c-8d7e-0f1a2b3c4d5e",
+          "branch": "engine/normalise-order-ids",
+          "pr_number": 42,
+          "provider": "github",
+          "provider_web_base_url": "https://github.com",
+          "repo_url": "https://github.com/example-org/techhub-support-agent",
+          "created_at": "2026-11-19T06:18:00Z",
+          "updated_at": "2026-11-19T06:18:00Z"
+        }
+      ],
+      "recurrences_since_watching": 0
+    },
+    {
+      "id": "7f3c2a10-5b1e-4c7a-9d42-0a1b2c3d4e03",
+      "tenant_id": "11111111-2222-3333-4444-555555555555",
+      "session_id": "66666666-7777-8888-9999-aaaaaaaaaaaa",
+      "type": "finding",
+      "name": "Compatibility questions take two specialist delegations where one would do",
+      "description": "On product compatibility questions the main agent delegates to the product-policy-specialist, receives a complete answer, then delegates the same question again before replying. Answers are correct; median latency and cost for these conversations are about double those of single-product spec lookups.",
+      "severity": 3,
+      "status": "watching",
+      "tags": [
+        "Inefficient path"
+      ],
+      "created_at": "2026-11-18T13:32:03Z",
+      "updated_at": "2026-11-19T08:19:11Z",
+      "first_seen_at": "2026-11-18T13:02:03Z",
+      "last_seen_at": "2026-11-19T08:17:11Z",
+      "watching_since": "2026-11-18T23:00:00Z",
+      "fixes": [],
+      "recurrences_since_watching": 11
+    }
+  ],
+  "evidence": {
+    "7f3c2a10-5b1e-4c7a-9d42-0a1b2c3d4e01": [
+      {
+        "run_id": "01a1f191-873c-739e-8e8e-35df7fc674a7",
+        "trace_id": "01a1f191-873c-739e-8e8e-35df7fc674a7",
+        "start_time": "2026-11-19T02:10:08Z",
+        "comment": "Customer: 'I opened my Lenovo ThinkPad X1 Carbon (Intel i7, 1TB) from order ORD-2024-0078 last week. How long do I have to return it?' Agent: 'You have 30 days from delivery to return your Lenovo ThinkPad X1 Carbon (Intel i7, 1TB). Would you like me to start the return for order ORD-2024-0078?' No search_policy_docs call in the trace.",
+        "seed_trace_key": "t-0169"
+      },
+      {
+        "run_id": "01a1f1ab-b142-7ecd-8e83-cf53ff271ecd",
+        "trace_id": "01a1f1ab-b142-7ecd-8e83-cf53ff271ecd",
+        "start_time": "2026-11-19T02:38:43Z",
+        "comment": "The product-policy-specialist answered without calling search_policy_docs. The reply gives 30 days for a product the customer describes as opened or used.",
+        "seed_trace_key": "t-0173"
+      },
+      {
+        "run_id": "01a1f19a-b584-7b18-8d45-0de3df1f1d70",
+        "trace_id": "01a1f19a-b584-7b18-8d45-0de3df1f1d70",
+        "start_time": "2026-11-19T02:20:10Z",
+        "comment": "The customer gave a thumbs-up (user_score 1), so user feedback does not show this failure. The feedback cited for this trace is the online evaluator's score: wrong_return_window = 1.",
+        "seed_trace_key": "t-0170"
+      }
+    ]
+  },
+  "offline_examples": {
+    "7f3c2a10-5b1e-4c7a-9d42-0a1b2c3d4e01": [
+      {
+        "run_id": "01a1f191-873c-739e-8e8e-35df7fc674a7",
+        "seed_trace_key": "t-0169",
+        "assertions": [
+          {
+            "key": "states_14_day_window",
+            "comment": "States that opened electronics can be returned within 14 days of delivery"
+          },
+          {
+            "key": "no_30_day_claim",
+            "comment": "Does not tell the customer that an opened product has a 30-day return window"
+          }
+        ]
+      }
+    ]
+  }
+}

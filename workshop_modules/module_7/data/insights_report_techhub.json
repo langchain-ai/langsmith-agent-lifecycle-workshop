@@ -1,0 +1,255 @@
+{
+  "id": "5b0e6c1a-2d3f-4a5b-8c7d-9e0f1a2b3c4d",
+  "name": "TechHub support: topics and failure modes (hand-built sample, not real Insights output)",
+  "status": "success",
+  "start_time": "2026-11-19T09:01:05Z",
+  "end_time": "2026-11-19T09:04:10Z",
+  "created_at": "2026-11-19T09:01:00Z",
+  "metadata": null,
+  "shape": null,
+  "error": null,
+  "config_id": null,
+  "clusters": [
+    {
+      "id": "c1000000-0000-4000-8000-000000000001",
+      "parent_id": null,
+      "parent_name": null,
+      "level": 1,
+      "name": "Order status and tracking",
+      "description": "Customers ask where an order is, what it contains, or why it cannot be found.",
+      "num_runs": 78,
+      "stats": {
+        "error_rate": 0.128,
+        "latency_p50": 6.5,
+        "cost_p50": 0.0208
+      }
+    },
+    {
+      "id": "c1000000-0000-4000-8000-000000000002",
+      "parent_id": null,
+      "parent_name": null,
+      "level": 1,
+      "name": "Returns and refunds",
+      "description": "Customers ask whether an item can be returned, request a refund, or ask when a refund will arrive.",
+      "num_runs": 52,
+      "stats": {
+        "error_rate": 0.019,
+        "latency_p50": 6.0,
+        "cost_p50": 0.0211
+      }
+    },
+    {
+      "id": "c1000000-0000-4000-8000-000000000003",
+      "parent_id": null,
+      "parent_name": null,
+      "level": 1,
+      "name": "Product specs and compatibility",
+      "description": "Customers ask about product specifications or whether two products work together.",
+      "num_runs": 44,
+      "stats": {
+        "error_rate": 0.045,
+        "latency_p50": 12.7,
+        "cost_p50": 0.039
+      }
+    },
+    {
+      "id": "c1000000-0000-4000-8000-000000000004",
+      "parent_id": null,
+      "parent_name": null,
+      "level": 1,
+      "name": "Out of scope or adversarial",
+      "description": "Requests the support agent should decline: other customers' data, or topics unrelated to TechHub.",
+      "num_runs": 26,
+      "stats": {
+        "error_rate": 0.0,
+        "latency_p50": 3.9,
+        "cost_p50": 0.0164
+      }
+    },
+    {
+      "id": "c2000000-0000-4000-8000-000000000011",
+      "parent_id": "c1000000-0000-4000-8000-000000000001",
+      "parent_name": "Order status and tracking",
+      "level": 0,
+      "name": "Where is my order",
+      "description": "Status and tracking questions for an order the customer owns. A short run of these conversations ends with an order-service error.",
+      "num_runs": 46,
+      "stats": {
+        "error_rate": 0.196,
+        "latency_p50": 7.2,
+        "cost_p50": 0.0209
+      }
+    },
+    {
+      "id": "c2000000-0000-4000-8000-000000000012",
+      "parent_id": "c1000000-0000-4000-8000-000000000001",
+      "parent_name": "Order status and tracking",
+      "level": 0,
+      "name": "Order reported as not found",
+      "description": "The agent tells the customer the order does not exist, after an order ID typed in lower case or without dashes.",
+      "num_runs": 19,
+      "stats": {
+        "error_rate": 0.0,
+        "latency_p50": 5.4,
+        "cost_p50": 0.0207
+      }
+    },
+    {
+      "id": "c2000000-0000-4000-8000-000000000013",
+      "parent_id": "c1000000-0000-4000-8000-000000000001",
+      "parent_name": "Order status and tracking",
+      "level": 0,
+      "name": "What is in my order",
+      "description": "Questions about the items in an order.",
+      "num_runs": 13,
+      "stats": {
+        "error_rate": 0.077,
+        "latency_p50": 6.8,
+        "cost_p50": 0.0208
+      }
+    },
+    {
+      "id": "c2000000-0000-4000-8000-000000000021",
+      "parent_id": "c1000000-0000-4000-8000-000000000002",
+      "parent_name": "Returns and refunds",
+      "level": 0,
+      "name": "Return window questions",
+      "description": "Customers ask how long they have to return an item. Several answers give 30 days for opened electronics, where the policy says 14.",
+      "num_runs": 27,
+      "stats": {
+        "error_rate": 0.0,
+        "latency_p50": 5.9,
+        "cost_p50": 0.0211
+      }
+    },
+    {
+      "id": "c2000000-0000-4000-8000-000000000022",
+      "parent_id": "c1000000-0000-4000-8000-000000000002",
+      "parent_name": "Returns and refunds",
+      "level": 0,
+      "name": "Refund requests awaiting approval",
+      "description": "The agent prepares a refund and pauses for human approval.",
+      "num_runs": 16,
+      "stats": {
+        "error_rate": 0.063,
+        "latency_p50": 5.7,
+        "cost_p50": 0.021
+      }
+    },
+    {
+      "id": "c2000000-0000-4000-8000-000000000023",
+      "parent_id": "c1000000-0000-4000-8000-000000000002",
+      "parent_name": "Returns and refunds",
+      "level": 0,
+      "name": "When will my refund arrive",
+      "description": "Questions about refund processing times by payment method.",
+      "num_runs": 9,
+      "stats": {
+        "error_rate": 0.0,
+        "latency_p50": 7.4,
+        "cost_p50": 0.0292
+      }
+    },
+    {
+      "id": "c2000000-0000-4000-8000-000000000031",
+      "parent_id": "c1000000-0000-4000-8000-000000000003",
+      "parent_name": "Product specs and compatibility",
+      "level": 0,
+      "name": "Compatibility between products",
+      "description": "Whether a monitor or keyboard works with a given laptop. The agent delegates the same question to the specialist twice.",
+      "num_runs": 25,
+      "stats": {
+        "error_rate": 0.04,
+        "latency_p50": 13.5,
+        "cost_p50": 0.0391
+      }
+    },
+    {
+      "id": "c2000000-0000-4000-8000-000000000032",
+      "parent_id": "c1000000-0000-4000-8000-000000000003",
+      "parent_name": "Product specs and compatibility",
+      "level": 0,
+      "name": "Single-product spec lookups",
+      "description": "Battery life, weight, display and similar facts for one product.",
+      "num_runs": 19,
+      "stats": {
+        "error_rate": 0.053,
+        "latency_p50": 6.5,
+        "cost_p50": 0.0211
+      }
+    },
+    {
+      "id": "c2000000-0000-4000-8000-000000000041",
+      "parent_id": "c1000000-0000-4000-8000-000000000004",
+      "parent_name": "Out of scope or adversarial",
+      "level": 0,
+      "name": "Asks for another customer's data",
+      "description": "Requests for orders that belong to a different customer. The scope guard refuses.",
+      "num_runs": 11,
+      "stats": {
+        "error_rate": 0.0,
+        "latency_p50": 5.6,
+        "cost_p50": 0.0212
+      }
+    },
+    {
+      "id": "c2000000-0000-4000-8000-000000000042",
+      "parent_id": "c1000000-0000-4000-8000-000000000004",
+      "parent_name": "Out of scope or adversarial",
+      "level": 0,
+      "name": "Unrelated requests",
+      "description": "Coding help, general knowledge and other topics outside TechHub support.",
+      "num_runs": 15,
+      "stats": {
+        "error_rate": 0.0,
+        "latency_p50": 2.1,
+        "cost_p50": 0.0081
+      }
+    }
+  ],
+  "report": {
+    "title": "What TechHub customers ask, and where the support agent struggles",
+    "created_at": "2026-11-19T09:04:08Z",
+    "key_points": [
+      "Order status and tracking is the largest topic (39% of conversations). Its subcategory 'Where is my order' has the highest error rate in the report, 19.6% (9 of 46 conversations), after a short order-service outage.",
+      "Returns and refunds make up 26% of conversations. In 'Return window questions' (27 conversations) the agent repeatedly gives 30 days for opened electronics, which the Return Policy limits to 14 days. No error is raised in these traces: the error rate of the subcategory is 0.0%.",
+      "19 conversations (10%) end with the agent saying an order does not exist. They follow an order ID typed in lower case or without dashes; the order lookup reports the order as not found with a success status, so this subcategory also shows an error rate of 0.0%.",
+      "Compatibility questions (25 conversations) are answered correctly but cost about twice as much as single-product spec lookups (median $0.0391 against $0.0211), because the agent delegates the same question to the product-policy-specialist twice.",
+      "13% of conversations are out of scope: 11 ask for another customer's data, and the scope guard refused every one of them; 15 are unrelated to TechHub."
+    ],
+    "highlighted_traces": [
+      {
+        "run_id": "01a1f191-873c-739e-8e8e-35df7fc674a7",
+        "cluster_id": "c2000000-0000-4000-8000-000000000021",
+        "cluster_name": "Return window questions",
+        "rank": 1,
+        "highlight_reason": "Clear example of the wrong return window: the customer says the product was opened or used and the agent answers that 30 days apply. The product-policy-specialist answered without a policy search.",
+        "summary": "Customer asks how long an opened product can be returned; agent says 30 days from delivery. (seed trace t-0169)"
+      },
+      {
+        "run_id": "01a1eedc-3210-78e2-989b-a9ad29371780",
+        "cluster_id": "c2000000-0000-4000-8000-000000000012",
+        "cluster_name": "Order reported as not found",
+        "rank": 2,
+        "highlight_reason": "The order exists. The customer typed 'ord20230015', get_order_status returned 'Order ord20230015 not found.', and the agent told the customer the order does not exist.",
+        "summary": "Customer types the order ID in a different form; agent reports that no such order exists. (seed trace t-0006)"
+      },
+      {
+        "run_id": "01a1eec0-04b3-7313-8b90-7a8659bc7864",
+        "cluster_id": "c2000000-0000-4000-8000-000000000031",
+        "cluster_name": "Compatibility between products",
+        "rank": 3,
+        "highlight_reason": "Typical double delegation: two task calls with the same question to the product-policy-specialist before the final answer.",
+        "summary": "Customer asks whether two products work together; the answer is correct after two specialist calls. (seed trace t-0001)"
+      },
+      {
+        "run_id": "01a1ef04-2d38-79c6-84db-46baaa2598b8",
+        "cluster_id": "c2000000-0000-4000-8000-000000000041",
+        "cluster_name": "Asks for another customer's data",
+        "rank": 4,
+        "highlight_reason": "Shows the scope guard working: the request names order ORD-2025-0063, which belongs to a different customer, and is refused without a database call.",
+        "summary": "Customer asks for the status of an order that belongs to someone else; agent declines. (seed trace t-0014)"
+      }
+    ]
+  }
+}

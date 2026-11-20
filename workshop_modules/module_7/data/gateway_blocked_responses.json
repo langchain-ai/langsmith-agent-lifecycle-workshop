@@ -1,0 +1,45 @@
+{
+  "spend": {
+    "_source_url": "https://docs.langchain.com/langsmith/llm-gateway-spend-policies",
+    "_note": "Documented shape, not captured output. Written by hand from the page above, which says a spend policy blocks further requests with a 402 response that names the blocking policies and prints this body with <POLICY_NAME> in place of the name. The policy name here is an invented example. The page documents no response header for this block, so none is listed.",
+    "policy_type": "spend_limit",
+    "status": 402,
+    "headers": {},
+    "body": {
+      "type": "error",
+      "error": {
+        "message": "request blocked by gateway policies: techhub-support-daily-budget"
+      }
+    }
+  },
+  "rate": {
+    "_source_url": "https://docs.langchain.com/langsmith/llm-gateway-rate-limit-policies",
+    "_note": "Documented shape, not captured output. Written by hand from the page above, which says a rate limit policy returns a 429 response with a Retry-After header and prints this body with <POLICY_NAME> in place of the name. The page says the Retry-After value is the number of seconds until the current window resets; the value here and the policy name are invented examples.",
+    "policy_type": "rate_limit",
+    "status": 429,
+    "headers": {
+      "Retry-After": "20"
+    },
+    "body": {
+      "type": "error",
+      "error": {
+        "message": "request blocked by gateway policies: techhub-support-requests-per-minute"
+      }
+    }
+  },
+  "model_access": {
+    "_source_url": "https://docs.langchain.com/langsmith/llm-gateway-model-access-policies",
+    "_note": "Documented shape, not captured output. Written by hand from the page above, which says a model access policy returns a 403 response with a body that names the blocking policy and prints this body with <POLICY_NAME> in place of the name. The policy name here is an invented example. The page documents no response header for this block, so none is listed.",
+    "policy_type": "model_access",
+    "status": 403,
+    "headers": {},
+    "body": {
+      "error": {
+        "code": null,
+        "message": "request blocked by gateway policies: techhub-approved-models",
+        "param": null,
+        "type": "permission_error"
+      }
+    }
+  }
+}

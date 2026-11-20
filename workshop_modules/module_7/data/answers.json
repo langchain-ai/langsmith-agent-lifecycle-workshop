@@ -1,0 +1,154 @@
+{
+  "_about": "Answer key of Module 7, written by utils/trace_seeding.py::answer_key from the seed. The keys s1_... to s4_... are the checker ids of utils/monitoring_checks.py. `reference` holds numbers the notebooks print but no checker grades.",
+  "s1_signals": {
+    "errored_root_runs": 13,
+    "thumbs_down_conversations": 25,
+    "thumbs_down_after_order_not_found": 16,
+    "thumbs_down_on_wrong_return_window": 0
+  },
+  "s1_evaluator": {
+    "flagged_trace_keys": [
+      "t-0169",
+      "t-0170",
+      "t-0173",
+      "t-0176",
+      "t-0180",
+      "t-0190",
+      "t-0191",
+      "t-0212",
+      "t-0233",
+      "t-0237",
+      "t-0257"
+    ]
+  },
+  "s1_filter_sample": {
+    "all_root_runs": {
+      "scored": 260,
+      "caught": 11
+    },
+    "app_version_1_5_0": {
+      "scored": 104,
+      "caught": 11
+    },
+    "sample_25_percent": {
+      "scored": 65,
+      "caught": 3
+    }
+  },
+  "s1_alert": {
+    "background_max_in_5_minutes": 2,
+    "burst_errors": 8,
+    "threshold": 3,
+    "failing_tool": "get_order_status"
+  },
+  "s1_routing": {
+    "selected": 11
+  },
+  "s2_report": {
+    "largest_category": "Order status and tracking",
+    "largest_category_conversations": 78,
+    "largest_category_share": 0.39,
+    "highest_error_rate_subcategory": "Where is my order",
+    "highest_error_rate": 0.196
+  },
+  "s2_claim": {
+    "conversations": 27,
+    "error_rate": 0.0,
+    "flagged": 11
+  },
+  "s3_evidence": {
+    "missing_tool": "search_policy_docs",
+    "under_run": "product-policy-specialist"
+  },
+  "s3_triage": {
+    "actions": [
+      "apply_fix_and_add_examples",
+      "review_pull_request",
+      "save_for_later"
+    ]
+  },
+  "s3_assertions": {
+    "assertions": [
+      "no_30_day_claim",
+      "states_14_day_window"
+    ]
+  },
+  "s4_leak": {
+    "root_runs_with_raw_email": 1,
+    "in_inputs": 1,
+    "in_outputs": 0
+  },
+  "s4_masking": {
+    "middleware_only_more_than_zero": true,
+    "with_anonymizer": 0,
+    "control_string_unchanged": true
+  },
+  "s4_routes": {
+    "base_url": "https://gateway.smith.langchain.com/openai/v1"
+  },
+  "s4_blocks": {
+    "402": {
+      "policy_type": "spend_limit",
+      "exception": "APIStatusError"
+    },
+    "429": {
+      "policy_type": "rate_limit",
+      "exception": "RateLimitError"
+    },
+    "403": {
+      "policy_type": "model_access",
+      "exception": "PermissionDeniedError"
+    },
+    "retried_statuses": [
+      429
+    ]
+  },
+  "reference": {
+    "conversations": 200,
+    "one_turn_conversations": 140,
+    "two_turn_conversations": 60,
+    "root_runs": 260,
+    "runs": 3296,
+    "span_hours": 20,
+    "root_runs_by_version": {
+      "1.4.0": 156,
+      "1.5.0": 104
+    },
+    "user_scores": {
+      "up": 145,
+      "down": 25,
+      "none": 30
+    },
+    "thumbs_down_by_version": {
+      "1.4.0": 15,
+      "1.5.0": 10
+    },
+    "thumbs_down_after_errored_run": 6,
+    "s1_evaluator": {
+      "naive_flagged": 23,
+      "naive_flagged_correct_answers": 12,
+      "app_versions": [
+        "1.5.0"
+      ],
+      "with_search_policy_docs_run": 0,
+      "user_scores": {
+        "up": 9,
+        "down": 0,
+        "none": 2
+      }
+    },
+    "s1_alert": {
+      "burst_span_seconds": 159.586,
+      "background_errors": 5
+    },
+    "s3_followup": {
+      "traces_per_set": 10,
+      "before_fix_flagged": 4,
+      "after_fix_flagged": 0
+    },
+    "s4_spend": {
+      "top_spender": "CUST-010",
+      "costliest_subcategory": "Compatibility between products"
+    }
+  }
+}
