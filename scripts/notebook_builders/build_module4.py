@@ -417,6 +417,8 @@ Redacting on **input** keeps PII out of the prompt. Redacting on **output** and 
 
 > ⚠️ **Traces are a separate control.** `PIIMiddleware` rewrites the conversation state, but the raw run input and each span's raw output are still recorded in LangSmith. To keep PII out of traces, add LangSmith's trace masking (hide or anonymize inputs and outputs) as well.
 
+Module 7 Section 4 measures this gap on stored traces and closes it with an anonymizer on the LangSmith client.
+
 ### Fault tolerance
 
 A support agent in production meets rate limits, provider errors, and the occasional loop. LangChain ships [fault-tolerance middleware](https://docs.langchain.com/oss/python/deepagents/fault-tolerance); `agents/middleware/fault_tolerance.py` combines it into one helper that both TechHub agents use:
@@ -863,7 +865,7 @@ The agent loop is only the first loop. Reliability and improvement come from the
 | 1. Agent loop | Model calls tools until done | `create_agent` / `create_deep_agent` | Modules 1 and 4 |
 | 2. Verification loop | A grader checks output against a rubric | `RubricMiddleware`, offline evals | This section; Module 5 |
 | 3. Event-driven loop | Schedules, webhooks, or channels trigger runs | LangSmith Deployment crons, MDA schedules | Module 6 |
-| 4. Hill-climbing loop | Production traces drive harness improvements | Online evals, LangSmith Engine | Module 3 (online evals, the data flywheel); Engine is covered in the Monitoring and Governance workshop |
+| 4. Hill-climbing loop | Production traces drive harness improvements | Online evals, LangSmith Engine | Module 3 (online evals, the data flywheel); Module 7 (online evals, alerts, Insights and Engine on the deep agent's production traces) |
 
 **Execution environment is a harness choice too.** This module runs tools in-process. Module 6 moves the agent to a managed runtime and gives it a sandbox to run code safely.
 

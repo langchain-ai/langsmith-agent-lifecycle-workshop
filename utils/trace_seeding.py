@@ -166,6 +166,11 @@ ILLUSTRATIVE_PRICES_PER_1M = {
     MAIN_MODEL: {"input": 2.50, "output": 10.00},
     SMALL_MODEL: {"input": 1.00, "output": 4.00},
 }
+# Spend-cap sketch (Section 4, 120-minute path). At the illustrative prices the day's model calls cost
+# 4.92 US dollars. A daily cap of half that, 2.46, is crossed by model call 473 of 934 in time order:
+# that call still succeeds, and the 461 after it get a 402.
+DAY_SPEND_USD, DAILY_CAP_USD = 4.92, 2.46
+MODEL_CALLS, CAP_CROSSING_CALL = 934, 473
 
 CALLER_METADATA_KEYS = (
     "thread_id",
@@ -1673,6 +1678,17 @@ def answer_key(seed: dict, labels: dict | None = None, insights_report: dict | N
         spend[conv["customer_id"]] = spend.get(conv["customer_id"], 0.0) + conv["cost_usd"]
     span_hours = (_parse(roots[-1]["start_time"]) - _parse(roots[0]["start_time"])).total_seconds() / 3600
 
+    # Section 4's spend-cap sketch: every model call in time order under a daily cap of half the day's spend.
+    model_calls = sorted((r for r in seed["runs"] if r["run_type"] == "llm"), key=lambda r: r["end_time"])
+    day_spend = sum(run_cost(r) for r in model_calls)
+    daily_cap = round(day_spend / 2, 2)
+    recorded, crossing = 0.0, None
+    for number, run in enumerate(model_calls, start=1):
+        if recorded + run_cost(run) >= daily_cap:
+            crossing = number
+            break
+        recorded += run_cost(run)
+
     return {
         "_about": "Answer key of Module 7, written by utils/trace_seeding.py::answer_key from the seed. The keys s1_... to s4_... are the "
                   "checker ids of utils/monitoring_checks.py. `reference` holds numbers the notebooks print but no checker grades.",
@@ -1751,6 +1767,10 @@ def answer_key(seed: dict, labels: dict | None = None, insights_report: dict | N
             "s4_spend": {
                 "top_spender": max(sorted(spend), key=lambda cid: spend[cid]),
                 "costliest_subcategory": max(subs, key=lambda c: c["stats"]["cost_p50"])["name"],
+                "day_spend_usd": round(day_spend, 2),
+                "daily_cap_usd": daily_cap,
+                "model_calls": len(model_calls),
+                "cap_crossing_call": crossing,
             },
         },
     }
@@ -1890,7 +1910,9 @@ def _assert_design_constants(generated: dict, src: dict) -> None:
             check(len(tasks) == 2 and tasks[0]["inputs"] == tasks[1]["inputs"] and tasks[0]["inputs"]["subagent_type"] == "product-policy-specialist", "two identical delegations")
     check(sum(c["topic"] == "compatibility" and c["customer_id"] == TOP_SPENDER for c in conversations) == TOP_SPENDER_COMPATIBILITY, "CUST-010 asks 9 compatibility questions")
     check(src["customers"][TOP_SPENDER] == "Corporate", "CUST-010 is a corporate customer")
-    check(reference["s4_spend"] == {"top_spender": TOP_SPENDER, "costliest_subcategory": TOPICS["compatibility"][2]}, "top spender and costliest subcategory")
+    check(reference["s4_spend"] == {"top_spender": TOP_SPENDER, "costliest_subcategory": TOPICS["compatibility"][2], "day_spend_usd": DAY_SPEND_USD,
+                                    "daily_cap_usd": DAILY_CAP_USD, "model_calls": MODEL_CALLS, "cap_crossing_call": CAP_CROSSING_CALL},
+          "top spender, costliest subcategory and the spend-cap sketch (4.92, 2.46, call 473 of 934)")
 
     # 6.3 E: the email address
     email = re.compile(EMAIL_PATTERN)

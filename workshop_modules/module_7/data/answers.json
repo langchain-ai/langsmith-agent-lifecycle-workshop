@@ -148,7 +148,11 @@
     },
     "s4_spend": {
       "top_spender": "CUST-010",
-      "costliest_subcategory": "Compatibility between products"
+      "costliest_subcategory": "Compatibility between products",
+      "day_spend_usd": 4.92,
+      "daily_cap_usd": 2.46,
+      "model_calls": 934,
+      "cap_crossing_call": 473
     }
   }
 }

@@ -22,7 +22,13 @@ import config  # noqa: E402  (after load_dotenv, like the notebooks)
 FIXES = {
     "424": "the key's workspace has no secret for this provider. Add it under Settings > Integrations > "
     "Provider secrets, or use a key from a workspace that has it (the Gateway reads the key's own workspace)",
-    "403": "the key lacks the gateway:invoke permission. Ask a workspace admin for a role or service key with it",
+    "403": "either the key lacks the gateway:invoke permission (ask a workspace admin for a role or service key with "
+    "it), or a Gateway model access policy blocks this model (the body says 'request blocked by gateway policies'; "
+    "pick an allowed model or ask an organization admin)",
+    "402": "a Gateway spend limit blocked the request (the body names the policy). Retrying does not help: wait for "
+    "the limit's window to reset, or ask an organization admin to raise the limit",
+    "429": "too many requests: a Gateway rate-limit policy or the provider refused the call. Wait for the time in the "
+    "Retry-After header, then try again",
     "Missing credentials": "no model credential. Set OPENAI_API_KEY / ANTHROPIC_API_KEY, or LANGSMITH_GATEWAY=true "
     "with a workspace-scoped LANGSMITH_GATEWAY_API_KEY",
 }
