@@ -1,0 +1,4047 @@
+{
+  "_about": "Ground truth for the Module 7 seed: the topic of every conversation and the incident it belongs to. A real project has no such labels, which is why Insights exists. This file is never uploaded to LangSmith. cost_usd uses the illustrative prices in the seed's meta; latency_s is the agent time summed over the conversation's turns.",
+  "categories": {
+    "Order status and tracking": [
+      "Where is my order",
+      "Order reported as not found",
+      "What is in my order"
+    ],
+    "Returns and refunds": [
+      "Return window questions",
+      "Refund requests awaiting approval",
+      "When will my refund arrive"
+    ],
+    "Product specs and compatibility": [
+      "Compatibility between products",
+      "Single-product spec lookups"
+    ],
+    "Out of scope or adversarial": [
+      "Asks for another customer's data",
+      "Unrelated requests"
+    ]
+  },
+  "conversations": [
+    {
+      "thread_id": "thread-m7-0001",
+      "trace_keys": [
+        "t-0001"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-009",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.038472,
+      "latency_s": 12.829,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-003",
+          "TECH-KEY-010"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0002",
+      "trace_keys": [
+        "t-0002"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-018",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020814,
+      "latency_s": 5.771,
+      "details": {
+        "product_id": "TECH-ACC-022",
+        "spec": "Weight"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0003",
+      "trace_keys": [
+        "t-0003"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-038",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021119,
+      "latency_s": 5.758,
+      "details": {
+        "order_id": "ORD-2024-0131",
+        "product_id": "TECH-KEY-012"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0004",
+      "trace_keys": [
+        "t-0004"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-047",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.00809,
+      "latency_s": 1.498,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0005",
+      "trace_keys": [
+        "t-0005"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-044",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020835,
+      "latency_s": 5.578,
+      "details": {
+        "order_id": "ORD-2025-0003"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0006",
+      "trace_keys": [
+        "t-0006"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-021",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 5.026,
+      "details": {
+        "order_id": "ORD-2023-0015",
+        "typed_order_id": "ord20230015"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0007",
+      "trace_keys": [
+        "t-0007"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-029",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.038746,
+      "latency_s": 12.866,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-MON-007"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0008",
+      "trace_keys": [
+        "t-0008"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-023",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021185,
+      "latency_s": 6.799,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2025-0012",
+        "product_id": "TECH-LAP-001",
+        "answered_window_days": 14
+      }
+    },
+    {
+      "thread_id": "thread-m7-0009",
+      "trace_keys": [
+        "t-0009"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-047",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 5.959,
+      "details": {
+        "order_id": "ORD-2023-0009",
+        "typed_order_id": "ORD20230009"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0010",
+      "trace_keys": [
+        "t-0010"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-011",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 5.796,
+      "details": {
+        "order_id": "ORD-2024-0029",
+        "typed_order_id": "ORD20240029"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0011",
+      "trace_keys": [
+        "t-0011",
+        "t-0012"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-035",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.028776,
+      "latency_s": 6.771,
+      "details": {
+        "order_id": "ORD-2024-0051"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0012",
+      "trace_keys": [
+        "t-0013"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-008",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020894,
+      "latency_s": 6.611,
+      "details": {
+        "order_id": "ORD-2025-0022"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0013",
+      "trace_keys": [
+        "t-0014"
+      ],
+      "topic": "other_customer_data",
+      "subcategory": "Asks for another customer's data",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-043",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021126,
+      "latency_s": 5.594,
+      "details": {
+        "order_id": "ORD-2025-0063"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0014",
+      "trace_keys": [
+        "t-0015"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-029",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.008103,
+      "latency_s": 1.883,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0015",
+      "trace_keys": [
+        "t-0016"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-018",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.039002,
+      "latency_s": 13.396,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-002",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0016",
+      "trace_keys": [
+        "t-0017"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-040",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021032,
+      "latency_s": 5.786,
+      "details": {
+        "order_id": "ORD-2023-0030",
+        "product_id": "TECH-KEY-010"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0017",
+      "trace_keys": [
+        "t-0018"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-027",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021357,
+      "latency_s": 6.545,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2024-0107",
+        "product_id": "TECH-ACC-024",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0018",
+      "trace_keys": [
+        "t-0019"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-001",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 5.143,
+      "details": {
+        "order_id": "ORD-2024-0089",
+        "typed_order_id": "ord20240089"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0019",
+      "trace_keys": [
+        "t-0020"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-019",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.02129,
+      "latency_s": 6.747,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2024-0105",
+        "product_id": "TECH-KEY-012",
+        "answered_window_days": 14
+      }
+    },
+    {
+      "thread_id": "thread-m7-0020",
+      "trace_keys": [
+        "t-0021",
+        "t-0022"
+      ],
+      "topic": "other_customer_data",
+      "subcategory": "Asks for another customer's data",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-003",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029331,
+      "latency_s": 8.38,
+      "details": {
+        "order_id": "ORD-2024-0067"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0021",
+      "trace_keys": [
+        "t-0023"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-033",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.02126,
+      "latency_s": 6.482,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2023-0035",
+        "product_id": "TECH-LAP-002",
+        "answered_window_days": 14
+      }
+    },
+    {
+      "thread_id": "thread-m7-0022",
+      "trace_keys": [
+        "t-0024"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-050",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 5.18,
+      "details": {
+        "order_id": "ORD-2025-0013",
+        "typed_order_id": "ORD20250013"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0023",
+      "trace_keys": [
+        "t-0025"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-041",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020732,
+      "latency_s": 5.182,
+      "details": {
+        "order_id": "ORD-2025-0046"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0024",
+      "trace_keys": [
+        "t-0026"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-043",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.038432,
+      "latency_s": 12.093,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-003",
+          "TECH-KEY-010"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0025",
+      "trace_keys": [
+        "t-0027",
+        "t-0028"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-022",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029235,
+      "latency_s": 7.207,
+      "details": {
+        "product_id": "TECH-LAP-002",
+        "spec": "Dimensions"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0026",
+      "trace_keys": [
+        "t-0029"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-001",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.038961,
+      "latency_s": 12.384,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-002",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0027",
+      "trace_keys": [
+        "t-0030"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-032",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.021061,
+      "latency_s": 5.473,
+      "details": {
+        "order_id": "ORD-2024-0016",
+        "product_id": "TECH-ACC-025"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0028",
+      "trace_keys": [
+        "t-0031"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-040",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021153,
+      "latency_s": 6.21,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2025-0014",
+        "product_id": "TECH-LAP-002",
+        "answered_window_days": 14
+      }
+    },
+    {
+      "thread_id": "thread-m7-0029",
+      "trace_keys": [
+        "t-0032"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-034",
+      "incident": null,
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.008095,
+      "latency_s": 1.401,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0030",
+      "trace_keys": [
+        "t-0033"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-040",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020835,
+      "latency_s": 5.705,
+      "details": {
+        "order_id": "ORD-2023-0014"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0031",
+      "trace_keys": [
+        "t-0034"
+      ],
+      "topic": "other_customer_data",
+      "subcategory": "Asks for another customer's data",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-013",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021166,
+      "latency_s": 5.485,
+      "details": {
+        "order_id": "ORD-2024-0105"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0032",
+      "trace_keys": [
+        "t-0035"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-046",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.038961,
+      "latency_s": 13.73,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-002",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0033",
+      "trace_keys": [
+        "t-0036",
+        "t-0037"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-036",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.029089,
+      "latency_s": 7.312,
+      "details": {
+        "order_id": "ORD-2024-0031"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0034",
+      "trace_keys": [
+        "t-0038"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-020",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020983,
+      "latency_s": 4.877,
+      "details": {
+        "order_id": "ORD-2024-0045",
+        "product_id": "TECH-KEY-013"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0035",
+      "trace_keys": [
+        "t-0039"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-040",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.021122,
+      "latency_s": 6.39,
+      "details": {
+        "product_id": "TECH-LAP-003",
+        "spec": "Processor"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0036",
+      "trace_keys": [
+        "t-0040"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-025",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.02113,
+      "latency_s": 6.08,
+      "details": {
+        "order_id": "ORD-2024-0078",
+        "product_id": "TECH-LAP-004"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0037",
+      "trace_keys": [
+        "t-0041"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-002",
+      "incident": null,
+      "errored": true,
+      "user_score": 1,
+      "cost_usd": 0.01061,
+      "latency_s": 7.248,
+      "details": {
+        "order_id": "ORD-2024-0050",
+        "product_id": "TECH-MON-009"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0038",
+      "trace_keys": [
+        "t-0042"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-022",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020835,
+      "latency_s": 5.484,
+      "details": {
+        "order_id": "ORD-2024-0054"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0039",
+      "trace_keys": [
+        "t-0043"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-015",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021035,
+      "latency_s": 5.757,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2024-0112",
+        "product_id": "TECH-MON-007",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0040",
+      "trace_keys": [
+        "t-0044"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-048",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020816,
+      "latency_s": 6.171,
+      "details": {
+        "order_id": "ORD-2023-0003"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0041",
+      "trace_keys": [
+        "t-0045"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-014",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021003,
+      "latency_s": 5.064,
+      "details": {
+        "order_id": "ORD-2024-0023",
+        "product_id": "TECH-KEY-014"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0042",
+      "trace_keys": [
+        "t-0046",
+        "t-0047"
+      ],
+      "topic": "refund_timing",
+      "subcategory": "When will my refund arrive",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-005",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.04214,
+      "latency_s": 12.559,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0043",
+      "trace_keys": [
+        "t-0048",
+        "t-0049"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-006",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.042041,
+      "latency_s": 10.657,
+      "details": {
+        "order_id": "ORD-2023-0029"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0044",
+      "trace_keys": [
+        "t-0050",
+        "t-0051"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-035",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.04212,
+      "latency_s": 11.375,
+      "details": {
+        "order_id": "ORD-2024-0051"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0045",
+      "trace_keys": [
+        "t-0052"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-030",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 4.06,
+      "details": {
+        "order_id": "ORD-2024-0062",
+        "typed_order_id": "ORD20240062"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0046",
+      "trace_keys": [
+        "t-0053",
+        "t-0054"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-010",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.04756,
+      "latency_s": 15.701,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0047",
+      "trace_keys": [
+        "t-0055"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-044",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020904,
+      "latency_s": 5.933,
+      "details": {
+        "product_id": "TECH-KEY-015",
+        "spec": "Dimensions"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0048",
+      "trace_keys": [
+        "t-0056",
+        "t-0057"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-046",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.016363,
+      "latency_s": 3.987,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0049",
+      "trace_keys": [
+        "t-0058"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-049",
+      "incident": "C",
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.020694,
+      "latency_s": 4.86,
+      "details": {
+        "order_id": "ORD-2024-0002",
+        "typed_order_id": "ord-2024-0002"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0050",
+      "trace_keys": [
+        "t-0059"
+      ],
+      "topic": "refund_timing",
+      "subcategory": "When will my refund arrive",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-008",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020959,
+      "latency_s": 5.982,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0051",
+      "trace_keys": [
+        "t-0060",
+        "t-0061"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-039",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.016403,
+      "latency_s": 4.059,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0052",
+      "trace_keys": [
+        "t-0062",
+        "t-0063"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-042",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.016445,
+      "latency_s": 3.912,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0053",
+      "trace_keys": [
+        "t-0064",
+        "t-0065"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-010",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.047553,
+      "latency_s": 15.889,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-KEY-011"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0054",
+      "trace_keys": [
+        "t-0066"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-006",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021022,
+      "latency_s": 5.565,
+      "details": {
+        "order_id": "ORD-2023-0029",
+        "product_id": "TECH-LAP-003"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0055",
+      "trace_keys": [
+        "t-0067",
+        "t-0068"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-010",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.04732,
+      "latency_s": 13.537,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-MON-007"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0056",
+      "trace_keys": [
+        "t-0069"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-032",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020894,
+      "latency_s": 5.909,
+      "details": {
+        "order_id": "ORD-2025-0008"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0057",
+      "trace_keys": [
+        "t-0070",
+        "t-0071"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-004",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029089,
+      "latency_s": 7.185,
+      "details": {
+        "order_id": "ORD-2024-0134"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0058",
+      "trace_keys": [
+        "t-0072",
+        "t-0073"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-015",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.042425,
+      "latency_s": 11.833,
+      "details": {
+        "product_id": "TECH-MON-007",
+        "spec": "Dimensions"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0059",
+      "trace_keys": [
+        "t-0074",
+        "t-0075"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-028",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029172,
+      "latency_s": 6.637,
+      "details": {
+        "product_id": "TECH-AUD-018",
+        "spec": "Dimensions"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0060",
+      "trace_keys": [
+        "t-0076"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-050",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020935,
+      "latency_s": 6.862,
+      "details": {
+        "product_id": "TECH-LAP-002",
+        "spec": "Storage"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0061",
+      "trace_keys": [
+        "t-0077",
+        "t-0078"
+      ],
+      "topic": "other_customer_data",
+      "subcategory": "Asks for another customer's data",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-011",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029234,
+      "latency_s": 7.117,
+      "details": {
+        "order_id": "ORD-2024-0028"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0062",
+      "trace_keys": [
+        "t-0079",
+        "t-0080"
+      ],
+      "topic": "refund_timing",
+      "subcategory": "When will my refund arrive",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-012",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029279,
+      "latency_s": 7.926,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0063",
+      "trace_keys": [
+        "t-0081",
+        "t-0082"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-010",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.047505,
+      "latency_s": 13.833,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-KEY-011"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0064",
+      "trace_keys": [
+        "t-0083"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-028",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020816,
+      "latency_s": 5.663,
+      "details": {
+        "order_id": "ORD-2023-0033"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0065",
+      "trace_keys": [
+        "t-0084"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-008",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 5.04,
+      "details": {
+        "order_id": "ORD-2023-0018",
+        "typed_order_id": "ord20230018"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0066",
+      "trace_keys": [
+        "t-0085"
+      ],
+      "topic": "refund_timing",
+      "subcategory": "When will my refund arrive",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-021",
+      "incident": null,
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.02094,
+      "latency_s": 6.111,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0067",
+      "trace_keys": [
+        "t-0086"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-020",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.020751,
+      "latency_s": 5.863,
+      "details": {
+        "order_id": "ORD-2025-0065"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0068",
+      "trace_keys": [
+        "t-0087",
+        "t-0088"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-020",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.016352,
+      "latency_s": 3.56,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0069",
+      "trace_keys": [
+        "t-0089",
+        "t-0090"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-012",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.029015,
+      "latency_s": 7.198,
+      "details": {
+        "order_id": "ORD-2024-0106"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0070",
+      "trace_keys": [
+        "t-0091"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-028",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021094,
+      "latency_s": 6.683,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2025-0010",
+        "product_id": "TECH-LAP-003",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0071",
+      "trace_keys": [
+        "t-0092"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-020",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 5.468,
+      "details": {
+        "order_id": "ORD-2024-0022",
+        "typed_order_id": "ord20240022"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0072",
+      "trace_keys": [
+        "t-0093"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-002",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021113,
+      "latency_s": 6.374,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2025-0009",
+        "product_id": "TECH-LAP-001",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0073",
+      "trace_keys": [
+        "t-0094"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-050",
+      "incident": null,
+      "errored": true,
+      "user_score": 1,
+      "cost_usd": 0.010233,
+      "latency_s": 12.805,
+      "details": {
+        "product_id": "TECH-LAP-001",
+        "spec": "Display"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0074",
+      "trace_keys": [
+        "t-0095"
+      ],
+      "topic": "other_customer_data",
+      "subcategory": "Asks for another customer's data",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-032",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021166,
+      "latency_s": 4.73,
+      "details": {
+        "order_id": "ORD-2023-0003"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0075",
+      "trace_keys": [
+        "t-0096",
+        "t-0097"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-034",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.028978,
+      "latency_s": 7.157,
+      "details": {
+        "order_id": "ORD-2024-0079"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0076",
+      "trace_keys": [
+        "t-0098"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-009",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 5.779,
+      "details": {
+        "order_id": "ORD-2023-0008",
+        "typed_order_id": "ORD20230008"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0077",
+      "trace_keys": [
+        "t-0099",
+        "t-0100"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-019",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.028914,
+      "latency_s": 6.851,
+      "details": {
+        "order_id": "ORD-2025-0047"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0078",
+      "trace_keys": [
+        "t-0101"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-036",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 4.776,
+      "details": {
+        "order_id": "ORD-2024-0114",
+        "typed_order_id": "ord20240114"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0079",
+      "trace_keys": [
+        "t-0102"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-016",
+      "incident": "E",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.008157,
+      "latency_s": 1.967,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0080",
+      "trace_keys": [
+        "t-0103",
+        "t-0104"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-011",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029003,
+      "latency_s": 8.21,
+      "details": {
+        "order_id": "ORD-2024-0059"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0081",
+      "trace_keys": [
+        "t-0105",
+        "t-0106"
+      ],
+      "topic": "other_customer_data",
+      "subcategory": "Asks for another customer's data",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-019",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029371,
+      "latency_s": 7.563,
+      "details": {
+        "order_id": "ORD-2024-0126"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0082",
+      "trace_keys": [
+        "t-0107",
+        "t-0108"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-010",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.047483,
+      "latency_s": 15.236,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-002",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0083",
+      "trace_keys": [
+        "t-0109"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-003",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.02108,
+      "latency_s": 5.981,
+      "details": {
+        "order_id": "ORD-2024-0004",
+        "product_id": "TECH-LAP-004"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0084",
+      "trace_keys": [
+        "t-0110"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-005",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020765,
+      "latency_s": 5.908,
+      "details": {
+        "order_id": "ORD-2024-0084"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0085",
+      "trace_keys": [
+        "t-0111"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-014",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 4.733,
+      "details": {
+        "order_id": "ORD-2024-0015",
+        "typed_order_id": "ORD20240015"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0086",
+      "trace_keys": [
+        "t-0112",
+        "t-0113"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-043",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.042041,
+      "latency_s": 11.821,
+      "details": {
+        "order_id": "ORD-2024-0104"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0087",
+      "trace_keys": [
+        "t-0114"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-013",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021042,
+      "latency_s": 4.869,
+      "details": {
+        "order_id": "ORD-2024-0068",
+        "product_id": "TECH-ACC-025"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0088",
+      "trace_keys": [
+        "t-0115"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-035",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.039155,
+      "latency_s": 12.543,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-003",
+          "TECH-MON-009"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0089",
+      "trace_keys": [
+        "t-0116",
+        "t-0117"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-010",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.04755,
+      "latency_s": 14.6,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0090",
+      "trace_keys": [
+        "t-0118"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-038",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.00809,
+      "latency_s": 2.276,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0091",
+      "trace_keys": [
+        "t-0119"
+      ],
+      "topic": "other_customer_data",
+      "subcategory": "Asks for another customer's data",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-008",
+      "incident": null,
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.021166,
+      "latency_s": 6.159,
+      "details": {
+        "order_id": "ORD-2024-0016"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0092",
+      "trace_keys": [
+        "t-0120",
+        "t-0121"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-041",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029369,
+      "latency_s": 8.161,
+      "details": {
+        "product_id": "TECH-LAP-002",
+        "spec": "Processor"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0093",
+      "trace_keys": [
+        "t-0122"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-007",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.021318,
+      "latency_s": 6.254,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2024-0072",
+        "product_id": "TECH-LAP-005",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0094",
+      "trace_keys": [
+        "t-0123"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-038",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020651,
+      "latency_s": 6.607,
+      "details": {
+        "order_id": "ORD-2024-0076"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0095",
+      "trace_keys": [
+        "t-0124",
+        "t-0125"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-004",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.041856,
+      "latency_s": 10.922,
+      "details": {
+        "order_id": "ORD-2024-0067"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0096",
+      "trace_keys": [
+        "t-0126"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-015",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.039116,
+      "latency_s": 13.529,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0097",
+      "trace_keys": [
+        "t-0127"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-013",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021086,
+      "latency_s": 5.951,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2023-0023",
+        "product_id": "TECH-MON-006",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0098",
+      "trace_keys": [
+        "t-0128"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-048",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.021071,
+      "latency_s": 5.723,
+      "details": {
+        "product_id": "TECH-ACC-023",
+        "spec": "Dimensions"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0099",
+      "trace_keys": [
+        "t-0129",
+        "t-0130"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-024",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.028938,
+      "latency_s": 7.203,
+      "details": {
+        "order_id": "ORD-2024-0103"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0100",
+      "trace_keys": [
+        "t-0131"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-017",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021289,
+      "latency_s": 5.694,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2023-0025",
+        "product_id": "TECH-KEY-015",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0101",
+      "trace_keys": [
+        "t-0132"
+      ],
+      "topic": "refund_timing",
+      "subcategory": "When will my refund arrive",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-017",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.02094,
+      "latency_s": 6.967,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0102",
+      "trace_keys": [
+        "t-0133"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-021",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020894,
+      "latency_s": 4.473,
+      "details": {
+        "order_id": "ORD-2024-0030"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0103",
+      "trace_keys": [
+        "t-0134"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-004",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.039116,
+      "latency_s": 12.509,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0104",
+      "trace_keys": [
+        "t-0135"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-042",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020651,
+      "latency_s": 5.451,
+      "details": {
+        "order_id": "ORD-2024-0090"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0105",
+      "trace_keys": [
+        "t-0136",
+        "t-0137"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-049",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.042025,
+      "latency_s": 10.886,
+      "details": {
+        "order_id": "ORD-2025-0061"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0106",
+      "trace_keys": [
+        "t-0138"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-024",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.00809,
+      "latency_s": 2.055,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0107",
+      "trace_keys": [
+        "t-0139"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-014",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.00813,
+      "latency_s": 1.608,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0108",
+      "trace_keys": [
+        "t-0140",
+        "t-0141"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-005",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.028834,
+      "latency_s": 7.214,
+      "details": {
+        "order_id": "ORD-2024-0084"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0109",
+      "trace_keys": [
+        "t-0142"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-023",
+      "incident": null,
+      "errored": true,
+      "user_score": 1,
+      "cost_usd": 0.010334,
+      "latency_s": 8.107,
+      "details": {
+        "order_id": "ORD-2025-0051"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0110",
+      "trace_keys": [
+        "t-0143",
+        "t-0145"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-033",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029013,
+      "latency_s": 6.739,
+      "details": {
+        "order_id": "ORD-2025-0042"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0111",
+      "trace_keys": [
+        "t-0144"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-018",
+      "incident": null,
+      "errored": true,
+      "user_score": 1,
+      "cost_usd": 0.010312,
+      "latency_s": 7.753,
+      "details": {
+        "order_id": "ORD-2025-0001"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0112",
+      "trace_keys": [
+        "t-0146"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-037",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020846,
+      "latency_s": 5.922,
+      "details": {
+        "order_id": "ORD-2025-0053"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0113",
+      "trace_keys": [
+        "t-0147"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-026",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020819,
+      "latency_s": 5.344,
+      "details": {
+        "order_id": "ORD-2025-0007"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0114",
+      "trace_keys": [
+        "t-0148"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-014",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020689,
+      "latency_s": 5.408,
+      "details": {
+        "order_id": "ORD-2023-0005",
+        "typed_order_id": "ord20230005"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0115",
+      "trace_keys": [
+        "t-0149"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-026",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.02078,
+      "latency_s": 5.551,
+      "details": {
+        "product_id": "TECH-LAP-003",
+        "spec": "Storage"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0116",
+      "trace_keys": [
+        "t-0150"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-048",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020743,
+      "latency_s": 5.904,
+      "details": {
+        "order_id": "ORD-2024-0064"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0117",
+      "trace_keys": [
+        "t-0151"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-031",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020814,
+      "latency_s": 5.749,
+      "details": {
+        "product_id": "TECH-ACC-022",
+        "spec": "Weight"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0118",
+      "trace_keys": [
+        "t-0152",
+        "t-0153"
+      ],
+      "topic": "refund_timing",
+      "subcategory": "When will my refund arrive",
+      "category": "Returns and refunds",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-033",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029304,
+      "latency_s": 7.397,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0119",
+      "trace_keys": [
+        "t-0154"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-030",
+      "incident": "D",
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.039116,
+      "latency_s": 12.758,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0120",
+      "trace_keys": [
+        "t-0155",
+        "t-0156"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.4.0",
+      "customer_id": "CUST-025",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.028992,
+      "latency_s": 6.467,
+      "details": {
+        "order_id": "ORD-2025-0035"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0121",
+      "trace_keys": [
+        "t-0157"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-026",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.02111,
+      "latency_s": 6.074,
+      "details": {
+        "order_id": "ORD-2024-0137",
+        "product_id": "TECH-KEY-011"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0122",
+      "trace_keys": [
+        "t-0158",
+        "t-0159"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-029",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.028911,
+      "latency_s": 6.953,
+      "details": {
+        "order_id": "ORD-2025-0069"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0123",
+      "trace_keys": [
+        "t-0160"
+      ],
+      "topic": "other_customer_data",
+      "subcategory": "Asks for another customer's data",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-017",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021166,
+      "latency_s": 5.392,
+      "details": {
+        "order_id": "ORD-2024-0091"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0124",
+      "trace_keys": [
+        "t-0161"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-045",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021233,
+      "latency_s": 5.911,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2023-0004",
+        "product_id": "TECH-ACC-024",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0125",
+      "trace_keys": [
+        "t-0162"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-023",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021022,
+      "latency_s": 5.356,
+      "details": {
+        "order_id": "ORD-2024-0043",
+        "product_id": "TECH-AUD-019"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0126",
+      "trace_keys": [
+        "t-0163"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-027",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021079,
+      "latency_s": 6.532,
+      "details": {
+        "product_id": "TECH-LAP-005",
+        "spec": "Battery Life"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0127",
+      "trace_keys": [
+        "t-0164"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-030",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.020972,
+      "latency_s": 5.777,
+      "details": {
+        "product_id": "TECH-KEY-011",
+        "spec": "Charging"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0128",
+      "trace_keys": [
+        "t-0165"
+      ],
+      "topic": "refund_timing",
+      "subcategory": "When will my refund arrive",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-047",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.020979,
+      "latency_s": 6.124,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0129",
+      "trace_keys": [
+        "t-0166"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-039",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020573,
+      "latency_s": 5.229,
+      "details": {
+        "order_id": "ORD-2024-0014"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0130",
+      "trace_keys": [
+        "t-0167",
+        "t-0168"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-007",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.04221,
+      "latency_s": 12.01,
+      "details": {
+        "product_id": "TECH-AUD-018",
+        "spec": "Weight"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0131",
+      "trace_keys": [
+        "t-0169"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-025",
+      "incident": "A",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.018815,
+      "latency_s": 3.991,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2024-0078",
+        "product_id": "TECH-LAP-004",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0132",
+      "trace_keys": [
+        "t-0170"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-041",
+      "incident": "A",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.018805,
+      "latency_s": 4.053,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2024-0008",
+        "product_id": "TECH-KEY-014",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0133",
+      "trace_keys": [
+        "t-0171"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-011",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021094,
+      "latency_s": 7.238,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2024-0029",
+        "product_id": "TECH-LAP-003",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0134",
+      "trace_keys": [
+        "t-0172"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-007",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021042,
+      "latency_s": 5.584,
+      "details": {
+        "order_id": "ORD-2024-0072",
+        "product_id": "TECH-LAP-005"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0135",
+      "trace_keys": [
+        "t-0173"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-041",
+      "incident": "A",
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.018745,
+      "latency_s": 4.438,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2024-0008",
+        "product_id": "TECH-KEY-014",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0136",
+      "trace_keys": [
+        "t-0174",
+        "t-0175"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-039",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029015,
+      "latency_s": 8.14,
+      "details": {
+        "order_id": "ORD-2024-0024"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0137",
+      "trace_keys": [
+        "t-0176"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-039",
+      "incident": "A",
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.018861,
+      "latency_s": 5.07,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2024-0024",
+        "product_id": "TECH-KEY-014",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0138",
+      "trace_keys": [
+        "t-0177"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-029",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 6.261,
+      "details": {
+        "order_id": "ORD-2024-0057",
+        "typed_order_id": "ord20240057"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0139",
+      "trace_keys": [
+        "t-0178"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-030",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020694,
+      "latency_s": 5.92,
+      "details": {
+        "order_id": "ORD-2024-0129",
+        "typed_order_id": "ord-2024-0129"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0140",
+      "trace_keys": [
+        "t-0179"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-006",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.008143,
+      "latency_s": 1.746,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0141",
+      "trace_keys": [
+        "t-0180"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-037",
+      "incident": "A",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.018834,
+      "latency_s": 4.033,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2024-0058",
+        "product_id": "TECH-KEY-015",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0142",
+      "trace_keys": [
+        "t-0181",
+        "t-0182"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-046",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.028678,
+      "latency_s": 8.13,
+      "details": {
+        "order_id": "ORD-2024-0074"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0143",
+      "trace_keys": [
+        "t-0183",
+        "t-0184"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-044",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.042272,
+      "latency_s": 11.122,
+      "details": {
+        "order_id": "ORD-2024-0116"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0144",
+      "trace_keys": [
+        "t-0185",
+        "t-0186"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-001",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029557,
+      "latency_s": 7.547,
+      "details": {
+        "product_id": "TECH-LAP-002",
+        "spec": "Display"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0145",
+      "trace_keys": [
+        "t-0187"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-034",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 5.675,
+      "details": {
+        "order_id": "ORD-2025-0049",
+        "typed_order_id": "ORD20250049"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0146",
+      "trace_keys": [
+        "t-0188",
+        "t-0189"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-038",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.029104,
+      "latency_s": 7.512,
+      "details": {
+        "order_id": "ORD-2024-0076"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0147",
+      "trace_keys": [
+        "t-0190"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-043",
+      "incident": "A",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.018898,
+      "latency_s": 4.752,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2023-0017",
+        "product_id": "TECH-AUD-016",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0148",
+      "trace_keys": [
+        "t-0191"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-006",
+      "incident": "A",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.018859,
+      "latency_s": 5.138,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2024-0009",
+        "product_id": "TECH-LAP-003",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0149",
+      "trace_keys": [
+        "t-0192",
+        "t-0193"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-002",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.02891,
+      "latency_s": 7.506,
+      "details": {
+        "order_id": "ORD-2025-0031"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0150",
+      "trace_keys": [
+        "t-0194"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-031",
+      "incident": "C",
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.020753,
+      "latency_s": 4.835,
+      "details": {
+        "order_id": "ORD-2025-0027",
+        "typed_order_id": "ord-2025-0027"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0151",
+      "trace_keys": [
+        "t-0195"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-016",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021071,
+      "latency_s": 6.289,
+      "details": {
+        "order_id": "ORD-2024-0013",
+        "product_id": "TECH-AUD-017"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0152",
+      "trace_keys": [
+        "t-0196",
+        "t-0197"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-024",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.028834,
+      "latency_s": 7.617,
+      "details": {
+        "order_id": "ORD-2025-0075"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0153",
+      "trace_keys": [
+        "t-0198"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-037",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.008135,
+      "latency_s": 2.031,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0154",
+      "trace_keys": [
+        "t-0199"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-037",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021093,
+      "latency_s": 6.326,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2025-0016",
+        "product_id": "TECH-MON-007",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0155",
+      "trace_keys": [
+        "t-0200"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-049",
+      "incident": "D",
+      "errored": true,
+      "user_score": 1,
+      "cost_usd": 0.010369,
+      "latency_s": 12.828,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-004",
+          "TECH-MON-007"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0156",
+      "trace_keys": [
+        "t-0201"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-034",
+      "incident": "D",
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.039015,
+      "latency_s": 13.346,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-KEY-011"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0157",
+      "trace_keys": [
+        "t-0202",
+        "t-0203"
+      ],
+      "topic": "refund_timing",
+      "subcategory": "When will my refund arrive",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-024",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029304,
+      "latency_s": 8.767,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0158",
+      "trace_keys": [
+        "t-0204",
+        "t-0205"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-016",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.04207,
+      "latency_s": 11.421,
+      "details": {
+        "order_id": "ORD-2024-0013"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0159",
+      "trace_keys": [
+        "t-0206",
+        "t-0207"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-044",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.047283,
+      "latency_s": 16.0,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-005",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0160",
+      "trace_keys": [
+        "t-0208"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-019",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.039015,
+      "latency_s": 13.492,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-KEY-011"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0161",
+      "trace_keys": [
+        "t-0209"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-027",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020732,
+      "latency_s": 5.647,
+      "details": {
+        "order_id": "ORD-2025-0057"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0162",
+      "trace_keys": [
+        "t-0210"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-028",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.039114,
+      "latency_s": 14.768,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-003",
+          "TECH-MON-009"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0163",
+      "trace_keys": [
+        "t-0211"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-036",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021136,
+      "latency_s": 6.447,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2024-0114",
+        "product_id": "TECH-ACC-022",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0164",
+      "trace_keys": [
+        "t-0212"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-003",
+      "incident": "A",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.018805,
+      "latency_s": 4.187,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2023-0026",
+        "product_id": "TECH-KEY-014",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0165",
+      "trace_keys": [
+        "t-0213"
+      ],
+      "topic": "other_customer_data",
+      "subcategory": "Asks for another customer's data",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-009",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021049,
+      "latency_s": 5.353,
+      "details": {
+        "order_id": "ORD-2025-0023"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0166",
+      "trace_keys": [
+        "t-0214"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-010",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.039002,
+      "latency_s": 12.994,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-002",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0167",
+      "trace_keys": [
+        "t-0215",
+        "t-0216"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-012",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.029058,
+      "latency_s": 6.426,
+      "details": {
+        "product_id": "TECH-KEY-013",
+        "spec": "Dimensions"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0168",
+      "trace_keys": [
+        "t-0217"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-036",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020915,
+      "latency_s": 5.524,
+      "details": {
+        "product_id": "TECH-KEY-015",
+        "spec": "Weight"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0169",
+      "trace_keys": [
+        "t-0218",
+        "t-0219"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-013",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.042031,
+      "latency_s": 11.008,
+      "details": {
+        "order_id": "ORD-2025-0019"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0170",
+      "trace_keys": [
+        "t-0220"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-031",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.039116,
+      "latency_s": 13.37,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-MON-006"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0171",
+      "trace_keys": [
+        "t-0221"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-031",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020816,
+      "latency_s": 5.329,
+      "details": {
+        "order_id": "ORD-2025-0027"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0172",
+      "trace_keys": [
+        "t-0222"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-027",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021149,
+      "latency_s": 5.526,
+      "details": {
+        "order_id": "ORD-2024-0107",
+        "product_id": "TECH-ACC-024"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0173",
+      "trace_keys": [
+        "t-0223",
+        "t-0224"
+      ],
+      "topic": "spec_lookup",
+      "subcategory": "Single-product spec lookups",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-035",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029039,
+      "latency_s": 7.538,
+      "details": {
+        "product_id": "TECH-MON-007",
+        "spec": "Dimensions"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0174",
+      "trace_keys": [
+        "t-0225"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-001",
+      "incident": "C",
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.020728,
+      "latency_s": 5.855,
+      "details": {
+        "order_id": "ORD-2024-0021",
+        "typed_order_id": "ord20240021"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0175",
+      "trace_keys": [
+        "t-0226",
+        "t-0227"
+      ],
+      "topic": "other_customer_data",
+      "subcategory": "Asks for another customer's data",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-004",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029384,
+      "latency_s": 6.804,
+      "details": {
+        "order_id": "ORD-2025-0031"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0176",
+      "trace_keys": [
+        "t-0228"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-048",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021094,
+      "latency_s": 5.939,
+      "details": {
+        "item_condition": "unopened",
+        "order_id": "ORD-2024-0042",
+        "product_id": "TECH-AUD-019",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0177",
+      "trace_keys": [
+        "t-0229",
+        "t-0230"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-033",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.016313,
+      "latency_s": 3.78,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0178",
+      "trace_keys": [
+        "t-0231",
+        "t-0232"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-010",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.047611,
+      "latency_s": 15.092,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-003",
+          "TECH-MON-009"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0179",
+      "trace_keys": [
+        "t-0233"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-016",
+      "incident": "A",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.018874,
+      "latency_s": 4.729,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2024-0013",
+        "product_id": "TECH-AUD-017",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0180",
+      "trace_keys": [
+        "t-0234",
+        "t-0235"
+      ],
+      "topic": "unrelated",
+      "subcategory": "Unrelated requests",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-049",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.016368,
+      "latency_s": 3.849,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0181",
+      "trace_keys": [
+        "t-0236"
+      ],
+      "topic": "order_contents",
+      "subcategory": "What is in my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-045",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020761,
+      "latency_s": 5.722,
+      "details": {
+        "order_id": "ORD-2024-0037"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0182",
+      "trace_keys": [
+        "t-0237"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-012",
+      "incident": "A",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.018642,
+      "latency_s": 3.967,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2024-0036",
+        "product_id": "TECH-KEY-013",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0183",
+      "trace_keys": [
+        "t-0238"
+      ],
+      "topic": "order_not_found",
+      "subcategory": "Order reported as not found",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-032",
+      "incident": "C",
+      "errored": false,
+      "user_score": 0,
+      "cost_usd": 0.020728,
+      "latency_s": 5.666,
+      "details": {
+        "order_id": "ORD-2025-0043",
+        "typed_order_id": "ord20250043"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0184",
+      "trace_keys": [
+        "t-0239"
+      ],
+      "topic": "refund_approval",
+      "subcategory": "Refund requests awaiting approval",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-022",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.021022,
+      "latency_s": 6.266,
+      "details": {
+        "order_id": "ORD-2024-0017",
+        "product_id": "TECH-LAP-001"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0185",
+      "trace_keys": [
+        "t-0240"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-026",
+      "incident": "B",
+      "errored": true,
+      "user_score": 0,
+      "cost_usd": 0.010298,
+      "latency_s": 8.295,
+      "details": {
+        "order_id": "ORD-2025-0026"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0186",
+      "trace_keys": [
+        "t-0241"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-003",
+      "incident": "B",
+      "errored": true,
+      "user_score": 0,
+      "cost_usd": 0.010312,
+      "latency_s": 7.754,
+      "details": {
+        "order_id": "ORD-2024-0101"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0187",
+      "trace_keys": [
+        "t-0242"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-018",
+      "incident": "B",
+      "errored": true,
+      "user_score": 0,
+      "cost_usd": 0.010298,
+      "latency_s": 8.09,
+      "details": {
+        "order_id": "ORD-2025-0025"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0188",
+      "trace_keys": [
+        "t-0243"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-047",
+      "incident": "B",
+      "errored": true,
+      "user_score": 0,
+      "cost_usd": 0.010312,
+      "latency_s": 7.074,
+      "details": {
+        "order_id": "ORD-2024-0121"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0189",
+      "trace_keys": [
+        "t-0244",
+        "t-0249"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-045",
+      "incident": null,
+      "errored": false,
+      "user_score": null,
+      "cost_usd": 0.029003,
+      "latency_s": 7.582,
+      "details": {
+        "order_id": "ORD-2024-0025"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0190",
+      "trace_keys": [
+        "t-0245"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-007",
+      "incident": "B",
+      "errored": true,
+      "user_score": 0,
+      "cost_usd": 0.010312,
+      "latency_s": 7.979,
+      "details": {
+        "order_id": "ORD-2025-0002"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0191",
+      "trace_keys": [
+        "t-0246"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-009",
+      "incident": "B",
+      "errored": true,
+      "user_score": 0,
+      "cost_usd": 0.010298,
+      "latency_s": 7.611,
+      "details": {
+        "order_id": "ORD-2024-0109"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0192",
+      "trace_keys": [
+        "t-0247"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-046",
+      "incident": "B",
+      "errored": true,
+      "user_score": null,
+      "cost_usd": 0.010298,
+      "latency_s": 8.236,
+      "details": {
+        "order_id": "ORD-2023-0007"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0193",
+      "trace_keys": [
+        "t-0248"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-050",
+      "incident": "B",
+      "errored": true,
+      "user_score": null,
+      "cost_usd": 0.010298,
+      "latency_s": 7.585,
+      "details": {
+        "order_id": "ORD-2024-0041"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0194",
+      "trace_keys": [
+        "t-0250",
+        "t-0251"
+      ],
+      "topic": "compatibility",
+      "subcategory": "Compatibility between products",
+      "category": "Product specs and compatibility",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-010",
+      "incident": "D",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.04732,
+      "latency_s": 13.96,
+      "details": {
+        "product_ids": [
+          "TECH-LAP-001",
+          "TECH-MON-007"
+        ]
+      }
+    },
+    {
+      "thread_id": "thread-m7-0195",
+      "trace_keys": [
+        "t-0252"
+      ],
+      "topic": "other_customer_data",
+      "subcategory": "Asks for another customer's data",
+      "category": "Out of scope or adversarial",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-021",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.021049,
+      "latency_s": 5.035,
+      "details": {
+        "order_id": "ORD-2023-0012"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0196",
+      "trace_keys": [
+        "t-0253",
+        "t-0254"
+      ],
+      "topic": "refund_timing",
+      "subcategory": "When will my refund arrive",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-042",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029236,
+      "latency_s": 7.846,
+      "details": {}
+    },
+    {
+      "thread_id": "thread-m7-0197",
+      "trace_keys": [
+        "t-0255",
+        "t-0256"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-017",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.042025,
+      "latency_s": 11.128,
+      "details": {
+        "order_id": "ORD-2025-0059"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0198",
+      "trace_keys": [
+        "t-0257"
+      ],
+      "topic": "return_window",
+      "subcategory": "Return window questions",
+      "category": "Returns and refunds",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-022",
+      "incident": "A",
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.018774,
+      "latency_s": 4.947,
+      "details": {
+        "item_condition": "opened",
+        "order_id": "ORD-2024-0044",
+        "product_id": "TECH-KEY-013",
+        "answered_window_days": 30
+      }
+    },
+    {
+      "thread_id": "thread-m7-0199",
+      "trace_keys": [
+        "t-0258",
+        "t-0259"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-015",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.029034,
+      "latency_s": 6.913,
+      "details": {
+        "order_id": "ORD-2024-0087"
+      }
+    },
+    {
+      "thread_id": "thread-m7-0200",
+      "trace_keys": [
+        "t-0260"
+      ],
+      "topic": "where_is_my_order",
+      "subcategory": "Where is my order",
+      "category": "Order status and tracking",
+      "app_version": "1.5.0",
+      "customer_id": "CUST-042",
+      "incident": null,
+      "errored": false,
+      "user_score": 1,
+      "cost_usd": 0.020835,
+      "latency_s": 6.123,
+      "details": {
+        "order_id": "ORD-2024-0124"
+      }
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "_about": "SHA-256 hashes of the Module 7 answers. `answers` hashes each checker id's whole answer; `fields` hashes each field on its own. The text that is hashed is utils.trace_seeding.canonical_json(value): json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=True).",
+  "algorithm": "sha256",
+  "answers": {
+    "s1_signals": "40461606b245e6dd2a4b6dda96650de72b572fcc6f2e6015bb4e6a7380d0e567",
+    "s1_evaluator": "55414c4040f8d5efd7f5623a3fbe70c676b5ef379044468830f7529dfa0a9d0e",
+    "s1_filter_sample": "a06be11a8b55643b06fc367f18dab6fb07b7a56c34d38df3fcee727338c207c0",
+    "s1_alert": "1e0df617561549b9e31f8abd20f96e4e986121ce8c046a33bce3039d5f689e5c",
+    "s1_routing": "204cf3b5360d4ed12369a1ae2d8de1d33b6aa677f26e84697fc3d802d8142ffa",
+    "s2_report": "0bb34ad311ced35145ee5221fbe2d0f3b4bdfbdffc7b1f52354e3896717765a3",
+    "s2_claim": "6785a075d4b7d5ec56d1259a5b7891ed9ef5b7a20fdc8c8958ce1af6c5bcf230",
+    "s3_evidence": "0b3b4e2f4cc96a9e7998fe4ce2ff1d10a24ccadefb40c80731814eed8c4c33a2",
+    "s3_triage": "af8e1f3cffb7e4c755fa8d023394ff82ba7fe96003d87e8989ca96f4e1b87636",
+    "s3_assertions": "1248659fb00e0acf4d45d095adf32fbb109b8d82e7c220b3f65941504561007e",
+    "s4_leak": "47955bfbdb0bf34ce7772ee1f7c36fa7b9a911e6614906c6f8a69f0fcfb2955c",
+    "s4_masking": "75e48453ddef04cf39b79ccee59896978e3c15ee08ad1c318dab5eff2f23bb1c",
+    "s4_routes": "314e67880e7f1f8ee77b379d617b9e94ee32f4c850c5525a32ae844da4e73721",
+    "s4_blocks": "340b3d895f0e4fac9ee2177b9c56dc332fcc7a1a2a5eeb4a85a72c3dd10e6b60"
+  },
+  "fields": {
+    "s1_signals": {
+      "errored_root_runs": "3fdba35f04dc8c462986c992bcf875546257113072a909c162f7e470e581e278",
+      "thumbs_down_conversations": "b7a56873cd771f2c446d369b649430b65a756ba278ff97ec81bb6f55b2e73569",
+      "thumbs_down_after_order_not_found": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9",
+      "thumbs_down_on_wrong_return_window": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    "s1_evaluator": {
+      "flagged_trace_keys": "1218b45c3979a4f43ac7699b03d045cb78f28dd8b2479e952ba9c98b73cc58c5"
+    },
+    "s1_filter_sample": {
+      "all_root_runs": "714dcc24a0b401448640d6fd4a5f8a4db223cb52d4922bdf0df271466ca4f55c",
+      "app_version_1_5_0": "96345ba2dced0f4fbfea7ed3820843f36c84a82ff42ab98fed02d4bf3526c26f",
+      "sample_25_percent": "065e06e600051bc1e94bb1cd3c1a175af3bcc420fb1c4d858fdd55cebeb450b3"
+    },
+    "s1_alert": {
+      "background_max_in_5_minutes": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+      "burst_errors": "2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3",
+      "threshold": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce",
+      "failing_tool": "af44ef7961943495fc05f055f8da96aa08aaafc4ee17bb2b6120cc6ee4f82917"
+    },
+    "s1_routing": {
+      "selected": "4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8"
+    },
+    "s2_report": {
+      "largest_category": "fdb15266a47a7ee7c91de00a62dcb6f0083c5d6be44ddd1bed6ae6b67cf3cb2a",
+      "largest_category_conversations": "349c41201b62db851192665c504b350ff98c6b45fb62a8a2161f78b6534d8de9",
+      "largest_category_share": "b1188979876eef1d21d37d518c0805a03607abae10768863218cd66089c92e02",
+      "highest_error_rate_subcategory": "9b7da1b12e889f3b6455611f450225c863ee5518759c586b37ec0d8ab09f04a8",
+      "highest_error_rate": "936ae0b00319fe088af4c068beffdbab42b4fd4c590a1b186eee7763a286d5a3"
+    },
+    "s2_claim": {
+      "conversations": "670671cd97404156226e507973f2ab8330d3022ca96e0c93bdbdb320c41adcaf",
+      "error_rate": "8aed642bf5118b9d3c859bd4be35ecac75b6e873cce34e7b6f554b06f75550d7",
+      "flagged": "4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8"
+    },
+    "s3_evidence": {
+      "missing_tool": "e35b4be2b0cf19f8f8ce5110284700afd5fd464e391976786f17dda57b648f55",
+      "under_run": "ffe89c2336d20c0a69c60b474b7a59cdf1df1801a8f4da3cdadc67745b5ab243"
+    },
+    "s3_triage": {
+      "actions": "8b0bd440f26d5e1ce9103694c745b3facb306d11a61f7a28cda75c6b338d680b"
+    },
+    "s3_assertions": {
+      "assertions": "9d3abdb41afdd1a03c9f6aeb9bffdf41fd644cb8da1a13d29b5e51d7a2f89791"
+    },
+    "s4_leak": {
+      "root_runs_with_raw_email": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "in_inputs": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "in_outputs": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    "s4_masking": {
+      "middleware_only_more_than_zero": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "with_anonymizer": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+      "control_string_unchanged": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+    },
+    "s4_routes": {
+      "base_url": "9e04edaf4f23e7786e31d927f75f9de8b638c14e94d8e0c2e624a03e3e65d07b"
+    },
+    "s4_blocks": {
+      "402": "be671c609872bb244d9871ea39cd606d37583b07e3470ab5f512f533b5a3adf3",
+      "429": "52575e70ef9e53bbc81397f67800cb6637d5d43a846175cbaecc3cfffbcd5816",
+      "403": "33634ff52840f649195acc5b4510b3ee4ac97fc1de58dfb9ef68239968668a22",
+      "retried_statuses": "a4deae50c122c303613433ccacec1be9ece984b2f4d9d8371600254def5f5076"
+    }
+  }
+}

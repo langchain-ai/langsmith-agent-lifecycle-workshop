@@ -1,0 +1,30 @@
+{
+  "_source_url": "https://docs.langchain.com/langsmith/alerts",
+  "_note": "Documented shape, not captured output. Written by hand from the Webhook tab section of the page above. The 12 key names are the ones that page lists; it says LangSmith merges them into the outgoing JSON as top-level keys, next to the body you configure, and does no template substitution. The page shows no sample body, so every value here is an invented example and the value formats are UNVERIFIED: whether the two triggered_* values are numbers or strings, the timestamp format, and the form of the two links (shown as placeholders in angle brackets). The example describes the Section 1 alert: an error count of 5 in the window against a threshold of 3.",
+  "_field_descriptions": {
+    "project_name": "Name of the LangSmith project the alert is scoped to.",
+    "workspace_name": "Name of the LangSmith workspace.",
+    "alert_rule_id": "A UUID to identify the LangSmith alert. This can be used as a de-duplication key in the webhook service.",
+    "alert_rule_name": "The name of the alert rule.",
+    "alert_rule_description": "The description of the alert rule (empty string if none set).",
+    "alert_rule_type": "The type of alert (as of 04/01/2025 all alerts are of type `threshold`).",
+    "alert_rule_attribute": "The attribute associated with the alert rule - `error_count`, `feedback_score`, `latency`, or `cost`.",
+    "alert_rule_url": "A direct link to the alert rule in LangSmith.",
+    "runs_url": "A direct link to the runs that triggered the alert in LangSmith.",
+    "triggered_metric_value": "The value of the metric at the time the threshold was triggered.",
+    "triggered_threshold": "The threshold that triggered the alert.",
+    "timestamp": "The timestamp that triggered the alert."
+  },
+  "project_name": "techhub-deep-agent-production",
+  "workspace_name": "TechHub Support",
+  "alert_rule_id": "0b6f2c1e-7a4d-4e8b-9c3a-5d2e1f0a9b8c",
+  "alert_rule_name": "Deep support agent: error burst",
+  "alert_rule_description": "",
+  "alert_rule_type": "threshold",
+  "alert_rule_attribute": "error_count",
+  "alert_rule_url": "<direct link to the alert rule in LangSmith>",
+  "runs_url": "<direct link to the runs that triggered the alert in LangSmith>",
+  "triggered_metric_value": 5,
+  "triggered_threshold": 3,
+  "timestamp": "2026-11-19T09:10:00Z"
+}

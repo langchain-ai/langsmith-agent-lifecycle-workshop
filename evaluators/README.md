@@ -8,6 +8,9 @@ Evaluation functions for measuring agent performance in Module 2. These evaluato
 |-----------|------|----------|---------|
 | `correctness_evaluator` | Reference-based | Factual accuracy against ground truth | Boolean (True/False) |
 | `count_total_tool_calls_evaluator` | Trace-based | Efficiency via tool invocation count | Integer (count) |
+| `wrong_return_window_evaluator` | Online code evaluator (Module 7) | Whether a reply gives an opened or used product the 30-day return window | `{"wrong_return_window": True}` when it does, otherwise `False` |
+
+`WRONG_RETURN_WINDOW_SOURCE` is also exported: the source text of `wrong_return_window_evaluator`, ready to paste into LangSmith.
 
 ## Usage
 
@@ -52,9 +55,46 @@ result = count_total_tool_calls_evaluator(run)
 - Execution efficiency
 - Number of tool calls (lower is often better)
 
+### Wrong Return Window (Online Code Evaluator)
+
+Used in Module 7, Section 1. The two evaluators above score an experiment against a dataset. This one scores production traces as they arrive, with no reference answer. It lives in `evaluators/online_evaluators.py` as `perform_eval(run, example=None)`, the name and arguments a LangSmith code evaluator must have, and the package exports it as `wrong_return_window_evaluator`.
+
+It takes one run as a plain dictionary (not a `Run` object), reads the customer's message from `run["inputs"]["messages"]` and the reply from the last message of `run["outputs"]["messages"]`, and returns one feedback key:
+
+```python
+from evaluators import wrong_return_window_evaluator
+
+run = {
+    "inputs": {"messages": [{"role": "user", "content": "I opened my laptop last week. How long do I have to return it?"}]},
+    "outputs": {"messages": [{"type": "ai", "content": "You have 30 days from delivery to return your laptop."}]},
+}
+
+wrong_return_window_evaluator(run)
+
+# Returns: {"wrong_return_window": True}
+```
+
+**What it checks:**
+- The customer says the product was opened or used (whole words, so "unopened" and "unused" do not count)
+- The reply gives a 30-day window. TechHub's Return Policy gives opened electronics 14 days (`data/documents/policies/return_policy.md`)
+
+**How to read the score:** `True` means a problem was found, so `True` is not a pass. A run without outputs (a failed run) scores `False`; the function never raises.
+
+**Which runs to score:** root runs only (in Module 7, a filter on the run name `deep_support_agent`). A specialist's run inside the trace carries the same question and reply in the same `messages` shape, so without the filter one wrong answer is scored more than once.
+
+**Limits:** it is a wording heuristic and calls no model. A reply that mentions both windows, or a customer who describes an opened product in other words, is outside what it can judge.
+
+**Attaching it in LangSmith:** print `WRONG_RETURN_WINDOW_SOURCE` and paste it into a Code Evaluator. The LangSmith docs give the path as **Evaluators** tab > **+ Evaluator** > **Code Evaluator** under **Create from scratch**; Module 7, Section 1 walks through the steps for both workspace types. The function imports nothing and uses no helper outside its own body, because LangSmith runs the pasted text on its own.
+
+```python
+from evaluators import WRONG_RETURN_WINDOW_SOURCE
+
+print(WRONG_RETURN_WINDOW_SOURCE)
+```
+
 ## Using in Experiments
 
-Both evaluators work with LangSmith's `evaluate()` function:
+The correctness evaluator and the tool call counter work with LangSmith's `evaluate()` function:
 
 ```python
 from langsmith import Client
@@ -94,6 +134,15 @@ def evaluator(run: Run) -> dict:
 ```
 
 You can mix both types in a single experiment.
+
+**Online code evaluator** (scores one production run; attached in LangSmith, not passed to `evaluate()`):
+```python
+def perform_eval(run: dict, example=None) -> dict:
+    # `run` is a dictionary in LangSmith's run data format; return {feedback_key: score}
+    pass
+```
+
+`wrong_return_window_evaluator` has this signature. The `example=None` argument is needed because LangSmith passes a second argument when the evaluator is tested against a dataset example.
 
 ## Module 2 Learning Path
 

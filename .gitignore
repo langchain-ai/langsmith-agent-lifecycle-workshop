@@ -197,3 +197,6 @@ prep_agents_sp_global.md
 # local helpers for LangChain-managed laptops (internal gateway file)
 scripts/mda_dev_gateway.py
 scripts/mda_deploy_gateway.py
+
+# Module 7 key-entry state (written by scripts/module7_connect_langsmith.py)
+.m7_state.json

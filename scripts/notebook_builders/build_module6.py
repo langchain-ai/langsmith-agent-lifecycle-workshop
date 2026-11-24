@@ -580,7 +580,7 @@ Then deploy. Running the evals on every change, before release, is what makes th
 |---|---|
 | Deeper evaluation: judge alignment, trajectory evals, experiments | Module 5 (evaluation) |
 | Deployment options: Cloud, BYOC, self-hosted | LangSmith Deployment docs. MDA runs on LangSmith Cloud (GCP US/EU/APAC, AWS US) during public beta; BYOC and self-hosted aren't supported yet |
-| Online evals, Insights, Engine (the hill-climbing loop) | Module 3 (online evals, the data flywheel); the Monitoring and Governance workshop for Insights and Engine |
+| Online evals, Insights, Engine (the hill-climbing loop) | Module 3 (online evals, the data flywheel); Module 7 for online evals on the deep agent, alerts, Insights and Engine |
 | Tear down when you're done | `mda delete` in `managed_agent/` (asks for confirmation) |
 
 ## Recap

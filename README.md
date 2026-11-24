@@ -61,7 +61,8 @@ uv run python data/data_generation/build_vectorstore.py
 ### Model access: direct keys or the LLM Gateway
 
 Every module reads its models from `config.py` (Modules 1-4) or `managed_agent/model.py` (Module 6), which pick
-whichever path your environment supports. No notebook needs to know which one is active.
+whichever path your environment supports. No notebook needs to know which one is active. Module 7 calls no model
+on its default path. Its one optional live cell, off by default, sends requests to the LLM Gateway.
 
 | Path | Set in `.env` | Notes |
 |---|---|---|
@@ -75,8 +76,9 @@ Use one path per `.env`: provider keys win if several are set.
 [LLM Gateway](https://docs.langchain.com/langsmith/llm-gateway) reads provider keys (`OPENAI_API_KEY`,
 `ANTHROPIC_API_KEY`, `TYPESAFE_API_KEY` for Jev) from the workspace the API key belongs to, and
 [organization-scoped keys aren't supported](https://docs.langchain.com/langsmith/llm-gateway-authentication#use-a-workspace-scoped-key).
-A `424 Required workspace secret ... is missing` means that workspace lacks the secret; a `403` means the key
-lacks `gateway:invoke`. A workspace admin adds the provider secrets and issues a service key (ideally with a
+A `424 Required workspace secret ... is missing` means that workspace lacks the secret. A `403` means the key
+lacks `gateway:invoke`, or a model access policy blocks the model. A `402` is a spend limit and a `429` a rate limit
+(Module 7 Section 4 shows all three). A workspace admin adds the provider secrets and issues a service key (ideally with a
 spend cap under **LLM Gateway > Cost Controls**).
 
 **Jev** (Module 4 Section 3, Module 5 Section 4) uses its own key, so a key that only has Jev doesn't break
@@ -101,7 +103,7 @@ uv run python verify_setup.py              # prints the active path and models, 
 uv run python verify_setup.py --no-calls   # resolve and print only
 ```
 
-It prints variable names only, never values, and maps a `424`/`401`/`403` to the fix.
+It prints variable names only, never values, and maps a `424`/`401`/`402`/`403`/`429` to the fix.
 
 ## Workshop Outline
 
@@ -116,8 +118,9 @@ Advanced (L200) modules build on the same TechHub agent:
 4. **Module 4: Deep Agents 101 → 201** - A pricing research deep agent (101), then harness engineering on the support agent: context, middleware, dynamic subagents, verification (201)
 5. **Module 5: Advanced Evaluation** - Module 2's evaluation path on the deep agent (baseline, eval-driven development, judge alignment, Jev as a judge), then Harbor evals in sandboxes
 6. **Module 6: Deploying Agents into Production** - Managed Deep Agents, Agent Server runtime, and sandboxes
+7. **Module 7: Monitoring, Governance & Self-Improvement** - Online evaluators, alerts and routing, Insights, Engine, trace masking, and LLM Gateway policies on one synthetic day of the deep agent's production traffic. Runs with no API key
 
-There are two learning paths: Modules 1–3 build and evaluate a supervisor multi-agent system, and Modules 4–6 do the same for a deep agent. Module 5 deliberately mirrors Module 2 on the deep agent, so most people take one path or the other.
+There are two learning paths: Modules 1 to 3 build and evaluate a supervisor multi-agent system, and Modules 4 to 7 do the same for a deep agent. Module 5 deliberately mirrors Module 2 on the deep agent, so most people take one path or the other.
 
 📚 To get started, see [workshop_modules/README.md](workshop_modules/README.md)
 
@@ -138,7 +141,9 @@ langsmith-agent-lifecycle-workshop/
 │   ├── module_2/            # Evaluation & Improvement (3 sections + bonus)
 │   ├── module_3/            # Deployment & Continuous Improvement (3 sections)
 │   ├── module_4/            # Deep Agents 101 (1 section) + 201 harness engineering (2 sections)
-│   └── module_6/            # Deploying to production: MDA, runtime, sandboxes (2 sections)
+│   ├── module_5/            # Advanced evaluation on the deep agent (5 sections)
+│   ├── module_6/            # Deploying to production: MDA, runtime, sandboxes (2 sections)
+│   └── module_7/            # Monitoring, governance, self-improvement (4 sections, no key needed)
 │
 ├── managed_agent/           # Module 6: the TechHub agent as a Managed Deep Agent (own uv project)
 │
@@ -175,6 +180,8 @@ langsmith-agent-lifecycle-workshop/
 │   └── data_generation/     # Scripts to regenerate data
 │
 ├── scripts/                 # Maintenance & demo scripts
+│   ├── notebook_builders/   # Generate the Module 4 to 7 notebooks
+│   ├── module7_seed.py      # Builds and checks the Module 7 data (synthetic traces, answer key)
 │   └── demo_ci_pr.sh        # Opens a throwaway PR to demo the eval gate
 │
 ├── .github/workflows/       # CI/CD
@@ -191,6 +198,7 @@ langsmith-agent-lifecycle-workshop/
 - **Agent Development:** Tool calling, multi-agent systems, supervisor pattern, HITL with interrupts
 - **Evaluation & Testing:** Offline evaluation, LLM-as-judge, trace metrics, eval-driven development
 - **Deployment & Production:** LangSmith deployments, online evaluation, annotation queues, SDK integration
+- **Monitoring & Governance:** Code evaluators and alerts on production traces, Insights, Engine, trace masking, LLM Gateway policies
 - **Best Practices:** Factory functions, state management, dynamic prompts, structured outputs, streaming
 
 See [workshop_modules/README.md](workshop_modules/README.md) for detailed breakdown by module.
